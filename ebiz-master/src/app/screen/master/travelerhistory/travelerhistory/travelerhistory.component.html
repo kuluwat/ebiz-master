@@ -1,0 +1,657 @@
+<!-- <p>travelerhistory works!</p> -->
+
+<!-- Admin function -->
+
+<div id="contentX" #contentX class="col-12 boxcolor-mm background-Slide d-none animate__animated animate__fadeIn"
+    style="height: 350px;">
+    <!--  -->
+
+    <div class="row">
+        <div class="col-lg-12 text-right pos-absolute d-none d-sm-block">
+            <img src="{{ws.checkPathForDevServer('assets/imgs/Group_1099.png')}}" class="pos-relative ht-300 ">
+        </div>
+        <div class="col-lg-12 mt-4 ml-2">
+            <p class="tx-40 tx-white font-weight-bold d-none d-sm-block">{{travel_topic}}</p>
+            <p class="tx-24 tx-white font-weight-bold d-block d-sm-none">{{travel_topic}}</p>
+        </div>
+        <div class="col-lg-12 ml-2">
+            <p class="tx-24 tx-white font-weight-bold d-none d-sm-block">{{travel_topic_sub}}</p>
+            <p class="tx-18 tx-white font-weight-bold d-block d-sm-none">{{travel_topic_sub}}</p>
+        </div>
+        <div class="col-lg-12 ml-2 mb-4">
+            <p class="tx-18 tx-white font-weight-bold d-none d-sm-block">{{travel_date}}</p>
+            <p class="tx-16 tx-white font-weight-bold d-block d-sm-none">{{travel_date}}</p>
+        </div>
+        <div class="col-lg-12">
+            <div class="mg-l-10 mg-r-10 form-inline ">
+
+                <div id="containerX" class="table-responsive">
+                    <table id="tblUserList" #tblUserList class="mg-b-20">
+                        <tr>
+                            <td *ngFor="let item of traveler_emp" class="cursor-pointer"
+                                (click)="selectTraveler(item.emp_id)">
+                                <mat-card class="wd-200 ml-1 mr-1 ht-300">
+                                    <div class="col-lg-12 " align="center">
+                                        <div class="text-center mt-3 avatar-med">
+                                            <img src="{{item.imgpath}}{{item.imgprofilename}}"
+                                                class="avatar-img rounded-circleX border-blue-grey"
+                                                onerror="javascript:this.src='assets/imgs/user_login.png'">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 ml-1 mr-1 p-0">
+                                        <div class="text-center mt-3">
+                                            <p class="tx-16 tx-top-blue font-weight-bold mb-1">{{item.userDisplay}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 ml-1 mr-1 p-0 ">
+                                        <div class="text-center">
+                                            <p class="tx-16 tx-gray-700 mb-1">{{item.division}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 ml-1 mr-1 p-0 ">
+                                        <div class="text-center">
+                                            <p class="tx-16 tx-gray-700 mb-1">{{item.emp_id}}</p>
+                                        </div>
+                                    </div>
+                                </mat-card>
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+                <button id="slideLeft" (click)="slideLeft()" class="btn btn-round btn-outline-blue-grey"
+                    style="position: absolute; left: 0; top: 150px;"><i class="fa fa-chevron-left"></i></button>
+                <button id="slideRight" (click)="slideRight()" class="btn btn-round btn-outline-blue-grey"
+                    style="position: absolute; right: 0; top: 150px;"><i class="fa fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <!-- <a href="assets/imgs/Group_1099.png" download target="_blank">load file.</a> -->
+    <div class="d-none">
+        <mat-expansion-panel class="margin-top margin-bottoms" [expanded]="panel.show">
+            <mat-expansion-panel-header (click)="panel.show = !panel.show">
+                <mat-panel-title>
+                    <mat-icon class="material-icons">file_copy</mat-icon>
+                    <mat-panel-description class="margin-left">
+                        Traveler List Summary
+                    </mat-panel-description>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>This is the primary content of the panel.</p>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr class="text-center">
+                            <th>No.</th>
+                            <th>Employee Name</th>
+                            <th>Organization Unit</th>
+                            <th>Country</th>
+                            <th>Business Date</th>
+                            <th>Travel Date</th>
+                            <th>Total Expenses</th>
+                            <th>Approver</th>
+                            <th>Remark</th>
+                            <th class="headcol">Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Attaphon</td>
+                            <td>xxxxxxxxxxxx</td>
+                            <td>xxxxxxxxxxxx</td>
+                            <td>xxxxxxxxxxxx</td>
+                            <td>xxxxxxxxxxxx</td>
+                            <td>xxxxxxxxxxxx</td>
+                            <td>xxxxxxxxxxxx</td>
+                            <td>xxxxxxxxxxxx</td>
+                            <td class="text-center headcol">
+                                <!-- <a [hidden]="item.appr_status == ''"><i class="icon-colors {{ item.appr_status == 'true' ? 'ft-check green' : 'ft-x red'}}" (click)="handleActionSummary(item.appr_status, i)"></i></a> -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </mat-expansion-panel>
+    </div>
+    <div class="d-none">
+        <button id="btnX" (click)="OpenModal()">Open modal</button>
+        <button id="btn1" (click)="testToastr()">Simple Alert</button>
+        <button (click)="simpleAlert()">Alert with Success</button>
+        <br>
+        <p class="XfontKanit">Test xxxxxxx : การเดินทางขากลับคงจะเหงา</p>
+    </div>
+
+    <div class="col-12 m-0 p-0 d-none">
+        <div class="container-fluid mr-0">
+            <h1 class="text-center mb-3">Bootstrap Multi-Card Carousel</h1>
+            <div id="myCarousel" class="carousel slide" data-interval="false">
+                <ol id="myCarousel-indicators" class="carousel-indicators">
+                    <!-- <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li> -->
+                    <li data-target="#myCarousel" *ngFor="let item of traveler_emp ; let i = index"
+                        [ngClass]="{'active': i === 0}" attr.data-slide-to="{{i}}"></li>
+                </ol>
+                <div class="carousel-inner row w-100 mx-auto">
+                    <div class="carousel-item col-md-3 cursor-pointer" *ngFor="let item of traveler_emp ; let i = index"
+                        [ngClass]="{'active': i === 0}" (click)="selectTraveler(item.emp_id)">
+                        <mat-card class="ht-300">
+                            <div class="col-lg-12 " align="center">
+                                <div class="text-center mt-3">
+                                    <img src="{{item.imgpath}}{{item.imgprofilename}}" class="rounded-circle wd-100"
+                                        onerror="javascript:this.src='assets/imgs/user_login.png'">
+                                </div>
+                            </div>
+                            <div class="col-lg-12 ml-1 mr-1 p-0">
+                                <div class="text-center mt-3">
+                                    <p class="tx-16 tx-top-blue font-weight-bold mb-1">{{item.userDisplay}}</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 ml-1 mr-1 p-0 ">
+                                <div class="text-center">
+                                    <p class="tx-16 tx-gray-700 mb-1">{{item.division}}</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 ml-1 mr-1 p-0 ">
+                                <div class="text-center">
+                                    <p class="tx-16 tx-gray-700 mb-1">{{item.emp_id}}</p>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+
+                    <!-- <div class="carousel-item col-md-3 active">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="http://placehold.it/800x600/f44242/fff"
+                                alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">Card 1</h4>
+                                <p class="card-text">This is a longer card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item col-md-3">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="http://placehold.it/800x600/418cf4/fff"
+                                alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">Card 2</h4>
+                                <p class="card-text">This is a longer card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="carousel-item col-md-3">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="http://placehold.it/800x600/3ed846/fff"
+                                alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">Card 3</h4>
+                                <p class="card-text">This is a longer card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item col-md-3">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="http://placehold.it/800x600/42ebf4/fff"
+                                alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">Card 4</h4>
+                                <p class="card-text">This is a longer card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item col-md-3">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="http://placehold.it/800x600/f49b41/fff"
+                                alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">Card 5</h4>
+                                <p class="card-text">This is a longer card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item col-md-3">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="http://placehold.it/800x600/f4f141/fff"
+                                alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">Card 6</h4>
+                                <p class="card-text">This is a longer card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item col-md-3">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" src="http://placehold.it/800x600/8e41f4/fff"
+                                alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">Card 7</h4>
+                                <p class="card-text">This is a longer card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <!-- <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon tx-60 tx-black" aria-hidden="true"><a>x</a></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a> -->
+                <a class="carousel-control-prev w-auto" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon bg-top-blue rounded-circle" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next w-auto" href="#myCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon bg-top-blue rounded-circle" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+                <!--Indicators-->
+
+
+                <!--/.Indicators-->
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Admin function -->
+
+<!-- User function -->
+<div id="contentUser" #contentUser class="col-12 boxcolor-mm background-Slide d-none animate__animated animate__fadeIn"
+    style="height: 350px;">
+    <!-- *ngIf="!isAdmin" -->
+    <div class="row">
+        <!-- match-height -->
+        <div class="col-lg-5">
+            <div class="card box-shadow-1 mt-3 ">
+                <div class="card-body m-0 p-0 ht-550">
+                    <div class="col-lg-12">
+                        <div class="text-right mt-3">
+                            <a><i class="fa fa-pencil tx-top-blue tx-22" *ngIf="!isEdit && show_button===true"
+                                    (click)="fnEdit(1)" matTooltip="Edit profile."></i></a>
+                            <a><i class="fa fa-check-square-o tx-success tx-22" *ngIf="isEdit" (click)="openModal(templatePDPA)"
+                                    matTooltip="Save profile."></i></a>
+                                     <!-- (click)="fnEdit(0)" -->
+                        </div>
+                    </div>
+                    <div class="col-lg-12 " align="center">
+                        <div class="text-center mt-3 ">
+                            <img src="{{imgprofile}}" class=" avatar-big rounded-circleX border-blue-grey pos-relative"
+                                onerror="javascript:this.src='assets/imgs/user_login.png'">
+                            <button id="button_id" class="btn btn-outline-top-blue btn-circleX border-blue-grey"
+                                style="position: absolute; right: 30%; top: 150px;" (click)="file.click()"
+                                *ngIf="show_button === true" matTooltip="Change pictrue."><i
+                                    class="fa fa-pencil"></i></button>
+                        </div>
+                        <input type="file" accept="image/*" #file class="d-none" (change)="onFileSelect($event)">
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="text-center mt-3">
+                            <p class="tx-22 tx-top-blue font-weight-bold">{{userDisplay}}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="text-center">
+                            <p class="tx-18 tx-gray-700">{{division}}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="text-center">
+                            <p class="tx-18 tx-gray-700">{{emp_id}}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mb-3">
+                        <div class="text-left pl-3">
+                            <div class="form-inline">
+                                <label class="tx-16 tx-gray-700">
+                                    <!-- <i class="fa fa-envelope tx-top-blue"></i> -->
+                                    <i class="material-icons tx-top-blue mr-2">
+                                        mail
+                                    </i>
+                                    {{userEmail}}
+                                </label>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mb-3">
+                        <div class="text-left pl-3">
+                            <div class="form-inline">
+                                <label class="tx-16 tx-gray-700" *ngIf="!isEdit">
+                                    <!-- <i class="fa fa-phone tx-top-blue fa-lg"></i> -->
+                                    <i class="material-icons tx-top-blue mr-2">
+                                        local_phone
+                                    </i>
+                                    &#32;{{userTel}}
+                                </label>
+                            </div>
+                            <div class="form-inline" *ngIf="isEdit">
+                                <!-- <i class="fa fa-phone tx-top-blue fa-lg mr-1"></i> -->
+                                <i class="material-icons tx-top-blue mr-2">
+                                    local_phone
+                                </i>
+                                <!-- &#32;<input id="txtPhone" type="text" class="form-control h-50 col-md-10"
+                                    name="txtPhone" placeholder="Phone" [(ngModel)]="userTel"
+                                    onkeypress="javascript:return isNumber(event)" maxlength="11"
+                                    (keyup)="checkTelNo('Telephone',$event)"> -->
+                                &#32;<input id="txtPhone" type="text" class="form-control h-50 col-md-10"
+                                    name="txtPhone" placeholder="Phone" [(ngModel)]="userTel"
+                                    onkeypress="javascript:return isNumber(event)" maxlength="11">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 mb-3">
+                        <div class="text-left pl-3">
+                            <div class="form-inline">
+                                <label class="tx-16 tx-gray-700" *ngIf="!isEdit">
+                                    <!-- <i class="fa fa-mobile tx-top-blue fa-lg"></i> -->
+                                    <i class="material-icons tx-top-blue mr-2">
+                                        phone_iphone
+                                    </i>
+                                    &#32;{{userPhone}}
+                                </label>
+                            </div>
+                            <div class="form-inline mt-2" *ngIf="isEdit">
+                                <!-- <i class="fa fa-mobile tx-top-blue fa-lg mr-2"></i> -->
+                                <i class="material-icons tx-top-blue mr-2">
+                                    phone_iphone
+                                </i>
+                                &#32;<input id="txtMobile" #txtMobile type="text" class="form-control h-50 col-md-10"
+                                    name="txtMobile" placeholder="Mobile" [(ngModel)]="userPhone"
+                                    onkeypress="javascript:return isNumber(event)" maxlength="12"
+                                    (keyup)="checkTelNo('Mobile',$event)">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7">
+            <div class="card box-shadow-1 mt-3 ">
+                <div class="card-body m-0 p-0 ht-550 ">
+                    <div class="row col-lg-12">
+                        <div class="col-lg-12">
+                            <div class="marker marker-ribbon marker-top-blue pos-absolute mt-4 l-0 pl-5 pr-5">
+                                <p class="tx-24 m-0">VISA TRAVELER</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-12 mg-t-100  ht-450 overflow-y-a" style="overflow-x: hidden;">
+                        <div class="row" *ngFor="let dr of arrTraveler; let i = index" [ngClass]="{'mt-5': i > 0}">
+
+                            <div class="col-lg-1 text-right">
+                                <p class="tx-16 tx-bold tx-gray-700">{{i+1}}</p>
+                            </div>
+                            <div class="col-lg-5 text-left">
+                                <p class="tx-16 tx-gray-700"><span class="tx-bold">Nationality :
+                                    </span>{{dr.nationality}}</p>
+                                <p class="tx-16 tx-gray-700"><span class="tx-bold">Type of VISA :
+                                    </span>{{dr.visa_type}}</p>
+
+                            </div>
+                            <div class="col-lg-6 text-left">
+                                <p class="tx-16 tx-gray-700"><span class="tx-bold">Valid Until :
+                                    </span>{{dr.valid_unit}}</p>
+                                <p class="tx-16 tx-gray-700"><span class="tx-bold">No. Of Entry :
+                                    </span>{{dr.visa_entry}}</p>
+                                <!-- <p class="tx-18 tx-top-blue font-weight-bold">{{dr.datefrom}} - {{dr.dateto}}</p> -->
+                            </div>
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-11">
+                                <div class="form-inline">
+                                    <label class="tx-16 tx-gray-700 "><span class="tx-bold">Visa Page :
+                                        </span><i class="material-icons ml-2 mr-2">
+                                            picture_as_pdf
+                                        </i><a class="text-primary" target="_blank"
+                                            matTooltip="Click for download file."
+                                            (click)="downloadFile(dr.full_path,dr.file_name)">{{dr.file_name}}</a></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 mb-0 pb-0">
+            <div class="card box-shadow-1 ">
+                <div class="card-body m-0 p-0 mb-5">
+                    <div class="row col-lg-12">
+                        <div class="col-lg-12">
+                            <div class="marker marker-ribbon marker-top-blue pos-absolute mt-4 l-0 pl-5 pr-5">
+                                <p class="tx-24 m-0">PASSPORT</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- dasktop display -->
+                    <div class="m-0 p-0 d-none d-sm-block">
+                        <div class="row container mg-t-100 text-left">
+                            <!-- d-none d-sm-block -->
+                            <p class="col-lg-1"></p>
+                            <p class="tx-16 tx-gray-700 tx-bold col-lg-2">Passport No. :</p>
+                            <p class="tx-16 tx-gray-700 col-lg-3">{{passportno}}</p>
+                            <p class="tx-16 tx-gray-700 tx-bold col-lg-2 ">Date of Issue :</p>
+                            <p class="tx-16 tx-gray-700 col-lg-3 ">{{dateofissue}}</p>
+                            <p class="col-lg-1"></p>
+                        </div>
+                        <div class="row container text-left">
+                            <p class="col-lg-1"></p>
+                            <p class="tx-16 tx-gray-700 tx-bold col-lg-2 pr-0">Date of expiry :</p>
+                            <p class="tx-16 tx-gray-700 col-lg-3 ">{{dateofexpire}}</p>
+                            <p class="tx-16 tx-gray-700 tx-bold col-lg-2 ">Title :</p>
+                            <p class="tx-16 tx-gray-700 col-lg-3 ">{{titlename}}</p>
+                            <p class="col-lg-1"></p>
+                        </div>
+                        <div class="row container text-left">
+                            <p class="col-lg-1"></p>
+                            <p class="tx-16 tx-gray-700 tx-bold col-lg-2">Name :</p>
+                            <p class="tx-16 tx-gray-700 col-lg-3 ">{{firstname}}</p>
+                            <p class="tx-16 tx-gray-700 tx-bold col-lg-2 ">Surname : </p>
+                            <p class="tx-16 tx-gray-700 col-lg-3 ">{{lastname}}</p>
+                            <p class="col-lg-1"></p>
+                        </div>
+                        <div class="row container text-left">
+                            <p class="col-lg-1"></p>
+                            <p class="tx-16 tx-gray-700 tx-bold col-lg-2">Date of birth :</p>
+                            <p class="tx-16 tx-gray-700 col-lg-8 ">{{dateofbirth}}</p>
+                            <p class="col-lg-1"></p>
+                        </div>
+                        <div class="row container" *ngIf="imgUrl_passport != '' && imgUrl_passport != null">
+                            <p class="col-lg-1"></p>
+                            <!-- <div class="col-10 d-flex align-items-center justify-content-center">
+                                <img class="border border-blue-grey img-thumbnail ratio-4-3 " src="{{imgUrl_passport}}"
+                                    *ngIf="imgUrl_passport != '' && imgUrl_passport != null" />
+                                <img class="border border-blue-grey img-thumbnail ratio-4-3 " src="{{ws.checkPathForDevServer('assets/imgs/no_image_available_1.png')}}"
+                                    *ngIf="imgUrl_passport === '' || imgUrl_passport === null" />
+                                    
+                            </div> -->
+                            <div class="col-10 text-left">
+
+                                <a href="{{imgUrl_passport}}" download target="_blank" class="tx-16 tx-top-blue">
+                                    <mat-icon class="material-icons tx-16 tx-top-blue tx-bold">attach_file</mat-icon>
+                                    {{passport_img_name}}
+                                </a>
+                            </div>
+                            <p class="col-lg-1"></p>
+                        </div>
+                    </div>
+                    <!-- mobile display -->
+                    <div class="m-0 p-0 d-block d-sm-none">
+                        <div class="row container mg-t-100 text-left">
+                            <p class="tx-16 tx-gray-700 col-sm-12"><span class="tx-bold">Passport No.
+                                    :</span>&#32;{{passportno}}</p>
+                            <p class="tx-16 tx-gray-700 col-sm-12"><span class="tx-bold">Date of Issue
+                                    :</span>&#32;{{dateofissue}}</p>
+
+                            <p class="tx-16 tx-gray-700 col-sm-12"><span class="tx-bold">Date of expiry
+                                    :</span>&#32;{{dateofexpire}}</p>
+                            <p class="tx-16 tx-gray-700 col-sm-12"><span class="tx-bold">Title
+                                    :</span>&#32;{{titlename}}</p>
+                            <p class="tx-16 tx-gray-700 col-sm-12"><span class="tx-bold">Name :</span>&#32;{{firstname}}
+                            </p>
+                            <p class="tx-16 tx-gray-700 col-sm-12"><span class="tx-bold">Surname :
+                                </span>&#32;{{lastname}}</p>
+                            <p class="tx-16 tx-gray-700 col-sm-12"><span class="tx-bold">Date of birth
+                                    :</span>&#32;{{dateofbirth}}</p>
+                            <!-- <div class="col-12 d-flex align-items-center justify-content-center">
+                                <img class="border border-blue-grey img-thumbnail ratio-4-3" src="{{imgUrl_passport}}"
+                                    *ngIf="imgUrl_passport != '' && imgUrl_passport != null" />
+                                <img class="border border-blue-grey img-thumbnail ratio-4-3"
+                                    src="{{ws.checkPathForDevServer('assets/imgs/no_image_available_1.png')}}"
+                                    *ngIf="imgUrl_passport === '' || imgUrl_passport === null" />
+                            </div> -->
+                            <a href="{{imgUrl_passport}}" download target="_blank" class="tx-16 tx-top-blue col-sm-12"
+                                *ngIf="imgUrl_passport != '' && imgUrl_passport != null">
+                                <mat-icon class="material-icons tx-16 tx-top-blue tx-bold">attach_file</mat-icon>
+                                {{passport_img_name}}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 mt-0 mb-3" *ngIf="user_admin && doc_id != 'personal'" id="divX">
+            <button class="btn btn-round btn-top wd-100 " (click)="goAdminPage()">Back</button>
+        </div>
+        <!-- <button (click)="clickme()">click me</button>
+        <button (click)="clickme2()">click me2</button> -->
+    </div>
+</div>
+<!-- User function -->
+
+
+<div class="modal fade bd-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body ht-300">
+                <div class="row">
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #templatePDPA class="border-top-yellow">
+    <div class="modal-header" id="modal-test">
+        <div class="col-sm-12 px-0">
+            <span class="modal-title tx-20" id="my-modal-title">
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                Condition & Agreement
+            </span>
+            <button type="button" class="close pb-2" style="color: red" (click)="[modalRef.hide()]">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="card box-shadow-0 mb-0 mx-0 mx-md-2">
+            <div class="card-body table-responsive border-blue-grey border-lighten-5" style="max-height: 300px">
+                <p class="tx-top-blue tx-14 text-bold-500 text-justify mb-0" [innerText]="pdpa_wording">{{ pdpa_wording
+                    }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer justify-content-center">
+        <button type="button"
+            class="btn btn-round btn-min-width border-color-top bg-top-blue white font-weight-bold tx-14"
+            (click)="accept_pdpa()">
+            Accept
+        </button>
+        <!-- <button
+        type="button"
+        class="btn btn-round btn-min-width border-color-top bg-white tx-color-top mx-1 font-weight-bold tx-14"
+        (click)="hide_modal(btncancel, (accept_id = ''))"
+      >
+        Cancel
+      </button> -->
+        <b #btncancel [hidden]="true"></b>
+    </div>
+    <!-- //endfor -->
+</ng-template>
+
+<script>
+    // $(document).ready(function () {
+    //     $("#myCarousel").on("slide.bs.carousel", function (e) {
+    //         var $e = $(e.relatedTarget);
+    //         var idx = $e.index();
+    //         var itemsPerSlide = 4;
+    //         var totalItems = $(".carousel-item").length;
+
+    //         if (idx >= totalItems - (itemsPerSlide - 1)) {
+    //             var it = itemsPerSlide - (totalItems - idx);
+    //             for (var i = 0; i < it; i++) {
+    //                 // append slides to end
+    //                 if (e.direction == "left") {
+    //                     $(".carousel-item")
+    //                         .eq(i)
+    //                         .appendTo(".carousel-inner");
+    //                 } else {
+    //                     $(".carousel-item")
+    //                         .eq(0)
+    //                         .appendTo($(this).find(".carousel-inner"));
+    //                 }
+    //             }
+    //         }
+    //     });
+    // });
+
+    $(document).ready(function () {
+
+
+        $("#myCarousel").on("slide.bs.carousel", function (e) {
+            var $e = $(e.relatedTarget);
+            var idx = $e.index();
+            var itemsPerSlide = 4;
+            var totalItems = $(".carousel-item").length;
+
+            if (idx >= totalItems - (itemsPerSlide - 1)) {
+                var it = itemsPerSlide - (totalItems - idx);
+                for (var i = 0; i < it; i++) {
+                    // append slides to end
+                    if (e.direction == "left") {
+                        $(".carousel-item")
+                            .eq(i)
+                            .appendTo(".carousel-inner");
+                    } else {
+                        // $(".carousel-item")
+                        //     .eq(0)
+                        //     .appendTo($(this).find(".carousel-inner"));
+                        $('.carousel-item').eq(0).appendTo('.carousel-inner');
+                    }
+                }
+            }
+        });
+
+
+    });
+
+</script>

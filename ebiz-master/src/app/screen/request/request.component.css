@@ -1,0 +1,165 @@
+.h1-head {
+    color: #04528a;
+}
+
+.link-text{
+    color: #E21683;
+}
+.link-text:hover{
+    color: #04528a;
+}
+
+.btn-print{
+    color: rgb(97, 96, 96);
+    cursor: pointer;
+}
+.btn-print:hover {
+    color: #E21683;
+}
+.btn-print-disable{
+    color: rgb(97, 96, 96);
+    cursor:not-allowed;
+}
+ /* Rules for sizing the icon. */
+ .material-icons.md-18 { font-size: 18px; }
+ .material-icons.md-24 { font-size: 24px; }
+ .material-icons.md-32 { font-size: 32px; }
+ .material-icons.md-34 { font-size: 34px; }
+ .material-icons.md-36 { font-size: 36px; }
+ .material-icons.md-48 { font-size: 48px; }
+
+.btn-part {
+    border: 0px; 
+    background-color: rgb(236, 235, 235); 
+    padding-left: 15px; 
+    padding-right: 15px; 
+    font-weight: bold; 
+    color: rgb(97, 96, 96);
+}
+.btn-part:hover {
+    color: rgb(226, 0, 170);
+}
+
+.btn-part-i {
+    background-color: white;
+    border: 2px solid rgb(226, 0, 170); 
+    border-top-left-radius: 5px; 
+    border-bottom-left-radius: 5px; 
+    color: rgb(226, 0, 170);
+    font-weight: bold; 
+    padding-left: 15px; 
+    padding-right: 15px; 
+    padding-top: 8px; 
+    padding-bottom: 8px;
+}
+.btn-part-ii {
+    background-color: white;
+    border: 2px solid rgb(226, 0, 170); 
+    color: rgb(226, 0, 170);
+    font-weight: bold; 
+    padding-left: 15px; 
+    padding-right: 15px; 
+    padding-top: 8px; 
+    padding-bottom: 8px;
+}
+.btn-part-iii {
+    background-color: white;
+    border: 2px solid rgb(226, 0, 170); 
+    border-top-right-radius: 5px; 
+    border-bottom-right-radius: 5px; 
+    color: rgb(226, 0, 170);
+    font-weight: bold; 
+    padding-left: 15px; 
+    padding-right: 15px; 
+    padding-top: 8px; 
+    padding-bottom: 8px;
+}
+
+.box-menu-part {
+    border: 1px solid silver; 
+    border-radius: 5px 5px 5px 0px; 
+    padding: 2px; 
+    display: inline-block; 
+    background-color: rgb(236, 235, 235);
+}
+
+.box-contents{
+    border: 1px solid silver;
+    margin-top: 2px;
+    border-radius: 0px 5px 5px 5px;
+    padding: 20px;
+}
+.title-main{
+    color: rgb(151, 150, 150);
+    font-weight: bold;
+}
+
+.sub-title-input {
+    color: silver;
+}
+
+.box-dropdown {
+    border: 1px solid silver;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.box-other {
+    border-radius: 3px; 
+    border: 1px solid silver; 
+    padding-left: 5px; 
+    width: 100%
+}
+.sub-title-input-layer{
+    color: rgb(121, 121, 121);
+}
+.margin-bottoms {
+    margin-bottom: 15px;
+}
+
+.box-dates input {
+    border: 1px solid silver;
+    border-radius: 3px;
+    /* padding-left: 10px; */
+    padding: 10px;
+    width: 90%;
+    /* height: 80px; */
+}
+
+.btn-add {
+    color: rgb(0, 162, 255);
+    border-radius: 50px;
+    border: 1px solid rgb(0, 162, 255);
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-right: 20px;
+}
+
+.btn-clear {
+    color: white;
+    background-color: rgb(13, 24, 56);
+    border-radius: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.tbl-form{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid silver;
+    width: 100%;
+}
+.tbl-form tr td {
+    border: 1px solid silver;
+}
+
+.btn-fixed{
+    width: 100%;
+    border-radius: 5px;
+}
+
+.btn-saves{
+    color: rgb(255, 0, 179);
+    border: 1px solid rgb(255, 0, 179);
+    font-weight: bold;
+    width: 150px;
+}

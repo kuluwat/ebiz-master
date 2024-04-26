@@ -1,0 +1,259 @@
+<br> <br>
+<div class="app-content container center-layout mt-2">
+    <div class="content-wrapper">
+
+        <div class="row">
+            <div class="col-xl-1 col-lg-1 col-md-2 col-4 mb-1">
+                <img src="{{ws.checkPathForDevServer('assets/imgs/search.jpg')}}" width="100%">
+            </div>
+            <div class="col-xl-11 col-lg-11 col-md-12 col-12 mb-1">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
+                        <h2 style="color: #E20F84; font-weight: bold" class="tx-uppercase">{{requestTypeDisplay}} STATUS
+                            TRACKING</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-12 mb-1">
+                        <fieldset class="form-group">
+                            <label class="sub-title-input-layer">Request Type : </label>
+                            <ngx-select-dropdown [(ngModel)]="model.request_type.value" style="background-color: red;" [multiple]="false" [config]="model.request_type.config" (change)="hanleChangeRequestType($event)" [options]="model.request_type.list">
+                            </ngx-select-dropdown>
+                        </fieldset>
+                    </div>
+                    <div class="col-xl-1 col-lg-1 col-md-2 col-12">
+                        <fieldset class="form-group">
+                            <label class="sub-title-input-layer"> </label>
+                            <button (click)="handleOnCreate()" type="button" class="btn btn-min-width mr-1 mb-1 {{model.btnCreate ? 'btn-create' : 'btn-secondary-disabled disabled'}}"><i class="ft-plus-square"></i>
+                                CREATE</button>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-12 mb-1">
+
+                        <fieldset class="form-group" [hidden]="!panel.country">
+                            <label class="sub-title-input-layer">Country : </label>
+                            <div class="tracking-dropdown-request-status">
+                                <ngx-select-dropdown [(ngModel)]="model.country.value" [multiple]="false" [config]="model.country.config" [options]="model.country.list">
+                                </ngx-select-dropdown>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="form-group" [hidden]="!panel.province">
+                            <label class="sub-title-input-layer">Province : </label>
+                            <ngx-select-dropdown [(ngModel)]="model.province.value" [multiple]="false" [config]="model.province.config" [options]="model.province.list">
+                            </ngx-select-dropdown>
+                        </fieldset>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 mb-1">
+                        <fieldset class="form-group">
+                            <label class="sub-title-input-layer">Business Date :</label>
+                            <!-- <input autocomplete="off" type="text" placeholder="" class="form-control" bsDaterangepicker> -->
+                            <!-- {{model.business_date}} -->
+                            <div class="input-group">
+                                <input autocomplete="off" type="text" placeholder="" id="test222" class="form-control" [(ngModel)]="model.business_date" bsDaterangepicker [bsConfig]="{ rangeInputFormat: 'DD MMM YYYY' }">
+                                <div class="input-group-btn">
+                                    <label for="test222" class="calendar-icon">
+                                        <i class="material-icons">
+                                            today
+                                        </i>
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 mb-1">
+                        <fieldset class="form-group">
+                            <label class="sub-title-input-layer">Request Status : </label>
+                            <ngx-select-dropdown [(ngModel)]="model.request_status.value" [multiple]="false" [config]="model.request_status.config" [options]="model.request_status.list">
+                            </ngx-select-dropdown>
+                        </fieldset>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-12 mb-1">
+                        <fieldset class="form-group">
+                            <label class="sub-title-input-layer" style="color: white">_</label>
+                            <input autocomplete="off" type="search" class="form-control" id="basicInput" placeholder="Search..." [(ngModel)]="model.keyword">
+                        </fieldset>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-12 mb-1">
+                        <fieldset class="form-group">
+                            <label class="sub-title-input-layer" style="color: white">_</label>
+                            <button (click)="didSearchRequestTacking()" type="button" class="btn btn-secondary btn-min-width mr-1 mb-1 btn-searchs"><i class="ft-search"></i>
+                                SEARCH</button>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <!-- <div class="col-1"></div> -->
+            <div class="col-xl-12 col-lg-12 col-md-12 col-12 ">
+                <div *ngFor="let item of model.data_set" class="box-content-list mg-xl-x-60 mg-lg-x-60 ">
+                    <div class="row">
+                        <div class="col-xl-2 col-lg-2 col-md-3 col-5">
+                            <div class="text-date" style="text-align: center;">
+                                <h1 class="h1-date" style="text-align: center;">{{ item.doc_date | date:'d' }}</h1>
+                                <p class="p-date" style="text-align: center;">{{ item.doc_date | date:'LLLL yy' }}</p>
+                                <button *ngIf="item.button_status == '1'" class="btn-confirm" (click)="handleGoToDetail(item.id, item.tab_no)">CONFIRM</button>
+                                <button *ngIf="item.button_status == '2'" class="btn-draft" (click)="handleGoToDetail(item.id, item.tab_no)">DRAFT</button>
+                                <button *ngIf="item.button_status == '3'" class="btn-cap" (click)="handleGoToDetail(item.id, item.tab_no)">CAP APPROVE</button>
+                                <button *ngIf="item.button_status == '4'" class="btn-4" (click)="handleGoToDetail(item.id, item.tab_no)">VERIFYING</button>
+                                <button *ngIf="item.button_status == '5'" class="btn-5" (click)="handleGoToDetail(item.id, item.tab_no)">TO BE APPROVED</button>
+                                <button *ngIf="item.button_status == '6'" class="btn-6" (click)="handleGoToDetail(item.id, item.tab_no)">APPROVED</button>
+                                <button *ngIf="item.button_status == '7'" class="btn-7" (click)="handleGoToDetail(item.id, item.tab_no)">REJECTED</button>
+                            </div>
+
+                        </div>
+                        <div class="col-xl-10 col-lg-10 col-md-8 col-7">
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                                    <a>
+                                        <h4 class="h4-title" (click)="handleGoToDetail(item.id, item.tab_no)">
+                                            {{ item.title }}</h4>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-12 txt-detail">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <i class="material-icons">
+                                                    dns
+                                                </i>
+                                            </td>
+                                            <td>
+                                                <label>{{ item.business_trip }}</label>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-12 txt-detail">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <i class="material-icons">
+                                                    today
+                                                </i>
+                                            </td>
+                                            <td>
+                                                <label>{{ item.business }}</label>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-12 txt-detail">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <i class="material-icons">
+                                                    account_box
+                                                </i>
+                                            </td>
+                                            <td>
+                                                <label>{{ item.person }}</label>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-12 txt-detail">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <i class="material-icons">
+                                                    flight_takeoff
+                                                </i>
+                                            </td>
+                                            <td>
+                                                <label>{{ item.type }}</label>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-12 txt-detail">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <i class="material-icons">
+                                                    insert_drive_file
+                                                </i>
+                                            </td>
+                                            <td>
+                                                <label>{{ item.doc_id }}</label>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-12 txt-detail">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <i class="material-icons">
+                                                    room
+                                                </i>
+                                            </td>
+                                            <td>
+                                                <label>{{ item.place }}</label>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-12 txt-detail">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <i class="material-icons">
+                                                    person
+                                                </i>
+                                            </td>
+                                            <td>
+                                                <label>{{ item.by }}</label>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <!--  routerLink="/master/travelerhistory"  -->
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-12">
+                                    <p style="text-align: right; margin-right: 10px;">
+                                        <button *ngIf="item.button_status != '2' && item.button_status != '7'" (click)="handleOpenTravelerDetail(item.id,item.button_status)" class="btn-draft" class="btn btn-secondary btn-min-width mr-1 mb-1 {{item.status_trip_cancelled === 'true'?'btn-trip-cancelled':'btn-searchs'}} ">
+                                            {{item.status_trip_cancelled === 'true'?'TRIP CANCELLED':'TRAVELER DETAIL'}}
+                                        </button>
+                                        <button *ngIf="item.button_status === '7'" (click)="handleOpenTravelerDetail(item.id,item.button_status)" class="btn-draft" class="btn btn-secondary btn-min-width mr-1 mb-1 btn-searchs">
+                                            VIEW
+                                        </button>
+                                    </p>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-12">
+                                    <p style="text-align: right; margin-right: 10px;">
+                                        <button *ngIf="item.button_copy == 'true'" (click)="handleCopy(item.id)" class="btn-draft" class="btn btn-secondary btn-min-width mr-1 mb-1 btn-searchs">
+                                            COPY
+                                        </button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: white; height: 500px;" [hidden]="!(model.data_set.length == 0)"></div>
+                <div style="background-color: white; height: 300px;" [hidden]="!(model.data_set.length == 1)"></div>
+                <div style="background-color: white; height: 100px;" [hidden]="!(model.data_set.length == 2)"></div>
+            </div>
+            <!-- mg-xl-l-60 mg-xl-r-60-f mg-lg-l-60 mg-lg-r-60-f -->
+            <!-- <div class="col-1"></div> -->
+        </div>
+    </div>
+</div>

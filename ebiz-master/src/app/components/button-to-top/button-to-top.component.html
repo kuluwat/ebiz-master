@@ -1,0 +1,23 @@
+<!-- <p>button-to-top works!</p> -->
+<button type="button" id="myBtnX" class="btn btn-outline-top-pink-opacity btn-circleX-lg " title="Edit"
+(click)="topFunction()">
+<!-- <i class="fa fa-wrench"></i> -->
+<!-- <mat-icon *ngIf="!showEdit">edit_off</mat-icon> -->
+<mat-icon >keyboard_arrow_up</mat-icon>
+</button>
+
+<style>
+    #myBtnX {
+      display: none;
+      /* Hidden by default */
+      position: fixed;
+      /* Fixed/sticky position */
+      bottom: 20px;
+      /* Place the button at the bottom of the page */
+      right: 30px;
+      /* Place the button 30px from the right */
+      z-index: 99;
+      /* Make sure it does not overlap */
+
+  }
+</style>

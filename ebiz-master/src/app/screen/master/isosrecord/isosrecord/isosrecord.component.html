@@ -1,0 +1,117 @@
+<!-- <p>isosrecord works!</p> -->
+<div id="contentX" #contentX class="col-12 boxcolor-mm background-Slide d-none animate__animated animate__fadeIn"
+    style="height: 350px;">
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="card box-shadow-1 mt-3 mn-ht-500">
+
+                <div class="row">
+                    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12" style="min-height: 67px;">
+                        <div class="marker marker-ribbon marker-top-blue pos-absolute mt-4 pl-5 pr-5">
+                            <p class="tx-24 m-0">
+                                &#32;
+                                <i class="fa fa-file-text-o"></i>
+                                ISOS Member list Record
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12 pr-0 mr-0">
+
+                    </div>
+
+                    <div class="col-lg-4">
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+                        <div class="row mt-2">
+                            <div class="col-xl-3 col-lg-6 col-md-12">
+                                <fieldset class="form-group">
+                                    <label for="basicInput">ISOS Member list Of<span class="red"> *</span></label>
+
+                                    <select class="form-control input-small" #mySelectX [(ngModel)]="model.year"
+                                        formControlName="year" [ngClass]="{ 'is-invalid': submitted && f.year.errors }"
+                                        (change)="search(model.year)">
+                                        <option *ngFor="let year of model.yearArr" [ngValue]="year">{{ year }}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="submitted && f.year.errors" class="invalid-feedback">
+                                        <div *ngIf="f.year.errors.required">Username is required</div>
+                                    </div>
+                                </fieldset>
+
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-md-12">
+                                <fieldset class="form-group">
+                                    <label for="basicInput" class="tx-white d-none d-lg-block"> . . . </label>
+                                    <div class="form-group mb-0 ">
+                                        <button class="btn btn-round btn-min-width"
+                                            [ngClass]="{'btn-teal':model.dataSource.length>0 , 'btn-secondary disabled cursor-not-allowed':model.dataSource.length === 0}"
+                                            [disabled]="model.dataSource.length === 0" (click)="exportExcel(model.year)"><i
+                                                class="fa fa-file-excel-o"></i>
+                                            Export</button>
+                                    </div>
+                                </fieldset>
+
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-xl-12 col-lg-12 col-sm-12">
+                                <div class="table-responsive scroll-hori mx-ht-500px">
+                                    <table class="table table-bordered table-striped table-hover tx-gray-700"[style.minWidth]="1040 + 'px'">
+                                        <thead>
+                                            <tr class="tx-center">
+                                                <th colspan="7" [style.minWidth]="1040 + 'px'" class="tx-bold ">Employee
+                                                    Information</th>
+                                            </tr>
+                                            <tr class="tx-center">
+
+                                                <td [style.minWidth]="90 + 'px'" class="tx-bold ">Running No.
+                                                </td>
+                                                <td [style.minWidth]="140 + 'px'" class="tx-bold ">Type of Travel
+                                                </td>
+                                                <td [style.minWidth]="140 + 'px'" class="tx-bold ">Emp ID</td>
+                                                <td [style.minWidth]="280 + 'px'" class="tx-bold ">Name</td>
+                                                <td [style.minWidth]="130 + 'px'" class="tx-bold ">Section</td>
+                                                <td [style.minWidth]="130 + 'px'" class="tx-bold ">Department</td>
+                                                <td [style.minWidth]="130 + 'px'" class="tx-bold ">Function</td>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr [ngClass]="{'d-none':model.dataSource.length > 0}">
+                                                <td colspan="7" class="pl-5">No Data.</td>
+                                            </tr>
+                                            <tr *ngFor="let dr of model.dataSource; let i = index"
+                                                [ngClass]="{'d-none':model.dataSource.length === 0}">
+
+                                                <td class="text-center">{{ dr.no }}</td>
+                                                <td class="text-center">{{ dr.type_of_travel }}</td>
+                                                <td class="text-center">{{ dr.emp_id }}</td>
+                                                <td class="text-left">{{ dr.emp_display }}</td>
+                                                <td class="text-center">{{ dr.emp_section }}</td>
+                                                <td class="text-center">{{ dr.emp_department }}</td>
+                                                <td class="text-center">{{ dr.emp_function }}</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <p class="tx-gray-700 mt-1">Result : {{ model.dataSource.length }} record.</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

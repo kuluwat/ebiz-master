@@ -1,0 +1,42 @@
+<div class="app-content container center-layout mt-2">
+    <div class="content-wrapper">
+        <img src="assets/imgs/thaioil.jpg" style="width: 100%">
+    </div>
+    <h1 class="header-text">BUSINESS TRIP APPROVAL FROM<i class="material-icons">sort</i></h1>
+    <div class="d-none d-sm-block">
+        <div class="row">
+            <div class="col-sm-2 col-1"></div>
+            <div class="col-sm-3 col-4 box-menu-content" [routerLink]="['/main/request_list', 'oversea']"
+                routerLinkActive="router-link-active">
+                <img src="assets/imgs/air.png">
+                <p>Overseas Business Trip</p>
+                <!-- <button [routerLink]="['/main/request_list', 'oversea']" routerLinkActive="router-link-active">Request</button> -->
+            </div>
+            <div class="col-sm-2 col-1"></div>
+            <div class="col-sm-3 col-4 box-menu-content" [routerLink]="['/main/request_list', 'local']"
+                routerLinkActive="router-link-active">
+                <img src="assets/imgs/location.png">
+                <p>Local Business Trip</p>
+                <!-- <button [routerLink]="['/main/request_list', 'local']" routerLinkActive="router-link-active">Request</button> -->
+            </div>
+            <div class="col-2 col-1"></div>
+        </div>
+    </div>
+
+    <div class="d-block d-sm-none">
+        <div class="row">
+            <div class="col-12">
+                <div class="box-menu-content-mobile" [routerLink]="['/main/request_list', 'oversea']">
+                    <img src="assets/imgs/air.png" width="80px;">
+                    <label>Overseas Business Trip</label>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="box-menu-content-mobile" [routerLink]="['/main/request_list', 'local']">
+                    <img src="assets/imgs/location.png" width="80px;">
+                    <label>Local Business Trip</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

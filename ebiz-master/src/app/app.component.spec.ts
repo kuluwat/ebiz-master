@@ -25,7 +25,7 @@ describe('AppComponent', () => {
   });
 
   it('should create the app', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeTruthy(); 
   });
 
   it('should retrieve weather forecasts from the server', () => {

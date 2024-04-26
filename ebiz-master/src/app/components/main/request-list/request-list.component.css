@@ -1,0 +1,254 @@
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.table-padding {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.table-mains {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.mat-elevation-z8 {
+  border-radius: 5px;
+  border: 1px solid rgb(13, 4, 141);
+  box-shadow: 0px 0px 0px white;
+}
+
+.table-mains th {
+  font-weight: bolder;
+  color: rgb(27, 4, 112);
+  border-bottom: 2px solid rgb(13, 4, 141);
+}
+
+.table-mains td {
+  color: rgb(27, 4, 112);
+}
+
+.table-mains tr:hover {
+  background-color: rgb(238, 237, 237);
+}
+
+.mat-row:nth-child(2n+1) {
+  background-color: #edfcf9;
+}
+
+.btn-searchs {
+  background-color: #04528a;
+  border-radius: 0px;
+  border-radius: 3px;
+  width: 100%;
+}
+
+.btn-searchs:hover {
+  /* background-color: #E20F84; */
+  background-color: white;
+  border: 1px solid #04528a;
+  color: #04528a;
+}
+
+.btn-create {
+  color: white;
+  background-color: #E20F84;
+  border-radius: 0px;
+  border-radius: 3px;
+  width: 100%;
+}
+
+.btn-create:hover {
+  /* background-color: #E20F84; */
+  background-color: white;
+  border: 1px solid #E20F84;
+  color: #E20F84;
+}
+
+.btn-secondary-disabled {
+  background-color: #6c757d;
+  border-radius: 0px;
+  border-radius: 3px;
+  width: 100%;
+  cursor: not-allowed;
+}
+
+.box-search-icon {
+  width: 80px;
+  height: 80px;
+  background-color: rgb(211, 209, 209);
+}
+
+.box-content-list {
+  border: 1px solid rgb(228, 226, 226);
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.btn-draft {
+  background-color: #969696;
+  border: 0px;
+  height: 55px;
+  width: 100px;
+  border-radius: 3px;
+  color: black;
+  /* padding: 8px;
+  padding-left: 22px;
+  padding-right: 22px; */
+  margin-top: -10px;
+  /* font-weight: bold; */
+}
+
+.btn-cap {
+  background-color: #3498db;
+  border: 0px;
+  height: 55px;
+  width: 100px;
+  border-radius: 3px;
+  color: black;
+  /* padding: 8px;
+  padding-left: 22px;
+  padding-right: 22px; */
+  margin-top: -10px;
+  /* font-weight: bold; */
+}
+
+.btn-confirm {
+  background-color: #53A2DB;
+  border: 0px;
+  width: 100px;
+  height: 55px;
+  border-radius: 3px;
+  color: white;
+  /* padding: 8px;
+  padding-left: 22px;
+  padding-right: 22px; */
+  margin-top: -10px;
+  /* font-weight: bold; */
+}
+
+.btn-4 {
+  width: 100px;
+  font-weight: bold;
+  background-color: #f1c40f;
+  border: 0px;
+  height: 55px;
+  border-radius: 3px;
+  color: rgb(0, 0, 0);
+  /* padding: 8px;
+  padding-left: 22px;
+  padding-right: 22px; */
+  margin-top: -10px;
+  /* font-weight: bold; */
+}
+
+.btn-5 {
+  font-weight: bold;
+  background-color: #3498db;
+  height: 55px;
+  width: 100px;
+  border: 0px;
+  border-radius: 3px;
+  color: rgb(0, 0, 0);
+  /* padding: 8px;
+  padding-left: 22px;
+  padding-right: 22px; */
+  margin-top: -10px;
+  /* font-weight: bold; */
+}
+
+.btn-6 {
+  font-weight: bold;
+  background-color: #19b092;
+  border: 0px;
+  height: 55px;
+  border-radius: 3px;
+  width: 100px;
+  color: rgb(5, 5, 5);
+  /* padding: 8px;
+  padding-left: 22px;
+  padding-right: 22px; */
+  margin-top: -10px;
+  /* font-weight: bold; */
+}
+
+.btn-7 {
+  font-weight: bold;
+  background-color: #b51515;
+  border: 0px;
+  width: 100px;
+  height: 55px;
+  border-radius: 3px;
+  color: white;
+  /* padding: 8px;
+  padding-left: 22px;
+  padding-right: 22px; */
+  margin-top: -10px;
+  /* font-weight: bold; */
+}
+.btn-trip-cancelled {
+  background-color: #b51515;
+  border-radius: 0px;
+  border-radius: 3px;
+  width: 100%;
+}
+.btn-trip-cancelled:hover {
+  /* background-color: #E20F84; */
+  background-color: white;
+  border: 1px solid #b51515;
+  color: #b51515;
+}
+
+.h1-date {
+  color: rgb(105, 105, 105);
+}
+
+.p-date {
+  color: rgb(31, 126, 194);
+  margin-top: -10px;
+}
+
+.text-date {
+  margin: 10px;
+  padding-left: 20px;
+}
+
+/* .txt-detail{
+} */
+
+.txt-detail table {
+  width: fit-content;
+}
+
+.txt-detail i {
+  color: #04528A;
+}
+
+.txt-detail label {
+  /* margin-left: 5px; */
+  font-size: 12px;
+  color: rgb(49, 49, 49);
+}
+
+.calendar-icon {
+  color: #04528A;
+  padding: 6px;
+}
+
+.h4-title {
+  color: black;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* resize: horizontal; */
+  margin-right: 20px;
+}
+
+.h4-title:hover {
+  color: rgb(44, 44, 44);
+  text-decoration: underline;
+}

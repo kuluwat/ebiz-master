@@ -1,0 +1,209 @@
+
+:host ::ng-deep .autocomplete-container .input-container input:disabled {
+    background: #e9ecef;
+}
+
+.title-main{
+    color: #04528a;
+    font-weight: bold;
+}
+
+.btn-cancel {
+    color: #e20f84;
+    border: 1px solid #e20f84;
+    border-radius: 50px;
+    background-color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-right: 20px;
+}
+
+.btn-add {
+    color: #04528A;
+    border-radius: 50px;
+    border: 2px solid #04528A;
+    background-color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-right: 20px;
+}
+
+.btn-add-disable {
+    color: #6f6f6f;
+    border-radius: 50px;
+    border: 1px solid #6f6f6f;
+    background-color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-right: 20px;
+    cursor: not-allowed;
+}
+
+.btn-clear {
+    color: white;
+    background-color: #04528A;
+    border-radius: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-right: 20px;
+}
+
+.btn-clear-disable {
+    color: white;
+    background-color: #6f6f6f;
+    border-radius: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    cursor: not-allowed;
+}
+
+.margin-bottoms {
+    margin-bottom: 15px;
+}
+.margin-top {
+    margin-top: 15px;
+}
+
+.margin-left {
+    margin-left: 10px;
+}
+
+.scroll-hori{
+    overflow-x: scroll;
+}
+
+.icon-colors {
+    color: #04528a;
+    font-weight: bolder;
+    margin-right: 10px;
+}
+.btn-select{
+    width: 100%;
+    background-color: #04528a;
+    border-radius: 5px;
+    color: white;
+}
+.btn-selected{
+    width: 100%;
+    border: 1px solid #04528a;
+    background-color: white;
+    color: #04528a;
+}
+.btn-opacity{
+    background-color: red;
+    border: 0px;
+    color: #04528a;
+}
+.btn-add-icon{
+    width: 14%;
+    background-color: white;
+    margin-left: 10px;
+}
+.btn-add-icon button {
+    background-color: white;
+    border: 0px;
+}
+.btn-add-icon button i {
+    color: #04528a;
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+.btn-in-pink {
+    color: white;
+    border: 0px;
+    font-weight: bold;
+    width: 100%;
+    border-radius: 50px;
+    background-color: #e20f84;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.txtExchange {
+    margin-top: -12px;
+    font-size: 12px;
+    color: #e20f84;
+    margin-bottom: -12px;
+}
+.txtDate {
+    margin-top: -12px;
+    font-size: 12px;
+    color: #04528a;
+    margin-bottom: -12px;
+}
+.text-error{
+    color: rgb(255, 0, 0);
+    font-weight: bold;
+}
+
+.btn-out-pink {
+    color: #e20f84;
+    border: 1px solid #e20f84;
+    font-weight: bold;
+    width: 100%;
+    border-radius: 50px;
+    background-color: white;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.table-add-revise {
+    width: auto
+}
+.table-add-revise tr td {
+    padding: 10px;
+}
+.table-add-revise i {
+    color: red;
+    font-size: 18px;
+}
+
+.btn-in-dark-blue {
+    color: white;
+    border: 0px;
+    font-weight: bold;
+    width: 100%;
+    border-radius: 50px;
+    background-color: #04528A;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.btn-out-dark-blue {
+    color: #04528A;
+    border: 1px solid #04528A;
+    font-weight: bold;
+    width: 100%;
+    border-radius: 50px;
+    background-color: white;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.span-mark{
+    color: #E20F84;
+    font-weight: bolder;
+}
+
+table  { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 16px; }
+th     { background:#eee; }
+
+tr:nth-child(2n+2){
+    background-color: #edfcf9;
+}
+.headcol {
+    z-index: 1;
+    position: sticky;
+    width: 5em;
+    right: 0;
+    top: auto;
+    border-top-width: 1px;
+    margin-top: -1px;
+    background-color: #eee;
+  }
+
+.oc {
+    opacity: 0.2;
+    cursor: not-allowed;
+}

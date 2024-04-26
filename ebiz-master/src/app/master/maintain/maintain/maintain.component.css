@@ -1,0 +1,151 @@
+.bg_warp {
+    height: 350px;
+    /* width:200px; */
+    text-align: right;
+}
+
+.bg_warpX {
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    text-align: right;
+    position: absolute;
+}
+
+.avatar-small {
+    height: 40px;
+    width: 40px;
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: contain;
+    object-fit: contain;
+    text-align: center;
+}
+
+.vertical-menu {
+    width: 100%;
+    /* Set a width if you like */
+}
+
+.vertical-menu a {
+    background-color: #fff;
+    /* Grey background color */
+    color: black;
+    /* Black text color */
+    display: block;
+    /* Make the links appear below each other */
+    padding: 12px;
+    /* Add some padding */
+    text-decoration: none;
+    /* Remove underline from links */
+}
+
+.vertical-menu a:hover {
+    background-color: #ccc;
+    /* Dark grey background on mouse-over */
+}
+
+.vertical-menu a.active {
+    /* Add a green color to the "active/current" link */
+    background-color: #fff;
+    color: #E21683;
+    border-left: 4px solid #E21683;
+    font-weight: 700;
+}
+
+.bg-box-menu-toggle {
+    /* background-image: linear-gradient(#71d1f5, #82e7dc); */
+    /* background-image: linear-gradient(-90deg,  #82e7dc, #71d1f5); */
+    background-color: white;
+    border-bottom: 1px solid silver;
+}
+
+.boxMessage {
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    width: 300px;
+    min-width: 250px;
+    max-width: 500px;
+    text-align: center;
+    margin: auto;
+}
+
+.boxMessage button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #04528a;
+    width: 40%;
+    margin-left: 5px;
+    border-radius: 5px;
+    color: white;
+    border: 0px;
+}
+
+.bg-color {
+    background-color: white;
+}
+
+.txt-menu {
+    color: rgb(199, 199, 199);
+    font-weight: 500;
+}
+
+.inputRemark {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid silver;
+    width: 100%;
+}
+
+.txt-menu-selected {
+    color: #e21683;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.button-icon-header-right {
+    background-color: white;
+    border: 0px;
+    color: rgb(34, 14, 122);
+    font-size: 30px;
+    margin-left: 5px;
+}
+
+.table-mobile tr td {
+    width: 33.33%;
+}
+
+table {
+    text-align: right
+}
+
+.loading_img {
+    background-color: rgba(0, 0, 0, 0.178);
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    position: fixed;
+    z-index: 1;
+}
+
+.loading_img img {
+    width: 10%;
+    border-radius: 10px;
+}
+
+.mobile-menu-list {
+    border: 0px solid rgba(108, 160, 151, 0.521);
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.mobile-menu-list li {
+    border-bottom: 1px solid rgba(108, 160, 151, 0.321);
+    padding: 10px;
+}

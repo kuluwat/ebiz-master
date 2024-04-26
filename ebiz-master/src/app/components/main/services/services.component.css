@@ -1,0 +1,48 @@
+.header-text{
+text-align: center;
+margin-top: 20px;
+color: #04528A;
+}
+.header-text i {
+    font-weight: bolder;    
+}
+.box-menu-content {
+    margin-top: 30px;
+    text-align: center;
+    margin: 10px;
+}
+.box-menu-content:hover {
+    box-shadow: 4px 4px 4px 4px rgb(219, 219, 219);
+    border-radius: 5px;
+}
+.box-menu-content img {
+    width: 150px;
+    height: 150px;
+}
+.box-menu-content p {
+    color: #04528A;
+    font-weight: bold;
+    font-size: 20px;
+}
+.box-menu-content button {
+    border: 1px solid #04528A;
+    background-color: white;
+    color: #04528A;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.box-menu-content-mobile{
+    margin: 10px;
+    background-color: white;
+    padding: 10px;
+    padding-left: 30px;
+    border-radius: 5px;
+    border: 1px solid rgb(231, 230, 230);
+}
+
+.box-menu-content-mobile label{
+    margin-left: 20px;
+    font-size: 22px;
+    color: #04528A;
+}

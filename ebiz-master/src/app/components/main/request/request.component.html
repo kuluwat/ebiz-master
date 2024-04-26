@@ -1,0 +1,52 @@
+<div class="app-content container center-layout mt-2">
+    <div class="content-wrapper">
+        <!-- <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-12">
+                <br>
+                <h2 class="h1-head">Overseas Business Trip</h2>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-0">
+                <p>Doc. ID : BS012019001</p>
+                <p>Requested by : PMCI-Summana B.</p>
+                <p>Document Status : Draft</p>
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12">
+                <br>
+                <h2 class="h1-head">{{ types }} Trip</h2>
+                <label>Document Number : {{ root_doc_id}} | Document Status : {{ root_doc_status }}<span *ngIf="btnGoToPhase2"> | <span class="link-text cursor-pointer" (click)="openPhase2()"><ins>Travel Details</ins><i class="fa fa-external-link ml-1"></i></span></span></label>
+
+            </div>
+
+        </div>
+        <div class="box-menu-part">
+
+            <button class="{{ select == 'i' ? 'btn-part-i' : 'btn-part'}}"
+                [routerLink]="['/main/request', type, id, 'i']" routerLinkActive="active">Details</button>
+
+            <button class="{{ select == 'ii' ? 'btn-part-ii' : 'btn-part'}}"
+                [routerLink]="buttons.PartII ? ['/main/request', type, id, 'ii'] : null"
+                routerLinkActive="active">Expense</button>
+
+            <button class="{{ select == 'iii' ? 'btn-part-ii' : 'btn-part'}}"
+                [routerLink]="buttons.PartIII ? ['/main/request', type, id, 'iii'] : null"
+                routerLinkActive="active">Line Approval</button>
+
+            <button class="{{ select == 'cap' ? 'btn-part-iii' : 'btn-part'}}"
+                [routerLink]="buttons.PartIIII ? ['/main/request', type, id, 'cap'] : null"
+                routerLinkActive="active">CAP Approval</button>
+
+        </div>
+        <!-- <span class="float-right tx-gray-700">
+            <i class="fa fa-print fa-2x pt-3 pr-2"></i>
+        </span> -->
+        <span class="material-icons md-32 float-right pt-3 pr-2 cursor-pointer" [ngClass]="buttons.Print ? 'btn-print' : 'btn-print-disable'" 
+        matTooltip="print" (click)="report()" >
+            print
+        </span>
+        
+        <router-outlet></router-outlet>
+
+    </div>
+</div>

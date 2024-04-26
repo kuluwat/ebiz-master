@@ -1,0 +1,16 @@
+<!-- <p>mat-spinner-overlay works!</p> -->
+
+<ng-container *ngIf="overlay;else progressSpinner">
+    <div class="mat-overlay">
+        <div class="mat-center">
+            <ng-template [ngTemplateOutlet]="progressSpinner"></ng-template>
+        </div>
+    </div>
+</ng-container>
+<ng-template #progressSpinner>
+    <div class="basic-container">
+
+        <mat-spinner strokeWidth="5" [diameter]="80" class="mat-spinner-color"></mat-spinner>
+        <img src="assets/imgs/travel5.png" class="imgP">
+    </div>
+</ng-template>

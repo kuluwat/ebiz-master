@@ -1,0 +1,37 @@
+<div class="app-content container center-layout mt-2">
+    <div class="content-wrapper">
+        <!-- <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-12">
+                <br>
+                <h2 class="h1-head">Overseas Business Trip</h2>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-0">
+                <p>Doc. ID : BS012019001</p>
+                <p>Requested by : PMCI-Summana B.</p>
+                <p>Document Status : Draft</p>
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12">
+                <br>
+                <h2 class="h1-head">{{ types }} Trip</h2>
+                <label>Document Number : {{ root_doc_id}} | Document Status : {{ root_doc_status }}<span *ngIf="btnGoToPhase2"> | <span class="link-text cursor-pointer" (click)="openPhase2()"><ins>Travel Details</ins><i class="fa fa-external-link ml-1"></i></span></span></label>
+
+            </div>
+            <ul ngbNav #nav="ngbNav" class="nav-tabs">
+                <li ngbNavItem>
+                    <a ngbNavLink>One</a>
+                    <ng-template ngbNavContent>
+                        <p>These navs will always stay in DOM and have no roles</p>
+                    </ng-template>
+                </li>
+                <li ngbNavItem>
+                    <a ngbNavLink>Two</a>
+                    <ng-template ngbNavContent>
+                        <p>Because default values have been customized in the config</p>
+                    </ng-template>
+                </li>
+            </ul>
+            
+            <div [ngbNavOutlet]="nav" class="mt-2"></div>
+        </div>

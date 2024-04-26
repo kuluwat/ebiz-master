@@ -1,0 +1,132 @@
+:host ::ng-deep .ngx-dropdown-container .ngx-dropdown-button {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 40.5px !important;
+    /* height: 35.5px !important; */
+    /* min-height:35px */
+}
+
+
+::ng-deep .border-red {
+    border: 1px solid red !important;
+    border-radius: 5px !important;
+    padding: 0 !important;
+    
+}
+
+
+/* width: 100%; */
+
+/* table {
+    
+    width: 3000px;
+  } */
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+    background: #08508C;
+}
+
+.bg_hd_1 {
+    background-color: #d0e5f5;
+}
+
+.bg_hd_2 {
+    background-color: #FFF2CC;
+}
+
+.bg_hd_2_2 {
+    background-color: #FFD966;
+}
+
+.bg_hd_3 {
+    background-color: #A9D08E;
+}
+
+.bg_hd_3_2 {
+    background-color: #375623;
+}
+
+tbody tr:nth-child(2n+2) {
+    background-color: #edfcf9;
+}
+
+tbody tr:nth-child(2n+2):hover {
+    background-color: #e3eeec;
+}
+
+.disableX {
+    pointer-events: none;
+}
+
+table {
+    width: 100%;
+    /* text-align: center; */
+    border-collapse: separate;
+    /* Don't collapse */
+    border-spacing: 0;
+}
+
+.scroll-hori {
+    overflow-y: auto;
+    /* max-height: 300px; */
+}
+
+.scroll-hori thead tr td {
+    position: sticky;
+    top: 0;
+    /* z-index: 2; */
+    background-color: white;
+}
+
+:host ::ng-deep .multiselect-dropdown .dropdown-btn {
+	display: inline-block;
+    border: 1px solid #ced4da !important;
+    color: #495057;
+    background-color: #fff;
+	width: 100%;
+    padding: 8px !important;
+
+    min-height: 40.5px;
+}
+::ng-deep .multiselect-dropdown .dropdown-btn .dropdown-down{
+    border-top: 6px solid #999 !important;
+    border-left: 6px solid transparent !important;
+    border-right: 6px solid transparent !important;
+    }
+    
+    ::ng-deep .multiselect-dropdown .dropdown-btn .dropdown-up{
+    border-bottom: 6px solid #999 !important;
+    border-left: 6px solid transparent !important;
+    border-right: 6px solid transparent !important;
+    }
+    /* ::ng-deep .dropdown-btn > span {
+        color: #999;
+        } */
+/* tbody tr:nth-child(2n+2), tbody tr:nth-child(2n+2):hover {
+    background-color: #edfcf9;
+} */
+
+/* button{
+    height: 39.8px;
+} */

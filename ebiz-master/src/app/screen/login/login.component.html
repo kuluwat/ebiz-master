@@ -1,0 +1,70 @@
+<div class="horizontal-layout horizontal-menu 1-column   menu-expanded blank-page blank-page" data-open="click"
+data-menu="horizontal-menu" data-col="1-column">
+
+<div class="app-content container center-layout mt-2">
+    <div class="content-wrapper">
+        <div class="content-header row">
+        </div>
+        <div class="content-body">
+            
+            <section class="flexbox-container">
+                <div class="col-12 d-flex align-items-center justify-content-center">
+                    <div class="col-md-8 col-12 box-shadow-1 p-0">
+                        <div class="card border-grey border-lighten-3 m-0">
+                            <div class="card-header border-0" style="background-color: white; padding-top: 30px;">
+                                <div class="card-title text-center">
+                                    <div class="p-1"><img src="/assets/logo.png" width="200px;" alt="branding logo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <form>
+                                        <fieldset
+                                            class="form-group position-relative has-icon-left col-md-8 m-auto">
+                                            <input type="text" class="form-control form-control-lg" id="iconLeft2"
+                                                placeholder="username"
+                          
+                                                name="username"
+                                                style="border-radius: 5px; border: 1px solid rgba(1, 83, 150, 0.651); padding-left: 100px;">
+                                            <div class="form-control-position"
+                                                style="border-right: 1px solid rgba(1, 83, 150, 0.651); width: 80px;">
+                                                <i class="ft-unlock warning font-medium-4"></i>
+                                            </div>
+                                        </fieldset>
+                                        <br>
+                                        <fieldset
+                                            class="form-group position-relative has-icon-left col-md-8 m-auto">
+                                            <input name="password" type="password" class="form-control form-control-lg"
+                                                id="iconLeft2" placeholder="password"
+                                                style="border-radius: 5px; border: 1px solid rgba(1, 83, 150, 0.651); padding-left: 100px;">
+                                            <div class="form-control-position"
+                                                style="border-right: 1px solid rgba(1, 83, 150, 0.651); width: 80px;">
+                                                <i class="ft-unlock warning font-medium-4"></i>
+                                            </div>
+                                        </fieldset>
+                                        <br>
+                                        <p style="color: red; text-align: center;">{{ model.error }}</p>
+                                        <br>
+                                        <div class="col-md-8 m-auto"
+                                            style="text-align: center; padding-bottom: 30px;">
+                                            <button (click)="handleBtnLogin()" type="button" class="btn btn-login">L O G I N</button>
+                                             <hr>
+                                            <button type="button" class="btn btn-login-auto">A U T O S I G
+                                                N</button> 
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+</div> 

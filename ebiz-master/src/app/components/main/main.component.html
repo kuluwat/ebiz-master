@@ -1,0 +1,160 @@
+<!-- <img src="assets/loading.gif" class="loading_img"> -->
+<app-mat-spinner-overlay [hidden]="!isLoading"></app-mat-spinner-overlay>
+<!-- <table [hidden]="!isLoading" class="loading_img" border=0>
+        <tr>
+                <td><img src="assets/loading.gif" style="width: 150px;"></td>
+        </tr>
+</table> -->
+<table [hidden]="!errorBox.sts" class="loading_img" style="background-color: rgba(0, 0, 0, 0.278); z-index: 9999;"
+        border=0 (click)="hideMessage()">
+        <tr>
+                <td style="text-align: center;">
+                        <div class="boxMessage">
+                                {{ errorBox.text }}
+                                <p><button (click)="hideErrorBox()">OK</button></p>
+                        </div>
+                </td>
+        </tr>
+</table>
+
+<!-- <table [hidden]="!message.sts" class="loading_img" style="background-color: rgba(0, 0, 0, 0.278); z-index: 9999;"
+        border=0 (click)="hideMessage()">
+        <tr>
+                <td style="text-align: center;">
+                        <div class="boxMessage">
+                                {{ message.text }}
+                                <p><button>OK</button></p>
+                        </div>
+                </td>
+        </tr>
+</table> -->
+<table [hidden]="!message.sts" class="loading_img" style="background-color: rgba(0, 0, 0, 0.278); z-index: 9999;"
+        border=0 >
+<!-- (click)="hideMessage()" -->
+        <tr>
+                <td>
+                        <div class="boxMessage">
+                                <div class="row">
+                                        <div class="col-lg-12 tx-left-f">
+                                                <p class="tx-18 tx-gray-700 d-none">Information</p>
+                                        </div>
+                                        <div class="col-lg-12 tx-center mt-4" style="min-height: 60px;">
+                                                <p class="tx-16 tx-gray-700 "><span style="white-space: pre-line;">{{ message.text }}</span></p>
+                                        </div>
+                                        <div class="col-lg-12 mt-0 pt-0 mb-0 pb-0 tx-center-f">
+                                                <button class="btn btn-min-width mt-0 mb-0"
+                                                        (click)="hideMessage()">OK</button>
+                                        </div>
+                                </div>
+                        </div>
+                </td>
+        </tr>
+</table>
+
+<table [hidden]="!messageInfo.sts" class="loading_img" style="background-color: rgba(0, 0, 0, 0.278); z-index: 9999;"
+        border=0 >
+        <tr>
+                <td>
+                        <div class="boxMessageInfo">
+                                <div class="row">
+                                        <div class="col-lg-12 tx-left-f">
+                                                <p class="tx-18 tx-gray-700">Information</p>
+                                        </div>
+                                        <div class="col-lg-12 tx-left-f " style="min-height: 60px;">
+                                                <p class="tx-16 tx-gray-700 "><span style="white-space: pre-line;">{{ message.text }}</span></p>
+                                        </div>
+                                        <div class="col-lg-12 mt-0 pt-0 mb-0 pb-0 tx-center-f">
+                                                <button class="btn btn-min-width mt-0 mb-0"
+                                                        (click)="hideMessageInfo()">OK</button>
+                                        </div>
+                                </div>
+                        </div>
+                </td>
+        </tr>
+</table>
+
+<table [hidden]="!confirmBox.sts" class="loading_img" style="background-color: rgba(0, 0, 0, 0.278); z-index: 9999;"
+        border=0>
+        <tr>
+                <td>
+                        <div class="boxMessage">
+                                <div class="row">
+                                        <div class="col-lg-12 tx-left-f">
+                                                <p class="tx-18 tx-gray-700 d-none">Confirmation</p>
+                                        </div>
+                                        <div class="col-lg-12 tx-center mt-4" style="min-height: 60px;">
+                                                <p class="tx-16 tx-gray-700"><span style="white-space: pre-line;">{{confirmBox.text}}</span></p>
+                                        </div>
+                                        <div class="col-lg-12 mt-0 pt-0 mb-0 pb-0 tx-center-f">
+                                                <button class="btn btn-min-width mt-0 mb-0"
+                                                        (click)="hideConfirm(true)">Yes</button>
+                                                <button class="btn btn-red btn-min-width mt-0 mb-0"
+                                                        (click)="hideConfirm(false)">No</button>
+                                        </div>
+                                </div>
+                        </div>
+                </td>
+        </tr>
+</table>
+
+<table [hidden]="!confirmBoxInfo.sts" class="loading_img" style="background-color: rgba(0, 0, 0, 0.278); z-index: 9999;"
+        border=0>
+        <tr>
+                <td>
+                        <div class="boxMessage">
+                                <div class="row">
+                                        <div class="col-lg-12 tx-left-f">
+                                                <p class="tx-18 tx-gray-700 d-none">Confirmation</p>
+                                        </div>
+                                        <div class="col-lg-12 tx-left-f mt-2 mb-2" style="min-height: 60px;">
+                                                <p class="tx-16 tx-gray-700"><span style="white-space: pre-line;">{{confirmBoxInfo.text}}</span></p>
+                                        </div>
+                                        <div class="col-lg-12 mt-0 pt-0 mb-0 pb-0 tx-center-f">
+                                                <button class="btn btn-min-width mt-0 mb-0"
+                                                        (click)="hideConfirmInfo(true)">Yes</button>
+                                                <button class="btn btn-red btn-min-width mt-0 mb-0"
+                                                        (click)="hideConfirmInfo(false)">No</button>
+                                        </div>
+                                </div>
+                        </div>
+                </td>
+        </tr>
+</table>
+
+<!-- <table [hidden]="!confirmBox.sts" class="loading_img" style="background-color: rgba(0, 0, 0, 0.278); z-index: 9999;"
+        border=0>
+        <tr>
+                <td style="text-align: center;">
+                        <div class="boxMessage">
+                                {{ confirmBox.text }}
+                                <p><button (click)="hideConfirm(true)">Yes</button><button (click)="hideConfirm(false)"
+                                                style="background-color: red;">No</button></p>
+                        </div>
+                </td>
+        </tr>
+</table> -->
+
+<table [hidden]="!confirmTextBox.sts" class="loading_img" style="background-color: rgba(0, 0, 0, 0.278); z-index: 9999;"
+        border=0>
+        <tr>
+                <td style="text-align: center;">
+                        <div class="boxMessage">
+                                <p class="tx-16 tx-gray-700 mt-4"><span style="white-space: pre-line;">{{ confirmTextBox.text }}</span></p>
+                                <textarea type="text" class="inputRemark" [(ngModel)]="confirmTextBox.input"></textarea>
+                                <p><button (click)="hideConfirmTextbox(true)">Yes</button><button
+                                                (click)="hideConfirmTextbox(false)"
+                                                style="background-color: red;">No</button></p>
+                        </div>
+                </td>
+        </tr>
+</table>
+
+<app-header></app-header>
+<div class="bg-color">
+
+
+
+        <router-outlet></router-outlet>
+        <br><br>
+
+</div>

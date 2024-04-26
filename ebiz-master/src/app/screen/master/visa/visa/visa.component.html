@@ -1,0 +1,882 @@
+<div
+  class="col-12 boxcolor-mm background-Slide animate__animated animate__fadeIn"
+  *ngIf="emp_list.length > 0"
+  style="height: 350px"
+>
+  <div class="row math-height">
+    <div class="col-lg-12">
+      <div class="card box-shadow-1 mt-3">
+        <div class="card-body m-0 p-0">
+          <div class="row mx-0">
+            <div class="col-lg-6 col-md-6 col-sm-12" style="min-height: 67px">
+              <div class="marker marker-ribbon marker-top-blue pos-absolute mt-4 l-0 pl-5 pr-5">
+                <p class="tx-24 m-0">
+                  &#32;
+                  <i class="fa fa-bed d-none"></i>
+                  <span class="material-icons tx-24 font-weight-bold valign-middle white mb-1">
+                    airplanemode_active
+                  </span>
+                  &#32;VISA
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <div
+                class="text-right mt-4 pr-4 animate__animated animate__fadeIn"
+                *ngIf="status != true && personer != 'personal'"
+              >
+                <p class="tx-24 m-0 tx-top-blue text-bold-500">{{ personal_name }}</p>
+              </div>
+              <div class="text-right mt-4 pr-4 animate__animated animate__fadeIn" *ngIf="personer == 'personal'">
+                <p class="tx-24 m-0 tx-top-blue text-bold-500">{{ personal_name }}</p>
+              </div>
+
+              <div
+                class="mt-4 ml-auto col-12 col-lg-8 col-sm-12 col-md-10"
+                *ngIf="status === true && personer != 'personal'"
+              >
+                <mat-select
+                  #select
+                  [(ngModel)]="empid"
+                  (selectionChange)="update_userByDOC($event, empid, select.value)"
+                  class="form-control line-height-2 tx-gray-700 text-bold-500"
+                  placeholder="Select"
+                >
+                  <mat-option *ngFor="let topping of emp_list; let i = index" [value]="topping.emp_id">
+                    {{ topping.userDisplay }}
+                  </mat-option>
+                </mat-select>
+              </div>
+              <div class="text-right mt-4 pr-4" *ngIf="personer != 'personal'">
+                <span class="link-text">
+                  <p class="tx-14 m-0 text-bold-500" (click)="OpenDocument(doc_id, pathPhase1)">
+                    Document No: {{ doc_id }}
+                  </p>
+                  <i class="fa fa-external-link ml-1"></i
+                ></span>
+              </div>
+            </div>
+            <!-- ** Traveler Detail -->
+            <div class="container px-0" *ngIf="personer != 'personal'">
+              <div class="col-12">
+                <div class="container border-bottom-3 border-bottom-grey-blue border-bottom-lighten-5 mb-4 py-4">
+                  <div class="row no-gutters">
+                    <p class="col-4 col-lg-2 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">Travel Topic :</p>
+                    <p class="col-8 col-lg-10 col-md-10 tx-gray-700 tx-14 text-bold-500 text-capitalize">
+                      {{ H_detail.travel_topic ? H_detail.travel_topic : '' }}
+                    </p>
+                    <p class="col-4 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">Business Date :</p>
+                    <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                      {{ H_detail.business_date ? H_detail.business_date : '' }}
+                    </p>
+                    <p class="col-4 col-md-2 offset-0 offset-md-1 tx-gray-700 tx-14 m-0 text-dark text-bold-500">
+                      Travel Date :
+                    </p>
+                    <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                      {{ H_detail.travel_date ? H_detail.travel_date : '' }}
+                    </p>
+                    <p class="col-4 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">Country / City :</p>
+                    <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                      {{ H_detail.country_city ? H_detail.country_city : '' }}
+                    </p>
+                    <p class="col-4 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">Total Traveler(s) :</p>
+                    <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">{{ emp_list.length }} Person(s)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- ** Traveler Detail -->
+
+            <!-- ** Current status -->
+            <div class="col-12 py-3 mt-0 mb-4" *ngIf="personer != 'personal'">
+              <div class="row justify-content-center align-items-baseline">
+                <ul id="progressbar" class="px-0 px-md-1 mb-0">
+                  <li class="cursor-pointer" [ngClass]="{ active: docStatus(1) }" id="time"><strong></strong></li>
+                  <li class="cursor-pointer" [ngClass]="{ active: docStatus(2) }" id="pencil"><strong></strong></li>
+                  <li class="cursor-pointer" [ngClass]="{ active: docStatus(3) }" id="cog"><strong></strong></li>
+                  <li class="cursor-pointer" [ngClass]="{ active: docStatus(4) }" id="check"><strong></strong></li>
+                </ul>
+              </div>
+            </div>
+            <!-- ** Current status -->
+
+            <div *ngIf="personer == 'personal'" class="col-12 pb-2 pt-4"></div>
+
+            <ng-container *ngIf="visa_detail.length > 0">
+              <div class="col-12 pt-2 mt-2">
+                <div class="col-12">
+                  <h4 class="text-underline tx-gray-700 text-bold-500">
+                    VISA Information : <small>Please fill your VISA details</small>
+                  </h4>
+                  <div class="card box-shadow-1 radiusX">
+                    <div class="card-body">
+                      <div class="table-responsive overflow-scroll-y border-0" style="max-height: 350px">
+                        <table
+                          id=" table_detail"
+                          class="table table-bordered table-striped table-hover border-0 m-0 p-0"
+                          style="min-width: 800px"
+                        >
+                          <thead>
+                            <tr class="text-center tx-gray-700">
+                              <!-- <th style="width: 7%;">#</th> -->
+                              <th style="min-width: 100px; width: 23%">Country</th>
+                              <th class="" style="width: 17%">Valid Until</th>
+                              <th style="width: 17%">Type Of VISA</th>
+                              <th style="width: 17%">No. Of Entry</th>
+                              <th style="width: 21%; max-width: 160px !important">Visa Page</th>
+                              <th style="width: 5%; min-width: 50px"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <ng-container *ngIf="VisaDetail().length === 0">
+                              <tr class="text-center disableRow">
+                                <!-- <td colspan="6">No data</td> -->
+                                <td colspan="5">Please maintain visa country</td>
+                                <td colspan="1"></td>
+                              </tr>
+                            </ng-container>
+                            <!-- {{
+                              CheckMtCounty
+                            }} -->
+                            <ng-container *ngFor="let dt of VisaDetail(); let ii = index; last as lastrow">
+                              <tr>
+                                <td>
+                                  <input
+                                    type="text"
+                                    class="form-control text-center h-50"
+                                    [disabled]="CheckMtCounty || !show_button"
+                                    (mousedown)="openModalz(templete_airpoet, dt.id)"
+                                    [(ngModel)]="dt.visa_nationality_new"
+                                  />
+                                </td>
+                                <!-- {{
+                                    dt.visa_nationality
+                                  }} -->
+                                <td>
+                                  <!-- {{ dt.action_change }} -->
+                                  <input
+                                    type="text"
+                                    bsDatepicker
+                                    #date1="ngModel"
+                                    [disabled]="CheckMtCounty || !show_button"
+                                    class="form-control set_size text-center"
+                                    [(ngModel)]="dt.Datefrom"
+                                    (ngModelChange)="model_action_change(dt.id)"
+                                    (change)="date1.invalid && date1.control.setValue('')"
+                                    [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', showWeekNumbers: false }"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    class="form-control set_size text-center"
+                                    [(ngModel)]="dt.visa_type"
+                                    [disabled]="CheckMtCounty || !show_button"
+                                    (ngModelChange)="model_action_change(dt.id)"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    class="form-control set_size text-center"
+                                    [(ngModel)]="dt.visa_entry"
+                                    [disabled]="CheckMtCounty || !show_button"
+                                    (ngModelChange)="model_action_change(dt.id)"
+                                  />
+                                </td>
+                                <td class="my-auto py-2" style="vertical-align: middle; max-width: 160px">
+                                  <div class="text-center">
+                                    <ng-container class="text-center" *ngIf="check_img(img_list, dt.id).length <= 0">
+                                      <input
+                                        type="file"
+                                        id="file_id"
+                                        accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf"
+                                        #file
+                                        class="d-none"
+                                        (change)="onFileSelect($event, dt.id, empid, 'visa_page')"
+                                      />
+                                      <button
+                                        class="btn btn-round btn-top btn-min-width d-none"
+                                        [ngClass]="{
+                                          'btn-top': CheckMtCounty == false,
+                                          'btn-secondary disabled cursor-not-allowed cursor-not-event':
+                                            CheckMtCounty == true
+                                        }"
+                                        [disabled]="status == false || CheckMtCounty == true"
+                                        style="color: white"
+                                        (click)="show_button && file.click()"
+                                      >
+                                        &#32;&#32;Upload
+                                      </button>
+                                      <span
+                                        (click)="show_button && file.click()"
+                                        class="tx-14"
+                                        [attr.disabled]="status === false || CheckMtCounty === true"
+                                        [ngClass]="{
+                                          'cursor-pointer blue': CheckMtCounty === false && show_button,
+                                          'disabled cursor-not-allowed': CheckMtCounty === true || !show_button
+                                        }"
+                                      >
+                                        <i class="fa fa-upload font-weight-bold tx-14" aria-hidden="true"></i>
+                                        &#32;&#32;Upload
+                                      </span>
+                                    </ng-container>
+                                  </div>
+                                  <div class="text-left">
+                                    <ng-container *ngIf="check_img(img_list, dt.id).length > 0">
+                                      <ng-container *ngFor="let img of check_img(img_list, dt.id); let ix = index">
+                                        <ng-container>
+                                          <!-- && img.actionname == 'visa_page' -->
+                                          <span class="pt-2">
+                                            <div
+                                              class="my-auto nowrap text-truncate"
+                                              style="vertical-align: super; min-width: 120px"
+                                              matTooltip="{{ img.filename }}"
+                                            >
+                                              <i
+                                                style="vertical-align: unset"
+                                                class="cursor-pointer fa fa-minus-circle danger"
+                                                [hidden]="!show_button"
+                                                (click)="deleterow_img(img.id)"
+                                              ></i>
+                                              <a
+                                                class="mx-2 text-primary txunderline text-bold-600"
+                                                (click)="downloadFile(img.path + img.filename, img.filename)"
+                                                target="_blank"
+                                                >{{ img.filename }}
+                                              </a>
+                                            </div>
+                                          </span>
+                                        </ng-container>
+                                      </ng-container>
+                                    </ng-container>
+                                  </div>
+                                </td>
+
+                                <td class="my-auto" style="vertical-align: middle">
+                                  <div class="align-middle" [hidden]="!show_button">
+                                    <span
+                                      class="fa fa-minus-circle danger cursor-pointer mr-1"
+                                      aria-hidden="true"
+                                      (click)="show_button && deleterow(dt.id, dt.id)"
+                                    ></span>
+                                    <span
+                                      class="fa fa-plus-circle success cursor-pointer"
+                                      aria-hidden="true"
+                                      (click)="addrow()"
+                                      *ngIf="lastrow"
+                                    >
+                                      <!--
+                                        *ngIf="dt.id == data_retune()"
+                                         -->
+                                    </span>
+                                  </div>
+                                </td>
+                              </tr>
+                            </ng-container>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pt-2" *ngIf="personer != 'personal'">
+                    <div class="d-flex justify-content-between flex-wrap mb-0 mb-sm-2 mb-md-0 cotainer-header">
+                      <h4 class="text-underline tx-gray-700 text-bold-500">
+                        VISA Documents : <small>Please upload (if any)</small>
+                      </h4>
+                      <section class="d-flex gap-column align-items-center">
+                        <div
+                          class="my-auto tx-gray-700 tx-14 text-bold-500 text-center"
+                          [ngClass]="{
+                            'cursor-not-allowed': CheckMtCounty === true || !show_button,
+                            'tx-hover cursor-pointer': CheckMtCounty === false && show_button
+                          }"
+                          (click)="show_button && file.click()"
+                        >
+                          <span class="material-icons align-middle tx-20"> add </span>
+                          <span class="align-middle"> Upload</span>
+                        </div>
+                        <span>&nbsp;|</span>
+                        <div
+                          class="tx-hover my-auto tx-gray-700 tx-14 text-bold-500 text-center cursor-pointer"
+                          (click)="download_file_check(visa_code_img, empid)"
+                        >
+                          <span class="material-icons align-middle tx-20"> arrow_downward </span>
+                          <span class="align-middle">Download</span>
+                        </div>
+                        <span>&nbsp;|</span>
+                        <div
+                          class="tx-hover_delete my-auto tx-gray-700 text-center tx-14 text-bold-500"
+                          [ngClass]="{
+                            'cursor-not-allowed': CheckMtCounty === true || !show_button,
+                            'tx-hover_delete cursor-pointer': CheckMtCounty === false && show_button
+                          }"
+                          (click)="show_button && deleterow_img_check()"
+                        >
+                          <span class="material-icons align-middle tx-20"> delete </span>
+                          <span class="align-middle">Delete</span>
+                        </div>
+                      </section>
+                    </div>
+                    <div class="card box-shadow-1 radiusX mb-0" [class.mb-3]="!show_button">
+                      <div class="table-responsivexxx" style="width: 100%">
+                        <div style="min-width: 600px">
+                          <div class="row border-bottom mx-1 my-2 d-none">
+                            <div class="col-1 my-auto">
+                              <span class="d-none float-right tx-gray-700 tx-14 text-bold-500">#</span>
+                              <input
+                                class="float-right"
+                                #checkall
+                                id="checkall"
+                                style="text-align: center; vertical-align: middle"
+                                type="checkbox"
+                                (click)="checkboxAll($event, empid)"
+                              />
+                            </div>
+                            <div class="col-2">
+                              <span class="float-left tx-gray-700 tx-14 text-bold-500">
+                                {{ showitem(img_list, visa_code_img, empid) }} Item
+                              </span>
+                            </div>
+                            <input
+                              type="file"
+                              id="file_id2"
+                              accept="image/*,.pdf,.doc,.docx"
+                              #file
+                              class="d-none"
+                              (change)="onFileSelect($event, visa_code_img, empid, '')"
+                              [disabled]="CheckMtCounty"
+                            />
+                            <div
+                              class="
+                                tx-hover
+                                col-3
+                                my-auto
+                                tx-gray-700 tx-14
+                                text-bold-500
+                                border-left
+                                text-center
+                                border-right
+                                cursor-pointer
+                              "
+                              (click)="file.click()"
+                            >
+                              <span class="material-icons align-middle"> add </span>&nbsp;
+                              <span class="align-middle"> Upload</span>
+                            </div>
+                            <div
+                              class="
+                                tx-hover
+                                col-3
+                                my-auto
+                                tx-gray-700 tx-14
+                                text-bold-500 text-center
+                                border-right
+                                cursor-pointer
+                              "
+                              (click)="download_file_check(visa_code_img, empid)"
+                            >
+                              <span class="material-icons align-middle"> arrow_downward </span>&nbsp;
+                              <span class="align-middle">Download</span>
+                            </div>
+                            <div
+                              class="
+                                tx-hover_delete
+                                col-3
+                                my-auto
+                                tx-gray-700
+                                text-center
+                                tx-14
+                                text-bold-500
+                                cursor-pointer
+                              "
+                              (click)="deleterow_img_check()"
+                            >
+                              <span class="material-icons align-middle"> delete </span>&nbsp;
+                              <span class="align-middle">Delete</span>
+                            </div>
+                          </div>
+                          <div class="row py-2 mx-1 font-weight-bold tx-gray-700">
+                            <div class="col-1 d-flex justify-content-end">
+                              <input
+                                #checkall
+                                id="checkall"
+                                style="text-align: center; vertical-align: middle"
+                                type="checkbox"
+                                (click)="checkboxAll($event, empid)"
+                              />
+                            </div>
+                            <div class="col-2 text-center">
+                              <span>Name</span>
+                            </div>
+                            <div class="col-3 text-center">
+                              <span>Modified</span>
+                            </div>
+                            <div class="col-3 text-center">
+                              <span>Modified By</span>
+                            </div>
+                            <div class="col-3 text-center">
+                              <span>Status</span>
+                            </div>
+                          </div>
+
+                          <ng-container *ngFor="let img of img_list; let ix = index">
+                            <ng-container
+                              *ngIf="img.filename != '' && img.actionname != 'visa_page' && img.action_type != 'delete'"
+                            >
+                              <!-- img.path != '' &&  -->
+                              <ng-container *ngIf="img.emp_id == empid">
+                                <div class="row mx-1 my-2">
+                                  <div class="col-1 my-auto">
+                                    <input
+                                      class="float-right"
+                                      [(ngModel)]="img.active_type"
+                                      (change)="check_action_type(img.id)"
+                                      style="text-align: center; vertical-align: middle"
+                                      type="checkbox"
+                                    />
+                                  </div>
+                                  <div class="col-2 px-0 my-auto align-text-top" style="vertical-align: top">
+                                    <span class="text-center align-text-top" matTooltip="{{ img.filename }}">
+                                      {{
+                                        img.filename.length > 15 ? (img.filename | slice: 0:15) + '..' : img.filename
+                                      }}
+                                    </span>
+                                  </div>
+                                  <div class="col-3 my-auto text-center align-text-top" style="vertical-align: top">
+                                    <span class="text-center align-text-top">{{ img.modified_date }}</span>
+                                  </div>
+                                  <div class="col-3 my-auto text-center align-text-top" style="vertical-align: top">
+                                    <span class="text-center align-text-top">{{ img.modified_by }}</span>
+                                  </div>
+                                  <div class="col-3 my-auto text-center align-text-top" style="vertical-align: top">
+                                    <span
+                                      class="text-center align-text-top"
+                                      *ngIf="img.statusTypexFile == 'false' || img.statusTypexFile == false"
+                                      >Not Submit</span
+                                    >
+                                    <span
+                                      class="text-center align-text-top"
+                                      *ngIf="img.statusTypexFile == 'true' || img.statusTypexFile == true"
+                                      >Submit</span
+                                    >
+                                  </div>
+                                </div>
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- //!! ROW BUTTON -->
+                  <div class="row my-3 gap-btn mx-1">
+                    <ng-container *ngIf="show_button">
+                      <button
+                        class="btn btn-round btn-min-width font-weight-bold"
+                        [ngClass]="{
+                          'bg-top-pink text-white': CheckMtCounty == false,
+                          'btn-secondary disabled cursor-not-allowed': CheckMtCounty == true
+                        }"
+                        style="color: white"
+                        (click)="openModalx(templatePDPA)"
+                        [disabled]="CheckMtCounty"
+                      >
+                        Save
+                      </button>
+                      <!-- (click)="ConfrimSave()" -->
+                      <button
+                        class="btn btn-round btn-min-width font-weight-bold mr-auto"
+                        [ngClass]="{
+                          'bg-white pink border-pink text-pink': CheckMtCounty == false,
+                          'btn-secondary disabled cursor-not-allowed': CheckMtCounty == true
+                        }"
+                        (click)="cancelFunction()"
+                        [disabled]="CheckMtCounty"
+                      >
+                        Cancel
+                      </button>
+
+                      <button
+                        *ngIf="personer != 'personal' && status"
+                        class="btn btn-round btn-min-width font-weight-bold"
+                        [ngClass]="{
+                          'bg-white border-color-top tx-color-top': CheckMtCounty == false,
+                          'btn-secondary disabled cursor-not-allowed': CheckMtCounty == true
+                        }"
+                        (click)="test_submit2x(templete_email)"
+                        [disabled]="CheckMtCounty"
+                      >
+                        VISA Requisition
+                      </button></ng-container
+                    >
+                    <!-- //?? button แบบแยก div -->
+                    <div class="col-12 d-none">
+                      <button
+                        class="btn btn-round btn-min-width mr-1 mb-1 font-weight-bold d-sm-none col-sm-12 float-left"
+                        [ngClass]="{
+                          'bg-top-pink text-white': CheckMtCounty == false,
+                          'btn-secondary disabled cursor-not-allowed': CheckMtCounty == true
+                        }"
+                        style="color: white"
+                        (click)="ConfrimSave()"
+                        [disabled]="CheckMtCounty"
+                      >
+                        Save
+                      </button>
+                      <button
+                        class="
+                          btn btn-round btn-min-width
+                          mr-1
+                          mb-1
+                          font-weight-bold
+                          d-md-block d-lg-block d-none
+                          float-left
+                        "
+                        [ngClass]="{
+                          'bg-top-pink text-white': CheckMtCounty == false,
+                          'btn-secondary disabled cursor-not-allowed': CheckMtCounty == true
+                        }"
+                        style="color: white"
+                        (click)="ConfrimSave()"
+                        [disabled]="CheckMtCounty"
+                      >
+                        Save
+                      </button>
+                      <button
+                        class="btn btn-round btn-min-width mr-1 mb-1 font-weight-bold d-sm-none col-sm-12 float-left"
+                        [ngClass]="{
+                          'bg-white pink border-pink text-pink': CheckMtCounty == false,
+                          'btn-secondary disabled cursor-not-allowed': CheckMtCounty == true
+                        }"
+                        (click)="cancelFunction()"
+                        [disabled]="CheckMtCounty"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        class="
+                          btn btn-round btn-min-width
+                          mr-1
+                          mb-1
+                          font-weight-bold
+                          d-md-block d-lg-block d-none
+                          float-left
+                        "
+                        [ngClass]="{
+                          ' bg-white pink border-pink text-pink': CheckMtCounty == false,
+                          'btn-secondary disabled cursor-not-allowed': CheckMtCounty == true
+                        }"
+                        (click)="cancelFunction()"
+                        [disabled]="CheckMtCounty"
+                      >
+                        Cancel
+                      </button>
+                      <!-- (click)="openModalx()" -->
+                      <button
+                        *ngIf="personer != 'personal'"
+                        class="float-right btn btn-round btn-min-width d-none mr-1 mb-1 font-weight-bold col-sm-12"
+                        [ngClass]="{
+                          'bg-top-bluetext-white': CheckMtCounty == false,
+                          'btn-secondary disabled cursor-not-allowed': CheckMtCounty == true
+                        }"
+                        (click)="test_submit(empid)"
+                        [disabled]="CheckMtCounty"
+                      >
+                        Send-Email
+                      </button>
+                      <button
+                        *ngIf="personer != 'personal'"
+                        class="float-right btn btn-round btn-min-width d-none mr-1 mb-1 font-weight-bold d-none"
+                        [ngClass]="{
+                          'bg-top-blue text-white': CheckMtCounty == false,
+                          'btn-secondary disabled cursor-not-allowed': CheckMtCounty == true
+                        }"
+                        (click)="test_submit(empid)"
+                        [disabled]="CheckMtCounty"
+                      >
+                        Send E-mail
+                      </button>
+
+                      <!-- (click)="test_submit2()" -->
+                      <button
+                        *ngIf="personer != 'personal'"
+                        class="btn btn-round btn-min-width mr-1 mb-1 float-right font-weight-bold d-sm-none col-sm-12"
+                        [ngClass]="{
+                          'bg-white border-color-top tx-color-top': CheckMtCounty == false,
+                          'btn-secondary disabled cursor-not-allowed': CheckMtCounty == true
+                        }"
+                        (click)="test_submit2x(templete_email)"
+                        [disabled]="CheckMtCounty"
+                      >
+                        <!-- <i class="fa fa fa-envelope px-1"></i -->VISA Requisition
+                      </button>
+                      <button
+                        *ngIf="personer != 'personal'"
+                        class="
+                          btn btn-round btn-min-width
+                          mr-1
+                          mb-1
+                          float-right
+                          font-weight-bold
+                          d-md-block d-lg-block d-none
+                        "
+                        [ngClass]="{
+                          'bg-white border-color-top tx-color-top ': CheckMtCounty == false,
+                          'btn-secondary disabled cursor-not-allowed': CheckMtCounty == true
+                        }"
+                        (click)="test_submit2x(templete_email)"
+                        [disabled]="CheckMtCounty"
+                      >
+                        <!-- <i class="fa fa fa-envelope px-1"></i> -->VISA Requisition
+                      </button>
+                      <!-- [ngClass]="{'btn-teal':model.dataSource.length>0 , 'btn-secondary disabled cursor-not-allowed':model.dataSource.length === 0}" -->
+                    </div>
+                    <!-- //?? button แบบแยก div -->
+                  </div>
+                  <!-- //!! ROW BUTTON -->
+                </div>
+              </div>
+            </ng-container>
+
+            <button #clickdownloadfile class="d-none bth btn-round btn-success" #xxz (click)="EmployeeLetter([])">
+              gennarate file
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button class="d-none" #btnCloseAA (click)="modalRef.hide()">Send Mail xxx</button>
+
+<ng-template #templete_email>
+  <div class="modal-header">
+    <div class="col-sm-12 px-0">
+      <span class="modal-title tx-20" id="my-modal-title"><i class="fa fa fa-envelope px-1"></i> Send E-mail </span>
+      <button
+        type="button"
+        class="close pb-2"
+        style="color: red"
+        data-dismiss="modal"
+        aria-label="Close"
+        (click)="modalRef.hide()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <!-- for Search Emp -->
+  <div class="modal-body">
+    <div class="col-sm-12 px-0">
+      <!-- Mail TO -->
+      <div class="form-group">
+        <mat-form-field class="w-100">
+          <mat-label>TO</mat-label>
+          <mat-chip-list #chipList>
+            <mat-chip
+              *ngFor="let EmpList of MailList; let indx = index"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="remove(EmpList, indx, 'to')"
+            >
+              {{ EmpList.displayname }}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input
+              placeholder="username@thaioilgroup.com"
+              matInput
+              #fInput
+              [formControl]="fCtrl"
+              [matAutocomplete]="auto"
+              (click)="set_modal()"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="add($event, 'to')"
+              [(ngModel)]="inputText"
+              (ngModelChange)="doFilter('inputText')"
+            />
+          </mat-chip-list>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="[selected($event, 'to'), (fInput.value = '')]">
+            <mat-option
+              *ngFor="let EmpList of filteredEmp | async"
+              [value]="EmpList"
+              [hidden]="!CheckData(fInput.value)"
+            >
+              {{ displayName(EmpList) }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <!-- Mail TO -->
+      <!-- <pre>{{MailList|json}}</pre> -->
+      <!-- for Search Emp -->
+
+      <!-- MailCC -->
+      <div class="form-group">
+        <mat-form-field class="w-100">
+          <mat-label>CC</mat-label>
+
+          <mat-chip-list #chipListCC>
+            <mat-chip
+              *ngFor="let EmpList of MailListCC; let indx = index"
+              [selectable]="selectable"
+              [removable]="removable"
+              (removed)="remove(EmpList, indx, 'cc')"
+            >
+              {{ EmpList.displayname }}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input
+              placeholder="username@thaioilgroup.com"
+              matInput
+              #fInputcc
+              [formControl]="fCtrlCC"
+              (click)="set_modal()"
+              [matAutocomplete]="autoCC"
+              [matChipInputFor]="chipListCC"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="add($event, 'cc')"
+              [(ngModel)]="inputTextCC"
+              (ngModelChange)="doFilter('inputTextCC')"
+            />
+          </mat-chip-list>
+          <mat-autocomplete
+            #autoCC="matAutocomplete"
+            (optionSelected)="[selected($event, 'cc'), (fInputcc.value = '')]"
+          >
+            <mat-option
+              *ngFor="let EmpList of filteredEmpCC | async"
+              [value]="EmpList"
+              [hidden]="!CheckData(fInputcc.value)"
+            >
+              {{ displayName(EmpList) }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <!-- //?? รอคุยกับหลังบ้านว่าจะส่งไปแบบไหน -->
+      <ng-container *ngIf="countrySelect.length > 0 && countrySelect as ds">
+        <p class="text-bold-500 tx-gray-700 mr-2 tx-14">
+          Chose Country <span class="red tx-12 text-bold-300"> * Please chose country</span>
+        </p>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="custom-control" *ngFor="let item of ds; index as i">
+              <input
+                type="checkbox"
+                [id]="'countChecked' + i"
+                #countChecked
+                (change)="item.active = countChecked.checked"
+              />
+              &nbsp;<label [attr.for]="'countChecked' + i"> {{ item.name }} </label>
+              <!-- {{ item.active }} -->
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <!-- //?? รอคุยกับหลังบ้านว่าจะส่งไปแบบไหน -->
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="col-12 px-0">
+      <button
+        [disabled]="checkCountryAttach(countrySelect)"
+        class="btn btn-round btn-top text-bold-500 btn-min-width"
+        [ngClass]="{ 'cursor-not-allowed': checkCountryAttach(countrySelect) }"
+        (click)="Config_Email_Send(empid)"
+        style="color: white"
+      >
+        Send
+      </button>
+    </div>
+  </div>
+
+  <!-- MailCC -->
+</ng-template>
+
+<ng-template #templete_airpoet>
+  <div class="modal-header">
+    <div class="col-sm-12 px-0">
+      <span class="modal-title tx-20" id="my-modal-title">
+        <span class="material-icons" style="vertical-align: middle"> flag </span> Country
+      </span>
+      <button
+        type="button"
+        class="close pb-2"
+        style="color: red"
+        data-dismiss="modal"
+        aria-label="Close"
+        (click)="disble_modalRef()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="col-12 px-0">
+      <div class="row mt-2 mb-4">
+        <div class="col-12">
+          <label class="tx-gray-700 text-bold-500">From</label>
+          <fieldset class="form-group" style="height: 15px" (click)="setcssWidth()">
+            <div class="">
+              <ngx-select-dropdown
+                id="Toplevel1"
+                class=""
+                [multiple]="false"
+                [(ngModel)]="region_new1"
+                [config]="country_model.config"
+                [options]="country_list"
+              >
+              </ngx-select-dropdown>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="col-12 px-0">
+      <button class="btn btn-round btn-top text-bold-500 btn-min-width" style="color: white" (click)="add_region()">
+        OK
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templatePDPA class="border-top-yellow">
+  <div class="modal-header" id="modal-test">
+    <div class="col-sm-12 px-0">
+      <span class="modal-title tx-20" id="my-modal-title">
+        <i class="fa fa-info-circle" aria-hidden="true"></i>
+        Condition & Agreement
+      </span>
+      <button type="button" class="close pb-2" style="color: red" (click)="[modalRef.hide()]">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="card box-shadow-0 mb-0 mx-0 mx-md-2">
+      <div class="card-body table-responsive border-blue-grey border-lighten-5" style="max-height: 300px">
+        <p class="tx-top-blue tx-14 text-bold-500 text-justify mb-0" [innerText]="pdpa_wording">{{ pdpa_wording }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer justify-content-center">
+    <button
+      type="button"
+      class="btn btn-round btn-min-width btn-top white font-weight-bold tx-14"
+      (click)="hide_modal('Accept', '')"
+    >
+      Accept
+    </button>
+    <b #btncancel [hidden]="true"></b>
+  </div>
+  <!-- //endfor -->
+</ng-template>

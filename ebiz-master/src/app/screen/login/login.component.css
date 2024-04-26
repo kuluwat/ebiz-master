@@ -1,0 +1,19 @@
+.btn-login {
+    border-radius: 100px;
+    background-color: #04528a;
+    color: white;
+    width: 250px;
+    padding: 10px;
+}
+.btn-login-auto {
+    border-radius: 100px;
+    border: 2px solid #04528a;
+    background-color: white;
+    color: #04528a;
+    width: 250px;
+    padding: 10px;
+}
+.txt-error {
+    color: red;
+    background-color: red;
+}

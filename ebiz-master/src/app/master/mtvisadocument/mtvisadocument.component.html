@@ -1,0 +1,161 @@
+<div class="col-12 boxcolor-mm background-Slide animate__animated animate__fadeIn" style="height: 350px">
+  <div class="row math-height">
+    <div class="col-lg-12">
+      <div class="card box-shadow-1 mt-3">
+        <div class="card-body m-0 p-0">
+          <div class="row" #rez>
+            <div class="col-12 px-3">
+              <div class="col-lg-6 col-md-6 col-sm-12" style="min-height: 67px">
+                <div class="marker marker-ribbon marker-top-blue pos-absolute mt-4 l-0 pl-5 pr-5">
+                  <p class="tx-24 m-0">&#32;&#32;VISA DOCUMENT</p>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6 col-sm-12 pr-0 mr-0">
+                <!-- <button class="buttonHide" (click)="statusChange()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button> -->
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="row">
+                <div class="col-sm-12 px-5 mt-4">
+                  <button (click)="openModalx(template1)" class="btn btn-top btn-round btn-min-width mr-1 mb-1">
+                    New Item
+                  </button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 px-5 py-3">
+                  <!-- scroll-hori -->
+                  <div class="table-responsive" style="max-height: 350px; min-height: 200px; max-width: 100%">
+                    <table class="table table-bordered table-striped table-hover border-0 table-wrapper">
+                      <thead class="tx-gray-700 text-center">
+                        <tr>
+                          <th class="text-center" style="width: 50px">No</th>
+                          <th>Description</th>
+                          <th style="width: 20%">by</th>
+                          <!-- Active/ -->
+                          <th id="th_H" #th_H [ngClass]="{ headcol: rez.offsetWidth >= 480 }">Edit/Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody class="border-0">
+                        <ng-container *ngFor="let dt of visa_document; let i = index">
+                          <ng-container
+                            *ngIf="dt.description != '' && dt.preparing_by != '' && dt.action_type != 'delete'"
+                          >
+                            <!-- *ngIf="dt.action_change != 'false' && dt.action_type != 'insert' && dt.action_type != 'delete' " -->
+                            <tr class="tx-gray-700" *ngIf="dt.action_type != 'delete'">
+                              <td class="text-center">{{ i + 1 }}</td>
+                              <td [innerText]="dt.description"></td>
+                              <td class="text-center">{{ dt.preparing_by }}</td>
+                              <td class="text-center" id="td_d" #td_d [ngClass]="{ headcol: rez.offsetWidth >= 480 }">
+                                <!-- value={{checkValue(dt.status)}} -->
+                                <input
+                                  type="checkbox"
+                                  class="d-none"
+                                  style="vertical-align: middle"
+                                  [(ngModel)]="dt.StatusTF"
+                                  (click)="Chang_Status_update(dt.id)"
+                                />
+                                <span
+                                  class="material-icons tx-20 cursor-pointer"
+                                  style="vertical-align: middle"
+                                  (click)="Status_Edit(template1, dt.id)"
+                                >
+                                  create
+                                </span>
+                                <span
+                                  class="material-icons ml-2 tx-20 cursor-pointer"
+                                  (click)="Chang_Status_dlete(dt.id)"
+                                  style="vertical-align: middle"
+                                >
+                                  delete_forever
+                                </span>
+                              </td>
+                            </tr>
+                          </ng-container>
+                        </ng-container>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-round d-none" (click)="Save_D()">Test Save</button>
+            <button id="cancel" #cancel class="d-none" (click)="modalRef.hide()"></button>
+            <button id="openmodal" #openmodal class="d-none" (click)="openModalx(template1)"></button>
+
+            <ng-template #template1>
+              <diV class="modal-header">
+                <h5 class="modal-title">VISA Document</h5>
+                <button
+                  type="button"
+                  class="close pb-2"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                  (click)="modalRef.hide()"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </diV>
+              <div class="modal-body">
+                <div class="col-12 px-0">
+                  <label for="basic-url" class="font-weight-bold tx-gray-700">Description</label>
+                  <span [ngClass]="check_el(Description.value) ? 'text-error' : 'span-mark'">*</span>
+                  <div class="input-group mb-3">
+                    <textarea
+                      type="text"
+                      rows="4"
+                      class="form-control"
+                      #Description
+                      [(ngModel)]="Descriptionx"
+                      aria-describedby="basic-addon3"
+                    ></textarea>
+                  </div>
+                </div>
+
+                <div class="col-12 px-0">
+                  <label for="basic-url" class="font-weight-bold tx-gray-700">by</label>
+                  <span [ngClass]="check_el(Preparing.value) ? 'text-error' : 'span-mark'">*</span>
+                  <div class="input-group mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      #Preparing
+                      [(ngModel)]="Preparingx"
+                      aria-describedby="basic-addon3"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-12 px-0">
+                  <button
+                    *ngIf="status_add_uodate == true"
+                    class="btn btn-round btn-min-width btn bg-top-pink mr-1 mb-1 text-white"
+                    (click)="add_doc(Descriptionx, Preparingx)"
+                  >
+                    Add
+                  </button>
+                  <button
+                    *ngIf="status_add_uodate == false"
+                    class="btn btn-round btn-min-width btn bg-top-pink mr-1 mb-1 text-white"
+                    (click)="update_doc()"
+                  >
+                    Update
+                  </button>
+                  <button
+                    class="btn btn-round btn-min-width mr-1 mb-1 bg-white pink border-pink text-pink"
+                    (click)="cancel_doc()"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
