@@ -23,8 +23,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
-
-
 // ngx-bootstrap
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -55,26 +53,26 @@ import { RequestPartIIComponent } from './components/main/request-part-ii/reques
 import { RequestPartIIIComponent } from './components/main/request-part-iii/request-part-iii.component';
 import { RequestPartCapComponent } from './components/main/request-part-cap/request-part-cap.component';
 import { MasterComponent } from './screen/master/master.component';
-import { AirticketComponent } from './screen/master/airticket/airticket/airticket.component';
+import { AirticketComponent } from './screen/master/airticket/airticket.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ButtonToTopComponent } from './components/button-to-top/button-to-top.component';
 import { LoadingBgColorComponent } from './components/loading-bg-color/loading-bg-color.component';
-import { TransportationComponent } from './screen/master/transportation/transportation/transportation.component';
-import { TravelerhistoryComponent } from './screen/master/travelerhistory/travelerhistory/travelerhistory.component';
-import { TravelinsuranceComponent } from './screen/master/travelinsurance/travelinsurance/travelinsurance.component';
-import { TravelexpenseComponent } from './screen/master/travelexpense/travelexpense/travelexpense.component';
-import { AccommodationComponent } from './screen/master/accommodation/accommodation/accommodation.component';
-import { VisaComponent } from './screen/master/visa/visa/visa.component';
-import { PassportComponent } from './screen/master/passport/passport/passport.component';
-import { AllowanceComponent } from './screen/master/allowance/allowance/allowance.component';
-import { ReimbursementComponent } from './screen/master/reimbursement/reimbursement/reimbursement.component';
-import { IsosComponent } from './screen/master/isos/isos/isos.component';
-import { FeedbackComponent } from './screen/master/feedback/feedback/feedback.component';
+import { TransportationComponent } from './screen/master/transportation/transportation.component';
+import { TravelerhistoryComponent } from './screen/master/travelerhistory/travelerhistory.component';
+import { TravelinsuranceComponent } from './screen/master/travelinsurance/travelinsurance.component';
+import { TravelexpenseComponent } from './screen/master/travelexpense/travelexpense.component';
+import { AccommodationComponent } from './screen/master/accommodation/accommodation.component';
+import { VisaComponent } from './screen/master/visa/visa.component';
+import { PassportComponent } from './screen/master/passport/passport.component';
+import { AllowanceComponent } from './screen/master/allowance/allowance.component';
+import { ReimbursementComponent } from './screen/master/reimbursement/reimbursement.component';
+import { IsosComponent } from './screen/master/isos/isos.component';
+import { FeedbackComponent } from './screen/master/feedback/feedback.component';
 import { SafePipe } from './safe.pipe';
-import { InsurancerecordComponent } from './screen/master/insurancerecord/insurancerecord/insurancerecord.component';
-import { LogindevComponent } from './screen/master/logidev/logindev/logindev.component';
-import { TravelrecordComponent } from './screen/master/travelrecord/travelrecord/travelrecord.component';
-import { IsosrecordComponent } from './screen/master/isosrecord/isosrecord/isosrecord.component';
+import { InsurancerecordComponent } from './screen/master/insurancerecord/insurancerecord.component';
+import { LogindevComponent } from './screen/master/logidev/logindev.component';
+import { TravelrecordComponent } from './screen/master/travelrecord/travelrecord.component';
+import { IsosrecordComponent } from './screen/master/isosrecord/isosrecord.component';
 
 import { LocalStorageService } from './services/localstorage/local-storage.service';
 import { HttpmanagerService } from './services/http/httpmanager.service';

@@ -65,7 +65,7 @@ export class AspxserviceService {
     return Promise.reject(error.message || error);
   }
 
-  onLoginDev(user, pass) {
+  onLoginDev(user : any, pass : any) {
     let data = {
       "user": user.toUpperCase(),
       "pass": pass
@@ -90,7 +90,7 @@ export class AspxserviceService {
     return this.callWs(data, "login")
   }
 
-  onLogin(user, pass) {
+  onLogin(user : any, pass : any) {
     let data = {
       "user": user,
       "pass": pass
@@ -137,7 +137,7 @@ export class AspxserviceService {
 
   }
 
-  isEmpty(obj) {
+  isEmpty(obj : any) {
     var hasOwnProperty = Object.prototype.hasOwnProperty;
     // null and undefined are "empty"
     if (obj == null) return true;
@@ -162,7 +162,7 @@ export class AspxserviceService {
     return true;
   }
 
-  formatDate(date) {
+  formatDate(date : any) {
     if (date !== undefined && date !== "") {
       var myDate = new Date(date);
       var month = [
@@ -185,7 +185,7 @@ export class AspxserviceService {
     return "";
   }
 
-  downloadFile(url, filename) {
+  downloadFile(url : any, filename : any) {
     let Regex = /.[A-Za-z]{3}$/;
     let fullurl = url.match(Regex);
     let file_name = filename;

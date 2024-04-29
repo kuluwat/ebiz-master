@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, forwardRef, Inject, OnInit, Renderer2, TemplateRef, ViewChild } from '@angular/core';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
-import { AppComponent } from 'src/app/app.component';
-import { AlertServiceService } from 'src/app/services/AlertService/alert-service.service';
-import { MaintainComponent } from '../maintain/maintain/maintain.component';
-import { FileuploadserviceService } from '../ws/fileuploadservice/fileuploadservice.service';
-import { AspxserviceService } from '../ws/httpx/aspxservice.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { AppComponent } from '../../app.component';
+import { AlertServiceService } from '../../services/AlertService/alert-service.service';
+import { MaintainComponent } from '../maintain/maintain.component';
+import { FileuploadserviceService } from '../../ws/fileuploadservice/fileuploadservice.service';
+import { AspxserviceService } from '../../ws/httpx/aspxservice.service';
 
 @Component({
   selector: 'app-mtvisadocument',
@@ -14,7 +14,7 @@ import { AspxserviceService } from '../ws/httpx/aspxservice.service';
 })
 export class MtvisadocumentComponent implements OnInit {
 
-  @ViewChild('cancel', { static: true }) btnCloseX: ElementRef;
+  @ViewChild('cancel', { static: true }) btnCloseX?: ElementRef;
 
 
   Preparingx:string;

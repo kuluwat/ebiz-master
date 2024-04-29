@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-import toastr from '../../../assets/extensions/toastr/toastr.js';
+import Swal from 'sweetalert2';
+// import toastr from '../../../assets/extensions/toastr/toastr.js';
+
 
 //declare const toastr: any;
 
@@ -11,38 +12,38 @@ export class AlertServiceService {
   constructor() {}
   // Toastr //
 
-  toastr_sucess(msg: string) {
-    toastr.success(msg, 'Sucess!', {
-      positionClass: 'toast-bottom-right',
-      showMethod: 'slideDown',
-      hideMethod: 'slideUp',
-      timeOut: 3000,
-    });
-  }
-  toastr_info(msg: string) {
-    toastr.info(msg, 'Info', {
-      positionClass: 'toast-bottom-right',
-      showMethod: 'slideDown',
-      hideMethod: 'slideUp',
-      timeOut: 3000,
-    });
-  }
-  toastr_warning(msg: string) {
-    toastr.warning(msg, 'Warning!', {
-      positionClass: 'toast-bottom-right',
-      showMethod: 'slideDown',
-      hideMethod: 'slideUp',
-      timeOut: 3000,
-    });
-  }
-  toastr_error(msg: string) {
-    toastr.error(msg, 'Error!', {
-      positionClass: 'toast-bottom-right',
-      showMethod: 'slideDown',
-      hideMethod: 'slideUp',
-      timeOut: 3000,
-    });
-  }
+  // toastr_sucess(msg: string) {
+  //   toastr.success(msg, 'Sucess!', {
+  //     positionClass: 'toast-bottom-right',
+  //     showMethod: 'slideDown',
+  //     hideMethod: 'slideUp',
+  //     timeOut: 3000,
+  //   });
+  // }
+  // toastr_info(msg: string) {
+  //   toastr.info(msg, 'Info', {
+  //     positionClass: 'toast-bottom-right',
+  //     showMethod: 'slideDown',
+  //     hideMethod: 'slideUp',
+  //     timeOut: 3000,
+  //   });
+  // }
+  // toastr_warning(msg: string) {
+  //   toastr.warning(msg, 'Warning!', {
+  //     positionClass: 'toast-bottom-right',
+  //     showMethod: 'slideDown',
+  //     hideMethod: 'slideUp',
+  //     timeOut: 3000,
+  //   });
+  // }
+  // toastr_error(msg: string) {
+  //   toastr.error(msg, 'Error!', {
+  //     positionClass: 'toast-bottom-right',
+  //     showMethod: 'slideDown',
+  //     hideMethod: 'slideUp',
+  //     timeOut: 3000,
+  //   });
+  // }
   // Toastr //
 
   // Sweetalert2 //
@@ -134,7 +135,7 @@ export class AlertServiceService {
         : '';
 
     Swal.fire({
-      icon: this.defaultParams.icon,
+      // icon: this.defaultParams.icon,
       title: title,
       text: msg,
       confirmButtonColor: this.defaultParams.confirmButtonColor,
@@ -156,7 +157,7 @@ export class AlertServiceService {
         : '';
 
     Swal.fire({
-      icon: this.defaultParams.icon,
+      // icon: this.defaultParams.icon,
       title: title,
       html: '<pre>' + msg + '</pre>',
       customClass: {
@@ -183,7 +184,7 @@ export class AlertServiceService {
     return await Swal.fire({
       // title: title,
       text: title,
-      icon: this.defaultParams.icon,
+      // icon: this.defaultParams.icon,
       customClass: { confirmButton: 'btn-min-width', cancelButton: 'btn-min-width' },
       showCancelButton: true,
       confirmButtonColor: this.defaultParams.confirmButtonColor,

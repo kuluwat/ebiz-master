@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { LoginService } from '../../http/login/login.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenService } from '../../http/authen/authen.service';
@@ -17,11 +16,10 @@ export class LoginComponent implements OnInit {
     password: "",
     error: ""
   }
-  authen: any;
   constructor(
-    // public loginService: LoginService, 
+    public loginService: LoginService, 
     private route: ActivatedRoute,
-    // private authen: AuthenService,
+    private authen: AuthenService,
     private router: Router) { }
 
   ngOnInit() {
@@ -60,8 +58,8 @@ export class LoginComponent implements OnInit {
       })
     }
   }
-//   onLoginListenerSuccess(result) {
-//     console.log(result)
-//   }
+  onLoginListenerSuccess(result : any) {
+    console.log(result)
+  }
 
 }

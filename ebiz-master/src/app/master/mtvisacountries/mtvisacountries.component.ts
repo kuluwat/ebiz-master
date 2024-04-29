@@ -11,17 +11,17 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs';
-import { AppComponent } from 'src/app/app.component';
-import { MainComponent } from 'src/app/components/main/main.component';
-import { AlertServiceService } from 'src/app/services/AlertService/alert-service.service';
-import { MaintainComponent } from '../maintain/maintain/maintain.component';
-import { FileuploadserviceService } from '../ws/fileuploadservice/fileuploadservice.service';
-import { AspxserviceService } from '../ws/httpx/aspxservice.service';
+import { AppComponent } from '../../app.component';
+import { MainComponent } from '../../components/main/main.component';
+import { AlertServiceService } from '../../services/AlertService/alert-service.service';
+import { MaintainComponent } from '../maintain/maintain.component';
+import { FileuploadserviceService } from '../../ws/fileuploadservice/fileuploadservice.service';
+import { AspxserviceService } from '../../ws/httpx/aspxservice.service';
 import * as fs from 'file-saver';
 import { NgModel } from '@angular/forms';
-import { CloneDeep } from '../master/transportation/transportation/transportation.component';
+import { CloneDeep } from '../../screen/master/transportation/transportation/transportation.component';
 import { isArray } from 'util';
 declare var $: any;
 @Component({

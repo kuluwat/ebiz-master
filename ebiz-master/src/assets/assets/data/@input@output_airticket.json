@@ -1,0 +1,179 @@
+[
+ 
+    {
+        "token_login": "a731ced9-fb",
+        "doc_id": 1
+    },
+    {
+        "token_login": "a731ced9-fbฟ",
+        "doc_id": "1",
+        "data_type": null,
+        "id": "1",
+        "user_admin": false,
+        "user_display": "MRS. JAIJAI  MATAMMAI",
+        "travel_topic": "Participate HAZOP/SIL Reviewwith EPC & PMC.",
+        "business_date": "1 Nov 2019 - 4 Nov 2019",
+        "travel_date": "1 Nov 2019 - 4 Nov 2019",
+        "country_city": "Europe Italy / Milan",
+        "ask_booking": true,
+        "search_air_ticket": false,
+        "as_company_recommend": false,
+        "already_booked": false,
+        "booking_ref": "",
+        "booking_status": "",
+        "additional_request": "",
+        "airticket_detail": [
+            {
+                "doc_id": "1",
+                "emp_id": "TO102155",
+                "id": "1",
+                "airticket_date": "23 Nov 2019",
+                "airticket_route_from": "BKK",
+                "airticket_route_to": "DUBAI",
+                "airticket_flight": "TG 517",
+                "airticket_departure_time": "06:30",
+                "airticket_arrival_time": "20:30",
+                "action_type": "update",
+                "airticket_route": "BKK - DUBAI"
+            }
+        ],
+        "img_list": [
+            {
+                "doc_id": "1",
+                "emp_id": "TO102155",
+                "id": "1",
+                "path": "assets/filedata/profile/zattaphonso/",
+                "filename": "avatar-m-1.png",
+                "pagename": "airticket",
+                "action_type": null
+            }
+        ],
+        "emp_list": [
+            {
+                "token_login": "a731ced9-fbฟ",
+                "doc_id": null,
+                "emp_id": null,
+                "id": "1",
+                "user_admin": false,
+                "titlename": "Mr.",
+                "firstname": "Attaphon",
+                "lastname": "Sodsarn",
+                "userDisplay": "Mr. Attaphon Sodsarn",
+                "userName": "",
+                "division": "PMSV/PMVP/EVPO",
+                "idNum": "1",
+                "userEmail": "zattaphonso@thaioilgroup.com",
+                "userPhone": "02-777-6666",
+                "userTel": "092-777-6666",
+                "isEdit": false,
+                "passportno": "AA5437854",
+                "dateofissue": "06 OCT 2015",
+                "dateofbirth": "06 OCT 1994",
+                "imgpath": "assets/filedata/profile/zattaphonso/",
+                "imgprofilename": "avatar-m-1.png",
+                "travel_topic": null,
+                "travel_topic_sub": null,
+                "business_date": null,
+                "travel_date": null,
+                "country_city": null,
+                "traveler_emp": [],
+                "arrTraveler": [
+                    {
+                        "doc_id": null,
+                        "emp_id": null,
+                        "id": null,
+                        "seq": "1",
+                        "country": "Singapore",
+                        "icon": "plane",
+                        "datefrom": "05/18",
+                        "dateto": "24/20"
+                    },
+                    {
+                        "doc_id": null,
+                        "emp_id": null,
+                        "id": null,
+                        "seq": "2",
+                        "country": "USA",
+                        "icon": "plane",
+                        "datefrom": "05/18",
+                        "dateto": "24/20"
+                    }
+                ]
+            },
+            {
+                "token_login": "a731ced9-fbฟ",
+                "doc_id": null,
+                "emp_id": null,
+                "id": "2",
+                "user_admin": false,
+                "titlename": "Mr.",
+                "firstname": "Niti",
+                "lastname": "ADB-Thailand",
+                "userDisplay": "Mr. Niti ADB-Thailand",
+                "userName": "",
+                "division": "PMSV/PMVP/EVPO",
+                "idNum": "1",
+                "userEmail": "zNiti@thaioilgroup.com",
+                "userPhone": "02-777-6666",
+                "userTel": "092-777-6666",
+                "isEdit": false,
+                "passportno": "AA5437854",
+                "dateofissue": "06 OCT 2015",
+                "dateofbirth": "06 OCT 1994",
+                "imgpath": "assets/filedata/profile/zattaphonso/",
+                "imgprofilename": "avatar-m-1.png",
+                "travel_topic": null,
+                "travel_topic_sub": null,
+                "business_date": null,
+                "travel_date": null,
+                "country_city": null,
+                "traveler_emp": [],
+                "arrTraveler": [
+                    {
+                        "doc_id": null,
+                        "emp_id": null,
+                        "id": null,
+                        "seq": "1",
+                        "country": "Singapore",
+                        "icon": "plane",
+                        "datefrom": "05/18",
+                        "dateto": "24/20"
+                    },
+                    {
+                        "doc_id": null,
+                        "emp_id": null,
+                        "id": null,
+                        "seq": "2",
+                        "country": "USA",
+                        "icon": "plane",
+                        "datefrom": "05/18",
+                        "dateto": "24/20"
+                    }
+                ]
+            }
+        ],
+        "after_trip": {
+            "opt1": null,
+            "opt2": {
+                "status": null,
+                "remark": null
+            },
+            "opt3": {
+                "status": null,
+                "remark": null
+            }
+        },
+        "check_my_trip": "",
+        "root": "",
+        "airticket_booking_table": [{
+            "doc_id": "1",
+            "emp_id": "TO102155",
+            "emp_name": "",
+            "booking_date": "1 Nov 2019",
+            "booking_ref":"",
+            "booking_status":""
+        }]
+        
+        
+    }
+]

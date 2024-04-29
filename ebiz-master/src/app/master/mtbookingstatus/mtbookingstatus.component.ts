@@ -1,9 +1,9 @@
-import { FileuploadserviceService } from './../ws/fileuploadservice/fileuploadservice.service';
+import { FileuploadserviceService } from '../../ws/fileuploadservice/fileuploadservice.service';
 import { AppComponent } from './../../app.component';
-import { AspxserviceService } from './../ws/httpx/aspxservice.service';
+import { AspxserviceService } from '../../ws/httpx/aspxservice.service';
 import { HttpClient } from '@angular/common/http';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap';
-import { MaintainComponent } from './../maintain/maintain/maintain.component';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { MaintainComponent } from '../maintain/maintain.component';
 import { Component, OnInit, Inject, forwardRef, ElementRef, Renderer2, TemplateRef, ViewChild } from '@angular/core';
 
 import Swal from "sweetalert2/dist/sweetalert2.js";
@@ -16,7 +16,7 @@ declare var $: any;
 })
 export class MtbookingstatusComponent implements OnInit {
   
-  @ViewChild('cancel', { static: true }) btnCloseX: ElementRef;
+  @ViewChild('cancel', { static: true }) btnCloseX?: ElementRef;
   panel1 = {
     show: true,
     after: false
