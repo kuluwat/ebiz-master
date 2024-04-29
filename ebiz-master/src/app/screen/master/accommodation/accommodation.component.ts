@@ -30,29 +30,51 @@ import { NgModel } from '@angular/forms';
 /* import { Workbook } from 'exceljs';
 import * as fs from 'file-saver'; */
 type AuthAdmin = { emp_id: string; userSelected: string; status_trip_cancelled: string | null | undefined };
+// export const useAuth = (data: any, userSelected: string): AuthAdmin => {
+//   let obj: AuthAdmin;
+//   const emp_list = data.emp_list;
+//   if (userSelected) {
+//     let findIndex = data.emp_list.findIndex(({ emp_id }) => emp_id === userSelected);
+//     if (findIndex > -1) {
+//       let status_trip_cancelled = emp_list[findIndex].status_trip_cancelled;
+//       obj = { emp_id: userSelected, userSelected, status_trip_cancelled };
+//     }
+//   } else {
+//     let status_trip_cancelled = emp_list[0].status_trip_cancelled === null ? true : emp_list[0].status_trip_cancelled;
+//     obj = { emp_id: emp_list[0].emp_id, userSelected: emp_list[0].emp_id, status_trip_cancelled };
+//   }
+//   return { ...obj };
+// };
+
 export const useAuth = (data: any, userSelected: string): AuthAdmin => {
-  let obj: AuthAdmin;
-  const emp_list = data.emp_list;
+  let obj: AuthAdmin = {
+    emp_id: '',
+    userSelected: '',
+    status_trip_cancelled: undefined
+  }; // Initialize obj with an empty object
+  const emp_list: any[] = data.emp_list; // Explicitly annotate the type of emp_list
+
   if (userSelected) {
-    let findIndex = data.emp_list.findIndex(({ emp_id }) => emp_id === userSelected);
+    const findIndex = emp_list.findIndex(({ emp_id }: { emp_id: string }) => emp_id === userSelected); // Explicitly annotate the type of emp_id
     if (findIndex > -1) {
-      let status_trip_cancelled = emp_list[findIndex].status_trip_cancelled;
+      const status_trip_cancelled = emp_list[findIndex].status_trip_cancelled;
       obj = { emp_id: userSelected, userSelected, status_trip_cancelled };
     }
   } else {
-    let status_trip_cancelled = emp_list[0].status_trip_cancelled === null ? true : emp_list[0].status_trip_cancelled;
+    const status_trip_cancelled = emp_list[0].status_trip_cancelled === null ? true : emp_list[0].status_trip_cancelled;
     obj = { emp_id: emp_list[0].emp_id, userSelected: emp_list[0].emp_id, status_trip_cancelled };
   }
   return { ...obj };
 };
+
 export const getBoolean = (value: any) => {
-  let converBoolSet = {
+  let converBoolSet : { [key: string]: boolean } = {
     true: true,
     false: false,
     on: true,
     yes: true,
   };
-  let boolcheck: boolean | null = null;
+  let boolcheck: boolean | null ;
   try {
     boolcheck = converBoolSet[value];
     !boolcheck && (boolcheck = false);
@@ -85,7 +107,7 @@ export class AccommodationComponent implements OnInit {
   id_uploadFile = '';
   requi = false;
   edit_status = false;
-  index_from_edit;
+  index_from_edit : any;
   country_C = '';
   ho_name = '';
   ch_in = '';
@@ -96,7 +118,7 @@ export class AccommodationComponent implements OnInit {
   place_name = '';
   map_url = '';
   Arr_m_book_type = [];
-  m_book_type;
+  m_book_type : any;
 
   emp_list = [];
   emp_doc = '';
@@ -128,10 +150,10 @@ export class AccommodationComponent implements OnInit {
   ];
 
   CheckSearch = false;
-  travel;
-  business_date;
-  travel_date;
-  country_city;
+  travel : any;
+  business_date : any;
+  travel_date : any;
+  country_city : any;
 
   data_city = [];
   countries_data = [];
@@ -149,12 +171,12 @@ export class AccommodationComponent implements OnInit {
 
   empname = '';
   emp_select: string | null = null;
-  doc_id;
+  doc_id : any;
   pagename = 'accommodation';
-  emp_id;
+  emp_id : any;
   testdetail1 = [];
   testdetail2 = [];
-  selectedFile: File = null;
+  selectedFile: File = null!;
   tp_clone: TemplateRef<any>;
   modalRef: BsModalRef;
   masterSetArr = [];
@@ -164,7 +186,7 @@ export class AccommodationComponent implements OnInit {
   userDetail: any;
   TrackingStatus: TrackingStatus = { ...InitTrackStatus };
   Final = true;
-  TRAVEL_TYPE: string;
+  TRAVEL_TYPE: string | null = null;
   profile: unknown;
   user_request: boolean = false;
   isCancelled: boolean = false;
@@ -223,7 +245,7 @@ export class AccommodationComponent implements OnInit {
       }
     });
   }
-  OpenDocument(doc_id, part) {
+  OpenDocument(doc_id : any, part : any) {
     var states = 'i';
     switch (part) {
       case '1':
@@ -251,7 +273,7 @@ export class AccommodationComponent implements OnInit {
       var BodyX = {
         token_login: localStorage['token'],
       };
-      const onSuccess = (data) => {
+      const onSuccess = (data : any) => {
         console.log('loginProfile');
         console.log(data);
         resolve(data);
@@ -276,7 +298,7 @@ export class AccommodationComponent implements OnInit {
       doc_id: this.doc_id,
     };
 
-    const onSuccess = (data) => {
+    const onSuccess = (data : any) => {
       const { tab_no } = data.up_coming_plan[0];
       this.pathPhase1 = tab_no ? tab_no : '1';
       console.log('loadDoc');
@@ -292,7 +314,7 @@ export class AccommodationComponent implements OnInit {
     );
   }
   get UserDetail() {
-    return this.emp_list.filter((item) => item.emp_id === this.emp_id);
+    return this.emp_list.filter((item : any) => item.emp_id === this.emp_id);
   }
   get docStatus() {
     return (Status: number) => {
@@ -302,10 +324,10 @@ export class AccommodationComponent implements OnInit {
       if (this.emp_list.length > 0) {
         // TEST
         // this.emp_list.forEach((i) => (i.doc_status_id = '2'));
-        let dt = this.emp_list.find((item) => item.emp_id === emp_id);
+        let dt = this.emp_list.find((item : any ) => item.emp_id === emp_id);
         if (dt) {
           // alert(1);
-          id = Number(dt.doc_status_id);
+          id = Number(dt.doc_status_id : );
           if (Status === id) {
             this.TrackingStatus[Status] = true;
           }

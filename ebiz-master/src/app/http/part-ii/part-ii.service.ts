@@ -25,7 +25,7 @@ export class PartIiService {
   //   return this.https.onFetch("genDocNo", data)
   // }
 
-  didFetch(document_id) {
+  didFetch(document_id: any) {
     let data = {
       "token_login": localStorage["token"],
       "id_doc": document_id
@@ -35,7 +35,7 @@ export class PartIiService {
     return this.https.onFetch("LoadDocDetail2", data)
   }
 
-  requestApproverCalculator(document_id, list) {
+  requestApproverCalculator(document_id : any, list : any) {
     let data = {
       "token_login": localStorage["token"],
       "doc_no": document_id,
@@ -46,7 +46,7 @@ export class PartIiService {
     return this.https.onFetch("TravelerSummary", data)
   }
 
-  checkPassport(doc, id) {
+  checkPassport(doc : any, id : any) {
     let data = {
       "token_login": localStorage["token"],
       "doc_no": doc,

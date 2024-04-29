@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
 // import toastr from '../../../assets/extensions/toastr/toastr.js';
+import { ToastrService } from 'ngx-toastr';
 
 
 //declare const toastr: any;
@@ -9,41 +10,35 @@ import Swal from 'sweetalert2';
   providedIn: 'root',
 })
 export class AlertServiceService {
-  constructor() {}
+  constructor(private toastr: ToastrService) {}
   // Toastr //
 
-  // toastr_sucess(msg: string) {
-  //   toastr.success(msg, 'Sucess!', {
-  //     positionClass: 'toast-bottom-right',
-  //     showMethod: 'slideDown',
-  //     hideMethod: 'slideUp',
-  //     timeOut: 3000,
-  //   });
-  // }
-  // toastr_info(msg: string) {
-  //   toastr.info(msg, 'Info', {
-  //     positionClass: 'toast-bottom-right',
-  //     showMethod: 'slideDown',
-  //     hideMethod: 'slideUp',
-  //     timeOut: 3000,
-  //   });
-  // }
-  // toastr_warning(msg: string) {
-  //   toastr.warning(msg, 'Warning!', {
-  //     positionClass: 'toast-bottom-right',
-  //     showMethod: 'slideDown',
-  //     hideMethod: 'slideUp',
-  //     timeOut: 3000,
-  //   });
-  // }
-  // toastr_error(msg: string) {
-  //   toastr.error(msg, 'Error!', {
-  //     positionClass: 'toast-bottom-right',
-  //     showMethod: 'slideDown',
-  //     hideMethod: 'slideUp',
-  //     timeOut: 3000,
-  //   });
-  // }
+  toastr_success (msg : string) {
+    this.toastr.success(msg, 'Sucess!', {
+      positionClass: 'toast-bottom-right',
+      timeOut: 3000,
+    });
+  }
+  toastr_info(msg: string) {
+    this.toastr.info(msg, 'Info', {
+      positionClass: 'toast-bottom-right',
+      timeOut: 3000,
+    });
+  }
+
+  toastr_warning(msg: string) {
+    this.toastr.warning(msg, 'Warning!', {
+      positionClass: 'toast-bottom-right',
+      timeOut: 3000,
+    });
+  }
+
+  toastr_error(msg: string) {
+    this.toastr.error(msg, 'Error!', {
+      positionClass: 'toast-bottom-right',
+      timeOut: 3000,
+    });
+  }
   // Toastr //
 
   // Sweetalert2 //

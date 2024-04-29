@@ -63,7 +63,7 @@ export class FileuploadserviceService {
     fd.append('file_page', file_page);
     fd.append('file_emp', file_emp);
 
-    element.forEach((ele) => {
+    element.forEach((ele : any) => {
       fd.append(ele.param, ele.value);
     });
 

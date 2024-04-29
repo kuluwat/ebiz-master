@@ -18,7 +18,7 @@ export class AuthenService {
     
   }
 
-  onLogin(user, pass){
+  onLogin(user : any, pass : any){
     let data = {
       "user": user,
       "pass": pass

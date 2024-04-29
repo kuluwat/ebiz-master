@@ -9,7 +9,7 @@ export class PartIiiService {
 
   constructor(private https: HttpmanagerService) { }
 
-  didFetch(document_id) {
+  didFetch(document_id : any) {
     let data = {
       "token": localStorage["token"],
       "id_doc": document_id

@@ -22,7 +22,7 @@ export class MasterService {
     return this.https.onFetch("Continent", data)
   }
 
-  onFetchCountry(continentId) {
+  onFetchCountry(continentId : any) {
     let data = {
       "token_login": localStorage["token"],//"xxxx",
       "continent": continentId
@@ -64,11 +64,11 @@ export class MasterService {
       "country": []
     }
 
-    country.forEach( current => {
-      data.country.push({
-        "id": current+""
-      })
-    })
+    // country.forEach( current => {
+    //   data.country.push({
+    //     "id": current+""
+    //   })
+    // })
 
     console.log(data)
     return this.https.onFetch("getTravelDay", data)

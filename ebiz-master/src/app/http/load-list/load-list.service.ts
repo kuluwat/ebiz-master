@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpmanagerService} from 'src/app/services/http/httpmanager.service';
+import { HttpmanagerService } from '../../services/http/httpmanager.service';
 
 @Injectable({
   providedIn: 'root'

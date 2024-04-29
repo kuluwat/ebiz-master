@@ -23,7 +23,7 @@ export class PartIService {
     return this.https.onFetch("genDocNo", data)
   }
 
-  didFetch(document_id) {
+  didFetch(document_id : any) {
     let data = {
       "token_login": localStorage["token"],
       "id_doc": document_id
@@ -31,7 +31,7 @@ export class PartIService {
     return this.https.onFetch("LoadDocDetail", data)
   }
 
-  onLoadMasterGL(text) {
+  onLoadMasterGL(text : any) {
     let data = {
       "token_login": localStorage["token"],
       "text": text
@@ -39,14 +39,14 @@ export class PartIService {
     return this.https.onFetch("GLAccount", data)
   }
   
-  onLoadMasterCostCenter(text) {
+  onLoadMasterCostCenter(text : any) {
     let data = {
       "token_login": localStorage["token"],
       "text": text
     }
     return this.https.onFetch("CostCenter", data)
   }
-  onLoadMasterWBS(text) {
+  onLoadMasterWBS(text: any) {
     let data = {
       "token_login": localStorage["token"],
       "text": text
