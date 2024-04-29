@@ -1,5 +1,5 @@
 import { FileuploadserviceService } from '../../ws/fileuploadservice/fileuploadservice.service';
-import { AppComponent } from './../../app.component';
+import { AppComponent } from '../../app.component';
 import { AspxserviceService } from '../../ws/httpx/aspxservice.service';
 import { HttpClient } from '@angular/common/http';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';

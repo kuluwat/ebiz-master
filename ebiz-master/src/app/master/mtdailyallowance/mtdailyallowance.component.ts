@@ -1,4 +1,4 @@
-import { AspxserviceService } from './../../ws/httpx/aspxservice.service';
+import { AspxserviceService } from '../../ws/httpx/aspxservice.service';
 import { Component, OnInit, ViewChild, ElementRef, TemplateRef, Inject, forwardRef } from '@angular/core';
 import { MaintainComponent } from '../maintain/maintain.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
