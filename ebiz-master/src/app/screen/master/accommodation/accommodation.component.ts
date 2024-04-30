@@ -327,7 +327,7 @@ export class AccommodationComponent implements OnInit {
         let dt = this.emp_list.find((item : any ) => item.emp_id === emp_id);
         if (dt) {
           // alert(1);
-          id = Number(dt.doc_status_id : );
+          id = Number(dt.doc_status_id );
           if (Status === id) {
             this.TrackingStatus[Status] = true;
           }
