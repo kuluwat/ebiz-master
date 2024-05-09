@@ -2,12 +2,13 @@ import { Route } from '@angular/router';
 import { Component, forwardRef, Inject, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-// import { element } from 'protractor';
+import { element } from 'protractor';
 //import { NgxZendeskWebwidgetService } from 'ngx-zendesk-webwidget';
 import { AppRoutingModule } from '../../app-routing.module';
 import { AuthenService } from '../../http/authen/authen.service';
 import { HeaderComponent } from '../../components/header/header.component';
 import { AspxserviceService } from '../../ws/httpx/aspxservice.service';
+import { gotoPage } from '../../function/globalfunction.component';
 
 
 
@@ -50,7 +51,7 @@ export class MasterComponent implements OnInit {
     success: null
   }
 
-  // success;
+  success : any;
 
   DOC_ID: string = "";
   TYPES: string = "";
@@ -278,9 +279,9 @@ export class MasterComponent implements OnInit {
     } else {
       this.isParams = true;
       console.log('----- Param value-----');
-      // console.log(myArray.paramsDesc);
+      console.log(myArray['paramsDesc']);
 
-      // this.arrayOfValues = myArray.paramsDesc.queryParams;
+      this.arrayOfValues = myArray['paramsDesc'].queryParams;
       console.log(this.arrayOfValues);
 
       this.menuList.forEach(element => {
@@ -299,9 +300,9 @@ export class MasterComponent implements OnInit {
     this.getParameter();
   }
 
-  // onActivate(event) {
-  //   window.scroll(0, 0);
-  // }
+  onActivate() {
+    window.scroll(0, 0);
+  }
 
   getParameter() {
     this.route.params.subscribe(params => {
@@ -341,7 +342,7 @@ export class MasterComponent implements OnInit {
           this.TRAVEL_TYPE = requestType === 'OB' || requestType === 'OT' ? 'oversea' : requestType === 'LB' || requestType === 'LT' ? 'local' : '';
 
           if (this.DOC_ID === 'personal') {
-            // this.didFetchProfile();
+            this.didFetchProfile();
           }
         }
         else {
@@ -393,93 +394,79 @@ export class MasterComponent implements OnInit {
     return pagename;
   }
 
-  // gotoPage(page) {
-  //   //alert(this.DOC_ID)
-  //   if (this.DOC_ID != "") {
-  //     //alert(this.DOC_ID)
-  //     //this.router.navigate(["/master", this.DOC_ID, page.toLowerCase()])
+  getPageUrl(page: string): string {
+    return gotoPage(this.DOC_ID, page);
+  }
 
-  //     return "/master/" + this.DOC_ID + "/" + page.toLowerCase();
-  //   }
-  //   else {
-
-  //     return "/master/" + page.toLowerCase() + "/" + page.toLowerCase();
-  //   }
-  // }
-
-  // didCheckTokenDied() {
-  //   const onSuccess = (dao) => {
-  //     console.log(dao)
-  //     if (dao["msg_sts"] == "S") {
-  //       // authen
-  //       console.log("authen")
-  //       this.didFetchProfile();
-  //     } else {
-  //       // TODO ::
-  //       this.forceToPageLogin()
-  //       // redirect to login pages
-  //       // set localStorage to guest
-  //     }
-  //   }
-  //   this.ws.onCheckToken().subscribe(dao => onSuccess(dao), error => alert("Can't connect server, please check connect VPN."))
-  //   // this.authenHttp.onCheckToken().subscribe(dao => onSuccess(dao), error => alert("Can't connect server, please check connect VPN."))
-
-  // }
-
-  /* didFetchProfile() {
-    console.log(">>> CHECK USER TYPE <<<")
-    const onSuccess = (dao) => {
-      console.log(dao);
-      console.log("--- CHECK USER TYPE sucess ---")
-
-
-      const profile = _ => {
-
-        this.profileLogin.username = dao[0]["empName"];
-        this.profileLogin.images = dao[0]["imgUrl"];
-        this.profileLogin.user_admin = dao[0]["user_admin"];
-        this.profileLogin.emp_id = dao[0]["empId"];
-        this.profileLogin.user_type = dao[0]["user_type"];
-        const admin = dao[0]["user_admin"];
-        console.log(dao[0]);
-        console.log(this.profile);
-
-        if (admin === false) {
-          this.menuList.forEach(element => {
-              if(element.pagename === 'isosrecord'){
-                element.display = false;
-              }
-              else if(element.pagename === 'insurancerecord'){
-                element.display = false;
-              }
-          });
-        }
+  didCheckTokenDied() {
+    const onSuccess = (dao : any) => {
+      console.log(dao)
+      if (dao["msg_sts"] == "S") {
+        // authen
+        console.log("authen")
+        this.didFetchProfile();
+      } else {
+        // TODO ::
+        this.forceToPageLogin()
+        // redirect to login pages
+        // set localStorage to guest
       }
-
-      const profileData = profile('');
-
-
     }
-    this.ws.onFetchUserProfile().subscribe(dao => onSuccess(dao), error => alert("loginProfile Error : " + error));
-  } */
+    this.ws.onCheckToken().subscribe(dao => onSuccess(dao), error => alert("Can't connect server, please check connect VPN."))
+    // this.authenHttp.onCheckToken().subscribe(dao => onSuccess(dao), error => alert("Can't connect server, please check connect VPN."))
 
-  // didFetchProfile() {
-  //   console.log("didFetchProfile")
-  //   const onSuccess = (dao) => {
-  //     console.log("xxx")
-  //     if (dao.length == 0) {
-  //       // redirect
-  //       this.forceToPageLogin()
-  //     }
-  //     this.profile.username = dao[0]["empName"]
-  //     this.profile.images = dao[0]["imgUrl"]
-  //     this.profile.user_admin = dao[0]["user_admin"]
-  //     //this.profile.username = "xxxxx"
-  //     //this.profile.images = "http://srieng02/pic/TOP/579.jpg"
-  //     //console.log(dao)
-  //   }
-  //   this.ws.onFetchUserProfile().subscribe(dao => onSuccess(dao))
+  }
+
+  // didFetchProfile(): void {
+  //   console.log(">>> CHECK USER TYPE <<<");
+  //   this.ws.onFetchUserProfile().subscribe(
+  //     (dao: any) => this.onSuccess(dao),
+  //     (error: any) => alert("loginProfile Error: " + error)
+  //   );
   // }
+
+  private onSuccess(dao: any): void {
+    console.log(dao);
+    console.log("--- CHECK USER TYPE success ---");
+
+    const userProfile: any = dao[0];
+
+    this.profileLogin.username = userProfile.empName;
+    this.profileLogin.images = userProfile.imgUrl;
+    this.profileLogin.user_admin = userProfile.user_admin;
+    this.profileLogin.emp_id = userProfile.empId;
+    this.profileLogin.user_type = userProfile.user_type;
+
+    this.updateMenuList(userProfile.user_admin);
+  }
+
+  private updateMenuList(isAdmin: boolean): void {
+    if (!isAdmin) {
+      this.menuList.forEach(element => {
+        if (element.pagename === 'isosrecord' || element.pagename === 'insurancerecord') {
+          element.display = false;
+        }
+      });
+    }
+  }
+
+  didFetchProfile() {
+    console.log("didFetchProfile")
+    const onSuccess = (dao : any) => {
+      console.log("xxx")
+      if (dao.length == 0) {
+        // redirect
+        this.forceToPageLogin()
+      }
+      this.profile.username = dao[0]["empName"]
+      this.profile.images = dao[0]["imgUrl"]
+      this.profile.user_admin = dao[0]["user_admin"]
+      //this.profile.username = "xxxxx"
+      //this.profile.images = "http://srieng02/pic/TOP/579.jpg"
+      //console.log(dao)
+    }
+    this.ws.onFetchUserProfile().subscribe(dao => onSuccess(dao))
+  }
 
   forceToPageLogin() {
 
@@ -500,68 +487,68 @@ export class MasterComponent implements OnInit {
     this.router.navigate(['/logindev']);
   }
 
-  // showMessage(txt) {
-  //   console.log("SSSS")
-  //   this.message.sts = true
-  //   this.message.text = txt
-  // }
+  showMessage(txt : string) {
+    console.log("SSSS")
+    this.message.sts = true
+    this.message.text = txt
+  }
 
   hideMessage() {
     console.log("XXX")
     this.message.sts = false
   }
 
-  // showConfirm(txt, success) {
-  //   this.confirmBox.success = success
-  //   this.confirmBox.text = txt
-  //   this.confirmBox.sts = true
-  // }
+  showConfirm(txt : string, success : any) {
+    this.confirmBox.success = success
+    this.confirmBox.text = txt
+    this.confirmBox.sts = true
+  }
 
-  // showConfirmIn(txt) {
-  //   this.confirmBox.text = txt
-  //   this.confirmBox.sts = true
-  // }
+  showConfirmIn(txt : string) {
+    this.confirmBox.text = txt
+    this.confirmBox.sts = true
+  }
 
   hideConfirm(isSuccess: Boolean) {
     this.confirmBox.sts = false
     if (isSuccess) {
-      // this.confirmBox.success();
     }
   }
+  
 
-  // showConfirmTextbox(txt, success) {
-  //   this.confirmTextBox.success = success
-  //   this.confirmTextBox.text = txt
-  //   this.confirmTextBox.sts = true
-  // }
+  showConfirmTextbox(txt : string, success : any) {
+    this.confirmTextBox.success = success
+    this.confirmTextBox.text = txt
+    this.confirmTextBox.sts = true
+  }
 
   hideConfirmTextbox(isSuccess: Boolean) {
     this.confirmTextBox.sts = false
     if (isSuccess) {
-      // this.confirmTextBox.success(this.confirmTextBox.input);
+      // this.confirmBox.success(this.confirmTextBox.input);
     }
     this.confirmTextBox.input = ""
   }
 
   handleLogout() {
     const lg = () => {
-      // this.authenHttp.logout().subscribe(value => {
-      //   console.log(value)
-      // })
+      this.authenHttp.logout().subscribe(value => {
+        console.log(value)
+      })
 
       localStorage["token"] = ""
       localStorage["user"] = ""
       this.forceToPageLoginWeb()
     }
-    // this.showConfirm("Do you want to logout?", lg)
+    this.showConfirm("Do you want to logout?", lg)
 
   }
 
-  // activeProject(m) {
-  //   if (m == 1) {
+  activeProject(m : number) {
+    if (m == 1) {
 
-  //   }
-  // }
+    }
+  }
 
 
 }

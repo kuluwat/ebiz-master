@@ -2,7 +2,7 @@
 <!-- <img src="assets/loading.gif" class="loading_img"> -->
 
 
-<!-- <app-mat-spinner-overlay [hidden]="!isLoading"></app-mat-spinner-overlay> -->
+<app-mat-spinner-overlay [hidden]="!isLoading"></app-mat-spinner-overlay>
 <!-- <table [hidden]="!isLoading" class="loading_img" border=0>
     <tr>
         <td><img src="assets/loading.gif" style="width: 150px;"></td>
@@ -39,9 +39,7 @@
         <td style="text-align: center;">
             <div class="boxMessage">
                 {{ confirmTextBox.text }}
-                <!-- [(ngModel)]="confirmTextBox.input" -->
-                <input type="text" class="inputRemark" 
-                >
+                <input type="text" class="inputRemark" [(ngModel)]="confirmTextBox.input">
                 <p><button (click)="hideConfirmTextbox(true)">Yes</button><button (click)="hideConfirmTextbox(false)"
                         style="background-color: red;">No</button></p>
             </div>
@@ -52,7 +50,7 @@
 
 <!-- <body class="vertical-layout vertical-menu 2-columns menu-expanded fixed-navbar" data-open="click"
     data-menu="vertical-menu" data-col="2-columns"> -->
-<!-- <app-header></app-header> -->
+<app-header></app-header>
 <div class="bg-color">
 
 
@@ -71,10 +69,8 @@
 
                         <!-- <a *ngFor="let dr of menuList" routerLink="{{dr.url}}" routerLinkActive="active">{{dr.menuname}}</a> -->
 
-                        <a *ngFor="let dr of menuList" routerLinkActive="active"
-                            >
-                            <!-- routerLink="{{gotoPage(dr.pagename)}}"  -->
-                            <!-- [ngClass]="{'d-none' : dr.display === false}" -->
+                        <a *ngFor="let dr of menuList" routerLink="{{getPageUrl(dr.pagename)}}" routerLinkActive="active"
+                            [ngClass]="{'d-none' : dr.display === false}">
                             {{dr.menuname}}
                         </a>
 
@@ -103,8 +99,7 @@
                     </div>
                 </div>
                 <div class="col-lg-10 col-sm-12 ml-0 pl-0 mr-0 pr-0">
-                    <!-- (activate)="onActivate($event)" -->
-                    <!-- <router-outlet></router-outlet> -->
+                    <router-outlet (activate)="onActivate()"></router-outlet>
                 </div>
                 <!-- <app-button-to-top></app-button-to-top> -->
             </div>

@@ -135,9 +135,9 @@
                 <li class="nav-item dropdown" *ngIf="!isCreate">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
                     <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                        <!-- <a class="dropdown-item" *ngFor="let item of menuList" href="{{item.url}}"
-                            [ngClass]="{'d-none' : item.display === false}">{{item.menuname}}</a> -->
-                        <a class="dropdown-item" *ngFor="let dr of menuList" routerLink="{{gotoPage(dr.pagename)}}" routerLinkActive="active" [ngClass]="{'d-none' : dr.display === false}">
+                        <a class="dropdown-item" *ngFor="let item of menuList" href="{{item.url}}"
+                            [ngClass]="{'d-none' : item.display === false}">{{item.menuname}}</a> 
+                        <a class="dropdown-item" *ngFor="let dr of menuList" routerLink="{{getPageUrl(dr.pagename)}}" routerLinkActive="active" [ngClass]="{'d-none' : dr.display === false}"> -->
                             {{dr.menuname}}
                         </a>
                     </div>
@@ -191,12 +191,12 @@
                                 Trip</span></button>
                     </li>
                     <li class="nav-item">
-                        <button mat-button [matMenuTriggerFor]="" class="nav-link " style="margin-top: 7.5px;"><span [ngClass]="(MenuActive.SERVICE === true)?'txt-menu-selected tx-uppercase ':' tx-uppercase'">
+                        <!-- <button mat-button [matMenuTriggerFor]="" class="nav-link " style="margin-top: 7.5px;"><span [ngClass]="(MenuActive.SERVICE === true)?'txt-menu-selected tx-uppercase ':' tx-uppercase'"> -->
 
                                 Service
-                                <i class="fa fa-caret-down p-0 m-0"></i>
+                                <!-- <i class="fa fa-caret-down p-0 m-0"></i> -->
                                 <!-- <mat-icon >arrow_drop_down</mat-icon> -->
-                            </span></button>
+                            <!-- </span></button> -->
 
                         <!-- #docregion sub-menu -->
                         <!-- <mat-menu #submenu1="matMenu"> -->
@@ -315,9 +315,9 @@
             <span class="modal-title tx-20 tx-gray-800" id="my-modal-title"><i class="fa fa fa-comments-o px-1"></i>
                 CONTACT US
             </span>
-            <button type="button" class="close red" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()">
-                <span aria-hidden="true">&times;</span>
-            </button>
+            <!-- <button type="button" class="close red" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()"> -->
+                <!-- <span aria-hidden="true">&times;</span> -->
+            <!-- </button> -->
         </div>
         <div class="modal-body ">
             <div class="row col-sm-12 container">

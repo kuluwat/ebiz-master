@@ -7,6 +7,7 @@ import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
 import { AuthenService } from '../../http/authen/authen.service';
 import { AspxserviceService } from '../../ws/httpx/aspxservice.service';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
+import { gotoPage } from '../../function/globalfunction.component';
 
 declare var $: any;
 
@@ -51,7 +52,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     text: "Error : "
   }
 
-  success;
+  success : any;
 
   DOC_ID: string = "";
   TYPES: string = "";
@@ -285,14 +286,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   listContact: any = [];
-  isAdmin: boolean = null;
+  isAdmin: boolean = false;
 
-  @ViewChild('template', {static: true}) template: TemplateRef<any>;
-  @ViewChild('btnContact', {static: true}) btnContact: ElementRef;
+  @ViewChild('template', {static: true}) template?: TemplateRef<any>;
+  @ViewChild('btnContact', {static: true}) btnContact?: ElementRef;
 
   editTypes: string = "";
-  tp_clone: TemplateRef<any>;
-  modalRef: BsModalRef;
+  tp_clone: TemplateRef<any> = null!;
+  modalRef: BsModalRef | undefined;
 
   arrayOfValues: any;
   isParams: boolean = false;
@@ -345,27 +346,27 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       if (path[ 1 ].toLowerCase() === "master") {
         this.isCreate = false;
 
-        if (path[ 1 ].toLowerCase() != 'ebizhome') {
+        // if (path[ 1 ].toLowerCase() != 'ebizhome') {
 
-          const myArray = this.router.getCurrentNavigation().extras.state;
-          if (myArray === null || myArray === undefined) {
-            this.arrayOfValues = new Array<string>();
-          } else {
-            this.isParams = true;
-            console.log('----- Hearder Param value-----');
-            // console.log(myArray.paramsDesc);
+        //   const myArray = this.router.getCurrentNavigation().extras.state;
+        //   if (myArray === null || myArray === undefined) {
+        //     this.arrayOfValues = new Array<string>();
+        //   } else {
+        //     this.isParams = true;
+        //     console.log('----- Hearder Param value-----');
+        //     // console.log(myArray.paramsDesc);
 
-            // this.arrayOfValues = myArray.paramsDesc.queryParams;
-            console.log(this.arrayOfValues);
+        //     // this.arrayOfValues = myArray.paramsDesc.queryParams;
+        //     console.log(this.arrayOfValues);
 
-            this.menuList.forEach(element => {
+        //     this.menuList.forEach(element => {
 
-              this.arrayOfValues.requestType === 'oversea' || this.arrayOfValues.requestType === 'overseatraining' ? element.display = element.oversea : this.arrayOfValues.requestType === 'local' || this.arrayOfValues.requestType === 'localtraining' ? element.display = element.local : this.arrayOfValues.requestType === 'personal' ? element.display = element.personal : element.display = false;
+        //       this.arrayOfValues.requestType === 'oversea' || this.arrayOfValues.requestType === 'overseatraining' ? element.display = element.oversea : this.arrayOfValues.requestType === 'local' || this.arrayOfValues.requestType === 'localtraining' ? element.display = element.local : this.arrayOfValues.requestType === 'personal' ? element.display = element.personal : element.display = false;
 
-            });
+        //     });
 
-          }
-        }
+        //   }
+        // }
       }
       else {
         this.isCreate = true;
@@ -396,7 +397,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
     //console.log(bodyX)
 
-    const onSuccess = (data) => {
+    const onSuccess = (data : any) => {
 
       // console.log('---LoadEmpRoletList---');
       // console.log(data);
@@ -415,14 +416,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     })
   }
 
-  onActivate(event) {
-    window.scroll(0, 0);
+  // onActivate(event : ) {
+    // window.scroll(0, 0);
     //or document.body.scrollTop = 0;
     //or document.querySelector('body').scrollTo(0,0)
 
-  }
+  // }
 
-  menuSelected(path) {
+  menuSelected(path : any) {
     if (path === 'ebizhome') {
       this.MenuActive.HOME = true;
       this.MenuActive.MYTRIP = false;
@@ -519,36 +520,30 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     return pagename;
   }
 
-  gotoPage(page) {
-    //alert(this.DOC_ID)
-    if (this.DOC_ID != undefined) {
-      if (this.DOC_ID != "") {
-        //alert(this.DOC_ID)
-        //this.router.navigate(["/master", this.DOC_ID, page.toLowerCase()])
+  // gotoPage(page: string): string {
+  //   if (this.DOC_ID != undefined && this.DOC_ID != "") {
+  //     return "/master/" + this.DOC_ID + "/" + page.toLowerCase();
+  //   } else {
+  //     return "/master/" + page.toLowerCase() + "/" + page.toLowerCase();
+  //   }
+  // }
 
-        return "/master/" + this.DOC_ID + "/" + page.toLowerCase();
-
-      }
-      else {
-
-        return "/master/" + page.toLowerCase() + "/" + page.toLowerCase();
-      }
-    }
-
-
+  getPageUrl(page: string): string {
+    return gotoPage(this.DOC_ID, page);
   }
-  gotoPageMaintain(page) {
+  
+  gotoPageMaintain(page : any) {
 
     return "/maintain/" + page.toLowerCase();
   }
 
-  routerReload(page) {
+  routerReload(page : any) {
     this.router.navigate([ '/master/personal/' + page ])
       .then(() => {
         window.location.reload();
       });
   }
-  herderrouterReload(page) {
+  herderrouterReload(page : any) {
     this.router.navigate([ `${page}` ])
       .then(() => {
         window.location.reload();
@@ -556,12 +551,12 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   didCheckTokenDied() {
-    const onSuccess = (dao) => {
+    const onSuccess = (dao : any) => {
       console.log(dao)
       if (dao[ "msg_sts" ] == "S") {
         // authen
         console.log("authen")
-        this.didFetchProfile();
+        // this.didFetchProfile();
       } else {
         console.log('**************ERROR API(login)**************');
         console.log(dao);
@@ -577,39 +572,39 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   }
 
-  didFetchProfile() {
-    console.log("didFetchProfile")
-    const onSuccess = (dao) => {
-      console.log(dao);
-      console.log("---Load Profile Header success---")
-      if (dao.length === 0) {
+  // didFetchProfile() {
+  //   console.log("didFetchProfile")
+  //   const onSuccess = (dao : any) => {
+  //     console.log(dao);
+  //     console.log("---Load Profile Header success---")
+  //     if (dao.length === 0) {
 
-        this.forceToPageLogin();
-      }
-      else {
+  //       this.forceToPageLogin();
+  //     }
+  //     else {
 
-        const profile = _ => {
+  //       const profile = _ => {
 
-          this.profile.username = dao[ 0 ][ "empName" ];
-          this.profile.images = dao[ 0 ][ "imgUrl" ];
-          this.profile.user_admin = dao[ 0 ][ "user_admin" ];
-          this.profile.emp_id = dao[ 0 ][ "empId" ];
-          this.profile.user_type = dao[ 0 ][ "user_type" ];
-          // this.isAdmin = dao[0]["user_admin"];
-          const admin = dao[ 0 ][ "user_admin" ];
-          this.isAdmin = admin;
-          console.log(dao[ 0 ]);
-          console.log(this.profile);
+  //         this.profile.username = dao[ 0 ][ "empName" ];
+  //         this.profile.images = dao[ 0 ][ "imgUrl" ];
+  //         this.profile.user_admin = dao[ 0 ][ "user_admin" ];
+  //         this.profile.emp_id = dao[ 0 ][ "empId" ];
+  //         this.profile.user_type = dao[ 0 ][ "user_type" ];
+  //         // this.isAdmin = dao[0]["user_admin"];
+  //         const admin = dao[ 0 ][ "user_admin" ];
+  //         this.isAdmin = admin;
+  //         console.log(dao[ 0 ]);
+  //         console.log(this.profile);
 
-        }
+  //       }
 
-        const profileData = profile('');
+  //       const profileData = profile('');
 
 
-      }
-    }
-    this.ws.onFetchUserProfile().subscribe(dao => onSuccess(dao), error => alert("loginProfile Error : " + error));
-  }
+  //     }
+  //   }
+  //   this.ws.onFetchUserProfile().subscribe(dao => onSuccess(dao), error => alert("loginProfile Error : " + error));
+  // }
 
   forceToPageLogin() {
 
@@ -650,7 +645,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.forceToPageLogin();
   }
 
-  showMessage(txt) {
+  showMessage(txt : string) {
     console.log("SSSS")
     this.message.sts = true
     this.message.text = txt
@@ -661,13 +656,13 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.message.sts = false
   }
 
-  showConfirm(txt, success) {
+  showConfirm(txt : string, success : any) {
     this.confirmBox.success = success
     this.confirmBox.text = txt
     this.confirmBox.sts = true
   }
 
-  showConfirmIn(txt) {
+  showConfirmIn(txt : string) {
     this.confirmBox.text = txt
     this.confirmBox.sts = true
   }
@@ -675,11 +670,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   hideConfirm(isSuccess: Boolean) {
     this.confirmBox.sts = false
     if (isSuccess) {
-      this.confirmBox.success();
+      // this.confirmBox.success();
     }
   }
 
-  showConfirmTextbox(txt, success) {
+  showConfirmTextbox(txt : string, success : any) {
     this.confirmTextBox.success = success
     this.confirmTextBox.text = txt
     this.confirmTextBox.sts = true
@@ -688,7 +683,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   hideConfirmTextbox(isSuccess: Boolean) {
     this.confirmTextBox.sts = false
     if (isSuccess) {
-      this.confirmTextBox.success(this.confirmTextBox.input);
+      // this.confirmTextBox.success(this.confirmTextBox.input);
     }
     this.confirmTextBox.input = ""
   }
@@ -708,7 +703,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   }
 
-  activeProject(m) {
+  activeProject(m : number) {
     if (m == 1) {
 
     }

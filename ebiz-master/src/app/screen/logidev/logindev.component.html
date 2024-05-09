@@ -1,0 +1,108 @@
+<div *ngIf="isLoading" class="loading_img"
+   style="display: flex; justify-content: center; align-items: center; background: white;">
+  <mat-progress-spinner color="primary" mode="indeterminate">
+  </mat-progress-spinner>
+</div>
+
+
+<!-- <div class="horizontal-layout horizontal-menu 1-column  menu-expanded blank-page blank-page" data-open="click"
+data-menu="horizontal-menu" data-col="1-column"> -->
+
+<app-mat-spinner-overlay *ngIf="isLoading"></app-mat-spinner-overlay>
+<!-- <table [hidden]="!isLoading" class="loading_img" border=0>
+    <tr>
+        <td><img src="assets/loading.gif"></td>
+    </tr>
+</table> -->
+
+<body>
+    <div class="app-content container center-layout justify-content-center pd-t-20">
+        <div class="content-wrapper">
+            <div class="content-header row d-none">
+            </div>
+            <div class="content-body ">
+                <section class="flexbox-container">
+                    <div class="col-12 d-flex align-items-center justify-content-center">
+                        <div class="col-md-6 col-12 box-shadow-1 p-0">
+                            <div class="card border-grey border-lighten-3 m-0">
+                                <div class="card-header border-0" style="background-color: white; padding-top: 30px;">
+                                    <div class="card-title text-center">
+                                        <div class="p-1"><img src="{{brandingLogo}}" width="140px;" alt="branding logo">
+                                        </div>
+                                        <p class="tx-top-blue tx-16 mt-3">E-BUSINESS TRAVEL SERVICES</p>
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body mt-0 pt-0">
+                                        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                                            <fieldset
+                                                class="form-group position-relative has-icon-left col-md-10 m-auto">
+                                                <input type="text" class="form-control pd-l-80-f" id="iconLeft2"
+                                                    placeholder="Username" [(ngModel)]="model.username" name="username"
+                                                     formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+                                                     <!-- style="border-radius: 5px; border: 1px solid rgba(1, 83, 150, 0.651); padding-left: 80px;" -->
+                                                <div class="form-control-position wd-60 border-right">
+                                                    <i class="ft-user warning font-medium-4 "></i>
+                                                </div>
+                                                <!-- style="border-right: 1px solid rgba(1, 83, 150, 0.651); width: 60px; height: 80%;" -->
+                                                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                                                    <div *ngIf="f.username.error['required']">Username is required</div>
+                                                </div>
+                                            </fieldset>
+                                            
+                                            <br>
+                                            <fieldset
+                                                class="form-group position-relative has-icon-left col-md-10 m-auto">
+                                                <!-- <input [(ngModel)]="model.password" name="password"
+                                                    [type]="!classApplied ? 'password' : 'text'"
+                                                    class="form-control " id="iconLeft2" #iconLeft2
+                                                    placeholder="Password"
+                                                    style="border-radius: 5px; border: 1px solid rgba(1, 83, 150, 0.651); padding-left: 80px;">
+                                                <div class="form-control-position"
+                                                    style="border-right: 1px solid rgba(1, 83, 150, 0.651); width: 60px; height: 80%;">
+                                                    <i class="ft-unlock warning font-medium-4"></i>
+                                                </div> -->
+                                                <input [(ngModel)]="model.password" name="password"
+                                                    [type]="!classApplied ? 'password' : 'text'"
+                                                    class="form-control pd-l-80-f" id="iconLeft2" #iconLeft2
+                                                    placeholder="Password"
+                                                    formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                                                <div class="form-control-position wd-60 border-right">
+                                                    <i class="ft-unlock warning font-medium-4"></i>
+                                                </div>
+                                                <span id="fieldIcon" toggle="#iconLeft2"
+                                                    class="fa fa-fw fa-eye field-icon toggle-password cursor-pointer"
+                                                    (click)="showHidePassword()"
+                                                    [ngClass]="{'fa-eye-slash':classApplied}"
+                                                    *ngIf="model.password.length > 0"></span>
+                                                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.password.error['required']">Password is required</div>
+                                                    </div>
+                                            </fieldset>
+                                            <!-- <br> -->
+                                            <p class="tx-14 text-danger tx-center-f mt-2">{{ model.error }}</p>
+                                            <!-- <br *ngIf="model.error === ''"> -->
+                                            <div class="col-md-12 m-auto tx-center-f pb-5 pt-2">
+                                                
+                                                <!-- <button (click)="handleBtnLogin()" type="submit"
+                                                    class="btn btn-login col-md-10 col-sm-10">L O G I N</button> -->
+                                                    <button  type="submit"
+                                                    class="btn btn-login col-md-10 col-sm-10">L O G I N</button>
+
+                                            </div>
+                                            
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+<!-- </div>  -->

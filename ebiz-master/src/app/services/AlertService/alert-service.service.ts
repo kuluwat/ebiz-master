@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Swal from 'sweetalert2';
+import Swal, { SweetAlertIcon } from 'sweetalert2';
 // import toastr from '../../../assets/extensions/toastr/toastr.js';
 import { ToastrService } from 'ngx-toastr';
 
@@ -174,12 +174,12 @@ export class AlertServiceService {
         ? 'info'
         : action === 'question'
         ? 'question'
-        : '';
+        : '' ;
 
     return await Swal.fire({
       // title: title,
       text: title,
-      // icon: this.defaultParams.icon,
+      icon: this.defaultParams.icon as SweetAlertIcon,
       customClass: { confirmButton: 'btn-min-width', cancelButton: 'btn-min-width' },
       showCancelButton: true,
       confirmButtonColor: this.defaultParams.confirmButtonColor,

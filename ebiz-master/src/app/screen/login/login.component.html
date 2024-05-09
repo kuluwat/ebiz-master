@@ -6,7 +6,6 @@ data-menu="horizontal-menu" data-col="1-column">
         <div class="content-header row">
         </div>
         <div class="content-body">
-            
             <section class="flexbox-container">
                 <div class="col-12 d-flex align-items-center justify-content-center">
                     <div class="col-md-8 col-12 box-shadow-1 p-0">
@@ -24,7 +23,7 @@ data-menu="horizontal-menu" data-col="1-column">
                                             class="form-group position-relative has-icon-left col-md-8 m-auto">
                                             <input type="text" class="form-control form-control-lg" id="iconLeft2"
                                                 placeholder="username"
-                          
+                                                [(ngModel)]="model.username"
                                                 name="username"
                                                 style="border-radius: 5px; border: 1px solid rgba(1, 83, 150, 0.651); padding-left: 100px;">
                                             <div class="form-control-position"
@@ -35,7 +34,7 @@ data-menu="horizontal-menu" data-col="1-column">
                                         <br>
                                         <fieldset
                                             class="form-group position-relative has-icon-left col-md-8 m-auto">
-                                            <input name="password" type="password" class="form-control form-control-lg"
+                                            <input [(ngModel)]="model.password" name="password" type="password" class="form-control form-control-lg"
                                                 id="iconLeft2" placeholder="password"
                                                 style="border-radius: 5px; border: 1px solid rgba(1, 83, 150, 0.651); padding-left: 100px;">
                                             <div class="form-control-position"
@@ -49,9 +48,9 @@ data-menu="horizontal-menu" data-col="1-column">
                                         <div class="col-md-8 m-auto"
                                             style="text-align: center; padding-bottom: 30px;">
                                             <button (click)="handleBtnLogin()" type="button" class="btn btn-login">L O G I N</button>
-                                             <hr>
+                                            <!-- <hr>
                                             <button type="button" class="btn btn-login-auto">A U T O S I G
-                                                N</button> 
+                                                N</button> -->
                                         </div>
 
                                     </form>

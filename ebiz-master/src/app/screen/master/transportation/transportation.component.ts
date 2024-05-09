@@ -1,18 +1,19 @@
 import {HttpClient} from '@angular/common/http';
 import {Component, forwardRef, Inject, OnInit} from '@angular/core';
-import { MainComponent } from '../../../../components/main/main.component';
-import { FileuploadserviceService } from '../../../../ws/fileuploadservice/fileuploadservice.service';
-import { AspxserviceService } from '../../../../ws/httpx/aspxservice.service';
-import {MasterComponent} from '../../master.component';
+// import { MainComponent } from '../../../../components/main/main.component';
+import { FileuploadserviceService } from '../../../ws/fileuploadservice/fileuploadservice.service';
+import { AspxserviceService } from '../../../ws/httpx/aspxservice.service';
+import { MasterComponent } from '../master.component';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {AngularEditorConfig} from '@kolkov/angular-editor';
 import * as fs from 'file-saver';
-import { InitTrackStatus, TrackingStatus } from '../../../../model/localstorage.model';
-import {of} from 'rxjs';
+import { InitTrackStatus, TrackingStatus, TrackingStatusNumber } from '../../../model/localstorage.model';
+import {from, of} from 'rxjs';
 import {distinct, toArray} from 'rxjs/operators';
-import {getBoolean, useAuth} from '../../accommodation/accommodation.component';
-import { AlertServiceService } from '../../../../services/AlertService/alert-service.service';
-import { ConfigUrl } from '../../../../ws/configUrl/config-url';
+import { AlertServiceService } from '../../../services/AlertService/alert-service.service';
+import { ConfigUrl } from '../../../ws/configUrl/config-url';
+import { CloneDeep, getBoolean, useAuth } from '../../../function/globalfunction.component';
+
 declare var $: any;
 
 @Component({
@@ -34,16 +35,44 @@ export class TransportationComponent implements OnInit {
     cars_doc_no: '',
     t_car_id: '',
     doc_id: '',
-    data_type: null,
+    data_type: '',
     id: '1',
     user_admin: false,
     user_display: '',
     transportation_type: '',
     url_personal_car_document: '',
     html_content: '',
-    transportation_car: [],
-    transportation_detail: [],
-    emp_list: [],
+    transportation_car : [
+      { telephone_no: '' ,
+      car_registration_no : '',
+      company_name : '',
+      driver_name : '',
+      car_model: '',
+      car_color: '',
+      t_car_id: ''
+      } 
+    ],
+    transportation_detail: [
+      {
+        place_to : '',
+        place_to_url: '',
+        emp_tel : '',
+        place_from : '',
+        place_type: '',
+        travel_date: '',
+        place_from_url: '',
+        transport_desc: '',
+        emp_display: '',
+        travel_time: '',
+        car_type : []
+      }
+    ],
+    emp_list: [
+      {
+        emp_id: '',
+        userDisplay: ''
+      }
+    ],
     img_list: [],
     after_trip: {},
   };
@@ -70,8 +99,8 @@ export class TransportationComponent implements OnInit {
   doc_id: any;
   pagename = 'transportation';
   emp_id: any;
-  selectfile: File;
-  list_emp: string;
+  selectfile: File | undefined;
+  list_emp: string = '';
   select_user: any;
   totalgantotal: number = 0;
   car_selected_val = 'company_car';
@@ -131,9 +160,8 @@ export class TransportationComponent implements OnInit {
       [ 'customClasses', 'insertVideo', 'toggleEditorMode' ],
     ],
   };
-
-  transportation_car_length;
-  transportation_detail_length;
+  transportation_car_length : any;
+  transportation_detail_length : any;
   userDetail: any | null = null;
   pathPhase1: any | null = null;
   htmlContent: string = ``;
@@ -145,10 +173,10 @@ export class TransportationComponent implements OnInit {
     hasaddCar: false,
   };
   TrackingStatus: TrackingStatus = {...InitTrackStatus};
-  TRAVEL_TYPE: string;
+  TRAVEL_TYPE: string = '';
   profile: unknown;
-  transportation_car_byemp: boolean;
-  user_admin: boolean;
+  transportation_car_byemp: boolean = false;
+  user_admin: boolean = false;
   constructor(
     @Inject(forwardRef(() => MasterComponent)) private Appmain: MasterComponent,
 
@@ -169,18 +197,22 @@ export class TransportationComponent implements OnInit {
   icount_row_func() {
     return (this.icount_row += 1);
   }
-  get_index_by_emp(ds, emp_id, id?) {
+  get_index_by_emp(ds:any, emp_id: string, id?: string) {
     if (ds.length > 0) {
-      return ds.findIndex((res) => {
-        return res.emp_id == emp_id;
-      });
+        return ds.findIndex((res : any) => {
+            return res.emp_id === emp_id && (id ? res.id === id : true);
+        });
     }
     return false;
+}
+showHTML() {
+  const htmlDiv = document.getElementById('htmlDiv');
+  if (htmlDiv) {
+      this.htmlContentWithoutStyles = htmlDiv.innerHTML;
   }
-  showHTML() {
-    this.htmlContentWithoutStyles = document.getElementById('htmlDiv').innerHTML;
-  }
-  OpenDocument(doc_id, part) {
+}
+
+  OpenDocument(doc_id : string, part : string) {
     var states = 'i';
     switch (part) {
       case '1':
@@ -202,7 +234,7 @@ export class TransportationComponent implements OnInit {
     let url = 'main/request/edit/' + doc_id + '/' + states;
     window.open(url, '_blank');
   }
-  update_userByDOC(VLAUE, select) {
+  update_userByDOC(select : any) {
     this.model_all.user_display = select.triggerValue;
     if (this.list_emp == undefined) {
       this.list_emp = '';
@@ -225,7 +257,7 @@ export class TransportationComponent implements OnInit {
       doc_id: this.doc_id,
     };
 
-    const onSuccess = (data) => {
+    const onSuccess = (data : any) => {
       const {tab_no} = data.up_coming_plan[ 0 ];
       this.pathPhase1 = tab_no ? tab_no : '1';
       console.log('loadDoc');
@@ -243,7 +275,7 @@ export class TransportationComponent implements OnInit {
       try {
         setTimeout(() => {
           const con = document.querySelector("#container-mat-transport");
-          const width = con.clientWidth;
+          const width : any = con?.clientWidth;
           const findImg = document.querySelectorAll(`#bindHtml div img`)
           if (findImg && findImg.length > 0) {
             findImg.forEach(el => {
@@ -261,11 +293,11 @@ export class TransportationComponent implements OnInit {
   get docStatus() {
     return (Status: number) => {
       let emp_id = this.emp_id;
-      let id: number = 1;
+      let id: TrackingStatusNumber = TrackingStatusNumber.statusnum0;
       if (this.model_all.emp_list.length > 0) {
         // TEST
         // this.emp_list.forEach((i) => (i.doc_status_id = '2'));
-        let dt = this.model_all.emp_list.find((item) => item.emp_id === emp_id);
+        let dt : any = this.model_all.emp_list.find((item : any) => item.emp_id === emp_id);
         if (dt) {
           id = Number(dt.doc_status_id);
           if (Status === id) {
@@ -273,10 +305,10 @@ export class TransportationComponent implements OnInit {
           }
         }
       }
-      return this.TrackingStatus[ Status ];
+      // return this.TrackingStatus[ Status ];
     };
   }
-  uploadFile(ev) {
+  uploadFile(ev : any) {
     this.Appmain.isLoading = true;
     //File
     this.selectfile = <File>ev.files[ 0 ];
@@ -289,19 +321,19 @@ export class TransportationComponent implements OnInit {
     };
     console.log(Jsond);
 
-    const onSuccess = (res) => {
+    const onSuccess = (res : any) => {
       this.Appmain.isLoading = false;
       console.log(res);
       let status_res = res.after_trip;
 
       if (status_res.opt1 == 'true') {
         this.Swalalert(status_res.opt2.status, 'success');
-        this.model_all.img_list.push(res.img_list);
-        this.model_all_def.img_list.push(res.img_list);
+        // this.model_all.img_list.push(res.img_list);
+        // this.model_all_def.img_list.push(res.img_list);
       } else {
         this.Swalalert(status_res.opt2.status, 'error');
       }
-      this.selectfile = null;
+      this.selectfile != null;
     };
 
     this.fileuploadservice
@@ -321,12 +353,12 @@ export class TransportationComponent implements OnInit {
       );
   }
 
-  Swalalert(msg, type) {
+  Swalalert(msg : any, type : any) {
     //if(msg == null){ msg = "Error";}
     Swal.fire(msg, '', type);
   }
 
-  downloadFile(url) {
+  downloadFile(url : any) {
     let Regex = /.[A-Za-z]{3}$/;
     let fullurl = url.match(Regex);
     let fileType = fullurl[ 0 ];
@@ -336,24 +368,35 @@ export class TransportationComponent implements OnInit {
     this.Appmain.isLoading = false;
   }
   get UserDetail() {
-    const emp_list = this.model_all.emp_list.filter((item) => item.emp_id === this.emp_id);
-    if (emp_list[ 0 ].hasOwnProperty('show_button')) {
-      // this.user_reject = emp_list[0].show_button;
-      if (emp_list[ 0 ].status_trip_cancelled === 'true') {
+    const emp_list: any[] = this.model_all.emp_list.filter((item : any) => item.emp_id === this.emp_id);
+  
+    if (emp_list.length > 0) {
+      const user = emp_list[0];
+  
+      // Check if 'show_button' property exists
+      if (user.hasOwnProperty('show_button')) {
+        // Check if 'status_trip_cancelled' is 'true'
+        if (user.status_trip_cancelled === 'true') {
+          this.user_reject = false;
+        }
+      } else {
         this.user_reject = false;
       }
     } else {
+      // Handle case where emp_list is empty
       this.user_reject = false;
     }
+  
     return emp_list;
   }
+  
   Arrx = [];
   async CheckLogin() {
     return new Promise((resolve, reject) => {
       var BodyX = {
         token_login: localStorage[ 'token' ],
       };
-      const onSuccess = (data) => {
+      const onSuccess = (data : any) => {
         console.log('loginProfile');
         console.log(data);
         resolve(data);
@@ -382,13 +425,13 @@ export class TransportationComponent implements OnInit {
   }
   Onload() {
     this.Appmain.isLoading = true;
-    const onSuccess = (data) => {
+    const onSuccess = (data : any) => {
       console.log(data, 'LOADDATA');
       let TravelTypeDoc = /local/g.test(this.Appmain.TRAVEL_TYPE);
       this.TRAVEL_TYPE = TravelTypeDoc ? 'Province/City/Location :' : 'Country / City  :';
       //data.user_admin = false;
       this.Appmain.isLoading = false;
-      data.img_list.forEach((element) => {
+      data.img_list.forEach((element : any) => {
         element[ 'ischecked' ] = false;
       });
       // url_personal_car_document
@@ -399,9 +442,9 @@ export class TransportationComponent implements OnInit {
       this.transportation_car_length = true;
       this.transportation_car_byemp = true;
       const caseNoManageCar = data.transportation_car.some(
-        (item) => item.company_name === null && item.doc_id === null
+        (item : any) => item.company_name === null && item.doc_id === null
       );
-      const caseNoaddCar = data.transportation_detail.some((item) => item.emp_name === null && item.doc_id === null);
+      const caseNoaddCar = data.transportation_detail.some((item : any) => item.emp_name === null && item.doc_id === null);
       this.checkCaseCar.hasPersonal = !caseNoManageCar;
       if (caseNoManageCar && caseNoaddCar) {
         //case ที่ไมีมีข้อมูลคนขับและคนของปิดการแสดงข้อมูลจาก transport
@@ -421,7 +464,7 @@ export class TransportationComponent implements OnInit {
       if (data.user_admin) {
         // this.list_emp = '';
         let userSelect = this.Appmain.userSelected;
-        const {emp_id, userSelected, status_trip_cancelled} = useAuth(data, userSelect);
+        const { emp_id , userSelected, status_trip_cancelled } = useAuth(data, userSelect) ?? { emp_id: '', userSelected: '', status_trip_cancelled: '' };
         this.list_emp = emp_id;
         this.emp_id = emp_id;
         this.Appmain.userSelected = userSelected;
@@ -436,13 +479,13 @@ export class TransportationComponent implements OnInit {
         // user_cur = profile;
         // this.model_all.user_display = user_cur.username;
         this.user_admin = false;
-        const {profile} = {profile: this.profile[ 0 ]};
+        const { profile } = { profile: (this.profile as any[])[0] };
         console.log('Getprofile');
         console.log(profile);
         this.list_emp = profile.empId;
         this.emp_id = profile.empId;
         this.model_all.user_display = profile.empName;
-        let finduser = data.emp_list.find(({emp_id}) => emp_id === profile.empId);
+        let finduser = data.emp_list.find((emp_id : any) => emp_id === profile.empId);
         this.user_reject = true;
         !finduser && (this.user_reject = false);
         finduser && (this.user_reject = getBoolean(finduser.status_trip_cancelled) ? false : true);
@@ -484,7 +527,7 @@ export class TransportationComponent implements OnInit {
     );
   }
 
-  onKeyDown(event) {
+  onKeyDown(event : any) {
     var check_user = this.Appmain.profile.username;
     var def_user = 'nitinai';
 
@@ -498,16 +541,17 @@ export class TransportationComponent implements OnInit {
       }
     }
   }
-  Sort_by(bool: boolean, filde: string, fidle_selected: string) {
-    this.sort_selectd[ fidle_selected ] = !bool;
-    this.model_all.img_list = this.model_all.img_list.sort(function (a, b) {
-      if (bool) {
-        return a[ filde ].localeCompare(b[ filde ]);
-      } else {
-        return b[ filde ].localeCompare(a[ filde ]);
-      }
-    });
-  }
+//   Sort_by(bool: boolean, field: string, field_selected: string): void {
+//     this.sort_selectd[field_selected] = !bool;
+//     this.model_all.img_list = this.model_all.img_list.sort((a, b) => {
+//         if (bool) {
+//             return a[field].localeCompare(b[field]);
+//         } else {
+//             return b[field].localeCompare(a[field]);
+//         }
+//     });
+// }
+
 
   //#region  Email
 
@@ -519,14 +563,14 @@ export class TransportationComponent implements OnInit {
     if (def_data.emp_list.length > 0) {
       if (emp_id == '') {
         if (def_data.user_admin) {
-          def_data.emp_list.forEach((res) => {
+          def_data.emp_list.forEach((res : any) => {
             res.mail_status = 'true';
             result = true;
           });
         } else {
         }
       } else {
-        def_data.emp_list.forEach((res) => {
+        def_data.emp_list.forEach((res : any) => {
           if (emp_id == res.emp_id) {
             res.mail_status = 'true';
             result = true;
@@ -542,7 +586,7 @@ export class TransportationComponent implements OnInit {
     //let bcheck = this.CheckRole_Section();
     //if (bcheck) {
     this.Appmain.isLoading = true;
-    const OnsaveSucecss = (data) => {
+    const OnsaveSucecss = (data : any) => {
       console.log(data);
       if (data.after_trip.opt1 == 'true') {
         this.alerts.swal_sucess('Send E-mail successfully');
@@ -557,7 +601,7 @@ export class TransportationComponent implements OnInit {
       let def_data = this.model_all;
       //หลังจากส่งเมล์ update mail status = false
       if (def_data.hasOwnProperty('emp_list')) {
-        def_data.emp_list.forEach((el) => {
+        def_data.emp_list.forEach((el : any) => {
           if (el.mail_status == 'true') {
             el.mail_status = 'false';
           }
@@ -573,18 +617,19 @@ export class TransportationComponent implements OnInit {
     let emp_id = this.list_emp;
     // check ว่าเป็น all หรือ เป็นรายคน
     var bodyXx = this.Arrx;
-    bodyXx[ 'emp_list' ].forEach((e) => {
-      if (emp_id == '') {
+    (bodyXx?['emp_list'] as any[]:[]).forEach((e: any) => {
+      if (emp_id === '') {
         e.mail_status = 'true';
       } else {
-        if (e.emp_id == emp_id) {
+        if (e.emp_id === emp_id) {
           e.mail_status = 'true';
         } else {
           e.mail_status = 'false';
         }
       }
     });
-    bodyX.emp_list = bodyXx[ 'emp_list' ];
+    
+    bodyX.emp_list = (bodyXx as any)['emp_list'];
     bodyX.data_type = 'submit';
     console.log('--- send mail all ---');
     console.log(bodyX);
@@ -646,13 +691,13 @@ export class TransportationComponent implements OnInit {
   OnSendStatusCarServices() {
     if (true) {
       this.Appmain.isLoading = true;
-      const OnsaveSucecss = (data) => {
+      const OnsaveSucecss = (data : any) => {
         this.model_all.emp_list = data.emp_list;
         console.log(data);
         console.log(this.model_all, 'model_all');
         this.Appmain.isLoading = false;
       };
-      this.model_all.emp_list.forEach((item) => {
+      this.model_all.emp_list.forEach((item : any) => {
         item.mail_status = 'false';
 
         if (item.emp_id === this.emp_id) {
@@ -668,11 +713,11 @@ export class TransportationComponent implements OnInit {
       );
     }
   }
-  Onsave(btn_type) {
+  Onsave(btn_type : any) {
     if (btn_type == 'saved') {
       if (true) {
         this.Appmain.isLoading = false;
-        const OnsaveSucecss = (data) => {
+        const OnsaveSucecss = (data : any) => {
           console.log(data);
           if (data.after_trip.opt1 == 'true') {
             this.Swalalert(data.after_trip.opt2.status, 'success');
@@ -682,7 +727,7 @@ export class TransportationComponent implements OnInit {
           }
           this.Appmain.isLoading = false;
         };
-        this.model_all.emp_list.forEach((item) => {
+        this.model_all.emp_list.forEach((item : any) => {
           item.mail_status = 'false';
 
           if (item.emp_id === this.emp_id) {
@@ -712,7 +757,7 @@ export class TransportationComponent implements OnInit {
         console.log(this.model_all);
         this.Appmain.isLoading = false;
 
-        const onSuccess = (data) => {
+        const onSuccess = (data : any) => {
           console.log('---Save success---');
           console.log(data);
           if (data.after_trip.opt1 == 'true') {
@@ -757,7 +802,7 @@ export class TransportationComponent implements OnInit {
     this.displayPreview = !this.displayPreview;
   }
   count_item() {
-    let dt = this.model_all.img_list.filter((res) => {
+    let dt = this.model_all.img_list.filter((res : any) => {
       return res.action_type != 'delete';
     });
     return dt.length;
@@ -771,20 +816,20 @@ export class TransportationComponent implements OnInit {
     if (dt.user_admin) {
       //กรณีเลือก all
       if (this.list_emp != '') {
-        this.model_all.img_list = dt_old.img_list.filter((res) => {
+        this.model_all.img_list = dt_old.img_list.filter((res : any ) => {
           return res.emp_id == this.emp_id;
         });
         //?? กรณีที่ มีการจองแต่ยังไม่มีคนขับ
         if (!hasPersonal) {
-          this.model_all.transportation_car = dt_old.transportation_car.filter((res) => {
+          this.model_all.transportation_car = dt_old.transportation_car.filter((res : any) => {
             return res.emp_id == this.emp_id || res.emp_id === null;
           });
         } else {
           let car_id = 0;
-          let hasCar = dt_old.transportation_car.some((res) => {
+          let hasCar = dt_old.transportation_car.some((res : any) => {
             return res.emp_id == this.emp_id;
           });
-          let hasTraveler = dt_old.transportation_detail.some((res) => {
+          let hasTraveler = dt_old.transportation_detail.some((res : any) => {
             if (res.emp_id == this.emp_id) {
               car_id = res.t_car_id;
             }
@@ -792,15 +837,15 @@ export class TransportationComponent implements OnInit {
           });
           // case มีการจองไว้แต่ยังไม่มีคนขับ
           if (hasTraveler && hasCar === false) {
-            this.model_all.transportation_car = dt_old.transportation_car.filter((res) => {
+            this.model_all.transportation_car = dt_old.transportation_car.filter((res : any) => {
               return res.emp_id == this.emp_id;
             });
             if (this.model_all.transportation_car.length < 1) {
-              const CarDriver = dt_old.transportation_car.filter((res) => {
+              const CarDriver = dt_old.transportation_car.filter((res : any) => {
                 return res.t_car_id == car_id;
               });
               // case กรณีที่คนขับซ้ำกันต้อง distinct ออก
-              const callback = (data) => (this.model_all.transportation_car = data ? data : []);
+              const callback = (data : any) => (this.model_all.transportation_car = data ? data : []);
               of(...CarDriver)
                 .pipe(
                   distinct(({t_car_id}) => t_car_id),
@@ -809,17 +854,17 @@ export class TransportationComponent implements OnInit {
                 .subscribe(callback);
               // case กรณีที่ยังไม่มีคนขับ ต้อง newrow
               if (this.model_all.transportation_car.length < 1) {
-                let column_list = dt_old.transportation_car[ 0 ];
-                let key = Object.keys(column_list);
-                let obj: object = key.reduce((acc, item) => {
-                  acc[ item ] = null;
-                  return acc;
-                }, {});
-                this.model_all.transportation_car = [ obj ];
+                let column_list = dt_old.transportation_car[0];
+let key = Object.keys(column_list);
+let obj: Object = key.reduce((acc: any, item: any) => {
+  acc[item] = null;
+  return acc;
+}, {});
+// this.model_all.transportation_car = [obj];
               }
             }
           } else {
-            this.model_all.transportation_car = dt_old.transportation_car.filter((res) => {
+            this.model_all.transportation_car = dt_old.transportation_car.filter((res : any) => {
               return res.emp_id == this.emp_id;
             });
           }
@@ -830,23 +875,23 @@ export class TransportationComponent implements OnInit {
       }
     } else {
       //** user Traveler */
-      this.model_all.img_list = dt.img_list.filter((res) => {
+      this.model_all.img_list = dt.img_list.filter((res : any) => {
         return res.emp_id == this.emp_id;
       });
 
       //?? กรณีที่ มีการจองแต่ยังไม่มีคนขับ
       if (!hasPersonal) {
-        this.model_all.transportation_car = dt_old.transportation_car.filter((res) => {
+        this.model_all.transportation_car = dt_old.transportation_car.filter((res : any) => {
           return res.emp_id == this.emp_id || res.emp_id === null;
         });
       } else {
         let car_id = 0;
         // check ข้อมูลว่ามีรถไหม
-        let hasCar = dt_old.transportation_car.some((res) => {
+        let hasCar = dt_old.transportation_car.some((res : any) => {
           return res.emp_id == this.emp_id;
         });
         // check ข้อมูลว่ามีการจองรถไหม
-        let hasTraveler = dt_old.transportation_detail.some((res) => {
+        let hasTraveler = dt_old.transportation_detail.some((res : any) => {
           if (res.emp_id == this.emp_id) {
             car_id = res.t_car_id;
           }
@@ -855,16 +900,16 @@ export class TransportationComponent implements OnInit {
 
         // case มีการจองไว้แต่ยังไม่มีคนขับ กรณีนี้จะไม่มี row ในtable car
         if (hasTraveler && hasCar === false) {
-          this.model_all.transportation_car = dt_old.transportation_car.filter((res) => {
+          this.model_all.transportation_car = dt_old.transportation_car.filter((res : any) => {
             return res.emp_id == this.emp_id;
           });
 
           if (this.model_all.transportation_car.length < 1) {
-            const CarDriver = dt_old.transportation_car.filter((res) => {
+            const CarDriver = dt_old.transportation_car.filter((res : any) => {
               return res.t_car_id == car_id;
             });
             // case กรณีที่คนขับซ้ำกันต้อง distinct ออก
-            const callback = (data) => (this.model_all.transportation_car = data ? data : []);
+            const callback = (data : any) => (this.model_all.transportation_car = data ? data : []);
             of(...CarDriver)
               .pipe(
                 distinct(({t_car_id}) => t_car_id),
@@ -874,17 +919,18 @@ export class TransportationComponent implements OnInit {
           }
           // case กรณีที่ยังไม่มีคนขับ ต้อง newrow
           if (this.model_all.transportation_car.length < 1) {
-            let column_list = dt_old.transportation_car[ 0 ];
-            let key = Object.keys(column_list);
-            let obj: object = key.reduce((acc, item) => {
-              acc[ item ] = null;
-              return acc;
-            }, {});
-            this.model_all.transportation_car = [ obj ];
+            // Assuming dt_old is defined and has a transportation_car property of type Array<any>
+let column_list = dt_old.transportation_car[0];
+let key = Object.keys(column_list);
+let obj: Object = key.reduce((acc: any, item: any) => {
+  acc[item] = null;
+  return acc;
+}, {});
+// this.model_all.transportation_car = [obj];
           }
         } else {
           // caseปกติ
-          this.model_all.transportation_car = dt_old.transportation_car.filter((res) => {
+          this.model_all.transportation_car = dt_old.transportation_car.filter((res : any) => {
             return res.emp_id == this.emp_id;
           });
         }
@@ -897,15 +943,17 @@ export class TransportationComponent implements OnInit {
     this.transportation_car_length = this.StatusEmpty;
   }
 
+  
+
   get StatusEmpty() {
     let dt_old = this.model_all_def;
     let bcheck = true;
 
     if (this.list_emp === '' || this.list_emp === null) {
       const caseNoManageCar = dt_old.transportation_car.some(
-        (item) => item.company_name === null && item.doc_id === null
+        (item : any) => item.company_name === null && item.doc_id === null
       );
-      const caseNoaddCar = dt_old.transportation_detail.some((item) => item.emp_name === null && item.doc_id === null);
+      const caseNoaddCar = dt_old.transportation_detail.some((item : any) => item.emp_name === null && item.doc_id === null);
       if (caseNoManageCar && caseNoaddCar) {
         //case ที่ไมีมีข้อมูลคนขับและคนของปิดการแสดงข้อมูลจาก transport
         bcheck = false;
@@ -917,10 +965,10 @@ export class TransportationComponent implements OnInit {
         bcheck = true;
       }
     } else {
-      let hasCar = dt_old.transportation_car.some((res) => {
+      let hasCar = dt_old.transportation_car.some((res : any) => {
         return res.emp_id == this.emp_id;
       });
-      let hasTraveler = dt_old.transportation_detail.some((res) => {
+      let hasTraveler = dt_old.transportation_detail.some((res : any) => {
         return res.emp_id == this.emp_id;
       });
       if (hasCar && hasTraveler) {
@@ -937,27 +985,27 @@ export class TransportationComponent implements OnInit {
   Haschecked() {
     let dt = this.model_all;
     let arr: any;
-    arr = dt.img_list.some((res) => {
+    arr = dt.img_list.some((res : any) => {
       return res.ischecked === true && res.action_type != 'delete';
     });
     return arr;
   }
 
-  funcheck(val) {
+  funcheck(val : any) {
     //console.log(val)
-    this.model_all.img_list.forEach((res) => (res.ischecked = val));
+    this.model_all.img_list.forEach((res : any) => (res.ischecked = val));
   }
 
   runnumber() {
     var ir = 1;
     if (this.checkCaseCar.hasaddCar) {
-      this.model_all.transportation_detail.forEach((child) => {
+      this.model_all.transportation_detail.forEach((child : any) => {
         child.id = ir.toString();
         ir++;
       });
     } else {
-      this.model_all.transportation_car.forEach((res) => {
-        this.model_all.transportation_detail.forEach((child) => {
+      this.model_all.transportation_car.forEach((res : any) => {
+        this.model_all.transportation_detail.forEach((child : any) => {
           if (res.t_car_id == child.t_car_id) {
             child.id = ir.toString();
             ir++;
@@ -967,30 +1015,30 @@ export class TransportationComponent implements OnInit {
     }
   }
 
-  DataBYCARID(car_id, parentindex) {
+  DataBYCARID(car_id : any) {
     // console.log('car_id', car_id);
     // console.log('list_emp', this.list_emp);
     let dt = [];
     if (this.list_emp == '') {
       // this.runnumber();
       if (car_id) {
-        dt = this.model_all.transportation_detail.filter((res) => res.t_car_id == car_id);
+        dt = this.model_all.transportation_detail.filter((res : any) => res.t_car_id == car_id);
       } else {
         //!!case กรณีเลือก all และมีการจองแต่ไม่มีคนขับ
         dt = [ ...this.model_all.transportation_detail ];
       }
     } else {
       if (car_id) {
-        dt = this.model_all.transportation_detail.filter((res) => res.t_car_id == car_id && res.emp_id == this.emp_id);
+        dt = this.model_all.transportation_detail.filter((res : any) => res.t_car_id == car_id && res.emp_id == this.emp_id);
       } else {
         //!!case กรณีเลือก all และมีการจองแต่ไม่มีคนขับ
-        dt = this.model_all.transportation_detail.filter((res) => res.emp_id == this.emp_id);
+        dt = this.model_all.transportation_detail.filter((res : any) => res.emp_id == this.emp_id);
       }
     }
     return dt;
   }
   icount = 0;
-  getRowNumber(id, irow, lastrow) {
+  getRowNumber(id : any, irow : any) {
     if (this.list_emp === '') {
       // console.log(this.list_emp);
       // console.log(this.checkCaseCar);
@@ -1003,7 +1051,7 @@ export class TransportationComponent implements OnInit {
       return irow + 1;
     }
   }
-  check_action(item) {
+  check_action(item : any) {
     if (item.action_type == 'delete') {
       return true;
     }
@@ -1015,7 +1063,7 @@ export class TransportationComponent implements OnInit {
 
   Del_file() {
     let dt = this.model_all;
-    this.model_all.img_list.forEach((element) => {
+    this.model_all.img_list.forEach((element : any) => {
       if (element.ischecked == true) {
         element.action_type = 'delete';
       }
@@ -1024,10 +1072,4 @@ export class TransportationComponent implements OnInit {
   //#endregion End action
 }
 
-export const CloneDeep = (obj: object) => {
-  let data = null;
-  try {
-    data = JSON.parse(JSON.stringify(obj));
-  } catch (ex) { }
-  return data;
-};
+

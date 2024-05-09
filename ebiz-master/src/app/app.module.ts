@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule, NgModel } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
 
 // Angular Material Modules
 import { MatSelectModule } from '@angular/material/select';
@@ -22,6 +23,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 // ngx-bootstrap
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -43,36 +46,37 @@ import { FooterComponent } from './components/footer/footer.component';
 import { MatSpinnerOverlayComponent } from './components/mat-spinner-overlay/mat-spinner-overlay.component';
 import { ErrorComponent } from './components/error/error.component';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
-import { MainComponent } from './components/main/main.component';
-import { HomeComponent } from './components/main/home/home.component';
-import { ServicesComponent } from './components/main/services/services.component';
-import { RequestListComponent } from './components/main/request-list/request-list.component';
-import { RequestComponent } from './components/main/request/request.component';
-import { RequestPartIComponent } from './components/main/request-part-i/request-part-i.component';
-import { RequestPartIIComponent } from './components/main/request-part-ii/request-part-ii.component';
-import { RequestPartIIIComponent } from './components/main/request-part-iii/request-part-iii.component';
-import { RequestPartCapComponent } from './components/main/request-part-cap/request-part-cap.component';
+import { MainComponent } from './main/main.component';
+import { HomeComponent } from './main/home/home.component';
+import { ServicesComponent } from './main/services/services.component';
+import { RequestListComponent } from './main/request-list/request-list.component';
+import { RequestComponent } from './main/request/request.component';
+// import { RequestPartIComponent } from './components/main/request-part-i/request-part-i.component';
+// import { RequestPartIIComponent } from './components/main/request-part-ii/request-part-ii.component';
+// import { RequestPartIIIComponent } from './components/main/request-part-iii/request-part-iii.component';
+import { RequestPartCapComponent } from './main/request-part-cap/request-part-cap.component';
 import { MasterComponent } from './screen/master/master.component';
-import { AirticketComponent } from './screen/master/airticket/airticket.component';
+// import { AirticketComponent } from './screen/master/airticket/airticket.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ButtonToTopComponent } from './components/button-to-top/button-to-top.component';
 import { LoadingBgColorComponent } from './components/loading-bg-color/loading-bg-color.component';
 import { TransportationComponent } from './screen/master/transportation/transportation.component';
-import { TravelerhistoryComponent } from './screen/master/travelerhistory/travelerhistory.component';
-import { TravelinsuranceComponent } from './screen/master/travelinsurance/travelinsurance.component';
-import { TravelexpenseComponent } from './screen/master/travelexpense/travelexpense.component';
-import { AccommodationComponent } from './screen/master/accommodation/accommodation.component';
-import { VisaComponent } from './screen/master/visa/visa.component';
-import { PassportComponent } from './screen/master/passport/passport.component';
-import { AllowanceComponent } from './screen/master/allowance/allowance.component';
-import { ReimbursementComponent } from './screen/master/reimbursement/reimbursement.component';
-import { IsosComponent } from './screen/master/isos/isos.component';
-import { FeedbackComponent } from './screen/master/feedback/feedback.component';
+// import { TravelerhistoryComponent } from './screen/master/travelerhistory/travelerhistory.component';
+// import { TravelinsuranceComponent } from './screen/master/travelinsurance/travelinsurance.component';
+// import { TravelexpenseComponent } from './screen/master/travelexpense/travelexpense.component';
+// import { AccommodationComponent } from './screen/master/accommodation/accommodation.component';
+// import { VisaComponent } from './screen/master/visa/visa.component';
+// import { PassportComponent } from './screen/master/passport/passport.component';
+// import { AllowanceComponent } from './screen/master/allowance/allowance.component';
+// import { ReimbursementComponent } from './screen/master/reimbursement/reimbursement.component';
+// import { IsosComponent } from './screen/master/isos/isos.component';
+// import { FeedbackComponent } from './screen/master/feedback/feedback.component';
 import { SafePipe } from './safe.pipe';
-import { InsurancerecordComponent } from './screen/master/insurancerecord/insurancerecord.component';
-import { LogindevComponent } from './screen/master/logidev/logindev.component';
-import { TravelrecordComponent } from './screen/master/travelrecord/travelrecord.component';
-import { IsosrecordComponent } from './screen/master/isosrecord/isosrecord.component';
+import { EbizhomeComponent } from './screen/home/ebizhome.component';
+// import { InsurancerecordComponent } from './screen/master/insurancerecord/insurancerecord.component';
+import { LogindevComponent } from './screen/logidev/logindev.component';
+// import { TravelrecordComponent } from './screen/master/travelrecord/travelrecord.component';
+// import { IsosrecordComponent } from './screen/master/isosrecord/isosrecord.component';
 
 import { LocalStorageService } from './services/localstorage/local-storage.service';
 import { HttpmanagerService } from './services/http/httpmanager.service';
@@ -93,36 +97,37 @@ import { DatePipe } from '@angular/common';
     MatSpinnerOverlayComponent,
     ErrorComponent,
     PagenotfoundComponent,
+    EbizhomeComponent,
     MainComponent,
-    HomeComponent,
+    // HomeComponent,
     ServicesComponent,
     RequestListComponent,
     RequestComponent,
-    RequestPartIComponent,
+    // RequestPartIComponent,
     // RequestPartIIComponent,
-    RequestPartIIIComponent,
+    // RequestPartIIIComponent,
     RequestPartCapComponent,
     MasterComponent,
-    AirticketComponent,
+    // AirticketComponent,
     MenuComponent,
     ButtonToTopComponent,
     LoadingBgColorComponent,
     TransportationComponent,
-    TravelerhistoryComponent,
-    TravelexpenseComponent,
-    TravelinsuranceComponent,
-    AccommodationComponent,
-    VisaComponent,
-    AllowanceComponent,
-    PassportComponent,
-    ReimbursementComponent,
-    IsosComponent,
-    FeedbackComponent,
+    // TravelerhistoryComponent,
+    // TravelexpenseComponent,
+    // TravelinsuranceComponent,
+    // AccommodationComponent,
+    // VisaComponent,
+    // AllowanceComponent,
+    // PassportComponent,
+    // ReimbursementComponent,
+    // IsosComponent,
+    // FeedbackComponent,
     SafePipe,
-    InsurancerecordComponent,
+    // InsurancerecordComponent,
     LogindevComponent,
-    TravelrecordComponent,
-    IsosrecordComponent
+    // TravelrecordComponent,
+    // IsosrecordComponent
   ],
   imports: [
     BrowserModule,
@@ -131,7 +136,8 @@ import { DatePipe } from '@angular/common';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-
+    RouterModule,
+    // NgModel,
     // Angular Material Modules
     MatSelectModule,
     MatIconModule,
@@ -149,10 +155,12 @@ import { DatePipe } from '@angular/common';
     MatTooltipModule,
     MatChipsModule,
     MatAutocompleteModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
 
     // ngx-bootstrap
     BsDatepickerModule.forRoot(),
-    ModalModule,
+    ModalModule.forRoot(),
 
     // Other Third-party Modules
     NgxMatSelectSearchModule,
