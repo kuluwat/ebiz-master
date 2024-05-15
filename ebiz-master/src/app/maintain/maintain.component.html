@@ -1,0 +1,107 @@
+<!-- <p>maintain works!</p> -->
+
+<!-- <p>master works!</p> -->
+<!-- <img src="assets/loading.gif" class="loading_img"> -->
+
+
+<app-mat-spinner-overlay [hidden]="!isLoading"></app-mat-spinner-overlay>
+<!-- <table [hidden]="!isLoading" class="loading_img" border=0>
+    <tr>
+        <td><img src="assets/loading.gif" style="width: 150px;"></td>
+    </tr>
+</table> -->
+<table [hidden]="!message.sts" class="loading_img" style="background-color: rgba(0, 0, 0, 0.278); z-index: 9999;"
+    border=0 (click)="hideMessage()">
+    <tr>
+        <td style="text-align: center;">
+            <div class="boxMessage">
+                {{ message.text }}
+                <p><button>OK</button></p>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<table [hidden]="!confirmBox.sts" class="loading_img" style="background-color: rgba(0, 0, 0, 0.278); z-index: 9999;"
+    border=0>
+    <tr>
+        <td style="text-align: center;">
+            <div class="boxMessage">
+                {{ confirmBox.text }}
+                <p><button (click)="hideConfirm(true)">Yes</button><button (click)="hideConfirm(false)"
+                        style="background-color: red;">No</button></p>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<table [hidden]="!confirmTextBox.sts" class="loading_img" style="background-color: rgba(0, 0, 0, 0.278); z-index: 9999;"
+    border=0>
+    <tr>
+        <td style="text-align: center;">
+            <div class="boxMessage">
+                {{ confirmTextBox.text }}
+                <input type="text" class="inputRemark" [(ngModel)]="confirmTextBox.input">
+                <p><button (click)="hideConfirmTextbox(true)">Yes</button><button (click)="hideConfirmTextbox(false)"
+                        style="background-color: red;">No</button></p>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<app-header></app-header>
+<div class="bg-color">
+
+
+
+    <!-- Horizontal navigation-->
+    <div class=" containerX ">
+
+        <div class="content-wrapper">
+
+            <div class="content row pt-2">
+                <div class="col-lg-2 mr-0 pr-0 ml-0 pl-0 d-none d-lg-block">
+                    <!-- menu -->
+                    <div class="vertical-menu">
+
+                        <!-- <a *ngFor="let dr of menuListMaintain" routerLink="{{gotoMaintainpage(dr.pagename)}}"
+                            routerLinkActive="active">{{dr.menuname}}</a> -->
+
+                    </div>
+                </div>
+                <div class="col-lg-10 col-sm-12 ml-0 pl-0 mr-0 pr-0">
+                    <router-outlet (activate)="onActivate()"></router-outlet>
+                </div>
+                <!-- <app-button-to-top></app-button-to-top> -->
+            </div>
+
+        </div>
+
+    </div>
+    
+</div>
+
+
+<!-- <div class="bg-color">
+    <app-header></app-header>
+    <div class="containerX mt-1">
+
+        <div class="row">
+            <div class="col-lg-2 mr-0 pr-0 ml-0 pl-0 d-none d-sm-block">
+                <div class="vertical-menu">
+                    
+                    <div *ngIf="profile.user_admin">
+                        <div *ngFor="let dr of menuListMaintain; let last = last;">
+                            <a routerLink="{{gotoPage(dr.pagename)}}" routerLinkActive="active"
+                                *ngIf="dr.display">{{dr.menuname}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-10 col-sm-12 ml-0 pl-0 mr-0 pr-0">
+                <router-outlet (activate)="onActivate($event)"></router-outlet>
+            </div>
+        </div>
+    </div>
+</div> -->
+

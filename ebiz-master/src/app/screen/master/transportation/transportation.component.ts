@@ -14,6 +14,7 @@ import { AlertServiceService } from '../../../services/AlertService/alert-servic
 import { ConfigUrl } from '../../../ws/configUrl/config-url';
 import { CloneDeep, getBoolean, useAuth } from '../../../function/globalfunction.component';
 
+
 declare var $: any;
 
 @Component({
@@ -178,18 +179,18 @@ export class TransportationComponent implements OnInit {
   transportation_car_byemp: boolean = false;
   user_admin: boolean = false;
   constructor(
-    @Inject(forwardRef(() => MasterComponent)) private Appmain: MasterComponent,
-
-    private http: HttpClient,
-    public alerts: AlertServiceService,
-    private ws: AspxserviceService,
-    private fileuploadservice: FileuploadserviceService,
-    public urlWs: ConfigUrl
+    // private appmain: MasterComponent,
+    // private http: HttpClient,
+    // public alerts: AlertServiceService,
+    // private ws: AspxserviceService,
+    // private fileuploadservice: FileuploadserviceService,
+    // public urlWs: ConfigUrl
   ) { }
+  
 
   ngOnInit() {
     console.clear();
-    this.doc_id = this.Appmain.DOC_ID;
+    // this.doc_id = this.appmain.DOC_ID;
     this.Onload();
     this.OnloadDoc();
   }
@@ -234,7 +235,7 @@ showHTML() {
     let url = 'main/request/edit/' + doc_id + '/' + states;
     window.open(url, '_blank');
   }
-  update_userByDOC(select : any) {
+  update_userByDOC(list_emp: any ,select : any) {
     this.model_all.user_display = select.triggerValue;
     if (this.list_emp == undefined) {
       this.list_emp = '';
@@ -244,7 +245,7 @@ showHTML() {
     }
     console.log(this.emp_id);
     console.log(this.list_emp);
-    this.Appmain.userSelected = this.list_emp;
+    // this.Appmain.userSelected = this.list_emp;
     this.userDetail = this.UserDetail[ 0 ];
     this.TrackingStatus = {...InitTrackStatus};
     this.check_user();
@@ -264,11 +265,11 @@ showHTML() {
       console.log(data);
       console.log(this.pathPhase1);
     };
-    this.ws.callWs(BodyX, this.action_stage.action_load_doc).subscribe(
-      onSuccess,
-      (error) => console.log(error),
-      () => { }
-    );
+    // ws.callWs(BodyX, this.action_stage.action_load_doc).subscribe(
+    //   onSuccess,
+    //   (error) => console.log(error),
+    //   () => { }
+    // );
   }
   ngDoCheck() {
     if (this.displayPreview) {
@@ -309,7 +310,7 @@ showHTML() {
     };
   }
   uploadFile(ev : any) {
-    this.Appmain.isLoading = true;
+    // this.Appmain.isLoading = true;
     //File
     this.selectfile = <File>ev.files[ 0 ];
     let Jsond = {
@@ -322,7 +323,7 @@ showHTML() {
     console.log(Jsond);
 
     const onSuccess = (res : any) => {
-      this.Appmain.isLoading = false;
+      // this.Appmain.isLoading = false;
       console.log(res);
       let status_res = res.after_trip;
 
@@ -336,21 +337,21 @@ showHTML() {
       this.selectfile != null;
     };
 
-    this.fileuploadservice
-      .postFilePhase2(this.selectfile, this.doc_id, this.pagename, this.emp_id, Jsond.file_token_login)
-      .subscribe(
-        (res) => onSuccess(res),
-        (error) => {
-          this.Appmain.isLoading = false;
-          console.log(error);
-          //alert("error!");
-        },
-        () => {
-          if (this.checkall_selected) {
-            this.funcheck(this.checkall_selected);
-          }
-        }
-      );
+    // this.fileuploadservice
+    //   .postFilePhase2(this.selectfile, this.doc_id, this.pagename, this.emp_id, Jsond.file_token_login)
+    //   .subscribe(
+    //     (res) => onSuccess(res),
+    //     (error) => {
+    //       // this.Appmain.isLoading = false;
+    //       console.log(error);
+    //       //alert("error!");
+    //     },
+    //     () => {
+    //       if (this.checkall_selected) {
+    //         this.funcheck(this.checkall_selected);
+    //       }
+    //     }
+    //   );
   }
 
   Swalalert(msg : any, type : any) {
@@ -365,7 +366,7 @@ showHTML() {
     let file_name = 'แบบขอใช้รถยนต์ส่วนตัวเพื่อการเดินทางธุรกิจบริษัท';
     // fs.saveAs(url, file_name);
     // fs.saveAs(url, file_name + fileType);
-    this.Appmain.isLoading = false;
+    // this.Appmain.isLoading = false;
   }
   get UserDetail() {
     const emp_list: any[] = this.model_all.emp_list.filter((item : any) => item.emp_id === this.emp_id);
@@ -401,11 +402,11 @@ showHTML() {
         console.log(data);
         resolve(data);
       };
-      this.ws.callWs(BodyX, 'loginProfile').subscribe(
-        onSuccess,
-        (error) => (console.log(error), reject(error)),
-        () => { }
-      );
+      // this.ws.callWs(BodyX, 'loginProfile').subscribe(
+      //   onSuccess,
+      //   (error) => (console.log(error), reject(error)),
+      //   () => { }
+      // );
     });
   }
   ngAfterViewChecked() {
@@ -424,13 +425,13 @@ showHTML() {
     // this.changeDetector.detectChanges();
   }
   Onload() {
-    this.Appmain.isLoading = true;
+    // this.Appmain.isLoading = true;
     const onSuccess = (data : any) => {
       console.log(data, 'LOADDATA');
-      let TravelTypeDoc = /local/g.test(this.Appmain.TRAVEL_TYPE);
-      this.TRAVEL_TYPE = TravelTypeDoc ? 'Province/City/Location :' : 'Country / City  :';
+      // let TravelTypeDoc = /local/g.test(this.Appmain.TRAVEL_TYPE);
+      // this.TRAVEL_TYPE = TravelTypeDoc ? 'Province/City/Location :' : 'Country / City  :';
       //data.user_admin = false;
-      this.Appmain.isLoading = false;
+      // this.Appmain.isLoading = false;
       data.img_list.forEach((element : any) => {
         element[ 'ischecked' ] = false;
       });
@@ -463,12 +464,12 @@ showHTML() {
       this.Arrx = data;
       if (data.user_admin) {
         // this.list_emp = '';
-        let userSelect = this.Appmain.userSelected;
-        const { emp_id , userSelected, status_trip_cancelled } = useAuth(data, userSelect) ?? { emp_id: '', userSelected: '', status_trip_cancelled: '' };
-        this.list_emp = emp_id;
-        this.emp_id = emp_id;
-        this.Appmain.userSelected = userSelected;
-        this.user_reject = getBoolean(status_trip_cancelled) ? false : true;
+        // let userSelect = this.Appmain.userSelected;
+        // const { emp_id , userSelected, status_trip_cancelled } = useAuth(data, userSelect) ?? { emp_id: '', userSelected: '', status_trip_cancelled: '' };
+        // this.list_emp = emp_id;
+        // this.emp_id = emp_id;
+        // this.Appmain.userSelected = userSelected;
+        // this.user_reject = getBoolean(status_trip_cancelled) ? false : true;
         this.user_admin = true;
         //
       } else {
@@ -492,17 +493,17 @@ showHTML() {
         //?? เช็คว่าเป็น requesterรึป่าว
         //todo finduser ถ้าไม่มีใน  emplist = undefined
         if (!finduser && 'user_request' in data && data.user_request === true) {
-          let userSelected = this.Appmain.userSelected;
+          // let userSelected = this.Appmain.userSelected;
           this.user_admin = true;
           this.user_reject = false;
-          if (userSelected) {
-            this.emp_id = this.Appmain.userSelected;
-            this.list_emp = this.emp_id;
-          } else {
-            this.emp_id = data.emp_list[ 0 ].emp_id;
-            this.Appmain.userSelected = data.emp_list[ 0 ].emp_id;
-            this.list_emp = this.emp_id;
-          }
+          // if (userSelected) {
+          //   this.emp_id = this.Appmain.userSelected;
+          //   this.list_emp = this.emp_id;
+          // } else {
+          //   this.emp_id = data.emp_list[ 0 ].emp_id;
+          //   this.Appmain.userSelected = data.emp_list[ 0 ].emp_id;
+          //   this.list_emp = this.emp_id;
+          // }
         }
       }
       this.doc_id = data.doc_id;
@@ -517,29 +518,29 @@ showHTML() {
       doc_id: this.doc_id,
     };
 
-    this.ws.callWs(BodyX, this.action_stage.action_load).subscribe(
-      (data) => onSuccess(data),
-      (error) => (this.Appmain.isLoading = false),
-      () => {
-        console.log(this.model_all_def);
-        this.check_user();
-      }
-    );
+    // this.ws.callWs(BodyX, this.action_stage.action_load).subscribe(
+    //   (data) => onSuccess(data),
+    //   // (error) => (this.Appmain.isLoading = false),
+    //   () => {
+    //     console.log(this.model_all_def);
+    //     this.check_user();
+    //   }
+    // );
   }
 
   onKeyDown(event : any) {
-    var check_user = this.Appmain.profile.username;
+    // var check_user = this.Appmain.profile.username;
     var def_user = 'nitinai';
 
-    if (check_user.toLowerCase().includes(def_user)) {
-      console.log(event);
-      if (event.key == '9') {
-        this.model_all.user_admin = !this.model_all.user_admin;
-      }
-      if (event.key == '8') {
-        this.user_reject = !this.user_reject;
-      }
-    }
+    // if (check_user.toLowerCase().includes(def_user)) {
+    //   console.log(event);
+    //   if (event.key == '9') {
+    //     this.model_all.user_admin = !this.model_all.user_admin;
+    //   }
+    //   if (event.key == '8') {
+    //     this.user_reject = !this.user_reject;
+    //   }
+    // }
   }
 //   Sort_by(bool: boolean, field: string, field_selected: string): void {
 //     this.sort_selectd[field_selected] = !bool;
@@ -585,18 +586,18 @@ showHTML() {
   OnSendmail() {
     //let bcheck = this.CheckRole_Section();
     //if (bcheck) {
-    this.Appmain.isLoading = true;
+    // this.Appmain.isLoading = true;
     const OnsaveSucecss = (data : any) => {
       console.log(data);
       if (data.after_trip.opt1 == 'true') {
-        this.alerts.swal_sucess('Send E-mail successfully');
+        // this.alerts.swal_sucess('Send E-mail successfully');
         data.data_type = null;
         let def_data = this.model_all;
       } else {
         if (data.after_trip.opt2.status == null) {
           data.after_trip.opt2.status = 'Error';
         }
-        this.alerts.swal_error(data.after_trip.opt2.status);
+        // this.alerts.swal_error(data.after_trip.opt2.status);
       }
       let def_data = this.model_all;
       //หลังจากส่งเมล์ update mail status = false
@@ -609,7 +610,7 @@ showHTML() {
         console.log(this.model_all);
       }
       this.model_all.emp_list = data.emp_list;
-      this.Appmain.isLoading = false;
+      // this.Appmain.isLoading = false;
     };
     debugger;
     var bodyX = this.model_all;
@@ -633,13 +634,13 @@ showHTML() {
     bodyX.data_type = 'submit';
     console.log('--- send mail all ---');
     console.log(bodyX);
-    this.ws.callWs(bodyXx, this.action_stage.action_submit).subscribe(
-      (res) => OnsaveSucecss(res),
-      (error) => console.log(error),
-      () => {
-        this.TrackingStatus = {...InitTrackStatus};
-      }
-    );
+    // this.ws.callWs(bodyXx, this.action_stage.action_submit).subscribe(
+    //   (res) => OnsaveSucecss(res),
+    //   (error) => console.log(error),
+    //   () => {
+    //     this.TrackingStatus = {...InitTrackStatus};
+    //   }
+    // );
     //} else {
     // this.Swalalert(data.after_trip.opt2.status,'success');
     //}
@@ -648,7 +649,7 @@ showHTML() {
 
   downloadFileTraveler(url: string): void {
     if (url != '') {
-      this.Appmain.isLoading = true;
+      // this.Appmain.isLoading = true;
       //window.open(url);
       this.downloadFile(url);
     }
@@ -667,16 +668,16 @@ showHTML() {
     //http://tbkc-dapps-05.thaioil.localnet/Transport/web/Login/index.aspx?carservice_requestform.aspx?id=0&t=b&eb=OB20120006
 
     // url = 'http://tbkc-dapps-05.thaioil.localnet/Transport/web/Login/index.aspx?carservice_requestform.aspx?';
-    url = this.urlWs.url_carservice();
-    url += 'id=' + '0';
-    url += '&t=' + obj.transportation_type;
-    url += '&eb=' + obj.doc_id;
+    // url = this.urlWs.url_carservice();
+    // url += 'id=' + '0';
+    // url += '&t=' + obj.transportation_type;
+    // url += '&eb=' + obj.doc_id;
 
     if (this.model_all.t_car_id != '' && !!this.model_all.t_car_id) {
       if (!!this.model_all.t_car_id) {
         // url = 'http://tbkc-dapps-05.thaioil.localnet/Transport/web/carservice_requestform.aspx?';
-        url = this.urlWs.url_carservice();
-        url += 'id=' + this.model_all.t_car_id;
+        // url = this.urlWs.url_carservice();
+        // url += 'id=' + this.model_all.t_car_id;
       }
     }
     // alert(url);
@@ -690,12 +691,12 @@ showHTML() {
   //#region  Save Data
   OnSendStatusCarServices() {
     if (true) {
-      this.Appmain.isLoading = true;
+      // this.Appmain.isLoading = true;
       const OnsaveSucecss = (data : any) => {
         this.model_all.emp_list = data.emp_list;
         console.log(data);
         console.log(this.model_all, 'model_all');
-        this.Appmain.isLoading = false;
+        // this.Appmain.isLoading = false;
       };
       this.model_all.emp_list.forEach((item : any) => {
         item.mail_status = 'false';
@@ -706,26 +707,26 @@ showHTML() {
       });
       var bodyX = this.model_all;
       console.log(CloneDeep(this.model_all), 'OnSendStatusCarServices');
-      this.ws.callWs(bodyX, this.action_stage.action_send_status).subscribe(
-        (res) => OnsaveSucecss(res),
-        (error) => (this.Appmain.isLoading = false),
-        () => (this.detailRedirect(), (this.TrackingStatus = {...InitTrackStatus}))
-      );
+      // this.ws.callWs(bodyX, this.action_stage.action_send_status).subscribe(
+      //   (res) => OnsaveSucecss(res),
+      //   // (error) => (this.Appmain.isLoading = false),
+      //   () => (this.detailRedirect(), (this.TrackingStatus = {...InitTrackStatus}))
+      // );
     }
   }
   Onsave(btn_type : any) {
     if (btn_type == 'saved') {
       if (true) {
-        this.Appmain.isLoading = false;
+        // this.Appmain.isLoading = false;
         const OnsaveSucecss = (data : any) => {
           console.log(data);
           if (data.after_trip.opt1 == 'true') {
-            this.Swalalert(data.after_trip.opt2.status, 'success');
+            // this.Swalalert(data.after_trip.opt2.status, 'success');
             data.data_type = null;
           } else {
-            this.Swalalert(data.after_trip.opt2.status, 'error');
+            // this.Swalalert(data.after_trip.opt2.status, 'error');
           }
-          this.Appmain.isLoading = false;
+          // this.Appmain.isLoading = false;
         };
         this.model_all.emp_list.forEach((item : any) => {
           item.mail_status = 'false';
@@ -737,10 +738,10 @@ showHTML() {
         var bodyX = this.model_all;
         console.log(this.model_all);
 
-        this.ws.callWs(bodyX, this.action_stage.action_save).subscribe(
-          (res) => OnsaveSucecss(res),
-          (error) => console.log(error)
-        );
+        // this.ws.callWs(bodyX, this.action_stage.action_save).subscribe(
+        //   (res) => OnsaveSucecss(res),
+        //   (error) => console.log(error)
+        // );
       }
     } else {
       //submit
@@ -748,45 +749,45 @@ showHTML() {
   }
 
   saveTextEditor() {
-    this.alerts.swal_confrim_changes('Do you want to save the document ?').then((val) => {
-      if (val.isConfirmed) {
-        this.Appmain.isLoading = true;
-        this.oldStr = this.htmlContent;
-        this.model_all.data_type = 'save';
-        this.model_all.html_content = this.oldStr;
-        console.log(this.model_all);
-        this.Appmain.isLoading = false;
+    // this.alerts.swal_confrim_changes('Do you want to save the document ?').then((val) => {
+    //   if (val.isConfirmed) {
+    //     // this.Appmain.isLoading = true;
+    //     this.oldStr = this.htmlContent;
+    //     this.model_all.data_type = 'save';
+    //     this.model_all.html_content = this.oldStr;
+    //     console.log(this.model_all);
+    //     // this.Appmain.isLoading = false;
 
-        const onSuccess = (data : any) => {
-          console.log('---Save success---');
-          console.log(data);
-          if (data.after_trip.opt1 == 'true') {
-            //this.model_all = [];
-            this.model_all = data;
+    //     const onSuccess = (data : any) => {
+    //       console.log('---Save success---');
+    //       console.log(data);
+    //       if (data.after_trip.opt1 == 'true') {
+    //         //this.model_all = [];
+    //         this.model_all = data;
 
-            this.htmlContent = data.html_content;
-            this.oldStr = this.htmlContent;
-            this.Appmain.isLoading = false;
-            // this.alerts.swal_sucess(data.after_trip.opt2.status);
-            this.alerts.swal_sucess('Successfully saved');
+    //         this.htmlContent = data.html_content;
+    //         this.oldStr = this.htmlContent;
+    //         // this.Appmain.isLoading = false;
+    //         // this.alerts.swal_sucess(data.after_trip.opt2.status);
+    //         this.alerts.swal_sucess('Successfully saved');
 
-            this.displayPreview = true;
-          } else {
-            this.Appmain.isLoading = false;
-            this.TrackingStatus = {...InitTrackStatus};
-            console.log(data);
-            this.alerts.swal_error(data.after_trip.opt2.status);
-          }
-        };
-        this.ws.callWs(this.model_all, this.action_stage.action_save).subscribe(
-          (data) => onSuccess(data),
-          (error) => {
-            this.Appmain.isLoading = false;
-            console.log(error);
-          }
-        );
-      }
-    });
+    //         this.displayPreview = true;
+    //       } else {
+    //         // this.Appmain.isLoading = false;
+    //         this.TrackingStatus = {...InitTrackStatus};
+    //         console.log(data);
+    //         this.alerts.swal_error(data.after_trip.opt2.status);
+    //       }
+    //     };
+    //     this.ws.callWs(this.model_all, this.action_stage.action_save).subscribe(
+    //       (data) => onSuccess(data),
+    //       (error) => {
+    //         // this.Appmain.isLoading = false;
+    //         console.log(error);
+    //       }
+    //     );
+    //   }
+    // });
   }
   //#endregion End Save Data
 
@@ -852,7 +853,7 @@ showHTML() {
                   toArray()
                 )
                 .subscribe(callback);
-              // case กรณีที่ยังไม่มีคนขับ ต้อง newrow
+//               // case กรณีที่ยังไม่มีคนขับ ต้อง newrow
               if (this.model_all.transportation_car.length < 1) {
                 let column_list = dt_old.transportation_car[0];
 let key = Object.keys(column_list);
@@ -1069,7 +1070,8 @@ let obj: Object = key.reduce((acc: any, item: any) => {
       }
     });
   }
-  //#endregion End action
+  // #endregion End action
+
 }
 
 

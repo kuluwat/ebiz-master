@@ -35,8 +35,8 @@ data-menu="horizontal-menu" data-col="1-column"> -->
                                 <div class="card-content">
                                     <div class="card-body mt-0 pt-0">
                                         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                                            <fieldset
-                                                class="form-group position-relative has-icon-left col-md-10 m-auto">
+                                            <!-- <fieldset
+                                                class="form-group position-relative has-icon-left col-md-10 m-auto"> -->
                                                 <input type="text" class="form-control pd-l-80-f" id="iconLeft2"
                                                     placeholder="Username" [(ngModel)]="model.username" name="username"
                                                      formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
@@ -48,7 +48,7 @@ data-menu="horizontal-menu" data-col="1-column"> -->
                                                 <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
                                                     <div *ngIf="f.username.error['required']">Username is required</div>
                                                 </div>
-                                            </fieldset>
+                                            <!-- </fieldset> -->
                                             
                                             <br>
                                             <fieldset

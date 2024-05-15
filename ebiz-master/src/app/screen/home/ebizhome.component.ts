@@ -17,7 +17,8 @@ import {MatSelect} from '@angular/material/select';
 import { HeaderComponent } from '../../components/header/header.component';
 
 import {NavigationExtras, Router} from '@angular/router';
-import {BreakpointObserver, MediaMatcher, Breakpoints, BreakpointState} from '@angular/cdk/layout';
+// import {BreakpointObserver, MediaMatcher, Breakpoints, BreakpointState} from '@angular/cdk/layout';
+import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 // import { MasterComponent } from '../../screen/master/master.component';
 //import select2 from "src/assets/app-assets/vendors/js/forms/select/select2.full.min.js"
 
@@ -33,8 +34,14 @@ declare var $: any;
 export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   mockImg = true;
+  images = {
+    imagespath1: 'assets/imgs/inner-page-hero.jpg',
+    imagespath2: 'assets/imgs/bgtwo.jpeg',
+    // Add more image paths as needed
+  };
+
   imgPaths = {
-    imgPath_1: "assets/imgs/1500500.png",
+    imgPath_1: "assets/imgs/inner-page-hero.jpg",
     imgPath_2: "assets/imgs/400300.png",
     imgPath_3_1: "assets/imgs/400300.png",
     imgPath_3_2: "assets/imgs/400300.png",
@@ -172,6 +179,8 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('singleSelect', { static: true })
   singleSelect!: MatSelect;
 
+  @ViewChild('carousel', { static: true }) carousel?: NgbCarousel;
+
   /** Subject that emits when the component has been destroyed. */
   protected _onDestroy = new Subject<void>();
 
@@ -263,33 +272,34 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
   mainIndex!: number;
   public innerWidth: any;
   imageSource: any;
+Object: any;
 
 
   constructor(
-    @Inject(forwardRef(() => HeaderComponent)) private appMain: HeaderComponent,
-    public ws: AspxserviceService,
-    private x: AppComponent,
-    private http: HttpClient,
-    private fileuploadservice: FileuploadserviceService,
-    public datepipe: DatePipe,
-    private modalService: BsModalService,
-    private alerts: AlertServiceService,
-    private sanitizer: DomSanitizer,
-    private router: Router,
-    private mediaMatcher: MediaMatcher,
-    public breakpointObserver: BreakpointObserver
+    // @Inject(forwardRef(() => HeaderComponent)) private appMain: HeaderComponent,
+    // public ws: AspxserviceService,
+    // private x: AppComponent,
+    // private http: HttpClient,
+    // private fileuploadservice: FileuploadserviceService,
+    // public datepipe: DatePipe,
+    // private modalService: BsModalService,
+    // private alerts: AlertServiceService,
+    // private sanitizer: DomSanitizer,
+    // private router: Router,
+    // private mediaMatcher: MediaMatcher,
+    // public breakpointObserver: BreakpointObserver
   ) {
 
     // Check screen size
-    const mediaQueryList = mediaMatcher.matchMedia('(min-width: 1200px)');
+    // const mediaQueryList = mediaMatcher.matchMedia('(min-width: 1200px)');
     console.log('---mediaQueryList---');
-    console.log(mediaQueryList);
-    this.mediaMatch = mediaQueryList.matches;
+    // console.log(mediaQueryList);
+    // this.mediaMatch = mediaQueryList.matches;
 
 
-    if (mediaMatcher.matchMedia('(min-width: 992px)').matches) {
-      this.mobileBatch = true;
-    }
+    // if (mediaMatcher.matchMedia('(min-width: 992px)').matches) {
+    //   this.mobileBatch = true;
+    // }
 
 
 
@@ -313,16 +323,16 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.innerWidth = window.innerWidth;
     console.log('this.innerWidth : ' + this.innerWidth);
 
-    this.breakpointObserver
-      .observe([ Breakpoints.Small, Breakpoints.HandsetPortrait ])
-      .subscribe((state: BreakpointState) => {
-        if (state.matches) {
-          console.log(
-            'Matches small viewport or handset in portrait mode'
-          );
-        }
-        //console.log('this.innerWidth : ' + this.innerWidth);
-      });
+    // this.breakpointObserver
+    //   .observe([ Breakpoints.Small, Breakpoints.HandsetPortrait ])
+    //   .subscribe((state: BreakpointState) => {
+    //     if (state.matches) {
+    //       console.log(
+    //         'Matches small viewport or handset in portrait mode'
+    //       );
+    //     }
+    //     //console.log('this.innerWidth : ' + this.innerWidth);
+    //   });
 
     setTimeout(() => {
       this.mainIndex = 1;
@@ -334,6 +344,18 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // console.log('admin : ' + this.isAdmin);
 
+  }
+
+  onSlide(slideEvent: NgbSlideEvent) {
+    if (
+      slideEvent.paused &&
+      (slideEvent.source === NgbSlideEventSource.ARROW_LEFT || slideEvent.source === NgbSlideEventSource.ARROW_RIGHT)
+    ) {
+
+    }
+    if (!slideEvent.paused && slideEvent.source === NgbSlideEventSource.INDICATOR) {
+
+    }
   }
 
   onResize(event : any) {
@@ -362,7 +384,7 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
       case "4": states = "cap"; break;
       default: states = "i"; break;
     }
-    this.router.navigate([ '/main/request/edit', doc_id, states ]);
+    // this.router.navigate([ '/main/request/edit', doc_id, states ]);
     // let url = '/main/request/edit/'+ doc_id +'/'+ states;
     // window.open(url, "_blank");
   }
@@ -406,22 +428,22 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
         console.log(parsed.dtResult[ 0 ].file_outbound_name);
 
         //เอาไว้ทดลองว่า gen file ได้มั้ยโดยการลอง save as
-        this.ws.downloadFile(parsed.dtResult[ 0 ].file_outbound_path, parsed.dtResult[ 0 ].file_outbound_name);
+        // this.ws.downloadFile(parsed.dtResult[ 0 ].file_outbound_path, parsed.dtResult[ 0 ].file_outbound_name);
 
         this.isLoading = false;
       }
       else {
         this.isLoading = false;
-        this.alerts.swal_error(parsed.dtResult[ 0 ].status);
+        // this.alerts.swal_error(parsed.dtResult[ 0 ].status);
       }
     }
 
     //data, function name(ฝั่ง asmx), method name
-    this.ws.callWs_asmx(bodyX, 'Report', 'insurance').subscribe(data => onSuccess(data), error => {
-      this.isFirstLoading = false
-      console.log(error);
-      alert('Can\'t call web api.' + ' : ' + error.message);
-    })
+    // this.ws.callWs_asmx(bodyX, 'Report', 'insurance').subscribe(data => onSuccess(data), error => {
+    //   this.isFirstLoading = false
+    //   console.log(error);
+    //   alert('Can\'t call web api.' + ' : ' + error.message);
+    // })
   }
 
   // Repeat() {
@@ -510,11 +532,11 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log(this.dataContact);
     }
 
-    this.ws.callWs(bodyX, 'LoadEmpRoletList').subscribe(data => onSuccess(data), error => {
+    // this.ws.callWs(bodyX, 'LoadEmpRoletList').subscribe(data => onSuccess(data), error => {
 
-      console.log(error);
-      alert('Can\'t call web api.' + ' : ' + error.message);
-    })
+    //   console.log(error);
+    //   alert('Can\'t call web api.' + ' : ' + error.message);
+    // })
   }
 
   /**
@@ -630,18 +652,18 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
         }, 800);
       }
 
-      this.ws.callWs(body2, 'LoadMasterData').subscribe(data => onSuccess2(data), error => {
-        this.isFirstLoading = false
-        console.log(error);
-        alert('Can\'t call web api.' + ' : ' + error.message);
-      })
+      // this.ws.callWs(body2, 'LoadMasterData').subscribe(data => onSuccess2(data), error => {
+      //   this.isFirstLoading = false
+      //   console.log(error);
+      //   alert('Can\'t call web api.' + ' : ' + error.message);
+      // })
 
     }
-    this.ws.callWs(bodyX, 'LoadPortal').subscribe(data => onSuccess(data), error => {
-      this.isFirstLoading = false
-      console.log(error);
-      alert('Can\'t call web api.' + ' : ' + error.message);
-    })
+    // this.ws.callWs(bodyX, 'LoadPortal').subscribe(data => onSuccess(data), error => {
+    //   this.isFirstLoading = false
+    //   console.log(error);
+    //   alert('Can\'t call web api.' + ' : ' + error.message);
+    // })
 
   }
 
@@ -771,7 +793,7 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.txtBanner = "";
 
 
-    if (types === 'bg_top_header') {this.typeForSave = "img_header", this.imageSource = 'assets/imgs/1500500.png'; this.textPopupUpload = "1500 x 500"; this.textboxPopup = false; this.bannerUrl = false; this.textBoxGetInTouch = false;}
+    if (types === 'bg_top_header') {this.typeForSave = "img_header", this.imageSource = 'assets/imgs/inner-page-hero.jpg'; this.textPopupUpload = "1500 x 500"; this.textboxPopup = false; this.bannerUrl = false; this.textBoxGetInTouch = false;}
     else if (types === 'bg_personal_profile') {this.typeForSave = "img_personal_profile", this.imageSource = 'assets/imgs/400300.png'; this.textPopupUpload = "400 x 300"; this.textboxPopup = false; this.bannerUrl = false; this.textBoxGetInTouch = false;}
     else if (types === 'bg_banner_1') {this.typeForSave = "img_banner_1", this.imageSource = 'assets/imgs/400300.png'; this.textPopupUpload = "400 x 300"; this.textboxPopup = false; this.bannerUrl = true; this.textBoxGetInTouch = false;}
     else if (types === 'bg_banner_2') {this.typeForSave = "img_banner_2", this.imageSource = 'assets/imgs/400300.png'; this.textPopupUpload = "400 x 300"; this.textboxPopup = false; this.bannerUrl = true; this.textBoxGetInTouch = false;}
@@ -802,7 +824,7 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
       ignoreBackdropClick: true,
 
     };
-    this.modalRef = this.modalService.show(template, config);
+    // this.modalRef = this.modalService.show(template, config);
     // var configx = $("#exampleModalCenter").closest('.modal-backdrop').addClass('z-index:1100');
 
   }
@@ -829,12 +851,12 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
         me.lbInputFile = file.name;
         const f: string | ArrayBuffer = reader.result as string;
         me.htmlContent = f;
-        me.imageSource = me.sanitizer.bypassSecurityTrustResourceUrl(`${me.htmlContent}`);
+        // me.imageSource = me.sanitizer.bypassSecurityTrustResourceUrl(`${me.htmlContent}`);
         //console.log(reader.result);
       };
       reader.onerror = function (error) {
         console.log('Error: ', error);
-        me.alerts.swal_error(error.toString());
+        // me.alerts.swal_error(error.toString());
       };
 
       //console.log(this.fileUploadTo);
@@ -881,17 +903,17 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
       else {
         console.log('---error---');
         console.log(res);
-        this.alerts.swal_error(res.after_trip.opt2.status);
-        this.appMain.isLoading = false
+        // this.alerts.swal_error(res.after_trip.opt2.status);
+        // this.appMain.isLoading = false
       }
 
     }
 
-    this.fileuploadservice.postFile_Custom(this.fileUploadTo, "0", "portal", "0", body).subscribe(res => onSuccess(res), error => {
-      this.appMain.isLoading = false;
-      console.log(error);
-      alert('error!');
-    })
+    // this.fileuploadservice.postFile_Custom(this.fileUploadTo, "0", "portal", "0", body).subscribe(res => onSuccess(res), error => {
+    //   this.appMain.isLoading = false;
+    //   console.log(error);
+    //   alert('error!');
+    // })
   }
 
   saveText(types : any) {
@@ -980,7 +1002,7 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
           this.modalRef.hide();
           this.isLoading = false;
-          this.alerts.swal_sucess(data.after_trip.opt2.status);
+          // this.alerts.swal_sucess(data.after_trip.opt2.status);
         }, 1000);
 
 
@@ -989,15 +1011,15 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.isLoading = false;
         console.log('---error---');
         console.log(data);
-        this.alerts.swal_error(data.after_trip.opt2.status);
+        // this.alerts.swal_error(data.after_trip.opt2.status);
 
       }
     }
-    this.ws.callWs(this._dataSource, 'SavePortal').subscribe(data => onSuccess(data), error => {
-      this.isLoading = false
-      console.log(error);
-      alert('Can\'t call web api.' + ' : ' + error.message);
-    })
+    // this.ws.callWs(this._dataSource, 'SavePortal').subscribe(data => onSuccess(data), error => {
+    //   this.isLoading = false
+    //   console.log(error);
+    //   alert('Can\'t call web api.' + ' : ' + error.message);
+    // })
   }
 
   gotoUrl(url: string) {
@@ -1032,7 +1054,7 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.isLoading = false;
         console.log('---error---');
         console.log(data);
-        this.alerts.swal_error(data.after_trip.opt2.status);
+        // this.alerts.swal_error(data.after_trip.opt2.status);
         // Swal.fire(
         //   'Error!',
         //   'Error : ' + data.after_trip.opt2.status,
@@ -1040,11 +1062,11 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
         // )
       }
     }
-    this.ws.callWs(bodyX, 'LoadEmployeeList').subscribe(data => onSuccess(data), error => {
-      this.isLoading = false
-      console.log(error);
-      alert('Can\'t call web api.' + ' : ' + error.message);
-    })
+    // this.ws.callWs(bodyX, 'LoadEmployeeList').subscribe(data => onSuccess(data), error => {
+    //   this.isLoading = false
+    //   console.log(error);
+    //   alert('Can\'t call web api.' + ' : ' + error.message);
+    // })
   }
 
   openModalContact(templateX: TemplateRef<any>, types: string) {
@@ -1060,7 +1082,7 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     };
     //console.log(this.template)
-    this.modalRef = this.modalService.show(templateX, config);
+    // this.modalRef = this.modalService.show(templateX, config);
     // var configx = $("#exampleModalCenter").closest('.modal-backdrop').addClass('z-index:1100');
 
   }
@@ -1073,7 +1095,7 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log(this.destinationObj);
     let typeStr = "";
     let name = "";
-    !this.ws.isEmpty(this.destinationObj) ? typeStr = this.destinationObj.id : typeStr = "";
+    // !this.ws.isEmpty(this.destinationObj) ? typeStr = this.destinationObj.id : typeStr = "";
 
     console.log(typeStr);
 
@@ -1108,9 +1130,9 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log(navigationExtras.queryParams);
 
     // Navigate to component B
-    this.router.navigate([ 'main/request/create/' + this.requestType + '/i' ], {
-      state: {requestDetails: navigationExtras}
-    });
+    // this.router.navigate([ 'main/request/create/' + this.requestType + '/i' ], {
+    //   state: {requestDetails: navigationExtras}
+    // });
 
     // this.router.navigate(['main/request/create/' + this.requestType + '/i', { pm: typeStr }]);
     //this.router.navigate(['main/request/create/' + this.requestType + '/i'], { queryParams: { pm: typeStr }});
@@ -1123,7 +1145,7 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log(this.trainingDestinationObj);
     let typeStr = "";
     let name = "";
-    !this.ws.isEmpty(this.trainingDestinationObj) ? typeStr = this.trainingDestinationObj.id : typeStr = "";
+    // !this.ws.isEmpty(this.trainingDestinationObj) ? typeStr = this.trainingDestinationObj.id : typeStr = "";
 
     console.log(typeStr);
 
@@ -1159,9 +1181,9 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log(navigationExtras.queryParams);
 
     // Navigate to component B
-    this.router.navigate([ 'main/request/create/' + this.trainingRequestType + '/i' ], {
-      state: {requestDetails: navigationExtras}
-    });
+    // this.router.navigate([ 'main/request/create/' + this.trainingRequestType + '/i' ], {
+    //   state: {requestDetails: navigationExtras}
+    // });
 
   }
 
@@ -1180,22 +1202,22 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log(data);
       if (data.after_trip.opt1 == "true") {
 
-        this.alerts.toastr_success(data.after_trip.opt2.status);
+        // this.alerts.toastr_success(data.after_trip.opt2.status);
         this.isLoading = false;
       }
       else {
         this.isLoading = false;
         console.log('---send mail error---');
         console.log(data);
-        this.alerts.swal_error(data.after_trip.opt2.status);
+        // this.alerts.swal_error(data.after_trip.opt2.status);
 
       }
     }
-    this.ws.callWs(this._dataSource, 'SendMailContact').subscribe(data => onSuccess(data), error => {
-      this.isLoading = false
-      console.log(error);
-      alert('Can\'t call web api.' + ' : ' + error.message);
-    })
+    // this.ws.callWs(this._dataSource, 'SendMailContact').subscribe(data => onSuccess(data), error => {
+    //   this.isLoading = false
+    //   console.log(error);
+    //   alert('Can\'t call web api.' + ' : ' + error.message);
+    // })
 
   }
 
@@ -1248,9 +1270,9 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
     };
 
     // Navigate to component B
-    this.router.navigate([ 'main/request/create/' + this.requestType + '/i' ], {
-      state: {requestDetails: navigationExtras}
-    });
+    // this.router.navigate([ 'main/request/create/' + this.requestType + '/i' ], {
+    //   state: {requestDetails: navigationExtras}
+    // });
     //this.router.navigate(['/componentB'], navigationExtras);
   }
 

@@ -1,0 +1,158 @@
+<!-- <p>mtalreadybooked works!</p> -->
+<!-- <p>mtfeedbackquestion works!</p> -->
+<div
+  class="col-12 boxcolor-mm background-Slide animate__animated animate__fadeIn"
+  style="height: 350px"
+  (window:keypress)="onKeyDown($event)"
+  (window:resize)="onResize()"
+>
+  <div class="row math-height">
+    <div class="col-lg-12">
+      <div class="card box-shadow-1 mt-3">
+        <div class="card-body m-0 p-0">
+          <div class="row">
+            <div class="col-12">
+              <div class="col-12 col-md-6 col-lg-6" style="min-height: 67px">
+                <div class="marker marker-ribbon marker-top-blue pos-absolute mt-4 l-0 pl-5 pr-5">
+                  <p class="tx-24 m-0">&#32;&#32; Booking Provider</p>
+                </div>
+              </div>
+              <button class="d-none btn-round" #closeModel (click)="swich_user(1)"></button>
+              <div class="col-12 col-md-6 col-lg-6 pr-0 mr-0"></div>
+            </div>
+            <div class="col-12 mx-0 mx-md-0 px-5">
+              <div class="row mx-0 mt-4 align-items-start">
+                <div class="col-12 px-0">
+                  <button class="btn btn-top btn-round btn-min-width mr-1 mb-1" >
+                    New Item
+                  </button>
+                </div>
+              </div>
+
+              <div class="col-12 px-0">
+                <div class="table-responsive my-2 scroll-hori" style="max-height: 350px; max-width: 100%">
+                  <table id="table_detail" class="table table-bordered table-striped table-hover border-0">
+                    <thead class="tx-gray-700 text-center">
+                      <tr>
+                        <th class="col_number">No</th>
+                        <th>Name</th>
+                        <th class="w-auto" [ngClass]="{ headcol: check_solution() }">Active/Edit/Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody class="border-0" *ngIf="model_all.already_booked.length > 0">
+                      <tr
+                        *ngFor="let item of DataBYTYPEID(model_all.already_booked, '0', 'master_type'); let i = index"
+                      >
+                        <td class="text-center">
+                          {{ i + 1 }}
+                        </td>
+                        <td>
+                          {{ item.name }}
+                        </td>
+                        <td class="text-center tx-gray-700" [ngClass]="{ headcol: check_solution() }">
+                          <div class="example-button-row" style="max-height: 40px">
+                            <div class="d-flex justify-content-center">
+                              <div class="d-flex justify-content-center align-items-center">
+                                <input
+                                  type="checkbox"
+                                  #check_active
+                                  [(ngModel)]="item.statusTF"
+                                  (ngModelChange)="change_status('type', item)"
+                                />
+                              </div>
+                              <div class="d-flex justify-content-center align-items-center order-2">
+                                <mat-icon class="cursor-pointer" (click)="delete_row(item)"> delete_forever</mat-icon>
+                              </div>
+                              <div class="d-flex justify-content-center align-items-center order-1 mx-2">
+                                <mat-icon class="cursor-pointer" (click)="selected_type_now(item, template1)">
+                                  edit
+                                </mat-icon>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #template1>
+          <div class="modal-header">
+            <h5 class="modal-title">Already Booked</h5>
+            <button
+              type="button"
+              class="close btn-round"
+              data-dismiss="modal"
+              (click)="Hide_modal()"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-12">
+                <label for="basic-url" class="font-weight-bold" [ngClass]="check_el(already_name) ? 'text-error' : ''"
+                  >Name <span [ngClass]="check_el(already_name) ? 'text-error' : 'span-mark'">*</span>:</label
+                >
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    #already_name="ngModel"
+                    required
+                    [(ngModel)]="Already_Booked_type_selected.name"
+                    class="form-control tx-16"
+                    [ngClass]="check_el(already_name) ? 'border-error' : ''"
+                    id="basic-url"
+                    aria-describedby="basic-addon3"
+                  />
+                </div>
+              </div>
+              <div class="col-12" *ngIf="false">
+                <label for="basic-url" class="font-weight-bold">Status:</label>
+                <div class="input-group mb-3">
+                  <select
+                    id="my-select"
+                    class="form-control form-control-lg tx-14"
+                    [(ngModel)]="Already_Booked_type_selected.status"
+                    name="status"
+                  >
+                    <option value="" disabled selected>-- Plase Select --</option>
+                    <option value="1">Active</option>
+                    <option value="0">In Active</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-start">
+            <button
+              class="btn btn-round btn-min-width mr-1 mb-1 bg-top-pink text-bold-500 tx-14 text-white"
+              (click)="new_row()"
+              [hidden]="Already_Booked_type_selected.action"
+            >
+              Add
+            </button>
+            <button
+              class="btn btn-round btn-min-width mr-1 mb-1 bg-top-pink text-bold-500 tx-14 text-white"
+              (click)="update_row()"
+              [hidden]="!Already_Booked_type_selected.action"
+            >
+              Update
+            </button>
+            <button
+              class="btn btn-round btn-min-width mr-1 mb-1 bg-white pink border-pink text-bold-500 tx-14 text-pink"
+              (click)="Hide_modal()"
+            >
+              Cancel
+            </button>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

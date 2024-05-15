@@ -301,24 +301,24 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   //@ViewChild('myDiv') myDiv: ElementRef;
 
   constructor(
-    private route: ActivatedRoute,
-    private authenHttp: AuthenService,
-    private router: Router,
-    private zone: NgZone,
-    //private _NgxZendeskWebwidgetService: NgxZendeskWebwidgetService,
-    private fb: FormBuilder,
-    public ws: AspxserviceService,
-    private locat: Location,
-    private modalService: BsModalService,
+    // private route: ActivatedRoute,
+    // private authenHttp: AuthenService,
+    // private router: Router,
+    // private zone: NgZone,
+    // //private _NgxZendeskWebwidgetService: NgxZendeskWebwidgetService,
+    // private fb: FormBuilder,
+    // public ws: AspxserviceService,
+    // private locat: Location,
+    // private modalService: BsModalService,
   ) {
 
 
 
     console.log('--- Header On Load---');
-    console.log(this.locat.path());
-    let path = this.locat.path().split('/');
+    // console.log(this.locat.path());
+    // let path = this.locat.path().split('/');
 
-    this.menuSelected(path[ 1 ].toLowerCase());
+    // this.menuSelected(path[ 1 ].toLowerCase());
 
     //alert(path[path.length - 1]);
     // //console.log(path);
@@ -335,43 +335,43 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
     //this.menuSelected(path[1].toLowerCase());
 
-    if (path[ 1 ].toLowerCase() === 'main') {
-      this.isCreate = true;
-    }
-    else if (path[ 1 ].toLowerCase() === "ebizhome") {
-      this.isCreate = true;
-    }
-    else {
+    // if (path[ 1 ].toLowerCase() === 'main') {
+    //   this.isCreate = true;
+    // }
+    // else if (path[ 1 ].toLowerCase() === "ebizhome") {
+    //   this.isCreate = true;
+    // }
+    // else {
 
-      if (path[ 1 ].toLowerCase() === "master") {
-        this.isCreate = false;
+    //   if (path[ 1 ].toLowerCase() === "master") {
+    //     this.isCreate = false;
 
-        // if (path[ 1 ].toLowerCase() != 'ebizhome') {
+    //     // if (path[ 1 ].toLowerCase() != 'ebizhome') {
 
-        //   const myArray = this.router.getCurrentNavigation().extras.state;
-        //   if (myArray === null || myArray === undefined) {
-        //     this.arrayOfValues = new Array<string>();
-        //   } else {
-        //     this.isParams = true;
-        //     console.log('----- Hearder Param value-----');
-        //     // console.log(myArray.paramsDesc);
+    //     //   const myArray = this.router.getCurrentNavigation().extras.state;
+    //     //   if (myArray === null || myArray === undefined) {
+    //     //     this.arrayOfValues = new Array<string>();
+    //     //   } else {
+    //     //     this.isParams = true;
+    //     //     console.log('----- Hearder Param value-----');
+    //     //     // console.log(myArray.paramsDesc);
 
-        //     // this.arrayOfValues = myArray.paramsDesc.queryParams;
-        //     console.log(this.arrayOfValues);
+    //     //     // this.arrayOfValues = myArray.paramsDesc.queryParams;
+    //     //     console.log(this.arrayOfValues);
 
-        //     this.menuList.forEach(element => {
+    //     //     this.menuList.forEach(element => {
 
-        //       this.arrayOfValues.requestType === 'oversea' || this.arrayOfValues.requestType === 'overseatraining' ? element.display = element.oversea : this.arrayOfValues.requestType === 'local' || this.arrayOfValues.requestType === 'localtraining' ? element.display = element.local : this.arrayOfValues.requestType === 'personal' ? element.display = element.personal : element.display = false;
+    //     //       this.arrayOfValues.requestType === 'oversea' || this.arrayOfValues.requestType === 'overseatraining' ? element.display = element.oversea : this.arrayOfValues.requestType === 'local' || this.arrayOfValues.requestType === 'localtraining' ? element.display = element.local : this.arrayOfValues.requestType === 'personal' ? element.display = element.personal : element.display = false;
 
-        //     });
+    //     //     });
 
-        //   }
-        // }
-      }
-      else {
-        this.isCreate = true;
-      }
-    }
+    //     //   }
+    //     // }
+    //   }
+    //   else {
+    //     this.isCreate = true;
+    //   }
+    // }
     this.didCheckTokenDied();
     this.getContectAdmin();
   }
@@ -409,11 +409,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       //console.log(this.dataContact);
     }
 
-    this.ws.callWs(bodyX, 'LoadEmpRoletList').subscribe(data => onSuccess(data), error => {
+    // this.ws.callWs(bodyX, 'LoadEmpRoletList').subscribe(data => onSuccess(data), error => {
 
-      console.log(error);
-      alert('Can\'t call web api.' + ' : ' + error.message);
-    })
+    //   console.log(error);
+    //   alert('Can\'t call web api.' + ' : ' + error.message);
+    // })
   }
 
   // onActivate(event : ) {
@@ -441,42 +441,42 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   getParameter() {
-    this.route.params.subscribe(params => {
+    // this.route.params.subscribe(params => {
 
-      this.DOC_ID = params[ "id" ];
-      //alert(this.DOC_ID)
-      this.route.snapshot.paramMap.get('t') === 'detail' ? this.TYPES = 'detail' : this.TYPES = 'view';
-      console.log('---Action types---');
-      console.log(this.TYPES);
-
-
-      if (this.DOC_ID != "" && this.DOC_ID != undefined) {
-        console.log('router events')
-        let routerX = this.router.url.split("/");
-        console.log(routerX);
-
-        if (routerX.length === 3) {
-          let pagename = this.checkParams();
-          this.zone.run(() => this.router.navigate([ '/master', this.DOC_ID, pagename ]));
-          this.QueryParamX = "/master/" + this.DOC_ID + "/" + pagename + "/";
-        }
-        else if (routerX.length === 4) {
-          this.zone.run(() => this.router.navigate([ '/master', this.DOC_ID, routerX[ 3 ].toLowerCase() ]));
-          this.QueryParamX = "/master/" + this.DOC_ID + "/" + routerX[ 3 ].toLowerCase() + "/";
-        }
-
-        if (this.isParams === false) {
-          let requestType = this.DOC_ID === 'personal' ? this.DOC_ID : this.DOC_ID.substring(0, 2);
-          console.log(requestType);
-          this.menuList.forEach(element => {
-            requestType === 'OB' ? element.display = element.oversea : requestType === 'LB' ? element.display = element.local : requestType === 'personal' ? element.display = element.personal : element.display = false;
-          });
+    //   this.DOC_ID = params[ "id" ];
+    //   //alert(this.DOC_ID)
+    //   this.route.snapshot.paramMap.get('t') === 'detail' ? this.TYPES = 'detail' : this.TYPES = 'view';
+    //   console.log('---Action types---');
+    //   console.log(this.TYPES);
 
 
-        }
-      }
+    //   if (this.DOC_ID != "" && this.DOC_ID != undefined) {
+    //     console.log('router events')
+    //     let routerX = this.router.url.split("/");
+    //     console.log(routerX);
 
-    })
+    //     if (routerX.length === 3) {
+    //       let pagename = this.checkParams();
+    //       this.zone.run(() => this.router.navigate([ '/master', this.DOC_ID, pagename ]));
+    //       this.QueryParamX = "/master/" + this.DOC_ID + "/" + pagename + "/";
+    //     }
+    //     else if (routerX.length === 4) {
+    //       this.zone.run(() => this.router.navigate([ '/master', this.DOC_ID, routerX[ 3 ].toLowerCase() ]));
+    //       this.QueryParamX = "/master/" + this.DOC_ID + "/" + routerX[ 3 ].toLowerCase() + "/";
+    //     }
+
+    //     if (this.isParams === false) {
+    //       let requestType = this.DOC_ID === 'personal' ? this.DOC_ID : this.DOC_ID.substring(0, 2);
+    //       console.log(requestType);
+    //       this.menuList.forEach(element => {
+    //         requestType === 'OB' ? element.display = element.oversea : requestType === 'LB' ? element.display = element.local : requestType === 'personal' ? element.display = element.personal : element.display = false;
+    //       });
+
+
+    //     }
+    //   }
+
+    // })
   }
 
   checkParams() {
@@ -538,16 +538,16 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   routerReload(page : any) {
-    this.router.navigate([ '/master/personal/' + page ])
-      .then(() => {
-        window.location.reload();
-      });
+    // this.router.navigate([ '/master/personal/' + page ])
+    //   .then(() => {
+    //     window.location.reload();
+    //   });
   }
   herderrouterReload(page : any) {
-    this.router.navigate([ `${page}` ])
-      .then(() => {
-        window.location.reload();
-      });
+    // this.router.navigate([ `${page}` ])
+    //   .then(() => {
+    //     window.location.reload();
+    //   });
   }
 
   didCheckTokenDied() {
@@ -567,7 +567,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       }
       //this.loadingSucess = true;
     }
-    this.ws.onCheckToken().subscribe(dao => onSuccess(dao), error => alert("Can't connect server, please check connect VPN."));
+    // this.ws.onCheckToken().subscribe(dao => onSuccess(dao), error => alert("Can't connect server, please check connect VPN."));
     // this.authenHttp.onCheckToken().subscribe(dao => onSuccess(dao), error => alert("Can't connect server, please check connect VPN."))
 
   }
@@ -622,14 +622,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
     if (this.QueryParamX != "") {
       //ไม่ผ่าน authen ให้ redirect ไปที่หน้า login โดยใส่ page ที่ต้องเปิดหลังจากที่ login สำเร็จ
-      this.router.navigate([ '/logindev' ], {queryParams: {page: this.QueryParamX}});
+      // this.router.navigate([ '/logindev' ], {queryParams: {page: this.QueryParamX}});
       // Navigate to component B
       // this.router.navigate(['main/request/create/' + this.requestType + '/i'], {
       //   state: { requestDetails: navigationExtras }
       // });
     }
     else {
-      this.router.navigate([ '/logindev' ]);
+      // this.router.navigate([ '/logindev' ]);
     }
 
     //this.router.navigate([url]);
@@ -637,7 +637,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   forceToPageLoginWeb() {
     //window.location.href = "http://ebiz.frankenly.com/login/login/login";
-    this.router.navigate([ '/logindev' ]);
+    // this.router.navigate([ '/logindev' ]);
   }
   hideErrorBox() {
     console.log("EEE")
@@ -691,9 +691,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   handleLogout() {
     console.log('logout');
     const lg = () => {
-      this.authenHttp.logout().subscribe(value => {
-        console.log(value)
-      })
+      // this.authenHttp.logout().subscribe(value => {
+      //   console.log(value)
+      // })
 
       localStorage[ "token" ] = ""
       localStorage[ "user" ] = ""
@@ -722,7 +722,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
     };
     //console.log(this.template)
-    this.modalRef = this.modalService.show(templateX, config);
+    // this.modalRef = this.modalService.show(templateX, config);
     // var configx = $("#exampleModalCenter").closest('.modal-backdrop').addClass('z-index:1100');
 
   }

@@ -468,3 +468,120 @@ table {
 .link-text:hover {
   color: #04528a;
 }
+
+.e-business-title {
+  color: rgba(77,112,120,1);
+  position: absolute;
+  padding-top: 170px;
+  left: 30px;
+  font-family: Allerta;
+  font-weight: Regular;
+  font-size: 36px;
+  opacity: 1;
+  text-align: left;
+}
+
+.button-container {
+  width: 180px;
+  height: 50px;
+  position: absolute;
+  top: 330px;
+  left: 30px;
+}
+
+.book-now-button {
+  width: 100%;
+  height: 100%;
+  background: rgba(110,192,192,0.75);
+  border: none;
+  border-radius: 5px;
+  color: rgba(255,255,255,1);
+  font-family: Allerta;
+  font-weight: Regular;
+  font-size: 16px;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.join-us-text {
+  width: 298px;
+  color: rgba(0,0,0,1);
+  position: absolute;
+  top: 335px;
+  left: 235px;
+  font-family: Allerta;
+  font-weight: Regular;
+  font-size: 16px;
+  opacity: 1;
+  text-align: left;
+}
+
+.tab-group {
+  height: 100%;
+  width: 100%;
+  border: 2px solid #656363;
+}
+
+.proceed-button-container {
+  justify-content: end;
+  align-items: end;
+  width: 200px;
+  height: 50px;
+  position: relative;
+  padding: 24px 24px 24px 24px;
+  margin-right: 30px;
+}
+
+.material-symbols-outlined {
+  vertical-align: middle; /* Adjust alignment as needed */
+  margin-left: 5px; /* Add spacing between text and icon */
+}
+
+.proceed-button {
+  width: 100%;
+  height: 100%;
+  background: rgba(110,192,192,1);
+  border: none;
+  border-radius: 5px;
+  color: rgba(255,255,255,1);
+  font-family: Allerta;
+  font-weight: Regular;
+  font-size: 16px;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+}
+
+.card {
+  max-width: 1500px;
+  border: #969696;
+  box-shadow: 0 4px 8px rgba(154, 51, 51, 0.1);
+}
+
+.card-header {
+  background-color: white;
+  padding-top: 30px;
+}
+
+.card-title {
+  text-align: center;
+}
+
+/* .card-body {
+  padding: 20px; 
+} */
+
+.form-group {
+  margin-bottom: 20px; 
+
+}
+
+.carousel{
+  interval: 2000
+}

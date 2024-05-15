@@ -1,6 +1,7 @@
 import { DatePipe } from "@angular/common";
 import { AuthenService } from "../http/authen/authen.service";
 import { Router } from "@angular/router";
+import { AspxserviceService } from "../ws/httpx/aspxservice.service";
 
 
 
@@ -12,13 +13,17 @@ export function formatDateTime( date : Date) {
     return montF.transform(dt, 'dd MMM yyyy');
 }
 
-export function gotoPage(DOC_ID: string | undefined, page: string): string {
-    if (DOC_ID !== undefined && DOC_ID !== "") {
-      return `/master/${DOC_ID}/${page.toLowerCase()}`;
+export function gotoPage(docid: string, page: string): string {
+    if (docid !== "") {
+      return `/master/${docid}/${page.toLowerCase()}`;
     } else {
       return `/master/${page.toLowerCase()}/${page.toLowerCase()}`;
     }
   }
+
+export function gotoMaintainPage(pagename: string) {
+  return `/maintain/${pagename.toLocaleLowerCase()}`
+}
 
 export const CloneDeep = (obj: object) => {
     let data = null;
@@ -75,7 +80,7 @@ export const useAuth = (data: any, userSelected: string): AuthAdmin | null => {
     return false;
 }
 
-export function fetchProfile (username: any, img:any, authenHttp: AuthenService,router: Router) {
+export function fetchProfile (username: any, img:any, user_admin: any,authenHttp: AuthenService,router: Router) {
 
   
         const onSuccess = (dao : any) => {
@@ -86,6 +91,7 @@ export function fetchProfile (username: any, img:any, authenHttp: AuthenService,
           }
           username = dao[0]["empName"]
           img = dao[0]["imgUrl"]
+          user_admin = dao[0]["user_admin"]
           //this.profile.username = "xxxxx"
           //this.profile.images = "http://srieng02/pic/TOP/579.jpg"
         }
@@ -104,5 +110,24 @@ export function forceToPageLogin (router: Router) {
 export function forceToPageLoginWeb(router: Router) {
   //window.location.href = "http://ebiz.frankenly.com/login/login/login";
   router.navigate(['/logindev']);
+}
+
+export function didCheckTokenDied(ws: AspxserviceService , username: any, img:any, user_admin : any,authenHttp: AuthenService,router: Router) {
+  const onSuccess = (dao : any) => {
+    console.log(dao)
+    if (dao["msg_sts"] == "S") {
+      // authen
+      console.log("authen")
+      fetchProfile(username, img,user_admin,authenHttp,router);
+    } else {
+      // TODO ::
+      forceToPageLogin(router)
+      // redirect to login pages
+      // set localStorage to guest
+    }
+  }
+  ws.onCheckToken().subscribe(dao => onSuccess(dao), error => alert("Can't connect server, please check connect VPN."))
+  // this.authenHttp.onCheckToken().subscribe(dao => onSuccess(dao), error => alert("Can't connect server, please check connect VPN."))
+
 }
   

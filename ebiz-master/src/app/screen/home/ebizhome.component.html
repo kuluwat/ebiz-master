@@ -1,637 +1,918 @@
 <!-- <p>ebizhome works!</p> -->
 
 <app-mat-spinner-overlay *ngIf="isLoading"></app-mat-spinner-overlay>
-<app-loading-bg-color id="loadingBgColor" *ngIf="isFirstLoading"></app-loading-bg-color>
+<!-- <app-loading-bg-color id="loadingBgColor" *ngIf="isFirstLoading"></app-loading-bg-color> -->
 
-<body id="contentX" class="bg-color d-none animate__animated animate__fadeIn" (window:resize)="onResize($event)">
-    <app-header></app-header>
-    <!-- Dasktop or Ipad -->
-    <div class="app-content containerX  d-none d-md-block">
-
-        <div class="content-wrapper">
-
-
-            <div class="mt-0 pt-2 " [ngClass]="{'content-body ' : mediaMatch}">
-
-                <button type="button" *ngIf="!showEdit" (click)="openModalx(template,'bg_top_header')" class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative"><i class="fa fa-pencil"></i> Edit</button>
-                <div class="hero-image  px-5" [ngStyle]="{'background-image': 'url('+imgPaths.imgPath_1+')'}" *ngIf="imgPaths.imgPath_1 != ''">
-                    <div class="row d-inline">
-                        <p class="tx-40 tx-uppercase align-items-start tx-gray-800  mg-t-80-f mb-0 pb-0">
-                            E-BUSINESS
-                        </p>
-                        <p class="tx-40 tx-uppercase align-items-start tx-gray-800 ">TRAVEL SERVICES</p>
-                        <div class="row d-flex ">
-                            <div class="col-sm-2 ">
-                                <button type="button" class="btn btn-min-width btn-mint-opacity w-100 " routerLink="/main/request_list/all">BOOK
-                                    NOW</button>
-                                <!-- <button type="button" class="btn btn-min-width btn-mint-opacity w-100 "
-                                    (click)="testCallAsmx()">BOOK
-                                    NOW</button> -->
-                            </div>
-                            <div class="col-sm-10">
-                                <p class="tx-16 align-items-start tx-gray-800 mb-0 pb-0">To serve your Business/Training
-                                    Trip
-                                </p>
-                                <p class="tx-16 align-items-start tx-gray-800">facilities in one page. Let's join us.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
+<body
+  id="contentX"
+  class="bg-color d-none animate__animated animate__fadeIn"
+  (window:resize)="onResize($event)"
+>
+  <app-header></app-header>
+  <!-- content body -->
+  <div class="card-container">
+    <div class="card">
+        <div class="card-body">
+          <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="assets/imgs/inner-page-hero.jpg" alt="First slide">
+              </div>
+            </div>
+          </div>
+          <!-- @if (images) {
+            <ngb-carousel>
+              <ng-template ngbSlide>
+                <div class="picsum-img-wrapper">
+                  <img [src]="images.imagespath1" width="800px" />
                 </div>
-                <div class="hero-image " [ngStyle]="{'background-color': 'bg-gray-1'}" *ngIf="imgPaths.imgPath_1 === ''">
+                <div class="carousel-caption">
+                  <h3>Second slide label</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+              </ng-template>
+              <ng-template ngbSlide>
+                <div class="picsum-img-wrapper">
+                  <img [src]="images.imagespath2" alt="Random third slide" />
+                </div>
+                <div class="carousel-caption">
+                  <h3>Third slide label</h3>
+                  <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                </div>
+              </ng-template>
+            </ngb-carousel>
+          } -->
+          <mdb-tabs>
+            <mdb-tab>
+              <ng-template mdbTabTitle
+                ><span><i class="fas fa-chart-pie fa-fw me-2"></i>Sales</span></ng-template
+              >
+              Tab content 1
+            </mdb-tab>
+            <mdb-tab>
+              <ng-template mdbTabTitle
+                ><span><i class="fas fa-chart-line fa-fw me-2"></i>Subscriptions</span></ng-template
+              >
+              Tab content 2
+            </mdb-tab>
+            <mdb-tab>
+              <ng-template mdbTabTitle
+                ><span><i class="fas fa-cogs fa-fw me-2"></i>Settings</span></ng-template
+              >
+              Tab content 3
+            </mdb-tab>
+          </mdb-tabs>
+        </div>
+    </div>
+  </div>
+
+
+
+  <!-- Dasktop or Ipad -->
+  <div class="app-content containerX d-none d-md-block">
+    <div class="content-wrapper">
+      <div class="mt-0 pt-2" [ngClass]="{ 'content-body ': mediaMatch }">
+        <button
+          type="button"
+          *ngIf="!showEdit"
+          (click)="openModalx(template, 'bg_top_header')"
+          class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative"
+        >
+          <i class="fa fa-pencil"></i> Edit
+        </button>
+        <div
+          class="hero-image px-5"
+          [ngStyle]="{ 'background-image': 'url(' + imgPaths.imgPath_1 + ')' }"
+          *ngIf="imgPaths.imgPath_1 != ''"
+        >
+          <!-- Content here -->
+          <span class="e-business-title"
+            >E-BUSINESS <br />
+            TRAVEL SERVICES</span
+          >
+          <div class="button-container">
+            <button
+              type="button"
+              class="book-now-button"
+              routerLink="/main/request_list/all"
+            >
+              Book Now
+            </button>
+          </div>
+          <span class="join-us-text"
+            >To serve your Business/Training Trip facilities in one page. Let’s
+            join us.</span
+          >
+        </div>
+        <!-- <div class="hero-image " [ngStyle]="{'background-color': 'bg-gray-1'}" *ngIf="imgPaths.imgPath_1 === ''">
                     <div class="row d-inline">
 
                         <div class="pos-relative text-center mg-t-150">
                             <i class="fa fa-picture-o fa-3x "></i>
                             <p class="tx-20 m-0 p-0">1500 x 500</p>
-                            <!-- <input type="file" accept="video/*" /> -->
+                         <input type="file" accept="video/*" /> 
                         </div>
                     </div>
 
+                </div> -->
+
+        <div class="col-lg-12 form-group m-0 p-0">
+          <div class="colX-container">
+            <div class="col-lg-4 colX border-radius border-right-1 border-grey-blue ht-300">
+                <mat-tab-group class="tab-group">
+                  <mat-tab label="TRAVEL FOR BUSINESS">
+                    <!-- Content for business tab -->
+                    <span>BOOK FOR YOUP TRIP!</span>
+                  </mat-tab>
+                  <mat-tab label="TRAVEL FOR TRAINING">
+                    <div class="col-sm-12">
+                        <p class="tx-uppercase tx-18 text-center primary lighten-1 mt-3">BOOK FOR YOUR
+                            TRIP!
+                        </p>
+                        <div class="row">
+                            <div class="col-sm-12 ">
+                                <div class="form-group">
+                                    <p class="tx-14 tx-gray-700 mb-0 d-flex"><span class="d-none d-1024-block ">Business Date&#32;</span> <span class="tx-gray-500 tx-italic">
+                                            Form - To</span></p>
+                                    <div class="form-group position-relative has-icon-right">
+                                        <!-- <input type="search" id="training_date_from" autocomplete="off"
+                                            onpaste="return false;" ondrop="return false;"
+                                            onkeypress="return false;" class="form-control h-50"
+                                            [(ngModel)]="training_dateFrom" bsDatepicker
+                                            [bsConfig]="{dateInputFormat: 'DD MMM YYYY', showWeekNumbers:false}"
+                                            [maxDate]="training_dateTo"> -->
+                                        <input type="search" id="training_date_from" autocomplete="off" onpaste="return false;" ondrop="return false;" onkeypress="return false;" class="form-control h-50" [(ngModel)]="trainingDateFrom" [bsConfig]="{rangeInputFormat: 'DD MMM YYYY', showWeekNumbers:false}"   [maxDate]="trainingDateTo" bsDaterangepicker>
+                                        <label class="form-control-position" for="training_date_from">
+                                            <i class="material-icons tx-gray-500 cursor-pointer">today</i>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-sm-6 pl-1">
+                                <div class="form-group">
+                                    <p class="tx-14 mb-0 tx-gray-500 tx-italic">To</p>
+                                    <div class="form-group position-relative has-icon-right">
+                                        <input type="search" id="training_date_to" autocomplete="off"
+                                            onpaste="return false;" ondrop="return false;"
+                                            onkeypress="return false;" class="form-control h-50"
+                                            [(ngModel)]="training_dateTo" bsDatepicker
+                                            [bsConfig]="{dateInputFormat: 'DD MMM YYYY', showWeekNumbers:false}"
+                                            [minDate]="training_dateFrom">
+                                        <label class="form-control-position" for="training_date_to">
+                                            <i
+                                                class="material-icons tx-gray-500 cursor-pointer">today</i>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 pr-1">
+                                <div class="form-group">
+                                    <p class="tx-14 tx-gray-700 mb-0 ">Request Type</p>
+                                    <select class="form-control input-small" #mySelectTraining (change)="changeRequestType(mySelectTraining.value)" [(ngModel)]="trainingRequestType">
+                                        <option value="overseatraining">Oversea training</option>
+                                        <option value="localtraining">Local training</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 pl-1">
+                                <div class="form-group ">
+                                    <p class="tx-14 tx-gray-700 mb-0">Destination</p>
+                                    <input class="form-control h-50" [(ngModel)]="trainingDestination" [formControl]="trainingMyControl" [matAutocomplete]="autoX">
+
+                                    <mat-autocomplete #autoX="matAutocomplete" (optionSelected)="selectedOption($event,'training')">
+                                        <mat-option *ngFor="let option of trainingFilteredOptions | async" [value]="option">
+                                            {{displayName(option)}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 pr-1">
+
+                            </div>
+                            <div class="col-sm-6 pl-1">
+                                <div class="proceed-button-container">
+                                    <button
+                                      type="button"
+                                      class="proceed-button"
+                                      (click)="goto_training_trip()"
+                                    >
+                                      PROCEED 
+                                      <mat-icon  class="material-symbols-outlined">double_arrow</mat-icon>
+                                    </button>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </mat-tab>
+                </mat-tab-group>
+              </div>
+            <div
+              class="col-lg-4 colX border border-right-1 border-grey-blue ht-300"
+            >
+              <p class="tx-uppercase tx-18 text-center tx-gray-700 mt-2 mb-2">
+                <i class="fa fa-search"></i> UP COMING PLAN
+                <!-- {{getCurrentYear()}} -->
+              </p>
+              <div class="col-sm-12 ml-0 pl-0 mr-0 pr-0 d-none">
+                <div class="row">
+                  <div class="col-sm-4">
+                    <mat-form-field>
+                      <mat-label>Sort by :</mat-label>
+                      <mat-select
+                        [(value)]="selected"
+                        (selectionChange)="selectionChanges('sortby', $event)"
+                      >
+                        <!-- <mat-option>None</mat-option> -->
+                        <mat-option value="option1" class="tx-gray-800"
+                          >Option 1</mat-option
+                        >
+                        <mat-option value="date" class="tx-gray-800"
+                          >Date</mat-option
+                        >
+                        <mat-option value="option3" class="tx-gray-800"
+                          >Option 3</mat-option
+                        >
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-4">
+                    <mat-form-field>
+                      <mat-select
+                        [formControl]="bankCtrl"
+                        placeholder="Destination"
+                        #singleSelect
+                      >
+                        <mat-option>
+                          <ngx-mat-select-search
+                            [formControl]="bankFilterCtrl"
+                            placeholderLabel="Find destination..."
+                            i18n-placeholderLabel
+                            noEntriesFoundLabel="'no matching destination found'"
+                            i18n-noEntriesFoundLabel
+                          ></ngx-mat-select-search>
+                        </mat-option>
+
+                        <mat-option
+                          *ngFor="let bank of filteredBanks | async"
+                          [value]="bank"
+                        >
+                          {{ bank.name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-4">
+                    <mat-form-field>
+                      <mat-label>Traveling objective :</mat-label>
+                      <mat-select [(value)]="travelingObjective">
+                        <mat-option value="">All</mat-option>
+                        <mat-option value="business">BUSINESS TRIP</mat-option>
+                        <mat-option value="training">TRAINING TRIP</mat-option>
+                        <!-- <mat-option value="option3">Option 3</mat-option> -->
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
                 </div>
-
-                <div class="col-lg-12 form-group m-0 p-0">
-                    <div class="colX-container">
-                        <div class="col-lg-4 colX border border-right-0 border-grey-blue ht-300">
-                            <mat-tab-group mat-align-tabs="center" #tabGroup headerPosition="above" [selectedIndex]="mainIndex">
-                                <mat-tab label="TRAVEL FOR BUSINESS">
-                                    <div class="col-sm-12">
-                                        <p class="tx-uppercase tx-18 text-center primary lighten-1 mt-3">BOOK FOR YOUR
-                                            TRIP!
-                                        </p>
-
-                                        <div class="row">
-                                            <div class="col-sm-12 ">
-                                                <div class="form-group">
-                                                    <p class="tx-14 tx-gray-700 mb-0 d-flex"><span class="d-none d-1024-block ">Business Date&#32;</span> <span class="tx-gray-500 tx-italic">
-                                                            Form - To</span></p>
-                                                    <div class="form-group position-relative has-icon-right">
-                                                        <!-- <input type="search" id="business_date_from" autocomplete="off"
-                                                        onpaste="return false;" ondrop="return false;" onkeypress="return false;"
-                                                            class="form-control h-50" [(ngModel)]="dateFrom"
-                                                            [bsConfig]="{dateInputFormat: 'DD MMM YYYY', showWeekNumbers:false}"
-                                                            bsDaterangepicker> -->
-                                                        <input autocomplete="off" type="text" placeholder="" id="business_date_from" class="form-control h-50" onpaste="return false;" ondrop="return false;" onkeypress="return false;" [(ngModel)]="dateFrom" [bsConfig]="{ rangeInputFormat: 'DD MMM YYYY',showWeekNumbers:false }" bsDaterangepicker>
-                                                        <!-- [maxDate]="dateTo" -->
-                                                        <label class="form-control-position" for="business_date_from">
-                                                            <i class="material-icons tx-gray-500 cursor-pointer">today</i>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- <div class="col-sm-6 pl-1">
-                                                <div class="form-group">
-                                                    <p class="tx-14 mb-0 tx-gray-500 tx-italic">To</p>
-                                                    <div class="form-group position-relative has-icon-right">
-                                                        <input type="search" id="business_date_to" autocomplete="off"
-                                                        onpaste="return false;" ondrop="return false;" onkeypress="return false;"
-                                                            class="form-control h-50" [(ngModel)]="dateTo" bsDatepicker
-                                                            [bsConfig]="{dateInputFormat: 'DD MMM YYYY', showWeekNumbers:false}"
-                                                            [minDate]="dateFrom">
-                                                        <label class="form-control-position" for="business_date_to">
-                                                            <i
-                                                                class="material-icons tx-gray-500 cursor-pointer">today</i>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div> -->
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6 pr-1">
-                                                <div class="form-group">
-                                                    <p class="tx-14 tx-gray-700 mb-0 ">Request Type</p>
-                                                    <!-- <input class="form-control h-50"> -->
-                                                    <select class="form-control input-small" #mySelectX (change)="changeRequestType(mySelectX.value)" [(ngModel)]="requestType">
-                                                        <option value="oversea">Oversea</option>
-                                                        <option value="local">Local</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 pl-1">
-                                                <div class="form-group ">
-                                                    <p class="tx-14 tx-gray-700 mb-0">Destination</p>
-
-                                                    <input class="form-control h-50" [(ngModel)]="destination" [formControl]="myControl" [matAutocomplete]="auto">
-
-                                                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedOption($event,'business')">
-                                                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                                                            {{displayName(option)}}
-                                                        </mat-option>
-                                                    </mat-autocomplete>
-
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6 pr-1">
-
-                                            </div>
-                                            <div class="col-sm-6 pl-1">
-                                                <div class="form-group">
-                                                    <button type="button" (click)="goto()" class="btn btn-primary btn-lighten-1 btn-searchs col-12 position-relative">PROCEED&#32;&#32;&#32;<i class="fa fa-angle-double-right"></i></button>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </mat-tab>
-                                <mat-tab label="TRAVEL FOR TRAINING">
-                                    <div class="col-sm-12">
-                                        <p class="tx-uppercase tx-18 text-center primary lighten-1 mt-3">BOOK FOR YOUR
-                                            TRIP!
-                                        </p>
-
-                                        <div class="row">
-                                            <div class="col-sm-12 ">
-                                                <div class="form-group">
-                                                    <p class="tx-14 tx-gray-700 mb-0 d-flex"><span class="d-none d-1024-block ">Business Date&#32;</span> <span class="tx-gray-500 tx-italic">
-                                                            Form - To</span></p>
-                                                    <div class="form-group position-relative has-icon-right">
-                                                        <!-- <input type="search" id="training_date_from" autocomplete="off"
-                                                            onpaste="return false;" ondrop="return false;"
-                                                            onkeypress="return false;" class="form-control h-50"
-                                                            [(ngModel)]="training_dateFrom" bsDatepicker
-                                                            [bsConfig]="{dateInputFormat: 'DD MMM YYYY', showWeekNumbers:false}"
-                                                            [maxDate]="training_dateTo"> -->
-                                                        <input type="search" id="training_date_from" autocomplete="off" onpaste="return false;" ondrop="return false;" onkeypress="return false;" class="form-control h-50" [(ngModel)]="trainingDateFrom" [bsConfig]="{rangeInputFormat: 'DD MMM YYYY', showWeekNumbers:false}"   [maxDate]="trainingDateTo" bsDaterangepicker>
-                                                        <label class="form-control-position" for="training_date_from">
-                                                            <i class="material-icons tx-gray-500 cursor-pointer">today</i>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- <div class="col-sm-6 pl-1">
-                                                <div class="form-group">
-                                                    <p class="tx-14 mb-0 tx-gray-500 tx-italic">To</p>
-                                                    <div class="form-group position-relative has-icon-right">
-                                                        <input type="search" id="training_date_to" autocomplete="off"
-                                                            onpaste="return false;" ondrop="return false;"
-                                                            onkeypress="return false;" class="form-control h-50"
-                                                            [(ngModel)]="training_dateTo" bsDatepicker
-                                                            [bsConfig]="{dateInputFormat: 'DD MMM YYYY', showWeekNumbers:false}"
-                                                            [minDate]="training_dateFrom">
-                                                        <label class="form-control-position" for="training_date_to">
-                                                            <i
-                                                                class="material-icons tx-gray-500 cursor-pointer">today</i>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div> -->
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6 pr-1">
-                                                <div class="form-group">
-                                                    <p class="tx-14 tx-gray-700 mb-0 ">Request Type</p>
-                                                    <select class="form-control input-small" #mySelectTraining (change)="changeRequestType(mySelectTraining.value)" [(ngModel)]="trainingRequestType">
-                                                        <option value="overseatraining">Oversea training</option>
-                                                        <option value="localtraining">Local training</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 pl-1">
-                                                <div class="form-group ">
-                                                    <p class="tx-14 tx-gray-700 mb-0">Destination</p>
-                                                    <input class="form-control h-50" [(ngModel)]="trainingDestination" [formControl]="trainingMyControl" [matAutocomplete]="autoX">
-
-                                                    <mat-autocomplete #autoX="matAutocomplete" (optionSelected)="selectedOption($event,'training')">
-                                                        <mat-option *ngFor="let option of trainingFilteredOptions | async" [value]="option">
-                                                            {{displayName(option)}}
-                                                        </mat-option>
-                                                    </mat-autocomplete>
-
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6 pr-1">
-
-                                            </div>
-                                            <div class="col-sm-6 pl-1">
-                                                <div class="form-group">
-                                                    <button type="button" (click)="goto_training_trip()" class="btn btn-primary btn-lighten-1 btn-searchs col-12 position-relative">PROCEED&#32;&#32;&#32;<i class="fa fa-angle-double-right"></i></button>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </mat-tab>
-                            </mat-tab-group>
+              </div>
+              <div class="col-sm-12 ml-0 pl-0 mr-0 pr-0 mt-1">
+                <div
+                  class="table-responsive ht-250 p-1"
+                  style="overflow-x: hidden"
+                >
+                  <div
+                    class="box-content-list p-2 mb-1"
+                    *ngFor="let item of dataComingPlan"
+                  >
+                    <div class="row">
+                      <div class="col-4 tx-center">
+                        <p
+                          class="mb-0 pb-0 tx-gray-700 tx-uppercase valign-top"
+                          [ngClass]="{
+                            'tx-18': mediaMatch,
+                            'tx-14': !mediaMatch
+                          }"
+                        >
+                          {{ getDateformat(item.date, "DM") }}
+                          <span
+                            class="valign-top"
+                            [ngClass]="{
+                              'tx-14': mediaMatch,
+                              'tx-10': !mediaMatch
+                            }"
+                            >{{ getDateformat(item.date, "YY") }}</span
+                          >
+                        </p>
+                        <div
+                          class="btn w-100 mt-1 tx-gray-700"
+                          [ngClass]="{
+                            'btn-confirm': item.button_status === '1',
+                            'btn-draft': item.button_status === '2',
+                            'btn-cap': item.button_status === '3',
+                            'btn-4': item.button_status === '4',
+                            'btn-5': item.button_status === '5',
+                            'btn-6': item.button_status === '6',
+                            'btn-7': item.button_status === '7'
+                          }"
+                          (click)="openDocument(item.doc_id, item.tab_no)"
+                        >
+                          <!-- {{getClassStatus(item.button_status)}} -->
+                          {{
+                            mediaMatch
+                              ? getClassStatus(item.button_status).length > 9
+                                ? (getClassStatus(item.button_status)
+                                    | slice : 0 : 9) + ".."
+                                : getClassStatus(item.button_status)
+                              : (getClassStatus(item.button_status)
+                                  | slice : 0 : 4) + ".."
+                          }}
                         </div>
-                        <div class="col-lg-4 colX border border-right-0 border-grey-blue ht-300">
-                            <p class="tx-uppercase tx-18 text-center tx-gray-700 mt-2 mb-2"><i class="fa fa-search "></i> UP COMING PLAN
-                                <!-- {{getCurrentYear()}} -->
-                            </p>
-                            <div class="col-sm-12 ml-0 pl-0 mr-0 pr-0 d-none">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <mat-form-field>
-                                            <mat-label>Sort by :</mat-label>
-                                            <mat-select [(value)]="selected" (selectionChange)="selectionChanges('sortby',$event)">
-                                                <!-- <mat-option>None</mat-option> -->
-                                                <mat-option value="option1" class="tx-gray-800">Option 1</mat-option>
-                                                <mat-option value="date" class="tx-gray-800">Date</mat-option>
-                                                <mat-option value="option3" class="tx-gray-800">Option 3</mat-option>
-                                            </mat-select>
-
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <mat-form-field>
-                                            <mat-select [formControl]="bankCtrl" placeholder="Destination" #singleSelect>
-                                                <mat-option>
-                                                    <ngx-mat-select-search [formControl]="bankFilterCtrl" placeholderLabel="Find destination..." i18n-placeholderLabel noEntriesFoundLabel="'no matching destination found'" i18n-noEntriesFoundLabel></ngx-mat-select-search>
-                                                </mat-option>
-
-                                                <mat-option *ngFor="let bank of filteredBanks | async" [value]="bank">
-                                                    {{bank.name}}
-                                                </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <mat-form-field>
-                                            <mat-label>Traveling objective :</mat-label>
-                                            <mat-select [(value)]="travelingObjective">
-                                                <mat-option value="">All</mat-option>
-                                                <mat-option value="business">BUSINESS TRIP</mat-option>
-                                                <mat-option value="training">TRAINING TRIP</mat-option>
-                                                <!-- <mat-option value="option3">Option 3</mat-option> -->
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 ml-0 pl-0 mr-0 pr-0 mt-1">
-                                <div class="table-responsive ht-250 p-1 " style="overflow-x: hidden;">
-                                    <div class="box-content-list p-2 mb-1" *ngFor="let item of dataComingPlan">
-                                        <div class="row">
-                                            <div class="col-4 tx-center">
-                                                <p class="mb-0 pb-0 tx-gray-700 tx-uppercase valign-top" [ngClass]="{'tx-18' : mediaMatch, 'tx-14' : !mediaMatch}">
-                                                    {{getDateformat(item.date,'DM')}} <span class="valign-top" [ngClass]="{'tx-14' : mediaMatch, 'tx-10' : !mediaMatch}">{{getDateformat(item.date,'YY')}}</span>
-                                                </p>
-                                                <div class="btn w-100 mt-1 tx-gray-700" [ngClass]="{'btn-confirm': item.button_status === '1' 
-                                                , 'btn-draft':item.button_status === '2'
-                                                , 'btn-cap':item.button_status === '3'
-                                                , 'btn-4':item.button_status === '4'
-                                                , 'btn-5':item.button_status === '5'
-                                                , 'btn-6':item.button_status === '6'
-                                                , 'btn-7':item.button_status === '7' }" (click)="openDocument(item.doc_id, item.tab_no)">
-                                                    <!-- {{getClassStatus(item.button_status)}} -->
-                                                    {{(mediaMatch) ? (getClassStatus(item.button_status).length>9) ?
-                                                    (getClassStatus(item.button_status) | slice:0:9)+'..' :
-                                                    (getClassStatus(item.button_status)) :
-                                                    (getClassStatus(item.button_status) | slice:0:4)+'..'}}
-                                                </div>
-                                            </div>
-                                            <div class="col-8 pl-0 ml-0">
-                                                <!-- <p class="tx-18 mb-0 pb-0">UK - <span>Participate HAZOP/...</span></p> -->
-                                                <p class="tx-18 mb-0 pb-0 tx-gray-700 cursor-pointer" (click)="openDocument(item.doc_id, item.tab_no)" matTooltip="{{item.topic_of_traveling}}">
-                                                    {{(mediaMatch) ? (item.topic_of_traveling.length>30)?
-                                                    (item.topic_of_traveling | slice:0:30)+'..' :
-                                                    (item.topic_of_traveling) : (item.topic_of_traveling |
-                                                    slice:0:18)+'..'}}</p>
-                                                <div class="tx-14 tx-gray-700">
-                                                    <i class="fa fa-calendar"></i>
-                                                    <span> {{item.business_date}}</span>
-                                                </div>
-                                                <div class="tx-14 tx-gray-700">
-                                                    <i class="fa fa-plane"></i>
-                                                    <span> {{item.country}}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <p class="tx-16 text-center mb-0 pb-0"><a class="primary lighten-1 " routerLink="/main/request_list/all">View more <i class="fa fa-angle-double-right"></i></a></p>
-
-
-                                </div>
-                            </div>
-
+                      </div>
+                      <div class="col-8 pl-0 ml-0">
+                        <!-- <p class="tx-18 mb-0 pb-0">UK - <span>Participate HAZOP/...</span></p> -->
+                        <p
+                          class="tx-18 mb-0 pb-0 tx-gray-700 cursor-pointer"
+                          (click)="openDocument(item.doc_id, item.tab_no)"
+                          matTooltip="{{ item.topic_of_traveling }}"
+                        >
+                          {{
+                            mediaMatch
+                              ? item.topic_of_traveling.length > 30
+                                ? (item.topic_of_traveling | slice : 0 : 30) +
+                                  ".."
+                                : item.topic_of_traveling
+                              : (item.topic_of_traveling | slice : 0 : 18) +
+                                ".."
+                          }}
+                        </p>
+                        <div class="tx-14 tx-gray-700">
+                          <i class="fa fa-calendar"></i>
+                          <span> {{ item.business_date }}</span>
                         </div>
-                        <div class="col-lg-4 colX border border-grey-blue p-0 ht-300">
-                            <!-- {{imgPath_2}} -->
-                            <!-- 400px x 300px -->
-                            <div class="hero-image2 " [ngStyle]="{'background-image': 'url('+imgPaths.imgPath_2+')'}" *ngIf="imgPaths.imgPath_2 != ''">
-                                <div class="row d-inline m-0 p-0">
-                                    <button type="button" *ngIf="!showEdit" class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative" (click)="openModalx(template,'bg_personal_profile')"><i class="fa fa-pencil"></i>
-                                        Edit</button>
-                                    <div class="row d-flex">
-
-                                        <div class="col-sm-12 m-0 p-0">
-                                            <!-- <button type="button" *ngIf="!showEdit"
+                        <div class="tx-14 tx-gray-700">
+                          <i class="fa fa-plane"></i>
+                          <span> {{ item.country }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="tx-16 text-center mb-0 pb-0">
+                    <a
+                      class="primary lighten-1"
+                      routerLink="/main/request_list/all"
+                      >View more <i class="fa fa-angle-double-right"></i
+                    ></a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 colX border border-grey-blue p-0 ht-300">
+              <!-- {{imgPath_2}} -->
+              <!-- 400px x 300px -->
+              <div
+                class="hero-image2"
+                [ngStyle]="{
+                  'background-image': 'url(' + imgPaths.imgPath_2 + ')'
+                }"
+                *ngIf="imgPaths.imgPath_2 != ''"
+              >
+                <div class="row d-inline m-0 p-0">
+                  <button
+                    type="button"
+                    *ngIf="!showEdit"
+                    class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative"
+                    (click)="openModalx(template, 'bg_personal_profile')"
+                  >
+                    <i class="fa fa-pencil"></i> Edit
+                  </button>
+                  <div class="row d-flex">
+                    <div class="col-sm-12 m-0 p-0">
+                      <!-- <button type="button" *ngIf="!showEdit"
                                                 class="btn btn-blue-gray-opacity btn-searchs float-left ml-4 mt-2 pos-relative"
                                                 (click)="openModalx(template,'bg_personal_profile')"><i
                                                     class="fa fa-pencil"></i>
                                                 Edit</button> -->
-                                            <!-- <p class="tx-uppercase tx-18 text-center tx-gray-800 pt-3 float-right pr-5">Personal Profile</p> -->
-                                            <p class="tx-uppercase tx-20 text-center tx-gray-700 mt-3 mb-2 float-right d-none " [ngClass]="{'mr-5' : mediaMatch, 'mr-4 pr-1' : !mediaMatch}">
-                                                Personal Profile
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="row d-flex py-2 mg-t-60">
-                                        <div class="col-lg-6 col-md-2 m-0 p-0">
-
-                                        </div>
-                                        <div class="col-lg-6 col-md-8 m-0 p-0">
-                                            <ul class="tx-gray-700 tx-16 mt-4">
-                                                <li *ngFor="let item of dataSource">
-                                                    <!-- <a class="tx-gray-800" href="{{item.url}}"
+                      <!-- <p class="tx-uppercase tx-18 text-center tx-gray-800 pt-3 float-right pr-5">Personal Profile</p> -->
+                      <p
+                        class="tx-uppercase tx-20 text-center tx-gray-700 mt-3 mb-2 float-right d-none"
+                        [ngClass]="{
+                          'mr-5': mediaMatch,
+                          'mr-4 pr-1': !mediaMatch
+                        }"
+                      >
+                        Personal Profile
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row d-flex py-2 mg-t-60">
+                    <div class="col-lg-6 col-md-2 m-0 p-0"></div>
+                    <div class="col-lg-6 col-md-8 m-0 p-0">
+                      <ul class="tx-gray-700 tx-16 mt-4">
+                        <li *ngFor="let item of dataSource">
+                          <!-- <a class="tx-gray-800" href="{{item.url}}"
                                                         target="_blank">{{item.menu}}</a> -->
-                                                    <a class="tx-gray-700" routerLink="{{item.url}}">{{item.menu}}</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="row d-flex mt-0 ">
-                                        <div class="col-sm-6 m-0 p-0">
-
-                                        </div>
-                                        <div class="col-sm-6 ">
-                                            <div class="row">
-                                                <!-- <p class="tx-16 text-left mb-0 pb-0 "><a href="{{urlCarservice}}"
+                          <a class="tx-gray-700" routerLink="{{ item.url }}">{{
+                            item.menu
+                          }}</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="row d-flex mt-0">
+                    <div class="col-sm-6 m-0 p-0"></div>
+                    <div class="col-sm-6">
+                      <div class="row">
+                        <!-- <p class="tx-16 text-left mb-0 pb-0 "><a href="{{urlCarservice}}"
                                                         target="_blank" class="tx-gray-800 tx-uppercase "><i
                                                             class="fa fa-mouse-pointer"></i> Transportation</a></p> -->
-                                                <a href="{{urlCarservice}}" target="_blank" class="btn btn-social wd-180 btn-min-width  mb-1 btn-outline-bitbucket btn-sm " [ngClass]="{'ml-2' : mediaMatch, 'mr-4' : !mediaMatch}"><span class="fa fa-paper-plane font-medium-2"></span>CAR SERVICE</a>
-                                            </div>
-                                            <div class="row">
-                                                <!-- <p class="tx-16 text-left mb-0 pb-0 "><a href="{{urlIpettyCash}}"
+                        <a
+                          href="{{ urlCarservice }}"
+                          target="_blank"
+                          class="btn btn-social wd-180 btn-min-width mb-1 btn-outline-bitbucket btn-sm"
+                          [ngClass]="{
+                            'ml-2': mediaMatch,
+                            'mr-4': !mediaMatch
+                          }"
+                          ><span class="fa fa-paper-plane font-medium-2"></span
+                          >CAR SERVICE</a
+                        >
+                      </div>
+                      <div class="row">
+                        <!-- <p class="tx-16 text-left mb-0 pb-0 "><a href="{{urlIpettyCash}}"
                                                         target="_blank" class="tx-gray-800 tx-uppercase "><i
                                                             class="fa fa-mouse-pointer"></i> I-Petty Cash</a></p> -->
-                                                <!-- <a href="#" class="btn btn-social width-200 mr-1 mb-1 btn-flickr"><span
+                        <!-- <a href="#" class="btn btn-social width-200 mr-1 mb-1 btn-flickr"><span
                                                         class="fa fa-flickr font-medium-3"></span>I PETTY CASH</a> -->
-                                                <a href="{{urlIpettyCash}}" target="_blank" class="btn btn-social wd-180 mb-1 btn-outline-flickr btn-sm" [ngClass]="{'ml-2' : mediaMatch, 'mr-4' : !mediaMatch}"><span class="fa fa-paper-plane font-medium-2"></span> I-PETTY CASH</a>
-                                            </div>
+                        <a
+                          href="{{ urlIpettyCash }}"
+                          target="_blank"
+                          class="btn btn-social wd-180 mb-1 btn-outline-flickr btn-sm"
+                          [ngClass]="{
+                            'ml-2': mediaMatch,
+                            'mr-4': !mediaMatch
+                          }"
+                          ><span class="fa fa-paper-plane font-medium-2"></span>
+                          I-PETTY CASH</a
+                        >
+                      </div>
 
-                                            <!-- <p class="tx-16 tx-gray-800 text-left mb-0 pb-0 "><i
+                      <!-- <p class="tx-16 tx-gray-800 text-left mb-0 pb-0 "><i
                                                 class="fa fa-hand-pointer-o"></i> Transportation</p>
                                         <p class="tx-16 tx-gray-800 text-left  "><i class="fa fa-hand-pointer-o"></i>
                                             I-Petty Cash</p> -->
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="hero-image2 cursor-pointer bg-gray-1 text-center" *ngIf="imgPaths.imgPath_2 === ''">
-
-                                <i class="fa fa-picture-o fa-3x mg-t-100"></i>
-                                <p class="tx-20 m-0 p-0">400 x 300</p>
-                            </div>
-                            <!-- </div> -->
-                        </div>
                     </div>
+                  </div>
                 </div>
-                <div class="col-lg-12 form-group border border-top-0 border-grey-blue text-center mb-0">
-
-
-                    <div class="col-sm-12  pos-absolute" *ngIf="!showEdit">
-                        <button type="button" class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative" (click)="openModalx(template,'txt_welcome')"><i class="fa fa-pencil"></i> Edit</button>
-                    </div>
-                    <h2 class="pt-5 primary lighten-1"><u>{{textWelcome}}</u></h2>
-                    <p class="tx-14 tx-gray-700 pb-4">{{textWelDesc}}</p>
-                </div>
-
-                <div class="col-lg-12 form-group border border-top-0 border-grey-blue m-0 p-0">
-
-                    <div class="colX-container">
-                        <div class="col-lg-4 colX border border-top-0 border-bottom-0 border-grey-blue p-0 ht-300">
-                            <div class="col-sm-12 m-0 p-0 pos-absolute" *ngIf="!showEdit">
-                                <button type="button" class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative" (click)="openModalx(template,'bg_banner_1')"><i class="fa fa-pencil"></i>
-                                    Edit</button>
-                            </div>
-                            <div class="hero-image2 cursor-pointer" [ngStyle]="{'background-image': 'url('+imgPaths.imgPath_3_1+')'}" *ngIf="imgPaths.imgPath_3_1 != ''" (click)="gotoUrl(urlBanners.url_banner_1)">
-
-                            </div>
-                            <div class="hero-image2 bg-gray-1 text-center" *ngIf="imgPaths.imgPath_3_1 === ''">
-
-                                <i class="fa fa-picture-o fa-3x mg-t-100"></i>
-                                <p class="tx-20 m-0 p-0">400 x 300</p>
-                            </div>
-
-                        </div>
-                        <div class="col-lg-4 colX border border-top-0 border-bottom-0 border-grey-blue p-0 ht-300">
-                            <div class="col-sm-12 m-0 p-0 pos-absolute" *ngIf="!showEdit">
-                                <button type="button" class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative" (click)="openModalx(template,'bg_banner_2')"><i class="fa fa-pencil"></i>
-                                    Edit</button>
-                            </div>
-                            <div class="hero-image2 cursor-pointer " [ngStyle]="{'background-image': 'url('+imgPaths.imgPath_3_2+')'}" *ngIf="imgPaths.imgPath_3_2 != ''" (click)="gotoUrl(urlBanners.url_banner_2)">
-
-                            </div>
-                            <div class="hero-image2 bg-gray-1 text-center" *ngIf="imgPaths.imgPath_3_2 === ''">
-
-                                <i class="fa fa-picture-o fa-3x mg-t-100"></i>
-                                <p class="tx-20 m-0 p-0">400 x 300</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 colX border border-top-0 border-bottom-0 border-grey-blue p-0 ht-300">
-                            <div class="col-sm-12 m-0 p-0 pos-absolute" *ngIf="!showEdit">
-                                <button type="button" class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative" (click)="openModalx(template,'bg_banner_3')"><i class="fa fa-pencil"></i>
-                                    Edit</button>
-                            </div>
-                            <div class="hero-image2 cursor-pointer " [ngStyle]="{'background-image': 'url('+imgPaths.imgPath_3_3+')'}" *ngIf="imgPaths.imgPath_3_3 != ''" (click)="gotoUrl(urlBanners.url_banner_3)">
-
-                            </div>
-                            <div class="hero-image2 bg-gray-1 text-center" *ngIf="imgPaths.imgPath_3_3 === ''">
-
-                                <i class="fa fa-picture-o fa-3x mg-t-100"></i>
-                                <p class="tx-20 m-0 p-0">400 x 300</p>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-                <div class="col-lg-12 form-group m-0 p-0">
-                    <div class="colX-container ">
-                        <div class="col-lg-5 colX border border-top-0 border-right-0 border-grey-blue p-0">
-                            <div class="col-sm-12 m-0 p-0 pos-absolute" *ngIf="!showEdit">
-                                <button type="button" class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative" (click)="openModalx(template,'bg_practice_areas')"><i class="fa fa-pencil"></i>
-                                    Edit</button>
-                            </div>
-                            <div class="content-wrapper ">
-                                <!-- 400px x 300px -->
-                                <div class="hero-image2 " [ngStyle]="{'background-image': 'url('+imgPaths.imgPath_4+')'}" *ngIf="imgPaths.imgPath_4 != ''">
-                                    <!-- <div class="row d-inline "> -->
-                                    <p class="tx-22 tx-gray-700 text-center tx-uppercase tx-bold pd-t-30">practice areas
-                                    </p>
-
-                                    <div class="row d-flex pt-4">
-                                        <div class="col-sm-12 mg-l-60-f">
-                                            <p class="tx-16 text-left mb-0 pb-3 "><a href="{{urlApproval}}" target="_blank" class="tx-gray-700 ">1.
-                                                    APPROVAL</a></p>
-                                            <p class="tx-16 text-left mb-0 pb-3 "><a href="{{urlEmployeePayment}}" target="_blank" class="tx-gray-700 ">2.
-                                                    EMPLOYEE PAYMENT</a></p>
-                                            <p class="tx-16 text-left mb-0 pb-3 "><a href="{{urlTransportation}}" target="_blank" class="tx-gray-700 ">3.
-                                                    TRANSPORTATION</a></p>
-                                            <p class="tx-16 text-left mb-0 pb-3 "><a href="{{urlOthers}}" target="_blank" class="tx-gray-700 ">4.
-                                                    OTHERS</a></p>
-                                        </div>
-                                    </div>
-                                    <!-- </div> -->
-
-                                </div>
-                                <div class="hero-image2 cursor-pointer bg-gray-1 text-center" *ngIf="imgPaths.imgPath_4 === ''">
-
-                                    <i class="fa fa-picture-o fa-3x mg-t-100"></i>
-                                    <p class="tx-20 m-0 p-0">460 x 300</p>
-                                    <!-- <input type="file" accept="video/*" /> -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-7 colX border border-grey-blue p-0">
-                            <!-- <div class="row d-inline "> -->
-                            <div class="col-sm-12 m-0 p-0 pos-absolute" *ngIf="!showEdit">
-                                <button type="button" class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative" (click)="openModalx(template,'contact')"><i class="fa fa-pencil"></i>
-                                    Edit</button>
-                            </div>
-                            <p class="tx-22 tx-gray-700 text-center tx-uppercase pt-2 pb-2 border-bottom">Get in touch
-                            </p>
-                            <div class="colX-container ">
-                                <div class="col-sm-7 pl-4 colX">
-                                    <div class="form-group">
-                                        <!-- <p class="tx-14 mb-0">Name</p> -->
-                                        <input class="form-control h-50" placeholder="Name" autocomplete="off" [(ngModel)]="mailContactName">
-
-                                    </div>
-                                    <div class="form-group">
-                                        <!-- <p class="tx-14 mb-0">Subject</p> -->
-                                        <input class="form-control h-50" placeholder="Subject" autocomplete="off" [(ngModel)]="mailContactSubject">
-
-                                    </div>
-                                    <div class="form-group">
-                                        <!-- <p class="tx-14 mb-0">Message</p> -->
-
-                                        <textarea class="form-control " rows="3" placeholder="Message" autocomplete="off" [(ngModel)]="mailContactBody"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-primary btn-lighten-1 btn-searchs col-12" (click)="sendMail()">SUBMIT&#32;&#32;&#32;<i class="fa fa-angle-double-right"></i></button>
-                                    </div>
-                                </div>
-                                <div class="col-sm-5 pl-3 tx-gray-700 colX">
-                                    <div class="form-group text-center">
-                                        <p class="tx-16 mb-0 tx-italic">{{textGetInTouchTitle}}</p>
-                                    </div>
-                                    <div class="form-group text-center">
-                                        <p class="tx-14 mb-0 ">
-                                            <!-- <mat-icon>
-                                            mark_as_unread
-                                        </mat-icon> -->
-                                            <i class="fa fa-envelope-o"></i>
-                                            {{textGetInTouchEmail}}
-                                        </p>
-                                    </div>
-                                    <div class="form-group text-center">
-                                        <p class="tx-14 mb-0 ">
-                                            <i class="fa fa-phone"></i>
-                                            Call us {{textGetInTouchCallUs}}
-                                        </p>
-                                    </div>
-                                    <div class="form-group text-center p-0 m-0" *ngIf="mediaMatch">
-                                        <img src="assets/imgs/6340.jpg" class="wd-180 cursor-pointer" (click)="openModalContact(templateModal,'')">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- </div> -->
-                        </div>
-                    </div>
-                </div>
-
-                <button type="button" id="myBtn" class="btn-circleX-lg btn-outline-topblue-opacity " title="Edit" (click)="showHideBtnEdit()" *ngIf="isAdmin">
-                    <!-- <i class="fa fa-wrench"></i> -->
-                    <mat-icon *ngIf="!showEdit">edit_off</mat-icon>
-                    <mat-icon *ngIf="showEdit">edit</mat-icon>
-                </button>
+              </div>
+              <div
+                class="hero-image2 cursor-pointer bg-gray-1 text-center"
+                *ngIf="imgPaths.imgPath_2 === ''"
+              >
+                <i class="fa fa-picture-o fa-3x mg-t-100"></i>
+                <p class="tx-20 m-0 p-0">400 x 300</p>
+              </div>
+              <!-- </div> -->
             </div>
-
-
-
-
+          </div>
+        </div>
+        <div
+          class="col-lg-12 form-group border border-top-0 border-grey-blue text-center mb-0"
+        >
+          <div class="col-sm-12 pos-absolute" *ngIf="!showEdit">
+            <button
+              type="button"
+              class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative"
+              (click)="openModalx(template, 'txt_welcome')"
+            >
+              <i class="fa fa-pencil"></i> Edit
+            </button>
+          </div>
+          <h2 class="pt-5 primary lighten-1">
+            <u>{{ textWelcome }}</u>
+          </h2>
+          <p class="tx-14 tx-gray-700 pb-4">{{ textWelDesc }}</p>
         </div>
 
+        <div
+          class="col-lg-12 form-group border border-top-0 border-grey-blue m-0 p-0"
+        >
+          <div class="colX-container">
+            <div
+              class="col-lg-4 colX border border-top-0 border-bottom-0 border-grey-blue p-0 ht-300"
+            >
+              <div class="col-sm-12 m-0 p-0 pos-absolute" *ngIf="!showEdit">
+                <button
+                  type="button"
+                  class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative"
+                  (click)="openModalx(template, 'bg_banner_1')"
+                >
+                  <i class="fa fa-pencil"></i> Edit
+                </button>
+              </div>
+              <div
+                class="hero-image2 cursor-pointer"
+                [ngStyle]="{
+                  'background-image': 'url(' + imgPaths.imgPath_3_1 + ')'
+                }"
+                *ngIf="imgPaths.imgPath_3_1 != ''"
+                (click)="gotoUrl(urlBanners.url_banner_1)"
+              ></div>
+              <div
+                class="hero-image2 bg-gray-1 text-center"
+                *ngIf="imgPaths.imgPath_3_1 === ''"
+              >
+                <i class="fa fa-picture-o fa-3x mg-t-100"></i>
+                <p class="tx-20 m-0 p-0">400 x 300</p>
+              </div>
+            </div>
+            <div
+              class="col-lg-4 colX border border-top-0 border-bottom-0 border-grey-blue p-0 ht-300"
+            >
+              <div class="col-sm-12 m-0 p-0 pos-absolute" *ngIf="!showEdit">
+                <button
+                  type="button"
+                  class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative"
+                  (click)="openModalx(template, 'bg_banner_2')"
+                >
+                  <i class="fa fa-pencil"></i> Edit
+                </button>
+              </div>
+              <div
+                class="hero-image2 cursor-pointer"
+                [ngStyle]="{
+                  'background-image': 'url(' + imgPaths.imgPath_3_2 + ')'
+                }"
+                *ngIf="imgPaths.imgPath_3_2 != ''"
+                (click)="gotoUrl(urlBanners.url_banner_2)"
+              ></div>
+              <div
+                class="hero-image2 bg-gray-1 text-center"
+                *ngIf="imgPaths.imgPath_3_2 === ''"
+              >
+                <i class="fa fa-picture-o fa-3x mg-t-100"></i>
+                <p class="tx-20 m-0 p-0">400 x 300</p>
+              </div>
+            </div>
+            <div
+              class="col-lg-4 colX border border-top-0 border-bottom-0 border-grey-blue p-0 ht-300"
+            >
+              <div class="col-sm-12 m-0 p-0 pos-absolute" *ngIf="!showEdit">
+                <button
+                  type="button"
+                  class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative"
+                  (click)="openModalx(template, 'bg_banner_3')"
+                >
+                  <i class="fa fa-pencil"></i> Edit
+                </button>
+              </div>
+              <div
+                class="hero-image2 cursor-pointer"
+                [ngStyle]="{
+                  'background-image': 'url(' + imgPaths.imgPath_3_3 + ')'
+                }"
+                *ngIf="imgPaths.imgPath_3_3 != ''"
+                (click)="gotoUrl(urlBanners.url_banner_3)"
+              ></div>
+              <div
+                class="hero-image2 bg-gray-1 text-center"
+                *ngIf="imgPaths.imgPath_3_3 === ''"
+              >
+                <i class="fa fa-picture-o fa-3x mg-t-100"></i>
+                <p class="tx-20 m-0 p-0">400 x 300</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 form-group m-0 p-0">
+          <div class="colX-container">
+            <div
+              class="col-lg-5 colX border border-top-0 border-right-0 border-grey-blue p-0"
+            >
+              <div class="col-sm-12 m-0 p-0 pos-absolute" *ngIf="!showEdit">
+                <button
+                  type="button"
+                  class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative"
+                  (click)="openModalx(template, 'bg_practice_areas')"
+                >
+                  <i class="fa fa-pencil"></i> Edit
+                </button>
+              </div>
+              <div class="content-wrapper">
+                <!-- 400px x 300px -->
+                <div
+                  class="hero-image2"
+                  [ngStyle]="{
+                    'background-image': 'url(' + imgPaths.imgPath_4 + ')'
+                  }"
+                  *ngIf="imgPaths.imgPath_4 != ''"
+                >
+                  <!-- <div class="row d-inline "> -->
+                  <p
+                    class="tx-22 tx-gray-700 text-center tx-uppercase tx-bold pd-t-30"
+                  >
+                    practice areas
+                  </p>
+
+                  <div class="row d-flex pt-4">
+                    <div class="col-sm-12 mg-l-60-f">
+                      <p class="tx-16 text-left mb-0 pb-3">
+                        <a
+                          href="{{ urlApproval }}"
+                          target="_blank"
+                          class="tx-gray-700"
+                          >1. APPROVAL</a
+                        >
+                      </p>
+                      <p class="tx-16 text-left mb-0 pb-3">
+                        <a
+                          href="{{ urlEmployeePayment }}"
+                          target="_blank"
+                          class="tx-gray-700"
+                          >2. EMPLOYEE PAYMENT</a
+                        >
+                      </p>
+                      <p class="tx-16 text-left mb-0 pb-3">
+                        <a
+                          href="{{ urlTransportation }}"
+                          target="_blank"
+                          class="tx-gray-700"
+                          >3. TRANSPORTATION</a
+                        >
+                      </p>
+                      <p class="tx-16 text-left mb-0 pb-3">
+                        <a
+                          href="{{ urlOthers }}"
+                          target="_blank"
+                          class="tx-gray-700"
+                          >4. OTHERS</a
+                        >
+                      </p>
+                    </div>
+                  </div>
+                  <!-- </div> -->
+                </div>
+                <div
+                  class="hero-image2 cursor-pointer bg-gray-1 text-center"
+                  *ngIf="imgPaths.imgPath_4 === ''"
+                >
+                  <i class="fa fa-picture-o fa-3x mg-t-100"></i>
+                  <p class="tx-20 m-0 p-0">460 x 300</p>
+                  <!-- <input type="file" accept="video/*" /> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-7 colX border border-grey-blue p-0">
+              <!-- <div class="row d-inline "> -->
+              <div class="col-sm-12 m-0 p-0 pos-absolute" *ngIf="!showEdit">
+                <button
+                  type="button"
+                  class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative"
+                  (click)="openModalx(template, 'contact')"
+                >
+                  <i class="fa fa-pencil"></i> Edit
+                </button>
+              </div>
+              <p
+                class="tx-22 tx-gray-700 text-center tx-uppercase pt-2 pb-2 border-bottom"
+              >
+                Get in touch
+              </p>
+              <div class="colX-container">
+                <div class="col-sm-7 pl-4 colX">
+                  <div class="form-group">
+                    <!-- <p class="tx-14 mb-0">Name</p> -->
+                    <input
+                      class="form-control h-50"
+                      placeholder="Name"
+                      autocomplete="off"
+                      [(ngModel)]="mailContactName"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <!-- <p class="tx-14 mb-0">Subject</p> -->
+                    <input
+                      class="form-control h-50"
+                      placeholder="Subject"
+                      autocomplete="off"
+                      [(ngModel)]="mailContactSubject"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <!-- <p class="tx-14 mb-0">Message</p> -->
+
+                    <textarea
+                      class="form-control"
+                      rows="3"
+                      placeholder="Message"
+                      autocomplete="off"
+                      [(ngModel)]="mailContactBody"
+                    ></textarea>
+                  </div>
+                  <div class="form-group">
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-lighten-1 btn-searchs col-12"
+                      (click)="sendMail()"
+                    >
+                      SUBMIT&#32;&#32;&#32;<i
+                        class="fa fa-angle-double-right"
+                      ></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-sm-5 pl-3 tx-gray-700 colX">
+                  <div class="form-group text-center">
+                    <p class="tx-16 mb-0 tx-italic">
+                      {{ textGetInTouchTitle }}
+                    </p>
+                  </div>
+                  <div class="form-group text-center">
+                    <p class="tx-14 mb-0">
+                      <!-- <mat-icon>
+                                            mark_as_unread
+                                        </mat-icon> -->
+                      <i class="fa fa-envelope-o"></i>
+                      {{ textGetInTouchEmail }}
+                    </p>
+                  </div>
+                  <div class="form-group text-center">
+                    <p class="tx-14 mb-0">
+                      <i class="fa fa-phone"></i>
+                      Call us {{ textGetInTouchCallUs }}
+                    </p>
+                  </div>
+                  <div
+                    class="form-group text-center p-0 m-0"
+                    *ngIf="mediaMatch"
+                  >
+                    <img
+                      src="assets/imgs/6340.jpg"
+                      class="wd-180 cursor-pointer"
+                      (click)="openModalContact(templateModal, '')"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!-- </div> -->
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          id="myBtn"
+          class="btn-circleX-lg btn-outline-topblue-opacity"
+          title="Edit"
+          (click)="showHideBtnEdit()"
+          *ngIf="isAdmin"
+        >
+          <!-- <i class="fa fa-wrench"></i> -->
+          <mat-icon *ngIf="!showEdit">edit_off</mat-icon>
+          <mat-icon *ngIf="showEdit">edit</mat-icon>
+        </button>
+      </div>
     </div>
-    <!-- Dasktop or Ipad -->
+  </div>
+  <!-- Dasktop or Ipad -->
 
-    <!-- Mobile -->
-    <div class="app-content center-layout d-block d-md-none">
+  <!-- Mobile -->
+  <div class="app-content center-layout d-block d-md-none">
+    <div class="content-wrapper">
+      <div class="content-body">
+        <button
+          type="button"
+          *ngIf="!showEdit"
+          (click)="openModalx(template, 'bg_top_header')"
+          class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative"
+        >
+          <i class="fa fa-pencil"></i> Edit
+        </button>
+        <div
+          class="hero-image px-5"
+          [ngStyle]="{ 'background-image': 'url(' + imgPaths.imgPath_1 + ')' }"
+          *ngIf="imgPaths.imgPath_1 != ''"
+        >
+          <div class="row d-inline">
+            <p
+              class="tx-40 tx-uppercase align-items-start tx-gray-800 mg-t-80-f mb-0 pb-0"
+            >
+              E-BUSINESS
+            </p>
+            <p class="tx-40 tx-uppercase align-items-start tx-gray-800">
+              TRAVEL Plan
+            </p>
+            <div class="row d-flex">
+              <div class="col-sm-2">
+                <button
+                  type="button"
+                  class="btn btn-min-width btn-mint-opacity w-100"
+                  routerLink="/main/request_list/all"
+                >
+                  BOOK NOW
+                </button>
+              </div>
+              <div class="col-sm-10">
+                <p class="tx-16 align-items-start tx-gray-800 mb-0 pb-0">
+                  To serves your business travelling
+                </p>
+                <p class="tx-16 align-items-start tx-gray-800">
+                  all in one page. Let's join us.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="hero-image d-none d-sm-block"
+          [ngStyle]="{ 'background-color': 'bg-gray-1' }"
+          *ngIf="imgPaths.imgPath_1 === ''"
+        >
+          <div class="row d-inline">
+            <div class="pos-relative text-center mg-t-150">
+              <i class="fa fa-picture-o fa-3x"></i>
+              <p class="tx-20 m-0 p-0">1500 x 500</p>
+              <!-- <input type="file" accept="video/*" /> -->
+            </div>
+          </div>
+        </div>
 
-        <div class="content-wrapper">
+        <!-- <div class="row"> -->
+        <div class="col-lg-12 form-group m-0 p-0">
+          <!-- <div class="colX-container"> -->
+          <div
+            class="col-lg-4 col-sm-12 border border-bottom-0 border-grey-blue"
+          >
+            <!-- <p class="tx-uppercase tx-18">PLAN AND BOOK YOU TRIP!</p> -->
+            <!-- <mat-tab-group class="outlined-tab-group">
+                <mat-tab label="Tab 1">Content 1</mat-tab>
+                <mat-tab label="Tab 2">Content 2</mat-tab>
+                <mat-tab label="Tab 3">Content 3</mat-tab>
+              </mat-tab-group> -->
+              <mat-tab-group class="outlined-tab-group"
+              mat-align-tabs="center"
+              #tabGroupMobile
+              headerPosition="above"
+              [selectedIndex]="mainIndex"
+            >
+              <mat-tab label="TRAVEL FOR BUSINESS">
+                <div class="col-sm-12">
+                  <p
+                    class="tx-uppercase tx-18 text-center primary lighten-1 mt-3"
+                  >
+                    BOOK FOR YOU TRIP!
+                  </p>
 
-
-            <div class="content-body">
-
-                <button type="button" *ngIf="!showEdit" (click)="openModalx(template,'bg_top_header')" class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative"><i class="fa fa-pencil"></i> Edit</button>
-                <div class="hero-image  px-5" [ngStyle]="{'background-image': 'url('+imgPaths.imgPath_1+')'}" *ngIf="imgPaths.imgPath_1 != ''">
-                    <div class="row d-inline">
-                        <p class="tx-40 tx-uppercase align-items-start tx-gray-800  mg-t-80-f mb-0 pb-0">
-                            E-BUSINESS
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <p class="tx-14 tx-gray-800 mb-0 d-flex">
+                          Business Date
+                          <span class="tx-gray-500 tx-italic"> Form - To</span>
                         </p>
-                        <p class="tx-40 tx-uppercase align-items-start tx-gray-800 ">TRAVEL Plan</p>
-                        <div class="row d-flex ">
-                            <div class="col-sm-2 ">
-                                <button type="button" class="btn btn-min-width btn-mint-opacity w-100 " routerLink="/main/request_list/all">BOOK
-                                    NOW</button>
-                            </div>
-                            <div class="col-sm-10">
-                                <p class="tx-16 align-items-start tx-gray-800 mb-0 pb-0">To serves your business
-                                    travelling
-                                </p>
-                                <p class="tx-16 align-items-start tx-gray-800">all in one page. Let's join us.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="hero-image d-none d-sm-block" [ngStyle]="{'background-color': 'bg-gray-1'}" *ngIf="imgPaths.imgPath_1 === ''">
-                    <div class="row d-inline">
-
-                        <div class="pos-relative text-center mg-t-150">
-                            <i class="fa fa-picture-o fa-3x "></i>
-                            <p class="tx-20 m-0 p-0">1500 x 500</p>
-                            <!-- <input type="file" accept="video/*" /> -->
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- <div class="row"> -->
-                <div class="col-lg-12 form-group m-0 p-0">
-                    <!-- <div class="colX-container"> -->
-                    <div class="col-lg-4 col-sm-12 border border-bottom-0 border-grey-blue ">
-                        <!-- <p class="tx-uppercase tx-18">PLAN AND BOOK YOU TRIP!</p> -->
-
-                        <mat-tab-group mat-align-tabs="center" #tabGroupMobile headerPosition="above" [selectedIndex]="mainIndex">
-                            <mat-tab label="TRAVEL FOR BUSINESS">
-                                <div class="col-sm-12">
-                                    <p class="tx-uppercase tx-18 text-center primary lighten-1 mt-3">BOOK FOR YOU TRIP!
-                                    </p>
-
-                                    <div class="row">
-                                        <div class="col-sm-12 ">
-                                            <div class="form-group">
-                                                <p class="tx-14 tx-gray-800 mb-0 d-flex">Business Date <span class="tx-gray-500 tx-italic">
-                                                        Form - To</span></p>
-                                                <div class="form-group position-relative has-icon-right">
-                                                    <!-- <input id="business_date_from_mobile" type="search"
+                        <div
+                          class="form-group position-relative has-icon-right"
+                        >
+                          <!-- <input id="business_date_from_mobile" type="search"
                                                         autocomplete="off" onpaste="return false;"
                                                         ondrop="return false;" onkeypress="return false;"
                                                         class="form-control h-50" [(ngModel)]="dateFrom" bsDatepicker
                                                         [bsConfig]="{dateInputFormat: 'DD MMM YYYY', showWeekNumbers:false}"
                                                         [maxDate]="dateTo"> -->
-                                                    <input autocomplete="off" type="text" placeholder="" id="business_date_from" class="form-control h-50" onpaste="return false;" ondrop="return false;" onkeypress="return false;" [(ngModel)]="dateFrom" [bsConfig]="{ rangeInputFormat: 'DD MMM YYYY',showWeekNumbers:false }" bsDaterangepicker>
-                                                    <label class="form-control-position" for="business_date_from_mobile">
-                                                        <i class="material-icons tx-gray-500 cursor-pointer">today</i>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="col-sm-6 ">
+                          <input
+                            autocomplete="off"
+                            type="text"
+                            placeholder=""
+                            id="business_date_from"
+                            class="form-control h-50"
+                            onpaste="return false;"
+                            ondrop="return false;"
+                            onkeypress="return false;"
+                            [(ngModel)]="dateFrom"
+                            [bsConfig]="{
+                              rangeInputFormat: 'DD MMM YYYY',
+                              showWeekNumbers: false
+                            }"
+                            bsDaterangepicker
+                          />
+                          <label
+                            class="form-control-position"
+                            for="business_date_from_mobile"
+                          >
+                            <i class="material-icons tx-gray-500 cursor-pointer"
+                              >today</i
+                            >
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="col-sm-6 ">
                                             <div class="form-group">
                                                 <p class="tx-14 mb-0 tx-gray-500 tx-italic">To</p>
                                                 <div class="form-group position-relative has-icon-right">
@@ -647,73 +928,116 @@
                                                 </div>
                                             </div>
                                         </div> -->
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6 ">
-                                            <div class="form-group">
-                                                <p class="tx-14 tx-gray-800 mb-0 ">Request Type</p>
-                                                <select class="form-control input-small" #mySelect (change)="changeRequestType(mySelect.value)" [(ngModel)]="requestType">
-                                                    <option value="oversea">Oversea</option>
-                                                    <option value="local">Local</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 ">
-                                            <div class="form-group ">
-                                                <p class="tx-14 tx-gray-800 mb-0">Destination</p>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <p class="tx-14 tx-gray-800 mb-0">Request Type</p>
+                        <select
+                          class="form-control input-small"
+                          #mySelect
+                          (change)="changeRequestType(mySelect.value)"
+                          [(ngModel)]="requestType"
+                        >
+                          <option value="oversea">Oversea</option>
+                          <option value="local">Local</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <p class="tx-14 tx-gray-800 mb-0">Destination</p>
 
-                                                <input class="form-control h-50" [(ngModel)]="destination" [formControl]="myControl" [matAutocomplete]="auto">
+                        <input
+                          class="form-control h-50"
+                          [(ngModel)]="destination"
+                          [formControl]="myControl"
+                          [matAutocomplete]="auto"
+                        />
 
-                                                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedOption($event,'business')">
-                                                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                                                        {{displayName(option)}}
-                                                    </mat-option>
-                                                </mat-autocomplete>
-
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="row">
-
-                                        <div class="col-sm-12 ">
-                                            <div class="form-group">
-                                                <button type="button" (click)="goto()" class="btn btn-primary btn-lighten-1 btn-searchs col-12 position-relative">PROCEED&#32;&#32;&#32;<i class="fa fa-angle-double-right"></i></button>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </mat-tab>
-                            <mat-tab label="TRAVEL FOR TRAINING">
-
-                                <div class="col-sm-12 ">
-                                    <p class="tx-uppercase tx-18 text-center primary lighten-1 mt-3">BOOK FOR YOU
-                                        TRIP!
-                                    </p>
-                                    <div class="row">
-                                        <div class="col-sm-12 ">
-                                            <div class="form-group">
-                                                <p class="tx-14 tx-gray-700 mb-0 d-flex"><span class="">Training
-                                                        Date&#32;</span> <span class="tx-gray-500 tx-italic">
-                                                        Form - To</span></p>
-                                                <div class="form-group position-relative has-icon-right">
-                                                    <!-- <input type="search" id="training_date_from_mobile"
+                        <mat-autocomplete
+                          #auto="matAutocomplete"
+                          (optionSelected)="selectedOption($event, 'business')"
+                        >
+                          <mat-option
+                            *ngFor="let option of filteredOptions | async"
+                            [value]="option"
+                          >
+                            {{ displayName(option) }}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <button
+                          type="button"
+                          (click)="goto()"
+                          class="btn btn-primary btn-lighten-1 btn-searchs col-12 position-relative"
+                        >
+                          PROCEED&#32;&#32;&#32;<i
+                            class="fa fa-angle-double-right"
+                          ></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
+              <mat-tab label="TRAVEL FOR TRAINING">
+                <div class="col-sm-12">
+                  <p
+                    class="tx-uppercase tx-18 text-center primary lighten-1 mt-3"
+                  >
+                    BOOK FOR YOU TRIP!
+                  </p>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <p class="tx-14 tx-gray-700 mb-0 d-flex">
+                          <span class="">Training Date&#32;</span>
+                          <span class="tx-gray-500 tx-italic"> Form - To</span>
+                        </p>
+                        <div
+                          class="form-group position-relative has-icon-right"
+                        >
+                          <!-- <input type="search" id="training_date_from_mobile"
                                                         autocomplete="off" onpaste="return false;"
                                                         ondrop="return false;" onkeypress="return false;"
                                                         class="form-control h-50" [(ngModel)]="training_dateFrom"
                                                         bsDatepicker
                                                         [bsConfig]="{dateInputFormat: 'DD MMM YYYY', showWeekNumbers:false}"
                                                         [maxDate]="training_dateTo"> -->
-                                                    <input type="search" id="training_date_from" autocomplete="off" onpaste="return false;" ondrop="return false;" onkeypress="return false;" class="form-control h-50" [(ngModel)]="trainingDateFrom" [bsConfig]="{rangeInputFormat: 'DD MMM YYYY', showWeekNumbers:false}" [maxDate]="trainingDateTo" bsDaterangepicker>
-                                                    <label class="form-control-position" for="training_date_from_mobile">
-                                                        <i class="material-icons tx-gray-500 cursor-pointer">today</i>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="col-sm-6">
+                          <input
+                            type="search"
+                            id="training_date_from"
+                            autocomplete="off"
+                            onpaste="return false;"
+                            ondrop="return false;"
+                            onkeypress="return false;"
+                            class="form-control h-50"
+                            [(ngModel)]="trainingDateFrom"
+                            [bsConfig]="{
+                              rangeInputFormat: 'DD MMM YYYY',
+                              showWeekNumbers: false
+                            }"
+                            [maxDate]="trainingDateTo"
+                            bsDaterangepicker
+                          />
+                          <label
+                            class="form-control-position"
+                            for="training_date_from_mobile"
+                          >
+                            <i class="material-icons tx-gray-500 cursor-pointer"
+                              >today</i
+                            >
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="col-sm-6">
                                             <div class="form-group">
                                                 <p class="tx-14 mb-0 tx-gray-500 tx-italic">To</p>
                                                 <div class="form-group position-relative has-icon-right">
@@ -729,236 +1053,392 @@
                                                 </div>
                                             </div>
                                         </div> -->
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <p class="tx-14 tx-gray-700 mb-0 ">Request Type</p>
-                                                <select class="form-control input-small" #mySelectTrainingM (change)="changeRequestType(mySelectTrainingM.value)" [(ngModel)]="trainingRequestType">
-                                                    <option value="overseatraining">Oversea training</option>
-                                                    <option value="localtraining">Local training</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 ">
-                                            <div class="form-group ">
-                                                <p class="tx-14 tx-gray-700 mb-0">Destination</p>
-                                                <input class="form-control h-50" [(ngModel)]="trainingDestination" [formControl]="trainingMyControl" [matAutocomplete]="autoX">
-
-                                                <mat-autocomplete #autoX="matAutocomplete" (optionSelected)="selectedOption($event,'training')">
-                                                    <mat-option *ngFor="let option of trainingFilteredOptions | async" [value]="option">
-                                                        {{displayName(option)}}
-                                                    </mat-option>
-                                                </mat-autocomplete>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <button type="button" (click)="goto_training_trip()" class="btn btn-primary btn-lighten-1 btn-searchs col-12 position-relative">PROCEED&#32;&#32;&#32;<i class="fa fa-angle-double-right"></i></button>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </mat-tab>
-                        </mat-tab-group>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <p class="tx-14 tx-gray-700 mb-0">Request Type</p>
+                        <select
+                          class="form-control input-small"
+                          #mySelectTrainingM
+                          (change)="changeRequestType(mySelectTrainingM.value)"
+                          [(ngModel)]="trainingRequestType"
+                        >
+                          <option value="overseatraining">
+                            Oversea training
+                          </option>
+                          <option value="localtraining">Local training</option>
+                        </select>
+                      </div>
                     </div>
-                    <div class="col-lg-4 col-sm-12 border border-bottom-0 border-grey-blue ">
-                        <p class="tx-uppercase tx-18 text-center tx-gray-800 mt-4 mb-2"><i class="fa fa-search "></i> UP
-                            COMING PLAN 2021
-                        </p>
-                        <div class="col-sm-12 ml-0 pl-0 mr-0 pr-0 d-none">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <mat-form-field>
-                                        <mat-label>Sort by :</mat-label>
-                                        <mat-select [(value)]="selected" (selectionChange)="selectionChanges('sortby',$event)">
-                                            <!-- <mat-option>None</mat-option> -->
-                                            <mat-option value="option1" class="tx-gray-800">Option 1</mat-option>
-                                            <mat-option value="date" class="tx-gray-800">Date</mat-option>
-                                            <mat-option value="option3" class="tx-gray-800">Option 3</mat-option>
-                                        </mat-select>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <p class="tx-14 tx-gray-700 mb-0">Destination</p>
+                        <input
+                          class="form-control h-50"
+                          [(ngModel)]="trainingDestination"
+                          [formControl]="trainingMyControl"
+                          [matAutocomplete]="autoX"
+                        />
 
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-sm-4">
-                                    <mat-form-field>
-                                        <mat-select [formControl]="bankCtrl" placeholder="Destination" #singleSelect>
-                                            <mat-option>
-                                                <ngx-mat-select-search [formControl]="bankFilterCtrl" placeholderLabel="Find destination..." i18n-placeholderLabel noEntriesFoundLabel="'no matching destination found'" i18n-noEntriesFoundLabel></ngx-mat-select-search>
-                                            </mat-option>
-
-                                            <mat-option *ngFor="let bank of filteredBanks | async" [value]="bank">
-                                                {{bank.name}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-sm-4">
-                                    <mat-form-field>
-                                        <mat-label>Traveling objective :</mat-label>
-                                        <mat-select [(value)]="travelingObjective">
-                                            <mat-option value="">All</mat-option>
-                                            <mat-option value="business">BUSINESS TRIP</mat-option>
-                                            <mat-option value="training">TRAINING TRIP</mat-option>
-                                            <!-- <mat-option value="option3">Option 3</mat-option> -->
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 ml-0 pl-0 mr-0 pr-0 mt-1">
-                            <div class="table-responsive p-1 " style="overflow-x: hidden;">
-                                <div class="box-content-list p-2 mb-1" *ngFor="let item of dataComingPlan">
-                                    <div class="row">
-                                        <div class="col-4 tx-center">
-                                            <p class="mb-0 pb-0  tx-uppercase valign-top" [ngClass]="{'tx-18' : mediaMatch, 'tx-14' : !mediaMatch}">
-                                                {{getDateformat(item.date,'DM')}} <span class="valign-top" [ngClass]="{'tx-14' : mediaMatch, 'tx-10' : !mediaMatch}">{{getDateformat(item.date,'YY')}}</span>
-                                            </p>
-                                            <div class="btn w-100 mt-1" [ngClass]="{'btn-confirm': item.button_status === '1' 
-                                    , 'btn-draft':item.button_status === '2'
-                                    , 'btn-cap':item.button_status === '3'
-                                    , 'btn-4':item.button_status === '4'
-                                    , 'btn-5':item.button_status === '5'
-                                    , 'btn-6':item.button_status === '6'
-                                    , 'btn-7':item.button_status === '7' }">
-                                                <!-- {{getClassStatus(item.button_status)}} -->
-                                                {{(mediaMatch) ? (getClassStatus(item.button_status).length>9) ?
-                                                (getClassStatus(item.button_status) | slice:0:9)+'..' :
-                                                (getClassStatus(item.button_status)) :
-                                                (getClassStatus(item.button_status) | slice:0:4)+'..'}}
-                                            </div>
-                                        </div>
-                                        <div class="col-8 pl-0 ml-0">
-                                            <!-- <p class="tx-18 mb-0 pb-0">UK - <span>Participate HAZOP/...</span></p> -->
-                                            <p class="tx-18 mb-0 pb-0" matTooltip="{{item.topic_of_traveling}}">
-                                                {{(mediaMatch) ? (item.topic_of_traveling.length>30)?
-                                                (item.topic_of_traveling | slice:0:30)+'..' : (item.topic_of_traveling)
-                                                : (item.topic_of_traveling | slice:0:18)+'..'}}</p>
-                                            <div class="tx-14">
-                                                <i class="fa fa-calendar"></i>
-                                                <span> {{item.business_date}}</span>
-                                            </div>
-                                            <div class="tx-14">
-                                                <i class="fa fa-plane"></i>
-                                                <span> {{item.country}}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <p class="tx-16 text-center mt-2 mb-2"><a class="primary lighten-1 " routerLink="/main/request_list/all">View more <i class="fa fa-angle-double-right"></i></a></p>
-
-
-                            </div>
-                        </div>
-
+                        <mat-autocomplete
+                          #autoX="matAutocomplete"
+                          (optionSelected)="selectedOption($event, 'training')"
+                        >
+                          <mat-option
+                            *ngFor="
+                              let option of trainingFilteredOptions | async
+                            "
+                            [value]="option"
+                          >
+                            {{ displayName(option) }}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </div>
                     </div>
-                    <div class="col-lg-4 col-sm-12 border border-grey-blue p-0 ht-300 ">
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6"></div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <button
+                          type="button"
+                          (click)="goto_training_trip()"
+                          class="btn btn-primary btn-lighten-1 btn-searchs col-12 position-relative"
+                        >
+                          PROCEED&#32;&#32;&#32;<i
+                            class="fa fa-angle-double-right"
+                          ></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+            
+          </div>
+          <div
+            class="col-lg-4 col-sm-12 border border-bottom-0 border-grey-blue"
+          >
+            <p class="tx-uppercase tx-18 text-center tx-gray-800 mt-4 mb-2">
+              <i class="fa fa-search"></i> UP COMING PLAN 202
+            </p>
+            <div class="col-sm-12 ml-0 pl-0 mr-0 pr-0 d-none">
+              <div class="row">
+                <div class="col-sm-4">
+                  <mat-form-field>
+                    <mat-label>Sort by :</mat-label>
+                    <mat-select
+                      [(value)]="selected"
+                      (selectionChange)="selectionChanges('sortby', $event)"
+                    >
+                      <!-- <mat-option>None</mat-option> -->
+                      <mat-option value="option1" class="tx-gray-800"
+                        >Option 1</mat-option
+                      >
+                      <mat-option value="date" class="tx-gray-800"
+                        >Date</mat-option
+                      >
+                      <mat-option value="option3" class="tx-gray-800"
+                        >Option 3</mat-option
+                      >
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                  <mat-form-field>
+                    <mat-select
+                      [formControl]="bankCtrl"
+                      placeholder="Destination"
+                      #singleSelect
+                    >
+                      <mat-option>
+                        <ngx-mat-select-search
+                          [formControl]="bankFilterCtrl"
+                          placeholderLabel="Find destination..."
+                          i18n-placeholderLabel
+                          noEntriesFoundLabel="'no matching destination found'"
+                          i18n-noEntriesFoundLabel
+                        ></ngx-mat-select-search>
+                      </mat-option>
 
-                        <!-- 400px x 300px -->
-                        <div class="hero-image2 " [ngStyle]="{'background-image': 'url('+imgPaths.imgPath_2+')'}" *ngIf="imgPaths.imgPath_2 != ''">
-                            <div class="row ">
-                                <div class="col-sm-12 ">
-                                    <button type="button" *ngIf="!showEdit" class="btn btn-blue-gray-opacity btn-searchs float-left ml-4 mt-2 pos-relative" (click)="openModalx(template,'bg_personal_profile')"><i class="fa fa-pencil"></i>
-                                        Edit</button>
-                                    <!-- <p class="tx-uppercase tx-20 text-center tx-gray-800 mt-3 mb-2 mr-4 float-right">
+                      <mat-option
+                        *ngFor="let bank of filteredBanks | async"
+                        [value]="bank"
+                      >
+                        {{ bank.name }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                  <mat-form-field>
+                    <mat-label>Traveling objective :</mat-label>
+                    <mat-select [(value)]="travelingObjective">
+                      <mat-option value="">All</mat-option>
+                      <mat-option value="business">BUSINESS TRIP</mat-option>
+                      <mat-option value="training">TRAINING TRIP</mat-option>
+                      <!-- <mat-option value="option3">Option 3</mat-option> -->
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 ml-0 pl-0 mr-0 pr-0 mt-1">
+              <div class="table-responsive p-1" style="overflow-x: hidden">
+                <div
+                  class="box-content-list p-2 mb-1"
+                  *ngFor="let item of dataComingPlan"
+                >
+                  <div class="row">
+                    <div class="col-4 tx-center">
+                      <p
+                        class="mb-0 pb-0 tx-uppercase valign-top"
+                        [ngClass]="{
+                          'tx-18': mediaMatch,
+                          'tx-14': !mediaMatch
+                        }"
+                      >
+                        {{ getDateformat(item.date, "DM") }}
+                        <span
+                          class="valign-top"
+                          [ngClass]="{
+                            'tx-14': mediaMatch,
+                            'tx-10': !mediaMatch
+                          }"
+                          >{{ getDateformat(item.date, "YY") }}</span
+                        >
+                      </p>
+                      <div
+                        class="btn w-100 mt-1"
+                        [ngClass]="{
+                          'btn-confirm': item.button_status === '1',
+                          'btn-draft': item.button_status === '2',
+                          'btn-cap': item.button_status === '3',
+                          'btn-4': item.button_status === '4',
+                          'btn-5': item.button_status === '5',
+                          'btn-6': item.button_status === '6',
+                          'btn-7': item.button_status === '7'
+                        }"
+                      >
+                        <!-- {{getClassStatus(item.button_status)}} -->
+                        {{
+                          mediaMatch
+                            ? getClassStatus(item.button_status).length > 9
+                              ? (getClassStatus(item.button_status)
+                                  | slice : 0 : 9) + ".."
+                              : getClassStatus(item.button_status)
+                            : (getClassStatus(item.button_status)
+                                | slice : 0 : 4) + ".."
+                        }}
+                      </div>
+                    </div>
+                    <div class="col-8 pl-0 ml-0">
+                      <!-- <p class="tx-18 mb-0 pb-0">UK - <span>Participate HAZOP/...</span></p> -->
+                      <p
+                        class="tx-18 mb-0 pb-0"
+                        matTooltip="{{ item.topic_of_traveling }}"
+                      >
+                        {{
+                          mediaMatch
+                            ? item.topic_of_traveling.length > 30
+                              ? (item.topic_of_traveling | slice : 0 : 30) +
+                                ".."
+                              : item.topic_of_traveling
+                            : (item.topic_of_traveling | slice : 0 : 18) + ".."
+                        }}
+                      </p>
+                      <div class="tx-14">
+                        <i class="fa fa-calendar"></i>
+                        <span> {{ item.business_date }}</span>
+                      </div>
+                      <div class="tx-14">
+                        <i class="fa fa-plane"></i>
+                        <span> {{ item.country }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="tx-16 text-center mt-2 mb-2">
+                  <a
+                    class="primary lighten-1"
+                    routerLink="/main/request_list/all"
+                    >View more <i class="fa fa-angle-double-right"></i
+                  ></a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-sm-12 border border-grey-blue p-0 ht-300">
+            <!-- 400px x 300px -->
+            <div
+              class="hero-image2"
+              [ngStyle]="{
+                'background-image': 'url(' + imgPaths.imgPath_2 + ')'
+              }"
+              *ngIf="imgPaths.imgPath_2 != ''"
+            >
+              <div class="row">
+                <div class="col-sm-12">
+                  <button
+                    type="button"
+                    *ngIf="!showEdit"
+                    class="btn btn-blue-gray-opacity btn-searchs float-left ml-4 mt-2 pos-relative"
+                    (click)="openModalx(template, 'bg_personal_profile')"
+                  >
+                    <i class="fa fa-pencil"></i> Edit
+                  </button>
+                  <!-- <p class="tx-uppercase tx-20 text-center tx-gray-800 mt-3 mb-2 mr-4 float-right">
                                         Personal Profile
                                     </p> -->
-                                </div>
-                                <div class="col-sm-12 mg-t-80">
-                                    <ul class="tx-gray-800 tx-16 mg-l-200">
-                                        <li *ngFor="let item of dataSource">
-                                            <a class="tx-gray-800 " routerLink="{{item.url}}">{{item.menu}}</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-sm-12 mg-t-10">
-                                    <div class="row mg-l-200">
-                                        <a href="{{urlCarservice}}" class="btn btn-social wd-180 btn-min-width mb-1 btn-outline-bitbucket btn-sm "><span class="fa fa-paper-plane font-medium-2"></span>CAR SERVICE</a>
-                                    </div>
-                                    <div class="row mg-l-200">
-                                        <a href="{{urlIpettyCash}}" class="btn btn-social wd-180 mb-1 btn-outline-flickr btn-sm"><span class="fa fa-paper-plane font-medium-2"></span> I-PETTY CASH</a>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="hero-image2 cursor-pointer bg-gray-1 text-center" *ngIf="imgPaths.imgPath_2 === ''">
-
-                            <i class="fa fa-picture-o fa-3x mg-t-100"></i>
-                            <p class="tx-20 m-0 p-0">400 x 300</p>
-                        </div>
-                        <!-- </div> -->
-                    </div>
                 </div>
-                <div class="col-lg-12 form-group border border-top-0 border-grey-blue text-center mb-0">
-
-                    <div class="col-sm-12  pos-absolute" *ngIf="!showEdit">
-                        <button type="button" class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative" (click)="openModalx(template,'txt_welcome')"><i class="fa fa-pencil"></i> Edit</button>
-                    </div>
-                    <h2 class="pt-5 primary lighten-1"><u>{{textWelcome}}</u></h2>
-                    <p class="tx-14 tx-gray-700 pb-4">{{textWelDesc}}</p>
+                <div class="col-sm-12 mg-t-80">
+                  <ul class="tx-gray-800 tx-16 mg-l-200">
+                    <li *ngFor="let item of dataSource">
+                      <a class="tx-gray-800" routerLink="{{ item.url }}">{{
+                        item.menu
+                      }}</a>
+                    </li>
+                  </ul>
                 </div>
+                <div class="col-sm-12 mg-t-10">
+                  <div class="row mg-l-200">
+                    <a
+                      href="{{ urlCarservice }}"
+                      class="btn btn-social wd-180 btn-min-width mb-1 btn-outline-bitbucket btn-sm"
+                      ><span class="fa fa-paper-plane font-medium-2"></span>CAR
+                      SERVICE</a
+                    >
+                  </div>
+                  <div class="row mg-l-200">
+                    <a
+                      href="{{ urlIpettyCash }}"
+                      class="btn btn-social wd-180 mb-1 btn-outline-flickr btn-sm"
+                      ><span class="fa fa-paper-plane font-medium-2"></span>
+                      I-PETTY CASH</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="hero-image2 cursor-pointer bg-gray-1 text-center"
+              *ngIf="imgPaths.imgPath_2 === ''"
+            >
+              <i class="fa fa-picture-o fa-3x mg-t-100"></i>
+              <p class="tx-20 m-0 p-0">400 x 300</p>
+            </div>
+            <!-- </div> -->
+          </div>
+        </div>
+        <div
+          class="col-lg-12 form-group border border-top-0 border-grey-blue text-center mb-0"
+        >
+          <div class="col-sm-12 pos-absolute" *ngIf="!showEdit">
+            <button
+              type="button"
+              class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative"
+              (click)="openModalx(template, 'txt_welcome')"
+            >
+              <i class="fa fa-pencil"></i> Edit
+            </button>
+          </div>
+          <h2 class="pt-5 primary lighten-1">
+            <u>{{ textWelcome }}</u>
+          </h2>
+          <p class="tx-14 tx-gray-700 pb-4">{{ textWelDesc }}</p>
+        </div>
 
-                <div class="col-lg-12 form-group m-0 p-0">
+        <div class="col-lg-12 form-group m-0 p-0">
+          <!-- <div class="colX-container "> -->
+          <div
+            class="col-sm-12 border border-top-0 border-grey-blue p-0 ht-300"
+          >
+            <div class="col-sm-12 m-0 p-0 pos-absolute" *ngIf="!showEdit">
+              <button
+                type="button"
+                class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative"
+                (click)="openModalx(template, 'bg_banner_1')"
+              >
+                <i class="fa fa-pencil"></i> Edit
+              </button>
+            </div>
+            <div
+              class="hero-image2 cursor-pointer"
+              [ngStyle]="{
+                'background-image': 'url(' + imgPaths.imgPath_3_1 + ')'
+              }"
+              *ngIf="imgPaths.imgPath_3_1 != ''"
+              (click)="gotoUrl(urlBanners.url_banner_1)"
+            ></div>
+            <div
+              class="hero-image2 bg-gray-1 text-center"
+              *ngIf="imgPaths.imgPath_3_1 === ''"
+            >
+              <i class="fa fa-picture-o fa-3x mg-t-100"></i>
+              <p class="tx-20 m-0 p-0">400 x 300</p>
+            </div>
+          </div>
+          <div
+            class="col-sm-12 border border-top-0 border-grey-blue p-0 ht-300"
+          >
+            <div class="col-sm-12 m-0 p-0 pos-absolute" *ngIf="!showEdit">
+              <button
+                type="button"
+                class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative"
+                (click)="openModalx(template, 'bg_banner_2')"
+              >
+                <i class="fa fa-pencil"></i> Edit
+              </button>
+            </div>
+            <div
+              class="hero-image2 cursor-pointer"
+              [ngStyle]="{
+                'background-image': 'url(' + imgPaths.imgPath_3_2 + ')'
+              }"
+              *ngIf="imgPaths.imgPath_3_2 != ''"
+              (click)="gotoUrl(urlBanners.url_banner_2)"
+            ></div>
+            <div
+              class="hero-image2 bg-gray-1 text-center"
+              *ngIf="imgPaths.imgPath_3_2 === ''"
+            >
+              <i class="fa fa-picture-o fa-3x mg-t-100"></i>
+              <p class="tx-20 m-0 p-0">400 x 300</p>
+            </div>
+          </div>
+          <div
+            class="col-sm-12 border border-top-0 border-grey-blue p-0 ht-300"
+          >
+            <div class="col-sm-12 m-0 p-0 pos-absolute" *ngIf="!showEdit">
+              <button
+                type="button"
+                class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative"
+                (click)="openModalx(template, 'bg_banner_3')"
+              >
+                <i class="fa fa-pencil"></i> Edit
+              </button>
+            </div>
+            <div
+              class="hero-image2 cursor-pointer"
+              [ngStyle]="{
+                'background-image': 'url(' + imgPaths.imgPath_3_3 + ')'
+              }"
+              *ngIf="imgPaths.imgPath_3_3 != ''"
+              (click)="gotoUrl(urlBanners.url_banner_3)"
+            ></div>
+            <div
+              class="hero-image2 bg-gray-1 text-center"
+              *ngIf="imgPaths.imgPath_3_3 === ''"
+            >
+              <i class="fa fa-picture-o fa-3x mg-t-100"></i>
+              <p class="tx-20 m-0 p-0">400 x 300</p>
+            </div>
+          </div>
+          <!-- </div> -->
 
-                    <!-- <div class="colX-container "> -->
-                    <div class="col-sm-12 border border-top-0  border-grey-blue p-0 ht-300">
-                        <div class="col-sm-12 m-0 p-0 pos-absolute" *ngIf="!showEdit">
-                            <button type="button" class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative" (click)="openModalx(template,'bg_banner_1')"><i class="fa fa-pencil"></i>
-                                Edit</button>
-                        </div>
-                        <div class="hero-image2 cursor-pointer" [ngStyle]="{'background-image': 'url('+imgPaths.imgPath_3_1+')'}" *ngIf="imgPaths.imgPath_3_1 != ''" (click)="gotoUrl(urlBanners.url_banner_1)">
-
-                        </div>
-                        <div class="hero-image2 bg-gray-1 text-center" *ngIf="imgPaths.imgPath_3_1 === ''">
-
-                            <i class="fa fa-picture-o fa-3x mg-t-100"></i>
-                            <p class="tx-20 m-0 p-0">400 x 300</p>
-                        </div>
-
-                    </div>
-                    <div class="col-sm-12 border border-top-0  border-grey-blue p-0 ht-300">
-                        <div class="col-sm-12 m-0 p-0 pos-absolute" *ngIf="!showEdit">
-                            <button type="button" class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative" (click)="openModalx(template,'bg_banner_2')"><i class="fa fa-pencil"></i>
-                                Edit</button>
-                        </div>
-                        <div class="hero-image2 cursor-pointer " [ngStyle]="{'background-image': 'url('+imgPaths.imgPath_3_2+')'}" *ngIf="imgPaths.imgPath_3_2 != ''" (click)="gotoUrl(urlBanners.url_banner_2)">
-
-                        </div>
-                        <div class="hero-image2 bg-gray-1 text-center" *ngIf="imgPaths.imgPath_3_2 === ''">
-
-                            <i class="fa fa-picture-o fa-3x mg-t-100"></i>
-                            <p class="tx-20 m-0 p-0">400 x 300</p>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 border border-top-0  border-grey-blue p-0 ht-300">
-                        <div class="col-sm-12 m-0 p-0 pos-absolute" *ngIf="!showEdit">
-                            <button type="button" class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative" (click)="openModalx(template,'bg_banner_3')"><i class="fa fa-pencil"></i>
-                                Edit</button>
-                        </div>
-                        <div class="hero-image2 cursor-pointer " [ngStyle]="{'background-image': 'url('+imgPaths.imgPath_3_3+')'}" *ngIf="imgPaths.imgPath_3_3 != ''" (click)="gotoUrl(urlBanners.url_banner_3)">
-
-                        </div>
-                        <div class="hero-image2 bg-gray-1 text-center" *ngIf="imgPaths.imgPath_3_3 === ''">
-
-                            <i class="fa fa-picture-o fa-3x mg-t-100"></i>
-                            <p class="tx-20 m-0 p-0">400 x 300</p>
-                        </div>
-                    </div>
-                    <!-- </div> -->
-
-                    <!-- <div class="mall-slide d-none">
+          <!-- <div class="mall-slide d-none">
                         <div class="slid-content">
                             <div class="mall-show-slide fade" *ngFor="let item of Imagedata;">
                                 <img src="{{item}}" style="width:100%">
@@ -971,245 +1451,414 @@
                             </div>
                         </div>
                     </div> -->
+        </div>
+        <div class="col-lg-12 form-group m-0 p-0">
+          <!-- <div class="colX-container "> -->
+          <div
+            class="col-lg-5 col-sm-12 border border-top-0 border-grey-blue p-0"
+          >
+            <div class="col-sm-12 m-0 p-0 pos-absolute" *ngIf="!showEdit">
+              <button
+                type="button"
+                class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative"
+                (click)="openModalx(template, 'bg_practice_areas')"
+              >
+                <i class="fa fa-pencil"></i> Edit
+              </button>
+            </div>
+            <div class="content-wrapper">
+              <!-- 400px x 300px -->
+              <div
+                class="hero-image2"
+                [ngStyle]="{
+                  'background-image': 'url(' + imgPaths.imgPath_4 + ')'
+                }"
+                *ngIf="imgPaths.imgPath_4 != ''"
+              >
+                <!-- <div class="row d-inline "> -->
+                <p class="tx-22 tx-gray-800 text-center tx-uppercase pd-t-30">
+                  practice areas
+                </p>
+
+                <div class="row d-flex pt-4">
+                  <div class="col-sm-12 mg-l-20-f">
+                    <p class="tx-16 text-left mb-0 pb-3">
+                      <a
+                        href="https://thaioilintranet.thaioilgroup.com/departments/S013/Services/Business%20Trip/1%20APPROVAL"
+                        target="_blank"
+                        class="tx-gray-700"
+                        >1. APPROVAL</a
+                      >
+                    </p>
+                    <p class="tx-16 text-left mb-0 pb-3">
+                      <a
+                        href="https://thaioilintranet.thaioilgroup.com/departments/S013/Services/Business%20Trip/2%20EMPLOYEE%20PAYMENT"
+                        target="_blank"
+                        class="tx-gray-700"
+                        >2. EMPLOYEE PAYMENT</a
+                      >
+                    </p>
+                    <p class="tx-16 text-left mb-0 pb-3">
+                      <a
+                        href="https://thaioilintranet.thaioilgroup.com/departments/S013/Services/Business%20Trip/3%20TRANSPORTATION"
+                        target="_blank"
+                        class="tx-gray-700"
+                        >3. TRANSPORTATION</a
+                      >
+                    </p>
+                    <p class="tx-16 text-left mb-0 pb-3">
+                      <a
+                        href="https://thaioilintranet.thaioilgroup.com/departments/S013/Services/Business%20Trip/4%20OTHERS"
+                        target="_blank"
+                        class="tx-gray-700"
+                        >4. OTHERS</a
+                      >
+                    </p>
+                  </div>
                 </div>
-                <div class="col-lg-12 form-group m-0 p-0">
-                    <!-- <div class="colX-container "> -->
-                    <div class="col-lg-5 col-sm-12 border border-top-0 border-grey-blue p-0">
-                        <div class="col-sm-12 m-0 p-0 pos-absolute" *ngIf="!showEdit">
-                            <button type="button" class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative" (click)="openModalx(template,'bg_practice_areas')"><i class="fa fa-pencil"></i>
-                                Edit</button>
-                        </div>
-                        <div class="content-wrapper ">
-                            <!-- 400px x 300px -->
-                            <div class="hero-image2 " [ngStyle]="{'background-image': 'url('+imgPaths.imgPath_4+')'}" *ngIf="imgPaths.imgPath_4 != ''">
-                                <!-- <div class="row d-inline "> -->
-                                <p class="tx-22 tx-gray-800 text-center tx-uppercase pd-t-30">practice areas</p>
+                <!-- </div> -->
+              </div>
+              <div
+                class="hero-image2 cursor-pointer bg-gray-1 text-center"
+                *ngIf="imgPaths.imgPath_4 === ''"
+              >
+                <i class="fa fa-picture-o fa-3x mg-t-100"></i>
+                <p class="tx-20 m-0 p-0">460 x 300</p>
+                <!-- <input type="file" accept="video/*" /> -->
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-lg-7 col-sm-12 border border-top-0 border-grey-blue p-0"
+          >
+            <!-- <div class="row d-inline "> -->
+            <div class="col-sm-12 m-0 p-0 pos-absolute" *ngIf="!showEdit">
+              <button
+                type="button"
+                class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative"
+                (click)="openModalx(template, 'contact')"
+              >
+                <i class="fa fa-pencil"></i> Edit
+              </button>
+            </div>
+            <p
+              class="tx-22 tx-gray-800 text-center tx-uppercase pt-2 pb-2 border-bottom"
+            >
+              Get in touch
+            </p>
+            <!-- <div class="colX-container "> -->
+            <div class="col-sm-12">
+              <div class="form-group">
+                <!-- <p class="tx-14 mb-0">Name</p> -->
+                <input
+                  class="form-control h-50"
+                  placeholder="Name"
+                  autocomplete="off"
+                  [(ngModel)]="mailContactName"
+                />
+              </div>
+              <div class="form-group">
+                <!-- <p class="tx-14 mb-0">Subject</p> -->
+                <input
+                  class="form-control h-50"
+                  placeholder="Subject"
+                  autocomplete="off"
+                  [(ngModel)]="mailContactSubject"
+                />
+              </div>
+              <div class="form-group">
+                <!-- <p class="tx-14 mb-0">Message</p> -->
 
-                                <div class="row d-flex pt-4">
-                                    <div class="col-sm-12 mg-l-20-f">
-                                        <p class="tx-16 text-left mb-0 pb-3 "><a href="https://thaioilintranet.thaioilgroup.com/departments/S013/Services/Business%20Trip/1%20APPROVAL" target="_blank" class="tx-gray-700 ">1.
-                                                APPROVAL</a></p>
-                                        <p class="tx-16 text-left mb-0 pb-3 "><a href="https://thaioilintranet.thaioilgroup.com/departments/S013/Services/Business%20Trip/2%20EMPLOYEE%20PAYMENT" target="_blank" class="tx-gray-700 ">2.
-                                                EMPLOYEE PAYMENT</a></p>
-                                        <p class="tx-16 text-left mb-0 pb-3 "><a href="https://thaioilintranet.thaioilgroup.com/departments/S013/Services/Business%20Trip/3%20TRANSPORTATION" target="_blank" class="tx-gray-700 ">3.
-                                                TRANSPORTATION</a></p>
-                                        <p class="tx-16 text-left mb-0 pb-3 "><a href="https://thaioilintranet.thaioilgroup.com/departments/S013/Services/Business%20Trip/4%20OTHERS" target="_blank" class="tx-gray-700 ">4.
-                                                OTHERS</a></p>
-                                    </div>
-                                </div>
-                                <!-- </div> -->
-
-                            </div>
-                            <div class="hero-image2 cursor-pointer bg-gray-1 text-center" *ngIf="imgPaths.imgPath_4 === ''">
-
-                                <i class="fa fa-picture-o fa-3x mg-t-100"></i>
-                                <p class="tx-20 m-0 p-0">460 x 300</p>
-                                <!-- <input type="file" accept="video/*" /> -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-7 col-sm-12 border border-top-0 border-grey-blue p-0">
-                        <!-- <div class="row d-inline "> -->
-                        <div class="col-sm-12 m-0 p-0 pos-absolute" *ngIf="!showEdit">
-                            <button type="button" class="btn btn-blue-gray-opacity btn-searchs float-right mr-2 mt-2 pos-relative" (click)="openModalx(template,'contact')"><i class="fa fa-pencil"></i>
-                                Edit</button>
-                        </div>
-                        <p class="tx-22 tx-gray-800 text-center tx-uppercase pt-2 pb-2 border-bottom">Get in touch
-                        </p>
-                        <!-- <div class="colX-container "> -->
-                        <div class="col-sm-12 ">
-                            <div class="form-group">
-                                <!-- <p class="tx-14 mb-0">Name</p> -->
-                                <input class="form-control h-50" placeholder="Name" autocomplete="off" [(ngModel)]="mailContactName">
-
-                            </div>
-                            <div class="form-group">
-                                <!-- <p class="tx-14 mb-0">Subject</p> -->
-                                <input class="form-control h-50" placeholder="Subject" autocomplete="off" [(ngModel)]="mailContactSubject">
-
-                            </div>
-                            <div class="form-group">
-                                <!-- <p class="tx-14 mb-0">Message</p> -->
-
-                                <textarea class="form-control " rows="3" placeholder="Message" autocomplete="off" [(ngModel)]="mailContactBody"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <button type="button" class="btn btn-primary btn-lighten-1 btn-searchs col-12" (click)="sendMail()">SUBMIT&#32;&#32;&#32;<i class="fa fa-angle-double-right"></i></button>
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="form-group text-center">
-                                <p class="tx-16 mb-0 tx-italic">{{textGetInTouchTitle}}</p>
-                            </div>
-                            <div class="form-group text-center">
-                                <p class="tx-14 mb-0 ">
-                                    <!-- <mat-icon>
+                <textarea
+                  class="form-control"
+                  rows="3"
+                  placeholder="Message"
+                  autocomplete="off"
+                  [(ngModel)]="mailContactBody"
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <button
+                  type="button"
+                  class="btn btn-primary btn-lighten-1 btn-searchs col-12"
+                  (click)="sendMail()"
+                >
+                  SUBMIT&#32;&#32;&#32;<i class="fa fa-angle-double-right"></i>
+                </button>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group text-center">
+                <p class="tx-16 mb-0 tx-italic">{{ textGetInTouchTitle }}</p>
+              </div>
+              <div class="form-group text-center">
+                <p class="tx-14 mb-0">
+                  <!-- <mat-icon>
                                 mark_as_unread
                             </mat-icon> -->
-                                    <i class="fa fa-envelope-o"></i>
-                                    {{textGetInTouchEmail}}
-                                </p>
-                            </div>
-                            <div class="form-group text-center">
-                                <p class="tx-14 mb-0 ">
-                                    <i class="fa fa-phone"></i>
-                                    Call us {{textGetInTouchCallUs}}
-                                </p>
-                            </div>
-                            <div class="form-group text-center">
-                                <!-- <img src="assets/imgs/communicate.png" class="ht-100-f cursor-pointer"
+                  <i class="fa fa-envelope-o"></i>
+                  {{ textGetInTouchEmail }}
+                </p>
+              </div>
+              <div class="form-group text-center">
+                <p class="tx-14 mb-0">
+                  <i class="fa fa-phone"></i>
+                  Call us {{ textGetInTouchCallUs }}
+                </p>
+              </div>
+              <div class="form-group text-center">
+                <!-- <img src="assets/imgs/communicate.png" class="ht-100-f cursor-pointer"
                                     (click)="openModalContact(templateModal,'')"> -->
-                                <img src="assets/imgs/6340.jpg" class="wd-180 cursor-pointer" (click)="openModalContact(templateModal,'')">
-                            </div>
-                        </div>
-                        <!-- </div> -->
-                        <!-- </div> -->
-                    </div>
-                    <!-- </div> -->
-                </div>
-
-
+                <img
+                  src="assets/imgs/6340.jpg"
+                  class="wd-180 cursor-pointer"
+                  (click)="openModalContact(templateModal, '')"
+                />
+              </div>
             </div>
-
-
+            <!-- </div> -->
+            <!-- </div> -->
+          </div>
+          <!-- </div> -->
         </div>
-
+      </div>
     </div>
-    <div class="tx-center mt-0 pt-0">
-        <p class="tx-14 mt-0 pt-0"><a href="{{url_employee_privacy_center}}" target="_blank" class="link-text "><i class="fa fa-user-circle-o"></i> Employee Privacy Center</a></p>
+  </div>
+  <div class="tx-center mt-0 pt-0">
+    <p class="tx-14 mt-0 pt-0">
+      <a
+        href="{{ url_employee_privacy_center }}"
+        target="_blank"
+        class="link-text"
+        ><i class="fa fa-user-circle-o"></i> Employee Privacy Center</a
+      >
+    </p>
+  </div>
+  <!-- Mobile -->
+  <ng-template #template>
+    <div class="modal-header">
+      <span class="modal-title tx-20 tx-gray-800" id="my-modal-title"
+        ><i class="fa fa-pencil px-1"></i>
+        Edit
+      </span>
+      <button
+        type="button"
+        class="close red"
+        data-dismiss="modal"
+        aria-label="Close"
+        (click)="modalRef.hide()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
-    <!-- Mobile -->
-    <ng-template #template>
-        <div class="modal-header">
-            <span class="modal-title tx-20 tx-gray-800" id="my-modal-title"><i class="fa fa-pencil px-1"></i>
-                Edit
-            </span>
-            <button type="button" class="close red" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()">
-                <span aria-hidden="true">&times;</span>
-            </button>
+    <div class="modal-body">
+      <div class="row" *ngIf="!textboxPopup && !textBoxGetInTouch">
+        <div class="col-12 text-center">
+          <div class="form-group">
+            <!-- {{editTypes}} -->
+            <p class="tx-14 tx-gray-600">
+              Recommended image size[{{ textPopupUpload }}]
+            </p>
+          </div>
         </div>
-        <div class="modal-body">
-            <div class="row" *ngIf="!textboxPopup && !textBoxGetInTouch">
+        <div class="col-12 text-center">
+          <div class="form-group">
+            <div [innerHTML]="htmlContent | safe : 'html'" hidden></div>
+            <img
+              id="imgEx"
+              [src]="imageSource"
+              alt="Image Source"
+              class="hero-image_popup"
+            />
+            <!-- <mat-spinner></mat-spinner> -->
+            <mat-progress-bar
+              mode="indeterminate"
+              *ngIf="progressbar"
+            ></mat-progress-bar>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group pl-2 pr-2">
+            <div class="custom-file">
+              <input
+                type="file"
+                class="custom-file-input cursor-pointer ht-35"
+                accept="image/x-png,image/gif,image/jpeg"
+                id="importFile"
+                (change)="getBase64($event)"
+              />
+              <label
+                class="custom-file-label tx-gray-600"
+                #labelImport
+                for="importFile"
+                ><i class="fa fa-search"></i> {{ lbInputFile }}</label
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 mb-1" *ngIf="bannerUrl">
+          <fieldset class="form-group ml-2 mr-2">
+            <label for="txtBanner" class="tx-14 tx-gray-700"
+              ><i class="ft-link"></i> Banner Url :</label
+            >
+            <input
+              type="text"
+              class="form-control tx-gray-600 ht-35"
+              id="txtBanner"
+              [(ngModel)]="txtBanner"
+              placeholder="https:// ..."
+            />
+          </fieldset>
 
-                <div class="col-12 text-center">
-                    <div class="form-group">
-                        <!-- {{editTypes}} -->
-                        <p class="tx-14 tx-gray-600">Recommended image size[{{textPopupUpload}}]</p>
-                    </div>
-                </div>
-                <div class="col-12 text-center">
-
-                    <div class="form-group">
-
-                        <div [innerHTML]="htmlContent | safe:'html'" hidden></div>
-                        <img id="imgEx" [src]="imageSource" alt="Image Source" class="hero-image_popup ">
-                        <!-- <mat-spinner></mat-spinner> -->
-                        <mat-progress-bar mode="indeterminate" *ngIf="progressbar"></mat-progress-bar>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="form-group pl-2 pr-2">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input cursor-pointer ht-35" accept="image/x-png,image/gif,image/jpeg" id="importFile" (change)="getBase64($event)">
-                            <label class="custom-file-label tx-gray-600" #labelImport for="importFile"><i class="fa fa-search"></i>
-                                {{lbInputFile}}</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12 mb-1" *ngIf="bannerUrl">
-
-                    <fieldset class="form-group ml-2 mr-2">
-                        <label for="txtBanner" class="tx-14 tx-gray-700"><i class="ft-link"></i> Banner Url :</label>
-                        <input type="text" class="form-control tx-gray-600 ht-35" id="txtBanner" [(ngModel)]="txtBanner" placeholder="https:// ...">
-                    </fieldset>
-
-                    <!-- <fieldset class="form-group pl-2 pr-2 position-relative has-icon-left">
+          <!-- <fieldset class="form-group pl-2 pr-2 position-relative has-icon-left">
                         
                         <input type="text" class="form-control ht-35" id="iconLeft4" placeholder="Banner Url...">
                         <div class="form-control-position">
                             <i class="ft-link"></i>
                         </div>
                     </fieldset> -->
-                </div>
-
-            </div>
-            <div class="row" *ngIf="textboxPopup">
-                <div class="col-sm-12 mb-1">
-                    <fieldset class="form-group">
-                        <label for="basicInput">Title</label>
-                        <input type="text" class="form-control" id="basicInput" [(ngModel)]="textWelcomePopup">
-                    </fieldset>
-                </div>
-                <div class="col-sm-12 mb-1">
-                    <fieldset class="form-group">
-                        <label for="basicInput">Description</label>
-                        <textarea type="text" class="form-control" id="basicInput" rows="4" [(ngModel)]="textWelDescPopup"></textarea>
-                    </fieldset>
-                </div>
-            </div>
-            <div class="row" *ngIf="textBoxGetInTouch">
-                <div class="col-sm-12 mb-1">
-                    <fieldset class="form-group">
-                        <label for="basicInput">Title</label>
-                        <input type="text" class="form-control" id="basicInput" [(ngModel)]="textGetInTouchTitlePopup">
-                    </fieldset>
-                </div>
-                <div class="col-sm-12 mb-1">
-                    <fieldset class="form-group">
-                        <label for="basicInput2">E-Mail</label>
-                        <input type="text" class="form-control" id="basicInput2" [(ngModel)]="textGetInTouchEmailPopup">
-                    </fieldset>
-                </div>
-                <div class="col-sm-12 mb-1">
-                    <fieldset class="form-group">
-                        <label for="basicInput3">Tel</label>
-                        <input type="text" class="form-control" id="basicInput3" [(ngModel)]="textGetInTouchCallUsPopup">
-                    </fieldset>
-                </div>
-            </div>
         </div>
-
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline-danger btn-min-width mr-1 mb-1" (click)="cancelUpload()">Cancle&#32;&#32;&#32;<i class="fa fa-times"></i></button>
-            <button type="button" class="btn btn-top btn-min-width mr-1 mb-1" (click)="uploadFile()" *ngIf="!textboxPopup && !textBoxGetInTouch">Upload&#32;&#32;&#32;<i class="fa fa-cloud-upload"></i></button>
-            <button type="button" class="btn btn-top btn-min-width mr-1 mb-1" (click)="saveText(editTypes)" *ngIf="textboxPopup || textBoxGetInTouch">Save&#32;&#32;&#32;<i class="fa fa-floppy-o"></i></button>
+      </div>
+      <div class="row" *ngIf="textboxPopup">
+        <div class="col-sm-12 mb-1">
+          <fieldset class="form-group">
+            <label for="basicInput">Title</label>
+            <input
+              type="text"
+              class="form-control"
+              id="basicInput"
+              [(ngModel)]="textWelcomePopup"
+            />
+          </fieldset>
         </div>
-    </ng-template>
+        <div class="col-sm-12 mb-1">
+          <fieldset class="form-group">
+            <label for="basicInput">Description</label>
+            <textarea
+              type="text"
+              class="form-control"
+              id="basicInput"
+              rows="4"
+              [(ngModel)]="textWelDescPopup"
+            ></textarea>
+          </fieldset>
+        </div>
+      </div>
+      <div class="row" *ngIf="textBoxGetInTouch">
+        <div class="col-sm-12 mb-1">
+          <fieldset class="form-group">
+            <label for="basicInput">Title</label>
+            <input
+              type="text"
+              class="form-control"
+              id="basicInput"
+              [(ngModel)]="textGetInTouchTitlePopup"
+            />
+          </fieldset>
+        </div>
+        <div class="col-sm-12 mb-1">
+          <fieldset class="form-group">
+            <label for="basicInput2">E-Mail</label>
+            <input
+              type="text"
+              class="form-control"
+              id="basicInput2"
+              [(ngModel)]="textGetInTouchEmailPopup"
+            />
+          </fieldset>
+        </div>
+        <div class="col-sm-12 mb-1">
+          <fieldset class="form-group">
+            <label for="basicInput3">Tel</label>
+            <input
+              type="text"
+              class="form-control"
+              id="basicInput3"
+              [(ngModel)]="textGetInTouchCallUsPopup"
+            />
+          </fieldset>
+        </div>
+      </div>
+    </div>
 
-    <ng-template #templateModal>
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="modal-title tx-20 tx-gray-800" id="my-modal-title"><i class="fa fa fa-comments-o px-1"></i>
-                    CONTACT US
-                </span>
-                <button type="button" class="close red" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body ">
-                <div class="row col-sm-12 container">
-                    <div class="col-sm-6 mb-1 " *ngFor="let item of listContact">
-                        <div class="row">
-                            <div class="text-center">
-                                <!-- <img src="{{item.img}}" class="rounded-circle height-75"
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-danger btn-min-width mr-1 mb-1"
+        (click)="cancelUpload()"
+      >
+        Cancle&#32;&#32;&#32;<i class="fa fa-times"></i>
+      </button>
+      <button
+        type="button"
+        class="btn btn-top btn-min-width mr-1 mb-1"
+        (click)="uploadFile()"
+        *ngIf="!textboxPopup && !textBoxGetInTouch"
+      >
+        Upload&#32;&#32;&#32;<i class="fa fa-cloud-upload"></i>
+      </button>
+      <button
+        type="button"
+        class="btn btn-top btn-min-width mr-1 mb-1"
+        (click)="saveText(editTypes)"
+        *ngIf="textboxPopup || textBoxGetInTouch"
+      >
+        Save&#32;&#32;&#32;<i class="fa fa-floppy-o"></i>
+      </button>
+    </div>
+  </ng-template>
+
+  <ng-template #templateModal>
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title tx-20 tx-gray-800" id="my-modal-title"
+          ><i class="fa fa fa-comments-o px-1"></i>
+          CONTACT US
+        </span>
+        <button
+          type="button"
+          class="close red"
+          data-dismiss="modal"
+          aria-label="Close"
+          (click)="modalRef.hide()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row col-sm-12 container">
+          <div class="col-sm-6 mb-1" *ngFor="let item of listContact">
+            <div class="row">
+              <div class="text-center">
+                <!-- <img src="{{item.img}}" class="rounded-circle height-75"
                                     onerror="javascript:this.src='assets/imgs/user_login.png'"> -->
-                                <div class="profile-image ">
-                                    <img src="{{item.img}}" class="avatar avatar-75 rounded-circleX border-blue-grey " onerror="javascript:this.src='assets/imgs/user_login.png'">
-                                </div>
-                            </div>
-                            <div class="text-left ml-4">
-                                <p class="tx-16 XfontKanit tx-top-pink pb-0 mb-0">{{item.name_th}}</p>
-                                <p class="tx-16 tx-top-pink">{{item.name_en}}</p>
-                                <p class="tx-14 tx-top-blue pb-0 mb-0"><i class="fa fa-phone"></i> : {{item.tel}}</p>
-                                <p class="tx-14 tx-top-blue pb-0 mb-0"><i class="fa fa-mobile tx-18"></i> :
-                                    {{item.mobile}}
-                                </p>
-                                <p class="tx-14 tx-top-blue tx-lowercase"><i class="fa fa-envelope-o"></i> :
-                                    {{item.email}}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <table class="table ml-2 mr-2">
+                <div class="profile-image">
+                  <img
+                    src="{{ item.img }}"
+                    class="avatar avatar-75 rounded-circleX border-blue-grey"
+                    onerror="javascript:this.src='assets/imgs/user_login.png'"
+                  />
+                </div>
+              </div>
+              <div class="text-left ml-4">
+                <p class="tx-16 XfontKanit tx-top-pink pb-0 mb-0">
+                  {{ item.name_th }}
+                </p>
+                <p class="tx-16 tx-top-pink">{{ item.name_en }}</p>
+                <p class="tx-14 tx-top-blue pb-0 mb-0">
+                  <i class="fa fa-phone"></i> : {{ item.tel }}
+                </p>
+                <p class="tx-14 tx-top-blue pb-0 mb-0">
+                  <i class="fa fa-mobile tx-18"></i> :
+                  {{ item.mobile }}
+                </p>
+                <p class="tx-14 tx-top-blue tx-lowercase">
+                  <i class="fa fa-envelope-o"></i> : {{ item.email }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- <table class="table ml-2 mr-2">
                         <tbody>
                             <tr>
                                 <td class="wd-10p text-center">
@@ -1238,146 +1887,138 @@
                             
                         </tbody>
                     </table> -->
-
-
-                </div>
-            </div>
         </div>
-    </ng-template>
-    <app-footer></app-footer>
+      </div>
+    </div>
+  </ng-template>
+  <app-footer></app-footer>
 </body>
 
-
-
-
 <style>
-    /* =================================================================================== */
+  /* =================================================================================== */
 
-    .app-toolbar {
-        position: sticky;
-        position: -webkit-sticky;
-        /* For macOS/iOS Safari */
-        top: 0;
-        /* Sets the sticky toolbar to be on top */
-        z-index: 1000;
-        /* Ensure that your app's content doesn't overlap the toolbar */
-    }
+  .app-toolbar {
+    position: sticky;
+    position: -webkit-sticky;
+    /* For macOS/iOS Safari */
+    top: 0;
+    /* Sets the sticky toolbar to be on top */
+    z-index: 1000;
+    /* Ensure that your app's content doesn't overlap the toolbar */
+  }
 
-    #scrollMe {
-        height: 300px;
-        background-color: yellow;
-        overflow: inherit !important;
-        overflow-x: hidden;
-        padding: 20px;
-    }
+  #scrollMe {
+    height: 300px;
+    background-color: yellow;
+    overflow: inherit !important;
+    overflow-x: hidden;
+    padding: 20px;
+  }
 
-    /* .cdk-global-overlay-wrapper {
+  /* .cdk-global-overlay-wrapper {
         z-index: 800;
     } */
-    .ngx-select__choices {
-        z-index: 9999;
-    }
+  .ngx-select__choices {
+    z-index: 9999;
+  }
 
-    /* width */
-    ::-webkit-scrollbar {
-        width: 5px;
-        height: 5px;
-    }
+  /* width */
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
 
-    /* Track */
-    ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-    }
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
 
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-        background: #888;
-    }
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
 
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-        background: #08508C;
-    }
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #08508c;
+  }
 
-    ul {
-        list-style: none;
-    }
+  ul {
+    list-style: none;
+  }
 
-    ul li::before {
-        content: "\2022";
-        /* color: gray; */
-        font-weight: bold;
-        display: inline-block;
-        width: 1em;
-        margin-left: -2em;
-    }
+  ul li::before {
+    content: "\2022";
+    /* color: gray; */
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -2em;
+  }
 
+  mat-form-field {
+    width: 100%;
+    height: 40px;
+  }
 
+  #myBtn {
+    display: block;
+    /* Hidden by default */
+    position: fixed;
+    /* Fixed/sticky position */
+    bottom: 20px;
+    /* Place the button at the bottom of the page */
+    right: 30px;
+    /* Place the button 30px from the right */
+    z-index: 99;
+    /* Make sure it does not overlap */
+  }
 
-    mat-form-field {
-        width: 100%;
-        height: 40px;
-    }
+  .basic-container {
+    display: inline-block;
+    position: relative;
+  }
 
-    #myBtn {
-        display: block;
-        /* Hidden by default */
-        position: fixed;
-        /* Fixed/sticky position */
-        bottom: 20px;
-        /* Place the button at the bottom of the page */
-        right: 30px;
-        /* Place the button 30px from the right */
-        z-index: 99;
-        /* Make sure it does not overlap */
+  .imgP {
+    padding: 4px;
+    max-width: 100%;
+    position: absolute;
+    max-height: 100%;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    clip-path: circle(45% at 50% 50%);
+    /* clip-path: circle(50% at 50% 49%); */
+  }
 
-    }
+  .mat-spinner-color::ng-deep circle {
+    /* stroke: #08508C !important; */
+    /* stroke: #E21683 !important; */
+    /* stroke: #00AEB1 !important; */
+    stroke: #15bdb1 !important;
+  }
 
-    .basic-container {
-        display: inline-block;
-        position: relative;
-    }
+  .mat-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+  }
 
-    .imgP {
-        padding: 4px;
-        max-width: 100%;
-        position: absolute;
-        max-height: 100%;
-        top: 0;
-        height: 100%;
-        width: 100%;
-        clip-path: circle(45% at 50% 50%);
-        /* clip-path: circle(50% at 50% 49%); */
-    }
+  .mat-overlay {
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.286);
+    z-index: 10;
+    top: 0;
+    left: 0;
+    position: fixed;
+  }
 
-    .mat-spinner-color::ng-deep circle {
-        /* stroke: #08508C !important; */
-        /* stroke: #E21683 !important; */
-        /* stroke: #00AEB1 !important; */
-        stroke: #15bdb1 !important;
-    }
-
-    .mat-center {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        -moz-transform: translateX(-50%) translateY(-50%);
-        -webkit-transform: translateX(-50%) translateY(-50%);
-        transform: translateX(-50%) translateY(-50%);
-    }
-
-    .mat-overlay {
-        height: 100vh;
-        width: 100%;
-        background-color: rgba(0, 0, 0, 0.286);
-        z-index: 10;
-        top: 0;
-        left: 0;
-        position: fixed;
-    }
-
-    body {
-        margin: 0;
-        position: relative;
-    }
+  body {
+    margin: 0;
+    position: relative;
+  }
 </style>

@@ -26,11 +26,11 @@ import { TransportationComponent } from './screen/master/transportation/transpor
 // import { TravelexpenseComponent } from './screen/master/travelexpense/travelexpense.component';
 // import { FeedbackComponent } from './screen/master/feedback/feedback.component';
 import { LogindevComponent } from './screen/logidev/logindev.component';
-// import { MtbookingstatusComponent } from './master/mtbookingstatus/mtbookingstatus.component';
+// import { MtbookingstatusComponent } from './screen/mtbookingstatus/mtbookingstatus.component';
 // import { MtdailyallowanceComponent } from './master/mtdailyallowance/mtdailyallowance.component';
-// import { MtalreadybookedComponent } from './master/mtalreadybooked/mtalreadybooked.component';
+import { MtalreadybookedComponent } from './screen/mtalreadybooked/mtalreadybooked.component';
 // import { MtfeedbackquestionComponent } from './master/mtfeedbackquestion/mtfeedbackquestion.component';
-// import { MaintainComponent } from './master/maintain/maintain.component';
+import { MaintainComponent } from './maintain/maintain.component';
 // import { EbizhomeComponent } from './master/ebizhome/ebizhome.component';
 // import { MtvisadocumentComponent } from './master/mtvisadocument/mtvisadocument.component';
 // import { MtvisacountriesComponent } from './master/mtvisacountries/mtvisacountries.component';
@@ -44,21 +44,24 @@ import { LoadingBgColorComponent } from './components/loading-bg-color/loading-b
 // import { MtkhcodeComponent } from './master/mtkhcode/mtkhcode.component';
 import { EbizhomeComponent } from './screen/home/ebizhome.component';
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './components/header/header.component';
 
 // import { AppComponent } from './shared/docx/app/app.component';
 
 
 const routes: Routes = [
-  // { path: "", redirectTo: "/main/services", pathMatch: "full" },
+  { path: "", redirectTo: "/main/services", pathMatch: "full" },
   // { path: "", redirectTo: "/ebizhome", pathMatch: "full" },
   { path: "errors", component: ErrorComponent, pathMatch: "full" },
-  { path: "", component: LoginComponent, pathMatch: "full" },
-  { path: "ebizhome", component: EbizhomeComponent, pathMatch: "full" },
+  { path: "login", component: LoginComponent, pathMatch: "full" },
+  { path: "header", component: HeaderComponent, pathMatch:  "full"},
+  { path: "mtalreadybooked", component: MtalreadybookedComponent, pathMatch: "full" },
+
 
   {
     path: "main", component: MainComponent, children: [
       { path: "", redirectTo: "/main/services", pathMatch: "full" },
-      // { path: "home", component: HomeComponent, pathMatch: "full" },
+      { path: "home", component: HomeComponent, pathMatch: "full" },
       { path: "services", component: ServicesComponent, pathMatch: "full" },
       { path: "request_list/:types", component: RequestListComponent, pathMatch: "full" },
       {
@@ -82,10 +85,10 @@ const routes: Routes = [
   { path: "bgcolor", component: LoadingBgColorComponent, pathMatch: "full" },
   // { path: "personal", component: PersonalComponent, pathMatch: "full" },
   // { path: "docx", component: AppComponent, pathMatch: "full" },
-  {
-    path: "master/:id", component: MasterComponent,
-    children: [
-  //     // { path: "", redirectTo:"/master/master", pathMatch: "full" },
+  // {
+  //   path: "master/:id", component: MasterComponent,
+  //   children: [
+      // { path: "", redirectTo:"/master/master", pathMatch: "full" },
   //     { path: "travelerhistory", component: TravelerhistoryComponent, pathMatch: "full" },
   //     { path: "airticket", component: AirticketComponent, pathMatch: "full" },
   //     { path: "accommodation", component: AccommodationComponent, pathMatch: "full" },
@@ -102,26 +105,26 @@ const routes: Routes = [
   //     { path: "isosrecord", component: IsosrecordComponent, pathMatch: "full" },
   //     { path: "insurancerecord", component: InsurancerecordComponent, pathMatch: "full" },
       
-    ]
-  },
+    // ]
+  // },
 
-  // {
-  //   path: "maintain", component: MaintainComponent,
-  //   children: [
-  //     // { path: "", redirectTo: "/maintain/mtbookingstatus", pathMatch: "full" },
-  //     { path: "mtbookingstatus", component: MtbookingstatusComponent, pathMatch: "full" },
+  {
+    path: "maintain", component: MaintainComponent,
+    children: [
+      { path: "", redirectTo: "/maintain/mtbookingstatus", pathMatch: "full" },
+      // { path: "mtbookingstatus", component: MtbookingstatusComponent, pathMatch: "full" },
   //     { path: "mtdailyallowance", component: MtdailyallowanceComponent, pathMatch: "full" },
-  //     { path: "mtalreadybooked", component: MtalreadybookedComponent, pathMatch: "full" },
+      // { path: "mtalreadybooked", component: MtalreadybookedComponent, pathMatch: "full" },
   //     { path: "mtfeedbackquestion", component: MtfeedbackquestionComponent, pathMatch: "full" },
   //     { path: "mtvisadocument", component: MtvisadocumentComponent, pathMatch: "full" },
   //     { path: "mtvisacountries", component: MtvisacountriesComponent, pathMatch: "full" },
   //     { path: "mtbroker", component: MtbrokerComponent, pathMatch: "full" },
   //     { path: "mtkhcode", component: MtkhcodeComponent, pathMatch: "full" },
-  //   ]
-  // },
+    ]
+  },
   
-  { path: "login", component: LogindevComponent, pathMatch: "full" },
-  // { path: "logindev", component: LogindevComponent, pathMatch: "full" },
+  // { path: "login", component: LogindevComponent, pathMatch: "full" },
+  { path: "logindev", component: LogindevComponent, pathMatch: "full" },
   { path: "**", redirectTo: "/errors", pathMatch: "full" }
 ];
 

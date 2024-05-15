@@ -1,38 +1,505 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Example HTML Document</title>
-</head>
-<body>
+<div class="col-12 boxcolor-mm background-Slide animate__animated animate__fadeIn" style="height: 350px" *ngIf="model_all.emp_list.length > 0" (window:keypress)="onKeyDown($event)">
+  <div class="row math-height">
+    <div class="col-lg-12">
+      <div class="card box-shadow-1 mt-3">
+        <div class="card-body m-0 p-0">
+          <div class="row mx-0">
+            <div class="col-lg-6 col-sm-12 col-md-6 col-12" style="min-height: 67px">
+              <div class="marker marker-ribbon marker-top-blue pos-absolute mt-4 l-0 pl-5 pr-5">
+                <p class="tx-24 m-0 text-uppercase d-flex align-items-center justify-content-around">
+                  &#32;<i class="material-icons mx-2" id="initPage">directions_bus</i>&#32;transportation
+                </p>
+              </div>
+            </div>
 
-    <header>
-        <h1>Welcome to My Website</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+            <!--** Travel Display Name -->
+            <div class="col-12 col-md-6">
+              <div class="container px-0">
+                <!-- {{ checkCaseCar | json }} ---- {{ emp_id }} -->
+                <div class="text-center text-md-right mt-4 pr-4" *ngIf="!user_admin">
+                  <p class="tx-24 m-0 tx-top-blue text-bold-500">
+                    {{ this.model_all.user_display }}
+                  </p>
+                </div>
 
-    <main>
-        <section>
-            <h2>About Us</h2>
-            <p>This is a paragraph about our website.</p>
-        </section>
+                <div class="mt-4 col-12 col-md-10 col-lg-8 ml-md-auto" *ngIf="user_admin">
+                  <mat-select [(ngModel)]="list_emp" #select (selectionChange)="update_userByDOC(list_emp, select)" class="form-control line-height-2 tx-gray-700 text-bold-500" placeholder="All">
+                    <mat-option [value]="">All</mat-option>
 
-        <section>
-            <h2>Contact Us</h2>
-            <p>You can reach us via email at </p>
-        </section>
-    </main>
+                    <mat-option *ngFor="let topping of model_all.emp_list; let i = index" [value]="topping.emp_id">
+                      {{ topping.userDisplay }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+                <div class="text-right mt-4 pr-4" *ngIf="pathPhase1">
+                  <span class="link-text">
+                    <p class="tx-14 m-0 text-bold-500" (click)="OpenDocument(model_all.doc_id, pathPhase1)">
+                      Document No: {{ model_all.doc_id }}
+                    </p>
+                    <i class="fa fa-external-link ml-1"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!--** Travel Display Name -->
 
-    <footer>
-        <p>&copy; 2024 My Website. All rights reserved.</p>
-    </footer>
+            <!-- ** Traveler Detail -->
+            <div class="col-12" *ngIf="userDetail">
+              <div class="container border-bottom-3 border-bottom-grey-blue border-bottom-lighten-5 mb-4 py-4">
+                <div class="row no-gutters">
+                  <p class="col-4 col-lg-2 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">Travel Topic :</p>
+                  <p class="col-8 col-lg-10 col-md-10 tx-gray-700 tx-14 text-bold-500 text-capitalize">
+                    {{ userDetail.travel_topic ? userDetail.travel_topic : '' }}
+                  </p>
+                  <p class="col-4 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">Business Date :</p>
+                  <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                    {{ userDetail.business_date ? userDetail.business_date : '' }}
+                  </p>
+                  <p class="col-4 col-md-2 offset-0 offset-md-1 tx-gray-700 tx-14 m-0 text-dark text-bold-500">
+                    Travel Date :
+                  </p>
+                  <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                    {{ userDetail.travel_date ? userDetail.travel_date : '' }}
+                  </p>
+                  <p class="col-4 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">{{ TRAVEL_TYPE }}</p>
+                  <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                    {{ userDetail.country_city ? userDetail.country_city : '' }}
+                  </p>
+                  <p class="col-4 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">Total Traveler(s) :</p>
+                  <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                    {{ model_all.emp_list.length }} Person(s)
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- ** Traveler Detail -->
+            <!--** Current Status -->
+            <div class="col-12 py-3 mb-4">
+              <div class="row justify-content-center">
+                <ul id="progressbar" class="p-0 mb-0">
+                  <li class="cursor-pointer" [ngClass]="{ active: docStatus(1) }" id="time"><strong></strong></li>
+                  <li class="cursor-pointer" [ngClass]="{ active: docStatus(2) }" id="pencil"><strong></strong></li>
+                  <li class="cursor-pointer" [ngClass]="{ active: docStatus(3) }" id="cog"><strong></strong></li>
+                  <li class="cursor-pointer" [ngClass]="{ active: docStatus(4) }" id="check"><strong></strong></li>
+                </ul>
+              </div>
+            </div>
+            <!--** Current Status -->
 
-</body>
-</html>
+            <!--** Transport Type -->
+            <div class="col-12 mb-4" *ngIf="false">
+              <div class="row justify-content-center">
+                <div class="col-12 col-sm-12 col-md-7 col-lg-7">
+                  <button class="d-none" id="swich_user" (click)="user_admin = !user_admin"></button>
+                  <button class="btn btn-lg btn-block font-weight-bold d-none" [ngClass]="{
+                      'cursor-default': user_reject == false,
+                      'text-white bg-top-blue': car_selected_val == 'company_car',
+                      'text-black-50 bg-gray-1': car_selected_val != 'company_car'
+                    }" [disabled]="!user_reject || !transportation_car_length" (click)="
+                      car_selected_val == 'personal_car' ? (car_selected_val = 'company_car') : Send_Data_Transport()
+                    ">
+                    Click To Transportation
+                  </button>
+                  <button class="btn btn-lg btn-block font-weight-bold d-none" (click)="car_selected_val = 'personal_car'" [ngClass]="{
+                      'cursor-default': user_reject == false,
+                      'text-white bg-top-blue': car_selected_val == 'personal_car',
+                      'text-black-50 bg-gray-1': car_selected_val != 'personal_car'
+                    }" [disabled]="!user_reject">
+                    Click To Personal Car
+                  </button>
+
+                  <select #car_selected [(ngModel)]="car_selected_val" class="form-control form-control-lg border-blue-grey border-2 border-lighten-2 text-center d-none" name="">
+                    <option [value]="item.code" [selected]="'company_car'" *ngFor="let item of CarType">
+                      {{ item.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 mb-4">
+              <div class="row justify-content-center">
+                <div class="col-12 col-sm-12 col-md-7 col-lg-7">
+                  <button class="d-none" id="swich_user" (click)="user_admin = !user_admin"></button>
+                  <button class="btn btn-lg btn-block font-weight-bold" [ngClass]="{
+                      'cursor-not-allowed': user_reject === false || transportation_car_length,
+                      'text-white bg-top-blue': car_selected_val == 'company_car',
+                      'text-black-50 bg-gray-1': car_selected_val != 'company_car'
+                    }" [disabled]="!user_reject || transportation_car_length" (click)="Send_Data_Transport()">
+                    Click To Car Services
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!--** Transport Type -->
+
+            <div class="container px-0 resetCounter">
+              <!--** Company Car -->
+              <!-- <div
+                class="col-12 pt-4 mx-0 animate__animated animate__fadeIn"
+                *ngIf="car_selected_val != 'personal_car' && model_all.transportation_car.length > 0"
+              > -->
+              <div class="col-12 pt-4 mx-0 animate__animated animate__fadeIn">
+                <div class="container" *ngIf="transportation_car_length && false">
+                  <div class="card box-shadow-1 rounded-10 animate__animated animate__fadeIn" *ngFor="let item of model_all.transportation_car; let parentindex = index">
+                    <!-- {{item.emp_id}} -->
+                    <!-- *ngIf="transportation_car_length == true && transportation_detail_length == true" -->
+                    <div class="card-body m-0 p-0 py-5 px-0 px-md-2">
+                      <div class="container-fluid p-0 my-3 justify-content-center" *ngFor="
+                          let detail of DataBYCARID(item.t_car_id);
+                          let ir = index;
+                          let itemsCount = count;
+                          let fistrow = first;
+                          let lastrow = last
+                        ">
+                        <div class="row no-gutters pt-3" [ngClass]="{ 'border-color-top': fistrow == false }">
+                          <!-- <p class="col-1 text-center">{{ (model_all.transportation_car[0].emp_id == item.emp_id) ? (ir +1):itemsCount + (ir +1)}}</p> -->
+                          <p class="col-1 text-center couterRow"></p>
+                          <!-- <p class="col-1 text-center couterRow">{{ getRowNumber(detail.id, ir, lastrow) }}</p> -->
+                          <p class="col-4 col-lg-2 tx-14 text-bold-700 XfontKanit">ชื่อ :</p>
+                          <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit">
+                            {{ detail.emp_display }}
+                          </p>
+
+                          <p class="col-4 col-lg-2 offset-1 tx-14 font-weight-bold XfontKanit">เบอร์โทรศัพท์มือถือ :</p>
+                          <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit">
+                            {{ detail.emp_tel == '' ? '-' : detail.emp_tel }}
+                          </p>
+                        </div>
+
+                        <div class="row no-gutters">
+                          <p class="col-1 text-center"></p>
+                          <p class="col-4 col-lg-2 tx-14 font-weight-bold XfontKanit pink">วันที่เดินทาง :</p>
+                          <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit pink">
+                            {{ detail.travel_date }}
+                          </p>
+
+                          <p class="col-4 col-lg-2 offset-1 tx-14 font-weight-bold XfontKanit pink">เวลา :</p>
+                          <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit pink">
+                            {{ detail.travel_time }}
+                          </p>
+                        </div>
+                        <div class="row no-gutters">
+                          <p class="col-1 text-center"></p>
+                          <p class="col-4 col-lg-2 tx-14 font-weight-bold XfontKanit">สถานที่ต้นทาง :</p>
+                          <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit" [ngClass]="detail.place_from_url == '' ? '' : 'blue'">
+                            <span *ngIf="detail.place_from_url == ''">{{ detail.place_from }}</span>
+                            <a *ngIf="detail.place_from_url != ''" [href]="detail.place_from_url" target="blank">{{
+                              detail.place_from
+                              }}</a>
+                          </p>
+
+                          <p class="col-4 col-lg-2 offset-1 tx-14 font-weight-bold XfontKanit">สถานที่ปลายทาง :</p>
+                          <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit" [ngClass]="detail.place_to_url == '' ? '' : 'blue'">
+                            <span *ngIf="detail.place_to_url == ''">{{ detail.place_to }}</span>
+                            <a *ngIf="detail.place_to_url != ''" [href]="detail.place_to_url" target="blank">{{
+                              detail.place_to
+                              }}</a>
+                          </p>
+                        </div>
+                        <div class="row no-gutters">
+                          <p class="col-1 text-center"></p>
+                          <p class="col-4 col-lg-2 tx-14 font-weight-bold XfontKanit">ประเภทการรับ-ส่ง :</p>
+                          <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit">
+                            {{ detail.place_type ? detail.place_type : 'รอจัดสรร' }}
+                          </p>
+
+                          <p class="col-4 col-lg-2 offset-1 tx-14 font-weight-bold XfontKanit">ประเภทรถ :</p>
+                          <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit">
+                            {{ detail.car_type ? detail.car_type : 'รอจัดสรร' }}
+                          </p>
+                        </div>
+                      </div>
+                      <div class="container py-2 p-0">
+                        <div class="row no-gutters border-color-top pt-3">
+                          <p class="text-center tx-18 text-bold-700 col-12">Driver Detail</p>
+                          <p class="col-1 text-center"></p>
+                          <p class="col-4 col-lg-2 tx-14 font-weight-bold XfontKanit">ชื่อบริษัท :</p>
+                          <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit">
+                            {{ item.company_name ? item.company_name : '-' }}
+                          </p>
+                          <p class="col-4 col-lg-2 tx-14 font-weight-bold XfontKanit offset-1 offset-md-1">
+                            ชื่อคนขับรถ :
+                          </p>
+                          <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit">
+                            {{ item.driver_name ? item.driver_name : 'รอจัดสรร' }}
+                          </p>
+                        </div>
+
+                        <div class="row no-gutters">
+                          <p class="col-1 text-center"></p>
+                          <p class="col-4 col-lg-2 tx-14 font-weight-bold XfontKanit">รุ่นรถ :</p>
+                          <p class="col-7 col-lg-3 tx-14 text-bold-500">{{ item.car_model ? item.car_model : '-' }}</p>
+
+                          <p class="col-4 col-lg-2 tx-14 font-weight-bold XfontKanit offset-1 offset-md-1">สีรถ :</p>
+                          <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit">
+                            {{ item.car_color ? item.car_color : '-' }}
+                          </p>
+                        </div>
+                        <div class="row no-gutters">
+                          <p class="col-1 text-center"></p>
+                          <p class="col-4 col-lg-2 tx-14 font-weight-bold XfontKanit">ทะเบียนรถ :</p>
+                          <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit">
+                            {{ item.car_registration_no ? item.car_registration_no : '-' }}
+                          </p>
+
+                          <p class="col-4 col-lg-2 tx-14 font-weight-bold XfontKanit offset-1 offset-md-1">
+                            เบอร์โทรศัพท์มือถือ :
+                          </p>
+                          <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit">
+                            {{ item.telephone_no ? item.telephone_no : '-' }}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="container">
+                  <mat-expansion-panel class="margin-top margin-bottoms px-0 w-100 overflow-scroll" [expanded]="transportation_car_length ? panel.showTS : false" [disabled]="transportation_car_length === false">
+                    <mat-expansion-panel-header (click)="transportation_car_length ? (panel.showTS = !panel.showTS) : (panel.showTS = false)">
+                      <mat-panel-title>
+                        <mat-icon class="material-icons">file_copy</mat-icon>
+
+                        <mat-panel-description class="margin-left font-weight-bold">
+                          Car Services Detail
+                        </mat-panel-description>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <div class="d-flex justify-content-end">
+                      <div class="link-text my-auto tx-gray-700 tx-14 text-bold-500 text-right row-icon cursor-pointer" (click)="Send_Data_Transport()">
+                        <!-- <span class="material-icons-outlined align-middle"> near_me </span> -->
+
+                        <span class="align-middle text-underline">
+                          Car Service No : {{ model_all.cars_doc_no ? model_all.cars_doc_no : '-' }}</span>&nbsp;
+                        <i class="fa fa-external-link"></i>
+                        <!-- Car Service No : CSXX-XXXX-XXXX -->
+                      </div>
+                    </div>
+                    <div class="card box-shadow-1 rounded-10 animate__animated animate__fadeIn border-0" *ngFor="let item of model_all.transportation_car; let parentindex = index">
+                      <!-- {{item.emp_id}} -->
+                      <!-- *ngIf="transportation_car_length == true && transportation_detail_length == true" -->
+                      <div class="card-body m-0 px-0 px-md-2">
+                        <div class="container-fluid p-0 my-3 justify-content-center" *ngFor="
+                            let detail of DataBYCARID(item.t_car_id);
+                            let ir = index;
+                            let itemsCount = count;
+                            let fistrow = first;
+                            let lastrow = last
+                          ">
+                          <div class="row no-gutters pt-3" [ngClass]="{ 'border-color-top': fistrow == false }">
+                            <!-- <p class="col-1 text-center">{{ (model_all.transportation_car[0].emp_id == item.emp_id) ? (ir +1):itemsCount + (ir +1)}}</p> -->
+                            <p class="col-1 text-center couterRow"></p>
+                            <!-- <p class="col-1 text-center couterRow">{{ getRowNumber(detail.id, ir, lastrow) }}</p> -->
+                            <p class="col-4 col-lg-2 tx-14 text-bold-700 XfontKanit">ชื่อ :</p>
+                            <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit">
+                              {{ detail.emp_display }}
+                            </p>
+
+                            <p class="col-4 col-lg-2 offset-1 tx-14 font-weight-bold XfontKanit">
+                              เบอร์โทรศัพท์มือถือ :
+                            </p>
+                            <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit">
+                              {{ detail.emp_tel == '' ? '-' : detail.emp_tel }}
+                            </p>
+                          </div>
+
+                          <div class="row no-gutters">
+                            <p class="col-1 text-center"></p>
+                            <p class="col-4 col-lg-2 tx-14 font-weight-bold XfontKanit pink">วันที่เดินทาง :</p>
+                            <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit pink">
+                              {{ detail.travel_date }}
+                            </p>
+
+                            <p class="col-4 col-lg-2 offset-1 tx-14 font-weight-bold XfontKanit pink">เวลา :</p>
+                            <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit pink">
+                              {{ detail.travel_time }}
+                            </p>
+                          </div>
+                          <div class="row no-gutters">
+                            <p class="col-1 text-center"></p>
+                            <p class="col-4 col-lg-2 tx-14 font-weight-bold XfontKanit">สถานที่ต้นทาง :</p>
+                            <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit" [ngClass]="detail.place_from_url == '' ? '' : 'blue'">
+                              <span *ngIf="detail.place_from_url == ''">{{ detail.place_from }}</span>
+                              <a *ngIf="detail.place_from_url != ''" [href]="detail.place_from_url" target="blank">{{
+                                detail.place_from
+                                }}</a>
+                            </p>
+
+                            <p class="col-4 col-lg-2 offset-1 tx-14 font-weight-bold XfontKanit">สถานที่ปลายทาง :</p>
+                            <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit" [ngClass]="detail.place_to_url == '' ? '' : 'blue'">
+                              <span *ngIf="detail.place_to_url == ''">{{ detail.place_to }}</span>
+                              <a *ngIf="detail.place_to_url != ''" [href]="detail.place_to_url" target="blank">{{
+                                detail.place_to
+                                }}</a>
+                            </p>
+                          </div>
+                          <div class="row no-gutters">
+                            <p class="col-1 text-center"></p>
+                            <p class="col-4 col-lg-2 tx-14 font-weight-bold XfontKanit">ประเภทการรับ-ส่ง :</p>
+                            <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit">
+                              {{ detail.place_type ? detail.place_type : 'รอจัดสรร' }}
+                            </p>
+
+                            <p class="col-4 col-lg-2 offset-1 tx-14 font-weight-bold XfontKanit">ประเภทรถ :</p>
+                            <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit pr-lg-1 pr-0">
+                              {{ detail.car_type ? detail.car_type : 'รอจัดสรร' }}
+                            </p>
+                          </div>
+                          <div class="row no-gutters">
+                            <p class="col-1 text-center"></p>
+                            <p class="tx-14 font-weight-bold XfontKanit mr-1">รายละเอียดเส้นทางเพิ่มเติม :</p>
+                            <p class="col-auto col-lg-8 tx-14 text-bold-500 XfontKanit">
+                              {{ detail.transport_desc ? detail.transport_desc : '-' }}
+                            </p>
+                          </div>
+                        </div>
+                        <div class="container py-2 p-0">
+                          <div class="row no-gutters border-color-top pt-3">
+                            <p class="text-center tx-18 text-bold-700 col-12">Driver Detail</p>
+                            <p class="col-1 text-center"></p>
+                            <p class="col-4 col-lg-2 tx-14 font-weight-bold XfontKanit">ชื่อบริษัท :</p>
+                            <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit">
+                              {{ item.company_name ? item.company_name : '-' }}
+                            </p>
+                            <p class="col-4 col-lg-2 tx-14 font-weight-bold XfontKanit offset-1 offset-md-1">
+                              ชื่อคนขับรถ :
+                            </p>
+                            <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit">
+                              {{ item.driver_name ? item.driver_name : 'รอจัดสรร' }}
+                            </p>
+                          </div>
+
+                          <div class="row no-gutters">
+                            <p class="col-1 text-center"></p>
+                            <p class="col-4 col-lg-2 tx-14 font-weight-bold XfontKanit">รุ่นรถ :</p>
+                            <p class="col-7 col-lg-3 tx-14 text-bold-500">
+                              {{ item.car_model ? item.car_model : '-' }}
+                            </p>
+
+                            <p class="col-4 col-lg-2 tx-14 font-weight-bold XfontKanit offset-1 offset-md-1">สีรถ :</p>
+                            <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit">
+                              {{ item.car_color ? item.car_color : '-' }}
+                            </p>
+                          </div>
+                          <div class="row no-gutters">
+                            <p class="col-1 text-center"></p>
+                            <p class="col-4 col-lg-2 tx-14 font-weight-bold XfontKanit">ทะเบียนรถ :</p>
+                            <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit">
+                              {{ item.car_registration_no ? item.car_registration_no : '-' }}
+                            </p>
+
+                            <p class="col-4 col-lg-2 tx-14 font-weight-bold XfontKanit offset-1 offset-md-1">
+                              เบอร์โทรศัพท์มือถือ :
+                            </p>
+                            <p class="col-7 col-lg-3 tx-14 text-bold-500 XfontKanit">
+                              {{ item.telephone_no ? item.telephone_no : '-' }}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </div>
+              </div>
+              <!--** Company Car -->
+
+              <!--** Personal Car -->
+              <!--               
+              <div
+                class="col-12 pt-4 mx-0 animate__animated animate__fadeIn"
+                *ngIf="car_selected_val == 'personal_car'"
+              > -->
+              <div class="col-12 pt-4 mx-0 animate__animated animate__fadeIn">
+                <div class="container">
+                  <!-- Text Editor -->
+                  <div class="row flex-column mb-3 px-3 gaprow">
+                    <mat-expansion-panel class="margin-top margin-bottoms px-0 w-100 overflow-scroll" [expanded]="panel.show" id="container-mat-transport">
+                      <mat-expansion-panel-header (click)="panel.show = !panel.show">
+                        <mat-panel-title>
+                          <mat-icon class="material-icons">file_copy</mat-icon>
+                          <mat-panel-description class="margin-left font-weight-bold">
+                            Personal Car Form
+                          </mat-panel-description>
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div class="tx-hover my-auto tx-gray-700 tx-14 text-bold-500 text-right cursor-pointer" (click)="downloadFileTraveler(model_all.url_personal_car_document)">
+                        <span class="material-icons align-middle"> arrow_downward </span>&nbsp;
+                        <span class="align-middle"> Download File</span>
+                      </div>
+                      <div class="row col-sm-12 m-0 p-0" *ngIf="!displayPreview">
+                        <!-- <angular-editor (input)="showHTML()" [(ngModel)]="htmlContent" [config]="config" class="col-12 m-0 p-0"> -->
+                        <!-- </angular-editor> -->
+                      </div>
+                      <div id="htmlDiv" class="html d-none" [innerHTML]="htmlContent"></div>
+                      <!-- <div [innerHTML]="htmlContent | safe: 'html'" *ngIf="displayPreview" id="bindHtml"></div> -->
+
+                      <div class="row mx-0 mt-2 px-0 mt-3 gapbtn">
+                        <button class="bg-top-blue btn btn-round btn-min-width font-weight-bold text-white mr-2" *ngIf="displayPreview && user_admin" (click)="BtnPreviewTextEditor_Onclick()" [disabled]="!user_reject" [class.cursor-not-allowed]="!user_reject">
+                          Edit
+                        </button>
+                        <button class="
+                            bg-top-blue
+                            btn btn-round btn-min-width
+                            font-weight-bold
+                            text-white
+                            cursor-pointer
+                            mr-2
+                          " *ngIf="!displayPreview" (click)="BtnPreviewTextEditor_Onclick()">
+                          Preview
+                        </button>
+                        <button class="
+                            bg-top-pink
+                            btn btn-round btn-min-width
+                            font-weight-bold
+                            text-white
+                            cursor-pointer
+                            mr-2
+                          " *ngIf="!displayPreview" (click)="saveTextEditor()">
+                          Save
+                        </button>
+                        <button class="
+                            bg-white
+                            pink
+                            border-pink
+                            btn btn-round btn-min-width
+                            font-weight-bold
+                            text-pink
+                            cursor-pointer
+                          " *ngIf="!displayPreview" (click)="BtnCancelTextEditor_Onclick()">
+                          Cancel
+                        </button>
+                        <button class="btn btn-round btn-min-width bg-top-blue font-weight-bold tx-white ml-auto" (click)="OnSendmail()" [disabled]="list_emp === '' || !user_reject" [class.cursor-not-allowed]="list_emp === '' || !user_reject">
+                          <!-- [class.cursor-not-allowed]="model_all.t_car_id === '' || !user_reject"
+                        [disabled]="model_all.t_car_id === '' || !user_reject" -->
+                          <!-- Send E-mail To Traveler -->
+                          Personal Car Requisition
+                        </button>
+                      </div>
+                    </mat-expansion-panel>
+                    <div class="row align-items-start mx-0 justify-content-end">
+                      <!-- <button
+                        class="btn btn-round btn-min-width bg-top-blue font-weight-bold tx-white"
+                        (click)="OnSendmail()"
+                      >
+                        Personal Car Requisition
+                      </button> -->
+
+                      <!-- //** ปิด button แบบเก่า -->
+                      <div class="btn btn-round bg-top-blue tx-white col-12 col-md-4 col-lg-3 py-2 tx-14 d-none" (click)="downloadFileTraveler(model_all.url_personal_car_document)">
+                        Download File
+                      </div>
+                      <!-- //** ปิด button แบบเก่า -->
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Text Editor -->
+              </div>
+              <!--** Personal Car -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

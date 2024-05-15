@@ -1,76 +1,3 @@
-/* .tx-hover{
-    
-} */
-.tx-hover:hover {
-    color: #C62828;
-  }
-.rounded-circleX {
-    border-radius: 50%!important;
-}
-
-.avatar-xxl {
-    width: 100px;
-    height: 100px;
-}
-.avatar-75 {
-    width: 75px;
-    height: 75px;
-}
-
-.containerX {
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-@media (min-width: 576px) {
-    .containerX {
-        max-width: 540px;
-    }
-}
-
-@media (min-width: 768px) {
-    .containerX {
-        max-width: 720px;
-    }
-}
-
-@media (min-width: 992px) {
-    .containerX {
-        max-width: 960px;
-    }
-}
-
-@media (min-width: 1200px) {
-    .containerX {
-        max-width: 1140px;
-        /* max-width: 1200px; */
-    }
-}
-
-@media (min-width: 1440px) {
-    .containerX {
-        max-width: 1366px;
-    }
-}
-
-@media (min-width: 1600px) {
-    .containerX {
-        /* max-width: 1600px; */
-        max-width: 1512;
-    }
-}
-
-/*  @media screen and (max-width:320px) { Your styles}
-@media screen and (min-width:321px) and (max-width:639px) {}
-@media screen and (min-width:640px) and (max-width:959px) {}
-@media screen and (min-width:960px) and (max-width:1279px) {}
-@media screen and (min-width:1280px) and (max-width:1599px) {}
-@media screen and (min-width:1600px) {}
-@media screen and (min-width:1920px) {} */
-
 .bg_warp {
     height: 350px;
     /* width:200px; */
@@ -85,25 +12,10 @@
     position: absolute;
 }
 
-.userX {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-  
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-  }
 .avatar-small {
     height: 40px;
     width: 40px;
 }
-
-.avatar-40 {
-    width: 40px;
-    height: 40px;
-  }
 
 .avatar-img {
     width: 100%;
@@ -155,7 +67,7 @@
     padding: 20px;
     background-color: white;
     border-radius: 5px;
-    width: 340px;
+    width: 300px;
     min-width: 250px;
     max-width: 500px;
     text-align: center;
@@ -236,35 +148,4 @@ table {
 .mobile-menu-list li {
     border-bottom: 1px solid rgba(108, 160, 151, 0.321);
     padding: 10px;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-}
-
-.nav-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
-.nav-item {
-    margin-right: 20px;
-}
-
-.nav-item:last-child {
-    margin-right: 0;
-}
-
-.nav-item a {
-    text-decoration: none;
-    color: #333; /* Adjust color as needed */
-}
-.vl {
-    border-left: 1px solid #ccc;
-    height: 30px; /* Adjust height as needed */
-    margin-right: 20px;
 }

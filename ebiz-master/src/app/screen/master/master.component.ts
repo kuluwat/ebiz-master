@@ -8,7 +8,8 @@ import { AppRoutingModule } from '../../app-routing.module';
 import { AuthenService } from '../../http/authen/authen.service';
 import { HeaderComponent } from '../../components/header/header.component';
 import { AspxserviceService } from '../../ws/httpx/aspxservice.service';
-import { gotoPage } from '../../function/globalfunction.component';
+import { forceToPageLoginWeb, gotoPage } from '../../function/globalfunction.component';
+import { TransportationComponent } from './transportation/transportation.component';
 
 
 
@@ -538,7 +539,7 @@ export class MasterComponent implements OnInit {
 
       localStorage["token"] = ""
       localStorage["user"] = ""
-      this.forceToPageLoginWeb()
+      forceToPageLoginWeb(this.router)
     }
     this.showConfirm("Do you want to logout?", lg)
 

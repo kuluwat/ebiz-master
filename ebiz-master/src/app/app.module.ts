@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule, NgModel } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 // Angular Material Modules
 import { MatSelectModule } from '@angular/material/select';
@@ -25,6 +26,12 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import {MatCardModule} from '@angular/material/card';
+
+import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
+
+//ng-boostrap
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 // ngx-bootstrap
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -73,10 +80,13 @@ import { TransportationComponent } from './screen/master/transportation/transpor
 // import { FeedbackComponent } from './screen/master/feedback/feedback.component';
 import { SafePipe } from './safe.pipe';
 import { EbizhomeComponent } from './screen/home/ebizhome.component';
+import { MtalreadybookedComponent } from './screen/mtalreadybooked/mtalreadybooked.component';
+// import { MtbookingstatusComponent } from './screen/mtbookingstatus/mtbookingstatus.component';
 // import { InsurancerecordComponent } from './screen/master/insurancerecord/insurancerecord.component';
 import { LogindevComponent } from './screen/logidev/logindev.component';
 // import { TravelrecordComponent } from './screen/master/travelrecord/travelrecord.component';
 // import { IsosrecordComponent } from './screen/master/isosrecord/isosrecord.component';
+import { MaintainComponent } from './maintain/maintain.component';
 
 import { LocalStorageService } from './services/localstorage/local-storage.service';
 import { HttpmanagerService } from './services/http/httpmanager.service';
@@ -123,6 +133,10 @@ import { DatePipe } from '@angular/common';
     // ReimbursementComponent,
     // IsosComponent,
     // FeedbackComponent,
+    MaintainComponent,
+    MtalreadybookedComponent,
+    // MtbookingstatusComponent,
+
     SafePipe,
     // InsurancerecordComponent,
     LogindevComponent,
@@ -137,7 +151,11 @@ import { DatePipe } from '@angular/common';
     BrowserAnimationsModule,
     AppRoutingModule,
     RouterModule,
-    // NgModel,
+    CommonModule,
+
+    
+    MdbTabsModule,
+
     // Angular Material Modules
     MatSelectModule,
     MatIconModule,
@@ -157,6 +175,10 @@ import { DatePipe } from '@angular/common';
     MatAutocompleteModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    MatCardModule,
+
+    //ng-bootstrap
+    NgbCarouselModule,
 
     // ngx-bootstrap
     BsDatepickerModule.forRoot(),
@@ -166,7 +188,7 @@ import { DatePipe } from '@angular/common';
     NgxMatSelectSearchModule,
     AngularEditorModule,
     SelectDropDownModule,
-    NgMultiSelectDropDownModule,
+    NgMultiSelectDropDownModule.forRoot(),
     AutocompleteLibModule,
     CurrencyMaskModule,
   ],
@@ -185,6 +207,6 @@ import { DatePipe } from '@angular/common';
     DatePipe,
     HeaderComponent
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent,NgbCarouselModule]
 })
 export class AppModule { }
