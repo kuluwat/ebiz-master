@@ -13,61 +13,6 @@
   <div class="card-container">
     <div class="card">
         <div class="card-body">
-          <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img class="d-block w-100" src="assets/imgs/inner-page-hero.jpg" alt="First slide">
-              </div>
-            </div>
-          </div>
-          <!-- @if (images) {
-            <ngb-carousel>
-              <ng-template ngbSlide>
-                <div class="picsum-img-wrapper">
-                  <img [src]="images.imagespath1" width="800px" />
-                </div>
-                <div class="carousel-caption">
-                  <h3>Second slide label</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-              </ng-template>
-              <ng-template ngbSlide>
-                <div class="picsum-img-wrapper">
-                  <img [src]="images.imagespath2" alt="Random third slide" />
-                </div>
-                <div class="carousel-caption">
-                  <h3>Third slide label</h3>
-                  <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                </div>
-              </ng-template>
-            </ngb-carousel>
-          } -->
-          <mdb-tabs>
-            <mdb-tab>
-              <ng-template mdbTabTitle
-                ><span><i class="fas fa-chart-pie fa-fw me-2"></i>Sales</span></ng-template
-              >
-              Tab content 1
-            </mdb-tab>
-            <mdb-tab>
-              <ng-template mdbTabTitle
-                ><span><i class="fas fa-chart-line fa-fw me-2"></i>Subscriptions</span></ng-template
-              >
-              Tab content 2
-            </mdb-tab>
-            <mdb-tab>
-              <ng-template mdbTabTitle
-                ><span><i class="fas fa-cogs fa-fw me-2"></i>Settings</span></ng-template
-              >
-              Tab content 3
-            </mdb-tab>
-          </mdb-tabs>
-        </div>
-    </div>
-  </div>
-
-
-
   <!-- Dasktop or Ipad -->
   <div class="app-content containerX d-none d-md-block">
     <div class="content-wrapper">
@@ -122,7 +67,7 @@
                 <mat-tab-group class="tab-group">
                   <mat-tab label="TRAVEL FOR BUSINESS">
                     <!-- Content for business tab -->
-                    <span>BOOK FOR YOUP TRIP!</span>
+                    <span class="biztrip">BOOK FOR YOUP TRIP!</span>
                   </mat-tab>
                   <mat-tab label="TRAVEL FOR TRAINING">
                     <div class="col-sm-12">
@@ -134,6 +79,17 @@
                                 <div class="form-group">
                                     <p class="tx-14 tx-gray-700 mb-0 d-flex"><span class="d-none d-1024-block ">Business Date&#32;</span> <span class="tx-gray-500 tx-italic">
                                             Form - To</span></p>
+                                            <mat-form-field appearance="outline">
+                                              <mat-label>Enter a date range</mat-label>
+                                              <mat-date-range-input [rangePicker]="picker">
+                                                <input matStartDate placeholder="Start date">
+                                                <input matEndDate placeholder="End date">
+                                              </mat-date-range-input>
+                                              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                              <mat-date-range-picker #picker></mat-date-range-picker>
+                                            </mat-form-field>
+                                            
+                                            <!-- <DatePicker label="Basic date picker" /> -->
                                     <div class="form-group position-relative has-icon-right">
                                         <!-- <input type="search" id="training_date_from" autocomplete="off"
                                             onpaste="return false;" ondrop="return false;"
@@ -879,6 +835,16 @@
                         <div
                           class="form-group position-relative has-icon-right"
                         >
+                        <mat-form-field appearance="outline">
+                          <mat-label>Enter a date range</mat-label>
+                          <mat-date-range-input [rangePicker]="picker">
+                            <input matStartDate placeholder="Start date">
+                            <input matEndDate placeholder="End date">
+                          </mat-date-range-input>
+                          <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-date-range-picker #picker></mat-date-range-picker>
+                        </mat-form-field>
                           <!-- <input id="business_date_from_mobile" type="search"
                                                         autocomplete="off" onpaste="return false;"
                                                         ondrop="return false;" onkeypress="return false;"
@@ -1888,10 +1854,15 @@
                         </tbody>
                     </table> -->
         </div>
+        
       </div>
     </div>
   </ng-template>
   <app-footer></app-footer>
+   
+</div>
+</div>
+</div>
 </body>
 
 <style>
@@ -1956,10 +1927,10 @@
     margin-left: -2em;
   }
 
-  mat-form-field {
+  /* mat-form-field {
     width: 100%;
     height: 40px;
-  }
+  } */
 
   #myBtn {
     display: block;

@@ -179,18 +179,18 @@ export class TransportationComponent implements OnInit {
   transportation_car_byemp: boolean = false;
   user_admin: boolean = false;
   constructor(
-    // private appmain: MasterComponent,
-    // private http: HttpClient,
-    // public alerts: AlertServiceService,
-    // private ws: AspxserviceService,
-    // private fileuploadservice: FileuploadserviceService,
-    // public urlWs: ConfigUrl
+    @Inject(forwardRef(() => MasterComponent)) private appmain: MasterComponent,
+    private http: HttpClient,
+    public alerts: AlertServiceService,
+    private ws: AspxserviceService,
+    private fileuploadservice: FileuploadserviceService,
+    public urlWs: ConfigUrl
   ) { }
   
 
   ngOnInit() {
     console.clear();
-    // this.doc_id = this.appmain.DOC_ID;
+    this.doc_id = this.appmain.DOC_ID;
     this.Onload();
     this.OnloadDoc();
   }

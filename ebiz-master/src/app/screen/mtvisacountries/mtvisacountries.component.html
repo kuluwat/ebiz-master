@@ -1,0 +1,326 @@
+<!-- <p>accommodation works!</p> -->
+<div class="col-12 boxcolor-mm background-Slide animate__animated animate__fadeIn" style="height: 350px">
+  <div class="row math-height">
+    <div class="col-lg-12">
+      <div class="card box-shadow-1 mt-3" style="min-height: 350px">
+        <div class="card-body m-0 p-0">
+          <div class="row" #rez>
+            <div class="col-12 px-3">
+              <div class="col-lg-6 col-md-6 col-sm-12" style="min-height: 67px">
+                <div class="marker marker-ribbon marker-top-blue pos-absolute mt-4 l-0 pl-5 pr-5">
+                  <p class="tx-24 m-0">&#32;&#32;VISA COUNTRIES</p>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6 col-sm-12 pr-0 mr-0">
+                <!-- <button class="buttonHide" (click)="statusChange()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button> -->
+              </div>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="row">
+                <div class="col-12 px-5 py-3">
+                  <!-- //!! DISPLAY JSON -->
+                  <!-- <div class="row my-4">
+                    <pre>
+                      {{ zone_new | json }}
+                    </pre>
+                    <pre>
+                      {{ county_new | json }}
+                    </pre>
+                  </div> -->
+                  <!-- //!! DISPLAY JSON -->
+                  <div class="row my-4">
+                    <div class="col-12 col-md-3">
+                      <!-- (ngModelChange)="ModelActiveChange(dt.id)" -->
+                      <label class="">Continent</label>
+                      <ngx-select-dropdown
+                        id="Toplevel"
+                        #zoneInput
+                        class=""
+                        [multiple]="false"
+                        [(ngModel)]="zone_new"
+                        (change)="County_chang(zone_new)"
+                        (click)="zoneInput.ngOnInit()"
+                        [config]="Zone_modelDT.config"
+                        [options]="zone_select"
+                      >
+                      </ngx-select-dropdown>
+                    </div>
+
+                    <!-- [options]="filter_country_new(country_select,zone_new)"> -->
+                    <div class="col-12 col-md-3">
+                      <label class="">Country</label>
+                      <ngx-select-dropdown
+                        id="Toplevel1"
+                        class=""
+                        #countryInput
+                        [multiple]="false"
+                        [(ngModel)]="county_new"
+                        [config]="country_modelDT.config"
+                        (change)="TestChang($event, zone_new, county_new)"
+                        (click)="countryInput.ngOnInit()"
+                        [options]="county_new_arr"
+                      >
+                      </ngx-select-dropdown>
+                    </div>
+                    <div class="col-6 align-self-end text-md-right mt-2 mt-md-0" style="vertical-align: bottom">
+                      <button
+                        (click)="openModalx(template1, zone_new, county_new)"
+                        class="btn btn-top btn-round btn-min-width"
+                      >
+                        <ng-container *ngIf="check_length(masterDoc, zone_new, county_new) <= 0"
+                          >New Item
+                        </ng-container>
+                        <ng-container *ngIf="check_length(masterDoc, zone_new, county_new) > 0"
+                          >Edit Item
+                        </ng-container>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div
+                    class="table-responsive scroll-hori my-2"
+                    style="max-height: 350px; min-height: 100px; max-width: 100%"
+                  >
+                    <table class="table table-bordered table-striped table-hover border-0 mb-0">
+                      <thead class="tx-gray-700 text-center">
+                        <tr>
+                          <th class="text-center" style="width: 50px">No</th>
+                          <th style="width: 75%">Description</th>
+                          <th style="width: 20%">by</th>
+                          <!-- Active/ -->
+                        </tr>
+                      </thead>
+                      <tbody class="border-0">
+                        <ng-container *ngFor="let mt of tableRespont(masterDoc, zone_new, county_new); let i = index">
+                          <!--  -->
+                          <ng-container>
+                            <!-- *ngIf="mt.action_type != 'delete' " -->
+                            <tr>
+                              <td class="text-center">
+                                {{ i + 1 }}
+                              </td>
+                              <td>
+                                {{ mt.description }}
+                              </td>
+                              <td class="text-center">
+                                {{ mt.preparing_by }}
+                              </td>
+                            </tr>
+                          </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="check_length(masterDoc, zone_new, county_new) <= 0">
+                          <tr>
+                            <td colspan="3" class="text-center">No Data</td>
+                          </tr>
+                        </ng-container>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div class="" *ngIf="check_length(masterDoc, zone_new, county_new) > 0">
+                    <input
+                      type="file"
+                      accept="image/*,.pdf,.xlsx,.docx"
+                      id="file_id"
+                      #file
+                      class="d-none"
+                      (change)="onFileSelect($event, zone_new, county_new)"
+                    />
+                    <button
+                      class="btn btn-top btn-round btn-min-width mb-2"
+                      style="color: white"
+                      *ngIf="zone_new != ''"
+                      (click)="file.click()"
+                    >
+                      &#32;&#32;Upload
+                    </button>
+                    <button
+                      class="btn btn-top btn-round btn-min-width mb-2"
+                      style="color: white"
+                      *ngIf="zone_new == ''"
+                      (click)="not_select_zone()"
+                    >
+                      &#32;&#32;Upload
+                    </button>
+                  </div>
+
+                  <div
+                    class="table-responsive my-2 scroll-hori"
+                    style="max-height: 350px; min-height: 100px; max-width: 100%"
+                    *ngIf="check_length(masterDoc, zone_new, county_new) > 0"
+                  >
+                    <table class="table table-bordered table-striped table-hover border-0 table-wrapper mb-0">
+                      <thead>
+                        <tr class="text-center tx-gray-700">
+                          <th style="width: 5%">#</th>
+                          <th style="width: 50%">File Name</th>
+                          <th style="width: 35%">Modified Date</th>
+                          <th style="width: 10%">Delete</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <ng-container *ngFor="let img of imgArr(zone_new, county_new, img_list); let ix = index">
+                          <tr class="text-center">
+                            <td>{{ ix + 1 }}</td>
+                            <td>
+                              <a
+                                class="mx-2 text-primary txunderline text-bold-600"
+                                (click)="downloadFile(img.path + img.filename, img.filename)"
+                                >{{ img.filename }}</a
+                              >
+                            </td>
+                            <td>{{ img.modified_date }}</td>
+                            <td class="tx-gray-700">
+                              <span
+                                class="material-icons ml-2 tx-20 cursor-pointer"
+                                (click)="deleterow_img(img.id, zone_new, county_new, img_list)"
+                                style="vertical-align: middle"
+                              >
+                                delete_forever
+                              </span>
+                            </td>
+                          </tr>
+                        </ng-container>
+                        <ng-container *ngIf="imgArr(zone_new, county_new, img_list) <= 0">
+                          <tr>
+                            <td colspan="4" class="text-center">No Data</td>
+                          </tr>
+                        </ng-container>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button
+              class="d-none btn bg-top-pink btn-min-width btn-round mr-1 mb-1"
+              style="color: white"
+              (click)="deleterow()"
+            >
+              deleterow
+            </button>
+            <button
+              class="d-none btn bg-top-pink btn-min-width btn-round mr-1 mb-1"
+              style="color: white"
+              (click)="SaveFunction()"
+            >
+              SaveFunction
+            </button>
+            <button id="cancel" #cancel class="d-none" (click)="modalRef?.hide()"></button>
+            <button
+              id="openmodal"
+              #openmodal
+              class="d-none"
+              (click)="openModalx(template1, zone_new, county_new)"
+            ></button>
+
+            <ng-template #template1>
+              <diV class="modal-header">
+                <h5 class="modal-title">VISA Document</h5>
+                <!-- (click)="modalRef.hide()" -->
+                <button
+                  type="button"
+                  class="close pb-2"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                  (click)="cancel_checkbox()"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </diV>
+              <div class="modal-body">
+                <div class="px-0">
+                  <div
+                    class="table-responsive my-2 scroll-hori"
+                    style="max-height: 300px; min-height: 150px; max-width: 100%"
+                  >
+                    <ng-container *ngIf="getmtDoc(masterDoc_Selection, zone_new, county_new) as ds">
+                      <table class="table table-bordered table-striped table-hover border-0">
+                        <thead>
+                          <tr class="tx-gray-700 text-center font-weight-bold">
+                            <th class="text-center" style="min-width: 50px">No</th>
+                            <th>Active</th>
+                            <th>Description</th>
+                            <th>by</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <ng-container *ngFor="let mt of checkbox(masterDoc, zone_new, county_new); let i = index">
+                            <!--  -->
+                            <ng-container>
+                              <tr>
+                                <td class="text-center">
+                                  {{ i + 1 }}
+                                </td>
+                                <td class="text-center">
+                                  <input
+                                    type="checkbox"
+                                    [(ngModel)]="mt.ShowStatus"
+                                    (change)="check_boxChang($event, mt.id, zone_new, county_new, masterDoc)"
+                                    value=""
+                                  />
+                                </td>
+                                <td>
+                                  {{ mt.description }}
+                                </td>
+                                <td class="text-center">
+                                  {{ mt.preparing_by }}
+                                </td>
+                              </tr>
+                            </ng-container>
+                          </ng-container>
+                          <!-- <hr /> -->
+                          <ng-container *ngIf="modeDev">
+                            <ng-container *ngFor="let mt of ds; let i = index">
+                              <!--  -->
+                              <ng-container>
+                                <tr>
+                                  <td class="text-center">
+                                    {{ i + 1 }}
+                                  </td>
+                                  <td class="text-center">
+                                    <input
+                                      type="checkbox"
+                                      [(ngModel)]="mt.ShowStatus"
+                                      #checkBox
+                                      (change)="UpdateChecked({ ev: $event, item: mt })"
+                                    />
+                                    <!-- {{ checkBox.checked }}
+                                    {{ mt.ShowStatus }} -->
+                                  </td>
+                                  <td>
+                                    {{ mt.description }}
+                                  </td>
+                                  <td class="text-center">
+                                    {{ mt.preparing_by }}
+                                  </td>
+                                </tr>
+                              </ng-container>
+                            </ng-container></ng-container
+                          >
+                        </tbody>
+                      </table>
+                      <pre *ngIf="modeDev">                        {{ ds | json }}</pre>
+                    </ng-container>
+                  </div>
+
+                  <button
+                    class="btn btn-round bg-top-pink btn-min-width btn-round mr-1 mb-1"
+                    style="color: white"
+                    (click)="SaveFunction()"
+                  >
+                    Save
+                  </button>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

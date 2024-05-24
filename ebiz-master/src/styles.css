@@ -1,1 +1,76 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'animate.css';
+
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.ngx-dropdown-button {
+  padding: 10px !important;
+
+}
+
+
+.autocomplete-container {
+  box-shadow: 0px 0px 0px white !important;
+}
+.autocomplete-container .input-container input {
+  border: 1px solid #ced4da !important;
+  border-radius: .25rem;
+}
+.ng-autocomplete .autocomplete-container .suggestions-container ul {
+  overflow-y: scroll !important;
+}
+.box-contents{
+  border: 1px solid silver;
+  margin-top: 2px;
+  border-radius: 0px 5px 5px 5px;
+  padding: 20px;
+}
+
+.theme-green .bs-datepicker-head {
+  background-color: #04528A  !important;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: searchfield-cancel-button;
+}
+
+button:focus{
+  outline: 0px;
+}
+
+.ngx-dropdown-container .ngx-dropdown-list-container {
+  min-width: 200px !important;
+  /* width: 300px !important; */
+  max-width: 300px !important;
+
+}
+
+
+/* .ngx-dropdown-container .ngx-dropdown-list-container{
+  box-sizing: border-box;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  z-index: 999999999;
+  width: 100%;
+  background-clip: padding-box;
+  background: white;
+  position: relative!important;
+  -webkit-box-shadow: 5px 5px 5px 0px rgb(0 0 0 / 21%);
+  -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.21);
+  box-shadow: 5px 5px 5px 0px rgb(0 0 0 / 21%);
+  overflow-y: auto;
+} */
+
+.autocomplete-container .suggestions-container ul {
+  border: 0px solid red !important;
+  box-shadow: 0px 0px 0px rgb(255,255,255,1) !important;
+  overflow-y: hidden !important;
+}
+
+

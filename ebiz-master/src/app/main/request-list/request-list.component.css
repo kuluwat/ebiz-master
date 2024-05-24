@@ -146,6 +146,12 @@ th.mat-sort-header-sorted {
   /* font-weight: bold; */
 }
 
+.card {
+  max-width: 1500px;
+  border: #969696;
+  box-shadow: 0 4px 8px rgba(154, 51, 51, 0.1);
+}
+
 .btn-5 {
   font-weight: bold;
   background-color: #3498db;

@@ -1,0 +1,52 @@
+.text-error{
+    color: rgb(255, 0, 0);
+    font-weight: bold;
+}
+.border-error{
+    border: 1px solid red;
+}
+.span-mark{
+    color: #E20F84;
+    font-weight: bolder;
+}
+    
+tbody tr:nth-child(2n+2) {
+    background-color: #edfcf9;
+  }
+  
+  tbody tr:nth-child(2n+2):hover {
+    background-color: #e3eeec;
+  }
+/*
+  .headcol {
+    z-index: 1;
+    position: sticky;
+    width: 5em;
+    right: 0;
+    top: auto;
+    border-top-width: 1px;
+    margin-top: -1px;
+    background-color: #eee;
+  }*/
+
+  .table-wrapper{
+    overflow-y: scroll;
+    flex-grow: 1;
+  }
+  
+  .table-wrapper th{
+      background-color: white;
+      position: sticky;
+      top: 0;
+  }
+  .scroll-hori {
+    overflow-y: auto;
+    /* max-height: 300px; */
+}
+
+.scroll-hori thead tr th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: white;
+}

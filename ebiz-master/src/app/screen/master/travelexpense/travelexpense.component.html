@@ -1,0 +1,366 @@
+<div class="col-12 boxcolor-mm background-Slide animate__animated animate__fadeIn" style="height: 350px" *ngIf="model_all.emp_list.length > 0" (window:keypress)="onKeyDown($event)">
+  <div class="row math-height">
+    <div class="col-lg-12">
+        <div class="card-body m-0 p-0">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-6 col-sm-12 col-md-6 col-12" style="min-height: 67px">
+                <div class="marker marker-ribbon marker-top-blue pos-absolute mt-4 l-0 pl-5 pr-5">
+                  <p class="tx-24 m-0 text-uppercase d-flex align-items-center justify-content-around">
+                    &#32;<i class="material-icons mx-2">account_balance</i>&#32; Travel Expense
+                  </p>
+                </div>
+              </div>
+              <!--** Travel Display Name -->
+             
+
+              <div class="col-12 col-md-6">
+                <div class="container px-0">
+                  <div class="text-center text-md-right mt-4 pr-4" *ngIf="!user_admin && !user_request">
+                    <p class="tx-24 m-0 tx-top-blue text-bold-500">
+                      {{ this.model_all.user_display }}
+                    </p>
+                  </div>
+                  <div class="mt-4 col-12 col-md-10 col-lg-8 ml-md-auto" *ngIf="user_admin || user_request">
+                    <mat-select [(ngModel)]="list_emp" #select (selectionChange)="update_userByDOC(list_emp, select)" class="form-control line-height-2 tx-gray-700 text-bold-500" placeholder="Select">
+                      <mat-option *ngFor="let topping of model_all.emp_list; let i = index" [value]="topping.emp_id">
+                        {{ topping.userDisplay }}
+                      </mat-option>
+                    </mat-select>
+                    <!-- {{ list_emp }} -->
+                  </div>
+                  <div class="text-right mt-4 pr-4" *ngIf="pathPhase1">
+                    <span class="link-text">
+                      <p class="tx-14 m-0 text-bold-500" (click)="OpenDocument(model_all.doc_id, pathPhase1)">
+                        Document No: {{ model_all.doc_id }}
+                      </p>
+                      <i class="fa fa-external-link ml-1"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!--** Travel Display Name -->
+              <div class="container px-0">
+                <!-- ** Traveler Detail -->
+                <div class="col-12" *ngIf="userDetail">
+                  <div class="container border-bottom-3 border-bottom-grey-blue border-bottom-lighten-5 mb-4 py-4">
+                    <div class="row no-gutters">
+                      <p class="col-4 col-lg-2 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">Travel Topic :</p>
+                      <p class="col-8 col-lg-10 col-md-10 tx-gray-700 tx-14 text-bold-500 text-capitalize">
+                        {{ userDetail.travel_topic ? userDetail.travel_topic : '' }}
+                      </p>
+                      <p class="col-4 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">Business Date :</p>
+                      <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                        {{ userDetail.business_date ? userDetail.business_date : '' }}
+                      </p>
+                      <p class="col-4 col-md-2 offset-0 offset-md-1 tx-gray-700 tx-14 m-0 text-dark text-bold-500">
+                        Travel Date :
+                      </p>
+                      <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                        {{ userDetail.travel_date ? userDetail.travel_date : '' }}
+                      </p>
+                      <p class="col-4 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">{{ TRAVEL_TYPE }}</p>
+                      <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                        {{ userDetail.country_city ? userDetail.country_city : '' }}
+                      </p>
+                      <p class="col-4 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">Total Traveler(s) :</p>
+                      <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                        {{ model_all.emp_list.length }} Person(s)
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- ** Traveler Detail -->
+
+                <!-- ** Current status -->
+                <div class="col-12 py-3 mt-0 mb-4">
+                  <div class="row justify-content-center align-items-baseline">
+                    <ul id="progressbar" class="px-0 px-md-1 mb-0">
+                      <li class="cursor-pointer" [ngClass]="{ active: docStatus(1) }" id="time"><strong></strong></li>
+                      <li class="cursor-pointer" [ngClass]="{ active: docStatus(2) }" id="pencil"><strong></strong></li>
+                      <li class="cursor-pointer" [ngClass]="{ active: docStatus(3) }" id="cog"><strong></strong></li>
+                      <li class="cursor-pointer" [ngClass]="{ active: docStatus(4) }" id="check"><strong></strong></li>
+                    </ul>
+                  </div>
+                </div>
+                <!-- ** Current status -->
+
+                <!-- **  Detail Travel Expense -->
+                <div class="col-12 mx-0 animate__animated animate__fadeIn">
+                  <div class="container">
+                    <h4 class="tx-gray-700 text-bold-500">Travel Expenses Information</h4>
+                    <div class="card box-shadow-1 rounded-10 mb-3 animate__animated animate__fadeIn overflow-hidden">
+                      <!-- <div class="card-header bg-white border-0 d-none">
+                        <span class="text-bold-500 tx-18"> Travel Expenses Information </span>
+                      </div> -->
+                      <div class="card-body">
+                        <div class="col-12 px-0" *ngIf="get_data_by_user(model_all.travelexpense_detail, emp_id) as ds">
+                          <div class="table-responsive my-2 scroll-hori" style="max-height: 350px; max-width: 100%">
+                            <table class="table table table-striped table-hover table-bordered mb-0" id="table_detail">
+                              <thead>
+                                <tr class="font-weight-bold tx-14 tx-gray-700">
+                                  <!-- <th class="" style="min-width: 40px">
+                                    <span class="d-flex justify-content-evenly align-items-center">
+                                      <input
+                                        type="checkbox"
+                                        #checkAll
+                                        [(ngModel)]="checkall_selected"
+                                        (ngModelChange)="checkallChange(checkAll, ds)"
+                                        [checked]="checkall_selected"
+                                        [disabled]="!user_admin"
+                                      />
+                                    </span>
+                                  </th> -->
+                                  <th class="" style="min-width: 30px"></th>
+                                  <th class="" style="min-width: 30px"></th>
+                                  <th class="width-25-per">Item</th>
+                                  <th>Amount</th>
+                                  <th class="width-15-per">Currency</th>
+                                  <th>Total (THB)</th>
+                                  <th class="width-15-per">Status</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let item of ds; let i = index">
+                                  <!-- <td class="text-middle">
+                                    <span class="d-flex justify-content-evenly align-items-center">
+                                      <input
+                                        type="checkbox"
+                                        #status_active
+                                        [(ngModel)]="item.status_active"
+                                        (ngModelChange)="item.action_change = 'true'"
+                                        [checked]="item.status_active"
+                                        [disabled]="!user_admin"
+                                      />
+                                    </span>
+                                  </td> -->
+                                  <td class="text-middle">
+                                    <input type="file" class="d-none" accept="file_extension" (change)="uploadFile($event, item.id)" #file />
+                                    <span class="d-flex justify-content-evenly">
+                                      <i class="fa fa-upload tx-14-f tx-bold tx-top-blue" (click)="user_admin ? file.click() : false" [ngClass]="{
+                                          'tx-color-top cursor-pointer': user_admin,
+                                          'tx-top-blue-disable': !user_admin || StatusCancel
+                                        }"></i>
+                                    </span>
+                                  </td>
+                                  <td class="text-middle">
+                                    <span class="d-flex justify-content-evenly">
+                                      <i class="material-icons tx-14-f tx-bold no-file" (click)="check_img(item.id) && downloadFileBY_Item(item.id)" [class.clip-disable]="!check_img(item.id) || StatusCancel" [ngClass]="{
+                                          'cursor-pointer': check_img(item.id)
+                                        }" matTooltip="{{ FileName(item.id) }}">attach_file</i>
+                                    </span>
+                                  </td>
+                                  <td class="text-left text-middle">
+                                    {{ get_name_expanseType(item.expense_type) }}
+                                  </td>
+
+                                  <td>
+                                    <input type="text" [disabled]="!user_admin || StatusCancel" class="form-control mn-150-px text-center width-auto" [value]="item.total" [(ngModel)]="item.total" (keypress)="onlyNumberKey($event)" (ngModelChange)="item.total = convertInt('total', item, item.total, ds)" />
+                                  </td>
+                                  <td>
+                                    <select class="text-center form-control form-control-md mn-150-px tx-14" [(ngModel)]="item.currency" [disabled]="!user_admin || StatusCancel" (ngModelChange)="UpdateExchangeRate(item, item.currency)">
+                                      <option value="">Please Select</option>
+                                      <option [value]="item.id" *ngFor="let item of order_by_list(model_all.m_currency)">
+                                        {{ item.name }}
+                                      </option>
+                                    </select>
+                                  </td>
+                                  <td>
+                                    <input type="text" [disabled]="!user_admin || StatusCancel" class="form-control mn-150-px text-center h-50 width-auto" [(ngModel)]="item.grand_total" (keypress)="onlyNumberKey($event)" (ngModelChange)="
+                                        item.grand_total = convertInt('grand_total', item, item.grand_total, ds)
+                                      " />
+                                    <!--  -->
+                                  </td>
+                                  <td>
+                                    <!-- {{ item.status }} -->
+                                    <select class="mn-150-px text-center form-control form-control-md tx-14" [(ngModel)]="item.status" [disabled]="true" (ngModelChange)="item.action_change = 'true'">
+                                      <option [value]="item.id" [disabled]="true" *ngFor="let item of statusXShow">
+                                        {{ item.name }}
+                                      </option>
+                                    </select>
+                                    <!-- <option value="" [disabled]="true">In Complete</option> -->
+                                    <!-- {{item.action_change}} model_all.dtm_status -->
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- **ROW BUTTON -->
+                    <div class="row px-3 mb-3 gap" *ngIf="user_request"></div>
+                    <div class="row px-3 mb-3 gap" [hidden]="!user_reject || StatusCancel" *ngIf="user_admin">
+                      <div class="col-12 text-right" [hidden]="!statusUpdated || StatusSAP || StatusCancel">
+                        <span class="pb-1 tx-12 link-savedinfo" (click)="openModal(templete_userSaved, 'md')">
+                          <p class="text-underline my-0">
+                            Please save the information all traveler before send to SAP.
+                          </p>
+                          <i class="fa fa-info-circle ml-1"></i>
+                        </span>
+                      </div>
+                      <button class="btn btn-round btn-min-width bg-top-pink text-white font-weight-bold" (click)="ConfrimSave()" [disabled]="StatusCancel">
+                        Save
+                      </button>
+                      <button class="
+                          btn btn-round btn-min-width
+                          bg-white
+                          pink
+                          border-pink
+                          text-pink
+                          font-weight-bold
+                          mr-0 mr-md-auto
+                        " (click)="OnCencel()" [disabled]="StatusCancel">
+                        Cancel
+                      </button>
+                      <button class="btn btn-round bg-white btn-min-width tx-color-top font-weight-bold" (click)="openModal(templateCopydetail, 'lg')" [disabled]="StatusCancel || empCount" [class.cursor-disable]="StatusCancel || empCount">
+                        Copy Details
+                      </button>
+                      <button class="btn btn-round bg-white btn-min-width btn-min-width-50per tx-color-top font-weight-bold" (click)="openModal(templete_emailCancel, 'lg')" [disabled]="StatusCancel">
+                        Trip Cancelled
+                      </button>
+                      <!-- statusSendtoSap
+                      {{ statusSendtoSap }}
+                      StatusSAP
+                      {{ StatusSAP }}
+                      StatusCancel
+                      {{ StatusCancel }} -->
+                      <button *ngIf="!DocType" [disabled]="statusUpdated || StatusSAP || StatusCancel" [class.cursor-disable]="statusUpdated || StatusSAP || StatusCancel" class="btn btn-round bg-top-blue btn-min-width btn-min-width-50per text-white font-weight-bold" (click)="OnSendToSAP()">
+                        Send to SAP
+                      </button>
+                    </div>
+                  </div>
+                  <!-- **ROW BUTTON -->
+                </div>
+              </div>
+              <!-- **  Detail Travel Expense -->
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #templete_emailCancel>
+  <div class="modal-header">
+    <div class="col-sm-12 px-0 mx-0">
+      <span class="modal-title tx-20" id="my-modal-title"><i class="fa fa fa-envelope px-1"></i> Trip Cancelled </span>
+      <button type="button" class="close pb-2" style="color: red" data-dismiss="modal" aria-label="Close" (click)="[modalRef.hide(), (remarkText = '')]">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="input-group mb-2">
+          <label class="basic-url font-weight-bold tx-18 underline text-underline tx-gray-700"> Reasons :</label>
+        </div>
+        <div class="form-group mb-0">
+          <textarea class="form-control" [(ngModel)]="remarkText" rows="4" #refremarkText="ngModel" required></textarea>
+          <!-- <small *ngIf="refremarkText.touched && refremarkText.invalid" class="danger">โปรดกรอก</small> -->
+          <!-- {{ refremarkText.touched && refremarkText.invalid }} -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer pt-0">
+    <div class="col-12 pb-2 px-0 pt-3">
+      <button class="btn btn-round btn-top btn-min-width" (click)="sendRemark()" style="color: white" [disabled]="remarkText === ''">
+        Send
+      </button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #templete_userSaved>
+  <div class="modal-header">
+    <div class="col-sm-12 px-0 mx-0">
+      <span class="modal-title tx-20" id="my-modal-title"><i class="fa fa-info-circle px-1"></i> Save Status </span>
+      <button type="button" class="close pb-2" style="color: red" data-dismiss="modal" aria-label="Close" (click)="[modalRef.hide()]">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12" *ngIf="model_all.travelexpense_main as ds">
+        <div class="table-responsive my-2 scroll-hori" style="max-height: 350px; max-width: 100%">
+          <table class="table table table-striped table-hover table-bordered mb-0" id="table_detail">
+            <thead>
+              <tr class="font-weight-bold tx-14 tx-gray-700">
+                <th>Name</th>
+                <th class="width-25-per">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of ds">
+                <td class="text-left">{{ userList[item.emp_id].userDisplay }}</td>
+                <td>{{ item.action_type === 'insert' ? 'unsaved' : 'saved' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer pt-0 d-none">
+    <div class="col-12 pb-2 px-0 pt-3">
+      <button class="btn btn-round bg-top-blue btn-min-width" (click)="sendRemark()" style="color: white" [disabled]="remarkText === ''">
+        Send
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!-- Modal Copy Detail -->
+<ng-template #templateCopydetail>
+  <div class="modal-header">
+    <span class="modal-title tx-20" id="my-modal-title">
+      <i class="material-icons tx-bold tx-20">content_copy</i>
+      Copy Details
+    </span>
+    <button class="close" style="color: red" (click)="[modalRef.hide(), (User_selected_Copy = []), (airticket_copy_selected = '1')]">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="input-group mb-4">
+          <label class="basic-url font-weight-bold tx-18 underline text-underline tx-gray-700"> Choose Type </label>
+        </div>
+        <div class="form-group">
+          <div class="input-group flex-column">
+            <div class="custom-control custom-radio">
+              <fieldset class="radio">
+                <input type="radio" name="customer1" [(ngModel)]="airticket_copy_selected" id="checked1" value="1" (ngModelChange)="airticket_copy_selected == '1' ? (User_selected_Copy = []) : ''" />
+                <label class="text-bold-400 tx-16 mx-1" for="checked1">All Person</label>
+              </fieldset>
+            </div>
+            <div class="custom-control custom-radio">
+              <fieldset class="radio">
+                <input type="radio" name="customer2" [(ngModel)]="airticket_copy_selected" id="checked2" value="2" />
+                <label class="text-bold-400 tx-16 mx-1" for="checked2">Choose by Person</label>
+              </fieldset>
+            </div>
+
+            <div class="col-12 animate__animated animate__fadeIn" *ngIf="airticket_copy_selected == '2'">
+              <mat-select [(ngModel)]="User_selected_Copy" *ngIf="user_admin" #user_selected="ngModel" multiple class="form-control line-height-2 tx-gray-700 text-bold-500" placeholder="Select">
+                <mat-option *ngFor="let item of model_all.emp_list" [value]="item" [hidden]="item.emp_id == emp_id">
+                  {{ item.userDisplay }}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="col-12 px-0">
+      <button type="button" class="btn btn-round btn-top white btn-min-width tx-14" (click)="[copyDetailAllEmp(emp_id)]" [disabled]="User_selected_Copy.length == 0 && airticket_copy_selected == '2'">
+        Paste Data
+      </button>
+    </div>
+  </div>
+</ng-template>

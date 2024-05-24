@@ -1,9 +1,9 @@
 // import { Component, forwardRef, Inject, OnInit } from '@angular/core';
 // import { ActivatedRoute } from '@angular/router';
-// import { LoadListService } from 'src/app/http/load-list/load-list.service';
-// import { AspxserviceService } from 'src/app/master/ws/httpx/aspxservice.service';
-// import { AlertServiceService } from 'src/app/services/AlertService/alert-service.service';
-// import { MainComponent } from '../main.component';
+// import { LoadListService } from '../../http/load-list/load-list.service';
+// import { AspxserviceService } from '../../ws/httpx/aspxservice.service';
+// import { AlertServiceService } from '../../services/AlertService/alert-service.service';
+// import { MainComponent } from '../../main/main.component';
 
 // declare var $: any;
 // @Component({
@@ -32,26 +32,26 @@
 //   btnGoToPhase2: boolean = false;
 
 //   constructor(
-//     @Inject(forwardRef(() => MainComponent)) private appMain: MainComponent,
-//     private route: ActivatedRoute,
-//     public ws: AspxserviceService,
-//     private alerts: AlertServiceService,
-//     private loadList: LoadListService
+//     // @Inject(forwardRef(() => MainComponent)) private appMain: MainComponent,
+//     // private route: ActivatedRoute,
+//     // public ws: AspxserviceService,
+//     // private alerts: AlertServiceService,
+//     // private loadList: LoadListService
 //   ) {
 
-//     this.route.params.subscribe(params => {
+//     // this.route.params.subscribe(params => {
 
-//       this.type = params["types"];
-//       this.id = params["ids"];
-//       this.stateX = this.id.substr(0, 2).toUpperCase() === "OB" ? "oversea" : this.id.substr(0, 2).toUpperCase() === "OT" ? "overseatraining" : this.id.substr(0, 2).toUpperCase() === "LB" ? "local" : this.id.substr(0, 2).toUpperCase() === "LT" ? "localtraining" : "";
-//       console.log(this.stateX);
+//     //   this.type = params["types"];
+//     //   this.id = params["ids"];
+//     //   this.stateX = this.id.substr(0, 2).toUpperCase() === "OB" ? "oversea" : this.id.substr(0, 2).toUpperCase() === "OT" ? "overseatraining" : this.id.substr(0, 2).toUpperCase() === "LB" ? "local" : this.id.substr(0, 2).toUpperCase() === "LT" ? "localtraining" : "";
+//     //   console.log(this.stateX);
 
 
-//       this.buttons.Print = this.type === "create" ? false : true;
-//       //console.log(this.id.substr(0, 2));
-//       // oversea
-//       // local
-//     });
+//     //   this.buttons.Print = this.type === "create" ? false : true;
+//     //   //console.log(this.id.substr(0, 2));
+//     //   // oversea
+//     //   // local
+//     // });
 //     // this.type = route.params["types"];
 //     // this.id = route.params["ids"];
 //     // console.log(this.type)
@@ -61,7 +61,7 @@
 //   ngOnInit() {
 
 
-//     const onSuccess = (data) => {
+//     const onSuccess = (data : any) => {
 //       console.log('load header request');
 //       console.log(data);
 //       if (data.length > 0) {
@@ -70,7 +70,7 @@
 //       }
 //     }
 
-//     this.loadList.onFetch("", "", "", "", this.root_doc_id).subscribe(dao => onSuccess(dao), error => this.appMain.isLoading = false)
+//     // this.loadList.onFetch("", "", "", "", this.root_doc_id).subscribe(dao => onSuccess(dao), error => this.appMain.isLoading = false)
 
 //   }
 
@@ -86,7 +86,7 @@
 
 //   report() {
 //     if (this.buttons.Print) {
-//       this.appMain.isLoading = true;
+//     //   this.appMain.isLoading = true;
 //       // body ให้ส่ง parameter ต่างๆที่แสดงด้านบนของ excel
 //       let body = {
 //         "token_login": localStorage["token"],
@@ -106,7 +106,7 @@
 //         }
 //       ];
 
-//       const onSuccess = (data) => {
+//       const onSuccess = (data : any) => {
 //         console.log('***Call Asmx***');
 //         // console.log(data);
 //         // console.log(data.d);
@@ -120,22 +120,22 @@
 //           console.log(parsed.dtResult[0].file_outbound_path);
 //           console.log(parsed.dtResult[0].file_outbound_name);
 
-//           this.ws.downloadFile(parsed.dtResult[0].file_outbound_path, parsed.dtResult[0].file_outbound_name);
-//           this.appMain.isLoading = false;
+//         //   this.ws.downloadFile(parsed.dtResult[0].file_outbound_path, parsed.dtResult[0].file_outbound_name);
+//         //   this.appMain.isLoading = false;
 //         }
 //         else {
-//           this.appMain.isLoading = false;
-//           this.alerts.swal_error(parsed.dtResult[0].status);
+//         //   this.appMain.isLoading = false;
+//         //   this.alerts.swal_error(parsed.dtResult[0].status);
 //         }
 //       }
 
 //       //data, function name(ฝั่ง asmx), method name(phase1report, allowance, reimbursement)
-//       this.ws.excel_report(body, JSON.stringify(jsondata), 'TravelReport', 'phase1report').subscribe(data => onSuccess(data), error => {
-//         this.appMain.isLoading = false
-//         this.alerts.swal_error(error);
-//         console.log(error);
-//         alert('Can\'t call web api.' + ' : ' + error.message);
-//       });
+//     //   this.ws.excel_report(body, JSON.stringify(jsondata), 'TravelReport', 'phase1report').subscribe(data => onSuccess(data), error => {
+//         // this.appMain.isLoading = false
+//         // this.alerts.swal_error(error);
+//         // console.log(error);
+//         // alert('Can\'t call web api.' + ' : ' + error.message);
+//     //   });
 //     }
 //   }
 // }

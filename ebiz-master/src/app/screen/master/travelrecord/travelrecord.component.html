@@ -1,0 +1,355 @@
+<!-- <p>travelrecord works!</p> -->
+<div id="contentX" #contentX class="col-12 boxcolor-mm background-Slide d-none animate__animated animate__fadeIn"
+    style="height: 350px;">
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="card box-shadow-1 mt-3 mn-ht-500">
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12" style="min-height: 67px;">
+                        <div class="marker marker-ribbon marker-top-blue pos-absolute mt-4 pl-5 pr-5">
+                            <p class="tx-24 m-0">
+                                &#32;
+                                <i class="fa fa-file-text-o"></i>
+                                Travel Record
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12 pr-0 mr-0">
+
+                    </div>
+
+                    <div class="col-lg-4">
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]?="registerForm" (ngSubmit)="onSubmit()">
+                        <div class="row">
+
+                            <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="basicInput">Travel Type<span class="red"> *</span></label>
+
+                                    <div class="form-group">
+                                        <!-- <ngx-select-dropdown id="ddlRequestType" [(ngModel)]="model.request_type.value"
+                                            [multiple]="false" [config]="model.request_type.config"
+                                            (change)="hanleChangeRequestType($event)"
+                                            [options]="model.request_type.list" formControlName="request_type">
+                                        </ngx-select-dropdown> -->
+                                        <ng-multiselect-dropdown id="ddlRequestType" [placeholder]="''"
+                                            [data]="model.request_type.list" [(ngModel)]="model.request_type.select"
+                                            [settings]="model.request_type.settingMulti"
+                                            (onSelect)="handleSelectedContinentToLoadMasterCountry()"
+                                            (onDeSelect)="handleSelectedContinentToLoadMasterCountry()"
+                                            formControlName="request_type">
+                                        </ng-multiselect-dropdown>
+                                        <!-- <span class="red tx-12" *ngIf="submitted && f.request_type.errors">Travel Type
+                                            is required.</span> -->
+
+                                    </div>
+                                </fieldset>
+
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+
+                                <fieldset class="form-group" [hidden]="!panel.country">
+                                    <label class="sub-title-input-layer">Country : </label>
+                                    <div class="tracking-dropdown-request-status">
+                                        <ngx-select-dropdown formControlName="country" [(ngModel)]="model.country.value"
+                                            [multiple]="false" [config]="model.country.config"
+                                            [options]="!ws.isEmpty(model.request_type.value) ? model.country.list : []"
+                                            (change)="changeCountry($event)" [disabled]="model.country.disabled">
+                                        </ngx-select-dropdown>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset class="form-group" [hidden]="!panel.province">
+                                    <label class="sub-title-input-layer">Province : </label>
+                                    <ngx-select-dropdown formControlName="province" [(ngModel)]="model.province.value"
+                                        [multiple]="false" [config]="model.province.config"
+                                        [options]="!ws.isEmpty(model.request_type.value) ? model.province.list : []"
+                                        (change)="changeProvince($event)" [disabled]="model.province.disabled">
+                                    </ngx-select-dropdown>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="disabledInput">Business Date Form<span class="red"> *</span></label>
+                                    <div class="form-group position-relative has-icon-right">
+                                        <input id="business_date_from" name="business_date_from1" autocomplete="off"
+                                            type="text" formControlName="date_from" class="form-control"
+                                            onpaste="return false;" ondrop="return false;" onkeypress="return false;"
+                                            (keydown)="keyDown($event)" [(ngModel)]="model.business_date_from"
+                                            [bsConfig]="{dateInputFormat: 'DD MMM YYYY',showWeekNumbers:false}"
+                                            
+                                            (ngModelChange)="changeDate('date_from')"
+                                            [minDate]="model.min_business_date_from" [maxDate]="model.business_date_to"
+                                            bsDatepicker>
+                                            <!-- [ngClass]="{ 'is-invalid': submitted && f.date_from.errors }" -->
+                                        <!-- <button class="form-control-position" mat-button matSuffix mat-icon-button 
+                                                    aria-label="Clear" >
+                                                    <mat-icon>close</mat-icon>
+                                                </button> -->
+                                        <label id="clearDateForm" class="form-control-position mg-r-25-f"
+                                            [hidden]="model.business_date_from === null"
+                                            (click)="clearValue('date_from')">
+                                            <i
+                                                class="material-icons pt-1 tx-top-blue tx-16 tx-bold cursor-pointer">close</i>
+                                        </label>
+                                        <label class="form-control-position" for="business_date_from">
+                                            <i class="material-icons pt-1 tx-gray-500 cursor-pointer">today</i>
+                                        </label>
+                                        <!-- <div *ngIf="submitted && f.date_from.errors" class="invalid-feedback">
+                                            <div *ngIf="f.date_from.errors.required">Business Date Form is required
+                                            </div> -->
+                                        <!-- </div> -->
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="disabledInput">To<span class="red"> *</span><span></span></label>
+                                    <div class="form-group position-relative has-icon-right">
+                                        <!-- <input autocomplete="off" id="business_date_to" type="text"
+                                            formControlName="date_to" class="form-control" onpaste="return false;"
+                                            ondrop="return false;" onkeypress="return false;"
+                                            (keydown)="keyDown($event)" [(ngModel)]="model.business_date_to"
+                                            bsDatepicker [ngClass]="{ 'is-invalid': submitted && f.date_to.errors }"
+                                            [bsConfig]="{dateInputFormat: 'DD MMM YYYY',showWeekNumbers:false}"
+                                            (ngModelChange)="changeDate('date_to')" [minDate]="model.business_date_from"
+                                            [maxDate]="model.max_business_date_to"> -->
+
+                                        <label id="clearDateForm" class="form-control-position mg-r-25-f"
+                                            [hidden]="model.business_date_to === null" (click)="clearValue('date_to')">
+                                            <i
+                                                class="material-icons pt-1 tx-top-blue tx-16 tx-bold cursor-pointer">close</i>
+                                        </label>
+                                        <label class="form-control-position" for="business_date_to">
+                                            <i class="material-icons pt-1 tx-gray-500 cursor-pointer">today</i>
+                                        </label>
+                                        <!-- <div *ngIf="submitted && f.date_to.errors" class="invalid-feedback">
+                                            <div *ngIf="f.date_to.errors.required">Business Date To is required</div>
+                                        </div> -->
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="disabledInput">Employee</label>
+                                    <ngx-select-dropdown id="ddlCountry" formControlName="employee"
+                                        [disabled]="model.employee.disabled" [multiple]="false"
+                                        [(ngModel)]="model.employee.value" [config]="model.employee.config"
+                                        (change)="changeEmployee($event)" [options]="model.employee.list">
+                                    </ngx-select-dropdown>
+                                </fieldset>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="disabledInput">Section</label>
+                                    <ngx-select-dropdown id="ddlCountry" formControlName="section"
+                                        [disabled]="model.section.disabled" [multiple]="false"
+                                        [(ngModel)]="model.section.value" [config]="model.section.config"
+                                        (change)="changeSection($event)" [options]="model.section.list">
+                                    </ngx-select-dropdown>
+                                </fieldset>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="roundText">Department</label>
+                                    <ngx-select-dropdown id="ddlCountry" formControlName="department"
+                                        [disabled]="model.department.disabled" [multiple]="false"
+                                        [(ngModel)]="model.department.value" [config]="model.department.config"
+                                        (change)="changeDepartment($event, 'department')"
+                                        [options]="model.department.list">
+                                    </ngx-select-dropdown>
+                                </fieldset>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="squareText">Function</label>
+                                    <ngx-select-dropdown id="ddlCountry" formControlName="function"
+                                        [disabled]="model.function.disabled" [multiple]="false"
+                                        [(ngModel)]="model.function.value" [config]="model.function.config"
+                                        (change)="changeFunction($event, 'function')" [options]="model.function.list">
+                                    </ngx-select-dropdown>
+                                </fieldset>
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <!-- (click)="search()" -->
+                                    <button type="submit" class="btn btn-top btn-round btn-min-width mr-1"><i
+                                            class="fa fa-search"></i>
+                                        Search</button>
+                                    <button class="btn btn-round btn-min-width "
+                                        [ngClass]="{'btn-teal':model.dataSource.length>0 , 'btn-secondary disabled cursor-not-allowed':model.dataSource.length === 0}"
+                                        [disabled]="model.dataSource.length === 0" (click)="exportExcel()"><i
+                                            class="fa fa-file-excel-o"></i>
+                                        Export</button>
+                                    <!-- <button class="btn bg-top-blue  btn-round cursor-pointer border-bottom-3 text-white "> Add Passport</button> -->
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-xl-12 col-lg-12 col-sm-12">
+                                <div class="table-responsive scroll-hori mx-ht-500px">
+                                    <table class="table table-bordered table-striped table-hover tx-gray-700"
+                                        style="width: 4120px;">
+                                        <thead>
+                                            <tr class="tx-center">
+                                                <th colspan="7" [style.minWidth]="905 + 'px'" class="tx-bold ">Employee
+                                                    Information</th>
+                                                <th colspan="12" [style.minWidth]="1785 + 'px'" class="tx-bold">Travel
+                                                    Details</th>
+                                                <th colspan="12" [style.minWidth]="1445 + 'px'" class="tx-bold">Traning
+                                                    Expense</th>
+                                            </tr>
+                                            <tr class="tx-center">
+                                                <!-- <td width="50px" class="tx-bold ">No.</td>
+                                                <td width="160px" class="tx-bold ">Emp ID</td>
+                                                <td width="50px" class="tx-bold ">Title</td>
+                                                <td [style.minWidth]="cellWidth280 + 'px'" class="tx-bold ">Name</td>
+                                                <td width="120px" class="tx-bold ">Section</td>
+                                                <td width="120px" class="tx-bold ">Department</td>
+                                                <td width="120px" class="tx-bold ">Function</td>
+                                            
+                                                <td width="160px" class="tx-bold">Travel Status</td>
+                                                <td width="120px" class="tx-bold">In-House</td>
+                                                <td width="300px" class="tx-bold">Travel Topic</td>
+                                                <td width="160px" class="tx-bold">Country</td>
+                                                <td width="160px" class="tx-bold">City/Province</td>
+                                                <td width="140px" class="tx-bold">Business/ Training Date [From]</td>
+                                                <td width="140px" class="tx-bold">Business/ Training Date [To]</td>
+                                                <td width="120px" class="tx-bold">Duration (day)</td>
+                                                <td width="120px" class="tx-bold">Estimate Expense (BHT)</td>
+                                                <td width="120px" class="tx-bold">GL Account</td>
+                                                <td width="120px" class="tx-bold">Cost Center</td>
+                                                <td width="120px" class="tx-bold">Order/ WBS</td>
+
+                                                <td width="120px" class="tx-bold">Accommodation</td>
+                                                <td width="120px" class="tx-bold">Air Ticket</td>
+                                                <td width="120px" class="tx-bold">Allowance_Day</td>
+                                                <td width="120px" class="tx-bold">Allowance_Night</td>
+                                                <td width="120px" class="tx-bold">Clothing & Luggage</td>
+                                                <td width="120px" class="tx-bold">Course Fee</td>
+                                                <td width="120px" class="tx-bold">Instruction Fee</td>
+                                                <td width="120px" class="tx-bold">Miscellaneous</td>
+                                                <td width="120px" class="tx-bold">Passport</td>
+                                                <td width="120px" class="tx-bold">Transportation</td>
+                                                <td width="120px" class="tx-bold">Visa (Fee)</td>
+                                                <td width="120px" class="tx-bold">Total</td>
+                                            -->
+                                                <td [style.minWidth]="50 + 'px'" class="tx-bold border">No.</td>
+                                                <td [style.minWidth]="160 + 'px'" class="tx-bold border">Emp ID</td>
+                                                <td [style.minWidth]="50 + 'px'" class="tx-bold border">Title</td>
+                                                <td [style.minWidth]="280 + 'px'" class="tx-bold border">Name</td>
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">Section</td>
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">Department</td>
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">Function</td>
+
+                                                <td [style.minWidth]="160 + 'px'" class="tx-bold border">Travel Status
+                                                </td>
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">In-House</td>
+                                                <td [style.minWidth]="300 + 'px'" class="tx-bold border">Travel Topic
+                                                </td>
+                                                <td [style.minWidth]="160 + 'px'" class="tx-bold border">Country</td>
+                                                <td [style.minWidth]="160 + 'px'" class="tx-bold border">City/Province
+                                                </td>
+                                                <td [style.minWidth]="140 + 'px'" class="tx-bold border">Business/
+                                                    Training Date [From]</td>
+                                                <td [style.minWidth]="140 + 'px'" class="tx-bold border">Business/
+                                                    Training Date [To]</td>
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">Duration (day)
+                                                </td>
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">Estimate
+                                                    Expense (BHT)</td>
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">GL Account</td>
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">Cost Center
+                                                </td>
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">Order/ WBS</td>
+
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">Accommodation
+                                                </td>
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">Air Ticket</td>
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">Allowance_Day
+                                                </td>
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">Allowance_Night
+                                                </td>
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">Clothing &
+                                                    Luggage</td>
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">Course Fee</td>
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">Instruction Fee
+                                                </td>
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">Miscellaneous
+                                                </td>
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">Passport</td>
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">Transportation
+                                                </td>
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">Visa (Fee)</td>
+                                                <td [style.minWidth]="120 + 'px'" class="tx-bold border">Total</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr [ngClass]="{'d-none':model.dataSource.length > 0}">
+                                                <td colspan="31" class="pl-5">No Data.</td>
+                                            </tr>
+                                            <!-- <tr *ngFor="let dr of model.dataSource; let i = index"
+                                                [ngClass]="{'d-none':model.dataSource.length === 0}">
+
+                                                <td class="text-right">{{ i+1 }}.</td>
+                                                <td class="text-center">{{ dr.emp_id }}</td>
+                                                <td class="text-center">{{ dr.emp_title }}</td>
+                                                <td class="text-left">{{ dr.emp_name }}</td>
+                                                <td class="text-center">{{ dr.section }}</td>
+                                                <td class="text-center">{{ dr.department }}</td>
+                                                <td class="text-center">{{ dr.function }}</td>
+                                                <td class="text-left">{{ dr.travel_status }}</td>
+
+                                                <td class="text-left">{{ dr.in_house }}</td>
+                                                <td class="text-left">{{ dr.travel_topic }}</td>
+                                                <td class="text-center">{{ dr.country }}</td>
+                                                <td class="text-center">{{ dr.city_province }}</td>
+                                                <td class="text-center">{{ dr.date_from }}</td>
+                                                <td class="text-center">{{ dr.date_to }}</td>
+                                                <td class="text-center">{{ dr.duration }}</td>
+                                                <td class="text-center">{{ dr.estimate_expense }}</td>
+                                                <td class="text-center">{{ dr.gl_account }}</td>
+                                                <td class="text-center">{{ dr.cost_center }}</td>
+                                                <td class="text-center">{{ dr.order_wbs }}</td>
+
+                                                <td class="text-center">{{ dr.accommodation }}</td>
+                                                <td class="text-center">{{ dr.air_ticket }}</td>
+                                                <td class="text-center">{{ dr.allowance_day }}</td>
+                                                <td class="text-center">{{ dr.allowance_night }}</td>
+                                                <td class="text-center">{{ dr.clothing_luggage }}</td>
+                                                <td class="text-center">{{ dr.course_fee }}</td>
+                                                <td class="text-center">{{ dr.instruction_fee }}</td>
+                                                <td class="text-center">{{ dr.miscellaneous }}</td>
+                                                <td class="text-center">{{ dr.passport }}</td>
+                                                <td class="text-center">{{ dr.transportation }}</td>
+                                                <td class="text-center">{{ dr.visa_fee }}</td>
+                                                <td class="text-center">{{ dr.total }}</td>
+
+                                                <td class="text-center">{{ dr.total | number:'1.2-2' }}</td> 
+
+                                            </tr> -->
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <p class="tx-gray-700 mt-1">Result : {{ model.dataSource.length }} record.</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

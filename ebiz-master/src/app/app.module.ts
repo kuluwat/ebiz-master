@@ -26,12 +26,23 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatGridListModule} from '@angular/material/grid-list';
 
-import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
-
-//ng-boostrap
-import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  IgxAvatarModule,
+  IgxFilterModule,
+  IgxIconModule,
+  IgxListModule,
+  IgxInputGroupModule,
+  IgxButtonGroupModule,
+  IgxRippleModule,
+  IgxCarouselModule,
+  IgxSliderModule,
+  IgxTabsModule,
+} from 'igniteui-angular';
 
 // ngx-bootstrap
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -44,6 +55,7 @@ import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { ToastrModule } from 'ngx-toastr';
 
 // Components
 import { AppComponent } from './app.component';
@@ -58,35 +70,41 @@ import { HomeComponent } from './main/home/home.component';
 import { ServicesComponent } from './main/services/services.component';
 import { RequestListComponent } from './main/request-list/request-list.component';
 import { RequestComponent } from './main/request/request.component';
-// import { RequestPartIComponent } from './components/main/request-part-i/request-part-i.component';
-// import { RequestPartIIComponent } from './components/main/request-part-ii/request-part-ii.component';
-// import { RequestPartIIIComponent } from './components/main/request-part-iii/request-part-iii.component';
+import { RequestPartIComponent } from './main/request-part-i/request-part-i.component';
+import { RequestPartIIComponent } from './main/request-part-ii/request-part-ii.component';
+import { RequestPartIIIComponent } from './main/request-part-iii/request-part-iii.component';
 import { RequestPartCapComponent } from './main/request-part-cap/request-part-cap.component';
 import { MasterComponent } from './screen/master/master.component';
-// import { AirticketComponent } from './screen/master/airticket/airticket.component';
+import { AirticketComponent } from './screen/master/airticket/airticket.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ButtonToTopComponent } from './components/button-to-top/button-to-top.component';
 import { LoadingBgColorComponent } from './components/loading-bg-color/loading-bg-color.component';
 import { TransportationComponent } from './screen/master/transportation/transportation.component';
-// import { TravelerhistoryComponent } from './screen/master/travelerhistory/travelerhistory.component';
-// import { TravelinsuranceComponent } from './screen/master/travelinsurance/travelinsurance.component';
-// import { TravelexpenseComponent } from './screen/master/travelexpense/travelexpense.component';
-// import { AccommodationComponent } from './screen/master/accommodation/accommodation.component';
-// import { VisaComponent } from './screen/master/visa/visa.component';
-// import { PassportComponent } from './screen/master/passport/passport.component';
-// import { AllowanceComponent } from './screen/master/allowance/allowance.component';
-// import { ReimbursementComponent } from './screen/master/reimbursement/reimbursement.component';
-// import { IsosComponent } from './screen/master/isos/isos.component';
-// import { FeedbackComponent } from './screen/master/feedback/feedback.component';
+import { TravelexpenseComponent } from './screen/master/travelexpense/travelexpense.component';
+import { TravelerhistoryComponent } from './screen/master/travelerhistory/travelerhistory.component';
+import { TravelinsuranceComponent } from './screen/master/travelinsurance/travelinsurance.component';
+import { AccommodationComponent } from './screen/master/accommodation/accommodation.component';
+import { VisaComponent } from './screen/master/visa/visa.component';
+import { PassportComponent } from './screen/master/passport/passport.component';
+import { AllowanceComponent } from './screen/master/allowance/allowance.component';
+import { ReimbursementComponent } from './screen/master/reimbursement/reimbursement.component';
+import { IsosComponent } from './screen/master/isos/isos.component';
+import { FeedbackComponent } from './screen/master/feedback/feedback.component';
 import { SafePipe } from './safe.pipe';
 import { EbizhomeComponent } from './screen/home/ebizhome.component';
 import { MtalreadybookedComponent } from './screen/mtalreadybooked/mtalreadybooked.component';
-// import { MtbookingstatusComponent } from './screen/mtbookingstatus/mtbookingstatus.component';
-// import { InsurancerecordComponent } from './screen/master/insurancerecord/insurancerecord.component';
+import { MtvisacountriesComponent } from './screen/mtvisacountries/mtvisacountries.component';
+import { MtbookingstatusComponent } from './screen/mtbookingstatus/mtbookingstatus.component';
+import { MtvisadocumentComponent } from './screen/mtvisadocument/mtvisadocument.component';
+import { InsurancerecordComponent } from './screen/master/insurancerecord/insurancerecord.component';
 import { LogindevComponent } from './screen/logidev/logindev.component';
-// import { TravelrecordComponent } from './screen/master/travelrecord/travelrecord.component';
-// import { IsosrecordComponent } from './screen/master/isosrecord/isosrecord.component';
+import { TravelrecordComponent } from './screen/master/travelrecord/travelrecord.component';
+import { IsosrecordComponent } from './screen/master/isosrecord/isosrecord.component';
 import { MaintainComponent } from './maintain/maintain.component';
+import { ManageadminComponent } from './manageadmin/manageadmin.component';
+import { MtkhcodeComponent } from './screen/mtkhcode/mtkhcode.component';
+import { MtfeedbackquestionComponent } from './screen/mtfeedbackquestion/mtfeedbackquestion.component';
+
 
 import { LocalStorageService } from './services/localstorage/local-storage.service';
 import { HttpmanagerService } from './services/http/httpmanager.service';
@@ -97,6 +115,8 @@ import { PartIiiService } from './http/part-iii/part-iii.service';
 import { PartIiiiService } from './http/part-iiii/part-iiii.service';
 import { AuthenService } from './http/authen/authen.service';
 import { DatePipe } from '@angular/common';
+import { MtdailyallowanceComponent } from './screen/mtdailyallowance/mtdailyallowance.component';
+import { MtbrokerComponent } from './screen/mtbroker/mtbroker.component';
 
 @NgModule({
   declarations: [
@@ -113,35 +133,42 @@ import { DatePipe } from '@angular/common';
     ServicesComponent,
     RequestListComponent,
     RequestComponent,
-    // RequestPartIComponent,
-    // RequestPartIIComponent,
-    // RequestPartIIIComponent,
+    RequestPartIComponent,
+    RequestPartIIComponent,
+    RequestPartIIIComponent,
     RequestPartCapComponent,
     MasterComponent,
-    // AirticketComponent,
+    AirticketComponent,
     MenuComponent,
     ButtonToTopComponent,
     LoadingBgColorComponent,
     TransportationComponent,
-    // TravelerhistoryComponent,
-    // TravelexpenseComponent,
-    // TravelinsuranceComponent,
-    // AccommodationComponent,
-    // VisaComponent,
-    // AllowanceComponent,
-    // PassportComponent,
-    // ReimbursementComponent,
-    // IsosComponent,
-    // FeedbackComponent,
+    TravelerhistoryComponent,
+    TravelexpenseComponent,
+    TravelinsuranceComponent,
+    AccommodationComponent,
+    VisaComponent,
+    AllowanceComponent,
+    PassportComponent,
+    ReimbursementComponent,
+    IsosComponent,
+    FeedbackComponent,
     MaintainComponent,
     MtalreadybookedComponent,
-    // MtbookingstatusComponent,
+    ManageadminComponent,
+    MtbookingstatusComponent,
+    MtvisadocumentComponent,
+    MtvisacountriesComponent,
+    MtkhcodeComponent,
+    MtfeedbackquestionComponent,
+    MtdailyallowanceComponent,
+    MtbrokerComponent,
 
     SafePipe,
-    // InsurancerecordComponent,
+    InsurancerecordComponent,
     LogindevComponent,
-    // TravelrecordComponent,
-    // IsosrecordComponent
+    TravelrecordComponent,
+    IsosrecordComponent
   ],
   imports: [
     BrowserModule,
@@ -152,9 +179,6 @@ import { DatePipe } from '@angular/common';
     AppRoutingModule,
     RouterModule,
     CommonModule,
-
-    
-    MdbTabsModule,
 
     // Angular Material Modules
     MatSelectModule,
@@ -176,13 +200,25 @@ import { DatePipe } from '@angular/common';
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatCardModule,
+    MatFormFieldModule,
+    MatCheckboxModule,
+    MatGridListModule,
 
-    //ng-bootstrap
-    NgbCarouselModule,
+    IgxAvatarModule,
+    IgxFilterModule,
+    IgxIconModule,
+    IgxListModule,
+    IgxInputGroupModule,
+    IgxButtonGroupModule,
+    IgxRippleModule,
+    IgxCarouselModule,
+    IgxSliderModule,
+    IgxTabsModule,
 
     // ngx-bootstrap
     BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
+    ToastrModule.forRoot(),
 
     // Other Third-party Modules
     NgxMatSelectSearchModule,
@@ -193,7 +229,6 @@ import { DatePipe } from '@angular/common';
     CurrencyMaskModule,
   ],
   providers: [
-
     LocalStorageService,
     HttpmanagerService,
     //SearchEmpService,
@@ -205,8 +240,8 @@ import { DatePipe } from '@angular/common';
     PartIiiiService,
     AuthenService,
     DatePipe,
-    HeaderComponent
+    HeaderComponent,
   ],
-  bootstrap: [AppComponent,NgbCarouselModule]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

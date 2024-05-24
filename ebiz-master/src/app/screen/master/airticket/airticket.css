@@ -1,0 +1,225 @@
+
+*, *::before, *::after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
+.card {
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    background: white;
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.15);
+    position: relative;
+    color: #434343;
+    overflow-y: auto;
+  }
+  
+  .card .card__container {
+    padding: 2rem;
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 1rem;
+    position: relative;
+  }
+  
+  .card .card__header {
+    margin-bottom: 1rem;
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .card .card__body {
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .card-ribbon {
+    position: absolute;
+    top: 2rem;
+    left: -0.5rem;
+    padding: 0.5rem;
+    /* width: 90px; */
+    background: #3949ab;
+    color: white;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 4px 4px 15px rgba(26, 35, 126, 0.2);
+    transform-origin: 0 0;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 23px;
+    font-weight:bolder;
+  }
+  
+  .card-ribbon i {
+    vertical-align: middle;
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-right: 20px; /* Adjust as needed */
+}
+
+  .card-subhead{
+    padding: 24px;
+  }
+
+  #progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: lightgrey;
+  }
+  
+  #progressbar .active {
+    color: #000000;
+  }
+  
+  #progressbar li {
+    list-style-type: none;
+    font-size: 12px;
+    width: 25%;
+    float: left;
+    position: relative;
+    text-align: center;
+    padding: 0px 2rem;
+    z-index: 0;
+  }
+  
+  #progressbar #time:before {
+    font-family: FontAwesome;
+    content: '\f00d';
+    font-size: 24px;
+  }
+  
+  #progressbar #pencil:before {
+    font-family: FontAwesome;
+    content: '\f040';
+    font-size: 24px;
+  }
+  
+  #progressbar #cog:before {
+    font-family: FontAwesome;
+    content: '\f013';
+    font-size: 24px;
+  }
+  
+  #progressbar #check:before {
+    font-family: FontAwesome;
+    content: '\f00c';
+    font-size: 24px;
+  }
+  
+  #progressbar li:before {
+    width: 50px;
+    height: 50px;
+    line-height: 45px;
+    display: block;
+    font-size: 18px;
+    color: #ffffff;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 0 auto 0px auto;
+    padding: 2px;
+  }
+  
+  #progressbar li:nth-child(1):after,
+  #progressbar li:nth-child(2):after,
+  #progressbar li:nth-child(3):after {
+    content: '';
+    width: 40%;
+    height: 2px;
+    background: lightgray;
+    position: absolute;
+    left: 80%;
+    top: 25px;
+    z-index: -1;
+  }
+  
+  /* #progressbar li.active:before {
+    background: rgb(135, 235, 197);
+  } */
+  /*!! //สีตาม track Status */
+  /* 1.not start = NS >> #969696
+  2.Traveler = T (USER) >> #f1c40f
+  3.Business = B (ADMIN) >> #3498db
+  4.Complete = C >> #19b092 */
+  #progressbar li#time.active:before {
+    background: #969696;
+  }
+  #progressbar li#pencil.active:before {
+    background: #f1c40f;
+  }
+  #progressbar li#cog.active:before {
+    background: #3498db;
+  }
+  #progressbar li#check.active:before {
+    background: #19b092;
+  }
+
+  #nprogress-bar{
+    -webkit-appearance:none;
+    width: 700px;
+    color: #CCC;
+    height: 2px;
+    margin: 0 auto;
+  }
+  #first, #second, #third,  #fourth{ margin:0px; }
+  #step span{ 
+    height: 80px;
+    width: 80px;
+    border-radius: 100%;
+    border: 3px solid #CCC;
+    background:#CCCCCC;
+    position: absolute;
+    left:0;
+    color:#ffffff;
+    top: -30px;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+  }
+  #step{ height:100px; width:100%;}
+  #step span i{padding:20px; text-align:center; font-size:40px;
+  } 
+   
+   #step .first {  left:-23px;
+  }
+   
+   
+  #step  .second{
+    left: 200px;
+  }
+  #step  .third{
+    left: 420px;
+  }
+  #step  .fourth{
+    left: 640px;
+  }
+  .detail{ position:relative;}
+  #nprogress-bar::-webkit-progress-value{ /* Changes line color */
+    background: #049dfe;
+    transition: all 0.4s ease-in-out;
+  }
+  #nprogress-bar::-webkit-progress-bar{ /* Changes background color */
+    background: #CCC;
+  }
+  #step .border-change{
+    border-color:#0077c2;
+    background: #049dfe; 
+    transition: all 0.4s ease-in-out;
+  } 
+
+  .dashed-divider {
+    border-top: 2px dashed #ccc;
+    margin: 20px 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}

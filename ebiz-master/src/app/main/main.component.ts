@@ -99,7 +99,7 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.didCheckTokenDied()
+    this.didCheckTokenDied()
   }
 
   didCheckTokenDied() {

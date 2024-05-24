@@ -18,7 +18,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 
 import {NavigationExtras, Router} from '@angular/router';
 // import {BreakpointObserver, MediaMatcher, Breakpoints, BreakpointState} from '@angular/cdk/layout';
-import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
+
 // import { MasterComponent } from '../../screen/master/master.component';
 //import select2 from "src/assets/app-assets/vendors/js/forms/select/select2.full.min.js"
 
@@ -33,7 +33,22 @@ declare var $: any;
 })
 export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
+
+
   mockImg = true;
+
+   slides = [
+    {
+      src: 'https://www.infragistics.com/angular-demos-lob/assets/images/carousel/ignite-ui-angular-indigo-design.png'
+    },
+    {
+      src: 'https://www.infragistics.com/angular-demos-lob/assets/images/carousel/slider-image-chart.png'
+    },
+    {
+      src: 'https://www.infragistics.com/angular-demos-lob/assets/images/carousel/ignite-ui-angular-charts.png'
+    }
+];
+
   images = {
     imagespath1: 'assets/imgs/inner-page-hero.jpg',
     imagespath2: 'assets/imgs/bgtwo.jpeg',
@@ -179,7 +194,7 @@ export class EbizhomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('singleSelect', { static: true })
   singleSelect!: MatSelect;
 
-  @ViewChild('carousel', { static: true }) carousel?: NgbCarousel;
+
 
   /** Subject that emits when the component has been destroyed. */
   protected _onDestroy = new Subject<void>();
@@ -346,17 +361,6 @@ Object: any;
 
   }
 
-  onSlide(slideEvent: NgbSlideEvent) {
-    if (
-      slideEvent.paused &&
-      (slideEvent.source === NgbSlideEventSource.ARROW_LEFT || slideEvent.source === NgbSlideEventSource.ARROW_RIGHT)
-    ) {
-
-    }
-    if (!slideEvent.paused && slideEvent.source === NgbSlideEventSource.INDICATOR) {
-
-    }
-  }
 
   onResize(event : any) {
     console.log(

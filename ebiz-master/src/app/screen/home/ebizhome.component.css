@@ -582,6 +582,114 @@ table {
 
 }
 
-.carousel{
-  interval: 2000
+.carousel-container {
+  width: 70vw;
+  height: 80vh;
+  margin: 16px auto;
+}
+
+:host ::ng-deep{
+  .image-container {
+      max-width: 85%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+
+  .igx-carousel {
+      max-width: 100%;
+      width: unset;
+  }
+
+  .igx-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-width: 100%;
+      width: unset;
+  }
+
+  .igx-slide img {
+      object-fit: fill;
+      max-width: 90%;
+  }
+}
+
+ .mat-form-field {
+  display: flex;
+  padding: 10px;
+}
+
+.mat-form-field .mat-input-element {
+  /* padding: 10px; */
+  outline: 1px #9a9797; /* or any color you prefer */
+  border-radius: 4px; /* Optional: to match the material design look */
+}
+
+
+.mat-form-field .mat-start-date,
+.mat-form-field .mat-end-date {
+  margin-right: 8px; /* Adjust as needed */
+}
+
+.mat-form-field .mat-end-date {
+  margin-right: 0;
+}
+
+.example-small-box, .example-large-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 16px;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.example-small-box {
+  height: 100px;
+  width: 100px;
+}
+
+.example-large-box {
+  height: 300px;
+  width: 300px;
+}
+
+
+/* test */
+.book-trip-title {
+  color: rgba(110,192,192,1); 
+  font: 2em sans-serif;
+}
+
+.business-date-title {
+  text-align: left;
+}
+
+.tx-gray-500.tx-italic {
+  font-style: italic;
+}
+
+.datepicker-container {
+  width: 100%;
+  display: flex;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.form-group {
+  width: 100%;
+}
+
+.form-group input, .form-group select {
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .col-sm-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
 }

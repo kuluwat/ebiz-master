@@ -1,24 +1,35 @@
 import { Injectable } from '@angular/core';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
-// import toastr from '../../../assets/extensions/toastr/toastr.js';
 import { ToastrService } from 'ngx-toastr';
-
-
-//declare const toastr: any;
 
 @Injectable({
   providedIn: 'root',
 })
 export class AlertServiceService {
-  constructor(private toastr: ToastrService) {}
-  // Toastr //
+  private defaultParams = {
+    title: '',
+    text: '',
+    icon: '' as SweetAlertIcon,
+    allowOutsideClick: false,
+    showConfirmButton: true,
+    showCancelButton: false,
+    confirmButtonText: 'Yes',
+    confirmButtonColor: '#04528a',
+    cancelButtonText: 'No',
+    cancelButtonColor: '#d33',
+    customClass: '',
+  };
 
-  toastr_success (msg : string) {
-    this.toastr.success(msg, 'Sucess!', {
+  constructor(private toastr: ToastrService) {}
+
+  // Toastr methods
+  toastr_success(msg: string) {
+    this.toastr.success(msg, 'Success!', {
       positionClass: 'toast-bottom-right',
       timeOut: 3000,
     });
   }
+
   toastr_info(msg: string) {
     this.toastr.info(msg, 'Info', {
       positionClass: 'toast-bottom-right',
@@ -39,98 +50,48 @@ export class AlertServiceService {
       timeOut: 3000,
     });
   }
-  // Toastr //
 
-  // Sweetalert2 //
-
-  defaultParams = {
-    title: '',
-    text: '',
-    type: null,
-    icon: '',
-    allowOutsideClick: false,
-    showConfirmButton: true,
-    showCancelButton: false,
-    closeOnConfirm: true,
-    closeOnCancel: true,
-    confirmButtonText: 'Yes',
-    confirmButtonColor: '#04528a',
-    cancelButtonText: 'No',
-    imageUrl: null,
-    imageSize: null,
-    timer: null,
-    customClass: '',
-    html: false,
-    animation: true,
-    allowEscapeKey: true,
-    inputType: 'text',
-    inputPlaceholder: '',
-    inputValue: '',
-    showLoaderOnConfirm: false,
-    cancelButtonColor: '#d33',
-  };
-
-  swal_sucess(msg: string) {
-    msg === '' && (msg = 'Successfully saved');
+  // SweetAlert2 methods
+  swal_success(msg: string) {
     Swal.fire({
       icon: 'success',
-      // title: 'Success',
-      // text: msg,
-      customClass: { confirmButton: 'btn-min-width', popup: 'format-preX' },
-      html: '<pre class="text-center">' + msg + '</pre>',
+      html: `<pre class="text-center">${msg || 'Successfully saved'}</pre>`,
       confirmButtonColor: this.defaultParams.confirmButtonColor,
+      customClass: { confirmButton: 'btn-min-width', popup: 'format-preX' },
     });
   }
 
   swal_error(msg: string) {
     Swal.fire({
       icon: 'error',
-      // title: 'Error!',
-      // text: msg,
-      customClass: { confirmButton: 'btn-min-width', popup: 'format-preX' },
-      html: '<pre class="text-center">' + msg + '</pre>',
+      html: `<pre class="text-center">${msg}</pre>`,
       confirmButtonColor: this.defaultParams.confirmButtonColor,
+      customClass: { confirmButton: 'btn-min-width', popup: 'format-preX' },
     });
   }
 
   swal_warning(msg: string) {
     Swal.fire({
       icon: 'warning',
-      // title: 'Warning!',
-      // text: msg,
-      customClass: { confirmButton: 'btn-min-width', popup: 'format-preX' },
-      html: '<pre class="text-center">' + msg + '</pre>',
+      html: `<pre class="text-center">${msg}</pre>`,
       confirmButtonColor: this.defaultParams.confirmButtonColor,
+      customClass: { confirmButton: 'btn-min-width', popup: 'format-preX' },
     });
   }
 
   swal_info(msg: string) {
     Swal.fire({
       icon: 'info',
-      // title: 'Info',
-      // text: msg,
-      customClass: { confirmButton: 'btn-min-width', popup: 'format-preX' },
-      html: '<pre class="text-center">' + msg + '</pre>',
+      html: `<pre class="text-center">${msg}</pre>`,
       confirmButtonColor: this.defaultParams.confirmButtonColor,
+      customClass: { confirmButton: 'btn-min-width', popup: 'format-preX' },
     });
   }
 
   swal_custom(title: string, msg: string, action: string) {
-    this.defaultParams.icon =
-      action === 'success'
-        ? 'success'
-        : action === 'error'
-        ? 'error'
-        : action === 'warning'
-        ? 'warning'
-        : action === 'info'
-        ? 'info'
-        : action === 'question'
-        ? 'question'
-        : '';
-
+    const icon = this.getIcon(action);
     Swal.fire({
-      // icon: this.defaultParams.icon,
+      icon: icon,
       title: title,
       text: msg,
       confirmButtonColor: this.defaultParams.confirmButtonColor,
@@ -138,91 +99,72 @@ export class AlertServiceService {
   }
 
   swal_custom_newline(title: string, msg: string, action: string) {
-    this.defaultParams.icon =
-      action === 'success'
-        ? 'success'
-        : action === 'error'
-        ? 'error'
-        : action === 'warning'
-        ? 'warning'
-        : action === 'info'
-        ? 'info'
-        : action === 'question'
-        ? 'question'
-        : '';
-
+    const icon = this.getIcon(action);
     Swal.fire({
-      // icon: this.defaultParams.icon,
+      icon: icon,
       title: title,
-      html: '<pre>' + msg + '</pre>',
-      customClass: {
-        popup: 'format-preX',
-      },
+      html: `<pre>${msg}</pre>`,
+      customClass: { popup: 'format-preX' },
       confirmButtonColor: this.defaultParams.confirmButtonColor,
     });
   }
 
-  async swal_confrim(title: string, msg: string, action: string) {
-    this.defaultParams.icon =
-      action === 'success'
-        ? 'success'
-        : action === 'error'
-        ? 'error'
-        : action === 'warning'
-        ? 'warning'
-        : action === 'info'
-        ? 'info'
-        : action === 'question'
-        ? 'question'
-        : '' ;
-
-    return await Swal.fire({
-      // title: title,
+  async swal_confirm(title: string, msg: string, action: string) {
+    const icon = this.getIcon(action);
+    return Swal.fire({
+      icon: icon,
       text: title,
-      icon: this.defaultParams.icon as SweetAlertIcon,
       customClass: { confirmButton: 'btn-min-width', cancelButton: 'btn-min-width' },
       showCancelButton: true,
       confirmButtonColor: this.defaultParams.confirmButtonColor,
       cancelButtonColor: this.defaultParams.cancelButtonColor,
       confirmButtonText: this.defaultParams.confirmButtonText,
-      stopKeydownPropagation: false,
       allowOutsideClick: false,
     });
   }
 
-  async swal_confrim_delete(msg: string) {
-    this.defaultParams.title = msg === '' ? 'Do you want to delete the data?' : msg;
-
-    return await Swal.fire({
-      // title: this.defaultParams.title,
-      text: this.defaultParams.title,
+  async swal_confirm_delete(msg: string) {
+    const title = msg || 'Do you want to delete the data?';
+    return Swal.fire({
       icon: 'warning',
-      showCancelButton: true,
+      text: title,
       customClass: { confirmButton: 'btn-min-width', cancelButton: 'btn-min-width' },
+      showCancelButton: true,
       confirmButtonColor: this.defaultParams.confirmButtonColor,
       cancelButtonColor: this.defaultParams.cancelButtonColor,
       confirmButtonText: this.defaultParams.confirmButtonText,
-      stopKeydownPropagation: false,
       allowOutsideClick: false,
     });
   }
 
-  async swal_confrim_changes(msg: string) {
-    this.defaultParams.title = msg === '' ? 'Do you want to save the changes?' : msg;
-
-    return await Swal.fire({
-      // title: this.defaultParams.title,
-      text: this.defaultParams.title,
+  async swal_confirm_changes(msg: string) {
+    const title = msg || 'Do you want to save the changes?';
+    return Swal.fire({
       icon: 'question',
+      text: title,
       customClass: { confirmButton: 'btn-min-width', cancelButton: 'btn-min-width' },
       showCancelButton: true,
       confirmButtonColor: this.defaultParams.confirmButtonColor,
       cancelButtonColor: this.defaultParams.cancelButtonColor,
       confirmButtonText: this.defaultParams.confirmButtonText,
-      stopKeydownPropagation: false,
       allowOutsideClick: false,
     });
   }
 
-  // Sweetalert2 //
+  private getIcon(action: string): SweetAlertIcon {
+    switch (action) {
+      case 'success':
+        return 'success';
+      case 'error':
+        return 'error';
+      case 'warning':
+        return 'warning';
+      case 'info':
+        return 'info';
+      case 'question':
+        return 'question';
+      default:
+        return 'info';
+    }
+  }
 }

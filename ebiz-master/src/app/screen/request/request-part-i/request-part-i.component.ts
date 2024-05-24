@@ -1,11 +1,11 @@
 // import {Component, OnInit, Inject, forwardRef, ɵConsole} from '@angular/core';
-// import {RequestComponent} from '../request/request.component';
+// import { RequestComponent } from '../../../main/request/request.component';
 // import {ActivatedRoute, Router} from '@angular/router';
-// import {stateAction} from 'src/app/state/stateAction';
-// import {MasterService} from 'src/app/http/master/master.service';
-// import {PartIService} from 'src/app/http/part-i/part-i.service';
-// import {MainComponent} from '../main.component';
-// import {AspxserviceService} from 'src/app/master/ws/httpx/aspxservice.service';
+// import { stateAction } from '../../../components/state/stateAction';
+// import { MasterService } from '../../../http/master/master.service';
+// import { PartIService } from '../../../http/part-i/part-i.service';
+// import { MainComponent } from '../../../main/main.component';
+// import { AspxserviceService } from '../../../ws/httpx/aspxservice.service';
 
 // @Component({
 //   selector: 'app-request-part-i',
@@ -190,7 +190,7 @@
 //           itemsShowLimit: 0,
 //           clearOnSelection: true,
 //           placeholder: ' ',
-//           customComparator: (function (a, b) {
+//           customComparator: (function (a : any, b : any) {
 //             if (a.name < b.name) {return -1;}
 //             if (a.name > b.name) {return 1;}
 //             return 0;
@@ -332,359 +332,359 @@
 //     public ws: AspxserviceService,
 //   ) {
 //     //this.appMain.isLoading = true;
-//     this.app.select = "i"
+//     // this.app.select = "i"
 //     // console.log(app.id);
 //     // console.log(app.type);
-//     if (app.type == "create") {
-//       // MARK :: Create Document
-//       ////debugger;
-//       this.type = app.id;
+//     // if (app.type == "create") {
+//     //   // MARK :: Create Document
+//     //   ////debugger;
+//     //   this.type = app.id;
 
-//       const myArray = this.router.getCurrentNavigation().extras.state;
-//       if (myArray === null || myArray === undefined) {
-//         this.arrayOfValues = new Array<string>();
-//       } else {
-
-
-
-//         this.isParams = true;
-//         console.log('----- Param value-----');
-//         console.log(myArray.requestDetails);
-//         //console.log(myArray.requestDetails.queryParams.dateFrom);
-//         const checkParam = () => {
-//           let ret = false;
-//           this.arrayOfValues = myArray.requestDetails.queryParams;
-//           console.log(this.arrayOfValues);
-//           if (myArray.requestDetails.queryParams.dateFrom != "" && myArray.requestDetails.queryParams.dateFrom != undefined && myArray.requestDetails.queryParams.dateFrom != null
-//             && myArray.requestDetails.queryParams.dateTo != "" && myArray.requestDetails.queryParams.dateTo != undefined && myArray.requestDetails.queryParams.dateTo != null) {
-//             this.model.business_date = [ myArray.requestDetails.queryParams.dateFrom, myArray.requestDetails.queryParams.dateTo ];
-//             //this.changeBisinessDate();
-//             ret = true;
-//           }
-//           else if ((myArray.requestDetails.queryParams.dateFrom != "" && myArray.requestDetails.queryParams.dateFrom != undefined && myArray.requestDetails.queryParams.dateFrom != null)
-//             && (myArray.requestDetails.queryParams.dateTo === "" || myArray.requestDetails.queryParams.dateTo != undefined || myArray.requestDetails.queryParams.dateTo != null)) {
-//             this.model.business_date = [ myArray.requestDetails.queryParams.dateFrom, myArray.requestDetails.queryParams.dateFrom ];
-//             //this.changeBisinessDate();
-//             ret = true;
-//           }
-//           else if ((myArray.requestDetails.queryParams.dateTo != "" && myArray.requestDetails.queryParams.dateTo != undefined && myArray.requestDetails.queryParams.dateTo != null)
-//             && (myArray.requestDetails.queryParams.dateFrom === "" || myArray.requestDetails.queryParams.dateFrom != undefined || myArray.requestDetails.queryParams.dateFrom != null)) {
-//             this.model.business_date = [ myArray.requestDetails.queryParams.dateTo, myArray.requestDetails.queryParams.dateTo ];
-//             //this.changeBisinessDate();
-//             ret = true;
-//           }
-//           // this.arrayOfValues = JSON.parse(myArray);
-//           return ret;
-//         }
-
-//         if (checkParam()) {
-//           if ((this.model.business_date != null) || (this.model.business_date != []) || (this.model.business_date.length === 2)) {
-//             this.changeBisinessDate();
-//           }
-//         }
-//       }
-
-
-//       if (this.type === "oversea") {
-//         this.app.types = "Oversea Business";
-//         this.generateDocumentID("oversea");
-//         this.onLoadMasterCountry();
-//         this.disCheckApproved = false;
-//       } else if (this.type === "local") {
-//         this.app.types = "Local Business";
-//         this.generateDocumentID("local");
-//         this.disCheckApproved = false;
-//       }
-//       else if (this.type === "localtraining") {
-//         this.app.types = "Local Training";
-//         this.generateDocumentID("localtraining");
-//         this.model.approved.status = true;
-//         this.disCheckApproved = true;
-//       }
-//       else if (this.type === "overseatraining") {
-//         this.app.types = "Oversea Training";
-//         this.generateDocumentID("overseatraining");
-//         this.onLoadMasterCountry();
-//         this.model.approved.status = true;
-//         this.disCheckApproved = true;
-//       }
+//     //   const myArray = this.router.getCurrentNavigation().extras.state;
+//     //   if (myArray === null || myArray === undefined) {
+//     //     this.arrayOfValues = new Array<string>();
+//     //   } else {
 
 
 
-//       this.didFetchProfile();
+//     //     this.isParams = true;
+//     //     console.log('----- Param value-----');
+//     //     console.log(myArray.requestDetails);
+//     //     //console.log(myArray.requestDetails.queryParams.dateFrom);
+//     //     const checkParam = () => {
+//     //       let ret = false;
+//     //       this.arrayOfValues = myArray.requestDetails.queryParams;
+//     //       console.log(this.arrayOfValues);
+//     //       if (myArray.requestDetails.queryParams.dateFrom != "" && myArray.requestDetails.queryParams.dateFrom != undefined && myArray.requestDetails.queryParams.dateFrom != null
+//     //         && myArray.requestDetails.queryParams.dateTo != "" && myArray.requestDetails.queryParams.dateTo != undefined && myArray.requestDetails.queryParams.dateTo != null) {
+//     //         this.model.business_date = [ myArray.requestDetails.queryParams.dateFrom, myArray.requestDetails.queryParams.dateTo ];
+//     //         //this.changeBisinessDate();
+//     //         ret = true;
+//     //       }
+//     //       else if ((myArray.requestDetails.queryParams.dateFrom != "" && myArray.requestDetails.queryParams.dateFrom != undefined && myArray.requestDetails.queryParams.dateFrom != null)
+//     //         && (myArray.requestDetails.queryParams.dateTo === "" || myArray.requestDetails.queryParams.dateTo != undefined || myArray.requestDetails.queryParams.dateTo != null)) {
+//     //         this.model.business_date = [ myArray.requestDetails.queryParams.dateFrom, myArray.requestDetails.queryParams.dateFrom ];
+//     //         //this.changeBisinessDate();
+//     //         ret = true;
+//     //       }
+//     //       else if ((myArray.requestDetails.queryParams.dateTo != "" && myArray.requestDetails.queryParams.dateTo != undefined && myArray.requestDetails.queryParams.dateTo != null)
+//     //         && (myArray.requestDetails.queryParams.dateFrom === "" || myArray.requestDetails.queryParams.dateFrom != undefined || myArray.requestDetails.queryParams.dateFrom != null)) {
+//     //         this.model.business_date = [ myArray.requestDetails.queryParams.dateTo, myArray.requestDetails.queryParams.dateTo ];
+//     //         //this.changeBisinessDate();
+//     //         ret = true;
+//     //       }
+//     //       // this.arrayOfValues = JSON.parse(myArray);
+//     //       return ret;
+//     //     }
 
-//     } else {
+//     //     if (checkParam()) {
+//     //       if ((this.model.business_date != null) || (this.model.business_date != []) || (this.model.business_date.length === 2)) {
+//     //         this.changeBisinessDate();
+//     //       }
+//     //     }
+//     //   }
 
-//       // MARK :: Load Data -> UPDATE this.app.types / this.type
-//       this.model.document_id = "" + app.id
-//       this.didFetchData();
-//     }
-//     this.stateGlobal = stateAction;
+
+//     //   if (this.type === "oversea") {
+//     //     this.app.types = "Oversea Business";
+//     //     this.generateDocumentID("oversea");
+//     //     this.onLoadMasterCountry();
+//     //     this.disCheckApproved = false;
+//     //   } else if (this.type === "local") {
+//     //     this.app.types = "Local Business";
+//     //     this.generateDocumentID("local");
+//     //     this.disCheckApproved = false;
+//     //   }
+//     //   else if (this.type === "localtraining") {
+//     //     this.app.types = "Local Training";
+//     //     this.generateDocumentID("localtraining");
+//     //     this.model.approved.status = true;
+//     //     this.disCheckApproved = true;
+//     //   }
+//     //   else if (this.type === "overseatraining") {
+//     //     this.app.types = "Oversea Training";
+//     //     this.generateDocumentID("overseatraining");
+//     //     this.onLoadMasterCountry();
+//     //     this.model.approved.status = true;
+//     //     this.disCheckApproved = true;
+//     //   }
+
+
+
+//     //   this.didFetchProfile();
+
+//     // } else {
+
+//     //   // MARK :: Load Data -> UPDATE this.app.types / this.type
+//     //   this.model.document_id = "" + app.id
+//     //   this.didFetchData();
+//     // }
+//     // this.stateGlobal = stateAction;
 //   }
 
 //   didFetchData() {
-//     this.appMain.isLoading = true;
-//     const onSuccess = (dao) => {
-//       this.appMain.isLoading = false;
-//       console.log('***Request i LoadDocDetail***');
-//       console.log(dao)
+//     // this.appMain.isLoading = true;
+//     // const onSuccess = (dao) => {
+//     //   this.appMain.isLoading = false;
+//     //   console.log('***Request i LoadDocDetail***');
+//     //   console.log(dao)
 
-//       // Document has been approved.
-//       this.model.approved.status = dao[ "type_flow" ] === "1" ? false : true;
+//     //   // Document has been approved.
+//     //   this.model.approved.status = dao[ "type_flow" ] === "1" ? false : true;
 
-//       this.type = dao[ "type" ]
-//       //this.app.types = dao["type"] == "oversea" ? "Overseas" : "Local"
-//       this.app.types = dao[ "type" ] == "oversea" ? "Oversea Business" : dao[ "type" ] == "overseatraining" ? "Oversea Training" : dao[ "type" ] == "local" ? "Local Business" : dao[ "type" ] == "localtraining" ? "Local Training" : "!!! ERROR TYPE !!!"
-//       this.app.root_doc_id = this.model.document_id
-//       this.app.root_doc_status = dao[ "document_status" ]
+//     //   this.type = dao[ "type" ]
+//     //   //this.app.types = dao["type"] == "oversea" ? "Overseas" : "Local"
+//     //   this.app.types = dao[ "type" ] == "oversea" ? "Oversea Business" : dao[ "type" ] == "overseatraining" ? "Oversea Training" : dao[ "type" ] == "local" ? "Local Business" : dao[ "type" ] == "localtraining" ? "Local Training" : "!!! ERROR TYPE !!!"
+//     //   this.app.root_doc_id = this.model.document_id
+//     //   this.app.root_doc_status = dao[ "document_status" ]
 
-//       // BEHALF
-//       this.model.behalf.status = dao[ "behalf" ][ "status" ] === "true" ? true : false
-//       this.model.behalf.emp_id.value = dao[ "behalf" ][ "emp_id" ]
-//       this.model.behalf.emp_id.data = dao[ "behalf" ][ "emp_id" ]
-//       this.model.behalf.emp_name.data = dao[ "behalf" ][ "emp_name" ]
-//       this.model.behalf.emp_name.value = dao[ "behalf" ][ "emp_name" ]
-//       this.model.behalf.emp_org = dao[ "behalf" ][ "emp_organization" ]
+//     //   // BEHALF
+//     //   this.model.behalf.status = dao[ "behalf" ][ "status" ] === "true" ? true : false
+//     //   this.model.behalf.emp_id.value = dao[ "behalf" ][ "emp_id" ]
+//     //   this.model.behalf.emp_id.data = dao[ "behalf" ][ "emp_id" ]
+//     //   this.model.behalf.emp_name.data = dao[ "behalf" ][ "emp_name" ]
+//     //   this.model.behalf.emp_name.value = dao[ "behalf" ][ "emp_name" ]
+//     //   this.model.behalf.emp_org = dao[ "behalf" ][ "emp_organization" ]
 
-//       this.model.requester_emp_name = dao[ "requester_emp_name" ];
+//     //   this.model.requester_emp_name = dao[ "requester_emp_name" ];
 
-//       this.model.company.value = [ {
-//         '_id': '' + dao[ "id_company" ],
-//         'index': dao[ "id_company" ],
-//         'name': dao[ "company_name" ]
-//       } ]
+//     //   this.model.company.value = [ {
+//     //     '_id': '' + dao[ "id_company" ],
+//     //     'index': dao[ "id_company" ],
+//     //     'name': dao[ "company_name" ]
+//     //   } ]
 
-//       // Travel Type
-//       this.model.type_of_travel.meeting = dao[ "type_of_travel" ][ "meeting" ] == "true" ? true : false
-//       this.model.type_of_travel.siteVisite = dao[ "type_of_travel" ][ "siteVisite" ] == "true" ? true : false
-//       this.model.type_of_travel.workshop = dao[ "type_of_travel" ][ "workshop" ] == "true" ? true : false
-//       this.model.type_of_travel.roadshow = dao[ "type_of_travel" ][ "roadshow" ] == "true" ? true : false
-//       this.model.type_of_travel.conference = dao[ "type_of_travel" ][ "conference" ] == "true" ? true : false
-//       this.model.type_of_travel.training = dao[ "type_of_travel" ][ "training" ] == "true" ? true : false
-//       this.model.type_of_travel.other = dao[ "type_of_travel" ][ "other" ] == "true" ? true : false
-//       this.model.type_of_travel.remark = dao[ "type_of_travel" ][ "other_detail" ]
+//     //   // Travel Type
+//     //   this.model.type_of_travel.meeting = dao[ "type_of_travel" ][ "meeting" ] == "true" ? true : false
+//     //   this.model.type_of_travel.siteVisite = dao[ "type_of_travel" ][ "siteVisite" ] == "true" ? true : false
+//     //   this.model.type_of_travel.workshop = dao[ "type_of_travel" ][ "workshop" ] == "true" ? true : false
+//     //   this.model.type_of_travel.roadshow = dao[ "type_of_travel" ][ "roadshow" ] == "true" ? true : false
+//     //   this.model.type_of_travel.conference = dao[ "type_of_travel" ][ "conference" ] == "true" ? true : false
+//     //   this.model.type_of_travel.training = dao[ "type_of_travel" ][ "training" ] == "true" ? true : false
+//     //   this.model.type_of_travel.other = dao[ "type_of_travel" ][ "other" ] == "true" ? true : false
+//     //   this.model.type_of_travel.remark = dao[ "type_of_travel" ][ "other_detail" ]
 
-//       this.model.topic_of_travel = dao[ "topic_of_travel" ]
+//     //   this.model.topic_of_travel = dao[ "topic_of_travel" ]
 
-//       // Single Multiple Travel
-//       this.model.type_radio = (dao[ "travel" ] == "2") ? "multi" : "single"
+//     //   // Single Multiple Travel
+//     //   this.model.type_radio = (dao[ "travel" ] == "2") ? "multi" : "single"
 
-//       // this.model.continent.data_id = dao["contient_id"]
+//     //   // this.model.continent.data_id = dao["contient_id"]
 
 
-//       // Continent Dropdown Search
-//       this.model.continent.select = []
-//       dao[ "continent" ].forEach(current => {
-//         this.model.continent.select.push({
-//           item_id: current[ "id" ],
-//           item_text: current[ "name" ]
-//         })
-//       });
-//       this.model.continent.value = [ {
-//         '_id': '' + dao[ "contient_id" ],
-//         'index': dao[ "contient_id" ],
-//         'name': dao[ "contient_name" ]
-//       } ]
+//     //   // Continent Dropdown Search
+//     //   this.model.continent.select = []
+//     //   dao[ "continent" ].forEach(current => {
+//     //     this.model.continent.select.push({
+//     //       item_id: current[ "id" ],
+//     //       item_text: current[ "name" ]
+//     //     })
+//     //   });
+//     //   this.model.continent.value = [ {
+//     //     '_id': '' + dao[ "contient_id" ],
+//     //     'index': dao[ "contient_id" ],
+//     //     'name': dao[ "contient_name" ]
+//     //   } ]
 
-//       // Province Multi Select
-//       var bucketProvince = []
-//       dao[ "province" ].forEach(current => {
-//         bucketProvince.push({
-//           'item_id': current[ "province_id" ],
-//           'item_text': current[ "province_name" ]
-//         })
-//       });
-//       this.model.province.select = bucketProvince
+//     //   // Province Multi Select
+//     //   var bucketProvince = []
+//     //   dao[ "province" ].forEach(current => {
+//     //     bucketProvince.push({
+//     //       'item_id': current[ "province_id" ],
+//     //       'item_text': current[ "province_name" ]
+//     //     })
+//     //   });
+//     //   this.model.province.select = bucketProvince
 
-//       // Country Multi Select
-//       var bucketCountry = []
-//       dao[ "country" ].forEach(current => {
-//         bucketCountry.push({
-//           'item_id': current[ "country_id" ],
-//           'item_text': current[ "country_name" ]
-//         })
-//       })
-//       this.model.country.select = bucketCountry
+//     //   // Country Multi Select
+//     //   var bucketCountry = []
+//     //   dao[ "country" ].forEach(current => {
+//     //     bucketCountry.push({
+//     //       'item_id': current[ "country_id" ],
+//     //       'item_text': current[ "country_name" ]
+//     //     })
+//     //   })
+//     //   this.model.country.select = bucketCountry
 
-//       this.model.city = dao[ "city" ]
+//     //   this.model.city = dao[ "city" ]
 
-//       // business date  / travel date
-//       this.model.business_date = dao[ "business_date" ][ "start" ] == null ? [] : [ new Date(dao[ "business_date" ][ "start" ]), new Date(dao[ "business_date" ][ "stop" ]) ]
-//       this.model.travel_date = dao[ "travel_date" ][ "start" ] == null ? [] : [ new Date(dao[ "travel_date" ][ "start" ]), new Date(dao[ "travel_date" ][ "stop" ]) ]
+//     //   // business date  / travel date
+//     //   this.model.business_date = dao[ "business_date" ][ "start" ] == null ? [] : [ new Date(dao[ "business_date" ][ "start" ]), new Date(dao[ "business_date" ][ "stop" ]) ]
+//     //   this.model.travel_date = dao[ "travel_date" ][ "start" ] == null ? [] : [ new Date(dao[ "travel_date" ][ "start" ]), new Date(dao[ "travel_date" ][ "stop" ]) ]
 
-//       this.model.travel_object_expected = dao[ "travel_objective_expected" ]
+//     //   this.model.travel_object_expected = dao[ "travel_objective_expected" ]
 
-//       // update master country in add traveler
-//       this.model.add_travel.country.list = [];
-//       this.model.country.select.forEach(current => {
-//         this.model.add_travel.country.list.push({
-//           '_id': '' + current[ "item_id" ],
-//           'index': current[ "item_id" ],
-//           'name': current[ "item_text" ]
-//         });
-//       })
+//     //   // update master country in add traveler
+//     //   this.model.add_travel.country.list = [];
+//     //   this.model.country.select.forEach(current => {
+//     //     this.model.add_travel.country.list.push({
+//     //       '_id': '' + current[ "item_id" ],
+//     //       'index': current[ "item_id" ],
+//     //       'name': current[ "item_text" ]
+//     //     });
+//     //   })
 
-//       // summary table
-//       dao[ "summary_table" ].forEach(ct => {
-//         this.model.summary_table.push({
-//           no: "" + (this.model.summary_table.length + 1),
-//           continent: ct[ "continent" ],
-//           continent_id: ct[ "continent_id" ],
-//           country_id: dao[ "type" ] == "local" || dao[ "type" ] == "localtraining" ? ct[ "province_id" ] : ct[ "country_id" ],
-//           country_name: dao[ "type" ] == "local" || dao[ "type" ] == "localtraining" ? ct[ "province_name" ] : ct[ "country_name" ],
-//           city: ct[ "city" ],
-//           business: "xx",
-//           business_date: ct[ "business_date" ][ "start" ] == null ? [] : [ new Date(ct[ "business_date" ][ "start" ]), new Date(ct[ "business_date" ][ "stop" ]) ],
-//           travel: "xxx",
-//           travel_date: ct[ "travel_date" ][ "start" ] == null ? [] : [ new Date(ct[ "travel_date" ][ "start" ]), new Date(ct[ "travel_date" ][ "stop" ]) ],
-//           duration: ct[ "travel_duration" ],
-//           emp_id: ct[ "emp_id" ],
-//           emp_title: "",    // not use deprecate
-//           emp_name: ct[ "emp_name" ],
-//           emp_org: ct[ "emp_organization" ],
-//           gl: ct[ "gl_account" ],
-//           cost: ct[ "cost" ],
-//           order_wrs: ct[ "order" ],
-//           note: ct[ "remark" ],
-//           approve_status: ct[ "approve_status" ],
-//           approve_remark: ct[ "approve_remark" ],
-//           approve_opt: ct[ "approve_opt" ],
-//           remark_opt: ct[ "remark_opt" ],
-//         })
-//       });
+//     //   // summary table
+//     //   dao[ "summary_table" ].forEach(ct => {
+//     //     this.model.summary_table.push({
+//     //       no: "" + (this.model.summary_table.length + 1),
+//     //       continent: ct[ "continent" ],
+//     //       continent_id: ct[ "continent_id" ],
+//     //       country_id: dao[ "type" ] == "local" || dao[ "type" ] == "localtraining" ? ct[ "province_id" ] : ct[ "country_id" ],
+//     //       country_name: dao[ "type" ] == "local" || dao[ "type" ] == "localtraining" ? ct[ "province_name" ] : ct[ "country_name" ],
+//     //       city: ct[ "city" ],
+//     //       business: "xx",
+//     //       business_date: ct[ "business_date" ][ "start" ] == null ? [] : [ new Date(ct[ "business_date" ][ "start" ]), new Date(ct[ "business_date" ][ "stop" ]) ],
+//     //       travel: "xxx",
+//     //       travel_date: ct[ "travel_date" ][ "start" ] == null ? [] : [ new Date(ct[ "travel_date" ][ "start" ]), new Date(ct[ "travel_date" ][ "stop" ]) ],
+//     //       duration: ct[ "travel_duration" ],
+//     //       emp_id: ct[ "emp_id" ],
+//     //       emp_title: "",    // not use deprecate
+//     //       emp_name: ct[ "emp_name" ],
+//     //       emp_org: ct[ "emp_organization" ],
+//     //       gl: ct[ "gl_account" ],
+//     //       cost: ct[ "cost" ],
+//     //       order_wrs: ct[ "order" ],
+//     //       note: ct[ "remark" ],
+//     //       approve_status: ct[ "approve_status" ],
+//     //       approve_remark: ct[ "approve_remark" ],
+//     //       approve_opt: ct[ "approve_opt" ],
+//     //       remark_opt: ct[ "remark_opt" ],
+//     //     })
+//     //   });
 
-//       this.panel.table = this.model.summary_table.length > 0 ? true : false;
+//     //   this.panel.table = this.model.summary_table.length > 0 ? true : false;
 
-//       this.model.initiator.status = dao[ "initiator" ][ "status" ] == "true" ? true : false
-//       this.model.initiator.emp_id.value = dao[ "initiator" ][ "emp_id" ]
-//       this.model.initiator.emp_id.data = dao[ "initiator" ][ "emp_id" ]
-//       this.model.initiator.emp_name.value = dao[ "initiator" ][ "emp_name" ]
-//       this.model.initiator.emp_org = dao[ "initiator" ][ "emp_organization" ]
-//       this.model.initiator.remark = dao[ "initiator" ][ "remark" ]
-//       this.panel.initiator = dao[ "initiator" ][ "status" ] == "true" ? true : false
+//     //   this.model.initiator.status = dao[ "initiator" ][ "status" ] == "true" ? true : false
+//     //   this.model.initiator.emp_id.value = dao[ "initiator" ][ "emp_id" ]
+//     //   this.model.initiator.emp_id.data = dao[ "initiator" ][ "emp_id" ]
+//     //   this.model.initiator.emp_name.value = dao[ "initiator" ][ "emp_name" ]
+//     //   this.model.initiator.emp_org = dao[ "initiator" ][ "emp_organization" ]
+//     //   this.model.initiator.remark = dao[ "initiator" ][ "remark" ]
+//     //   this.panel.initiator = dao[ "initiator" ][ "status" ] == "true" ? true : false
 
-//       // 0	Cancel
-//       // 5	Submit by Super Admin
-//       // 10	Cancel by Requester
-//       // 11	Save Draft by Requester
-//       // 20	Cancel by Admin
-//       // 21	Pending by Super Admin
-//       // 22	Pending by initiator
-//       // 23	Revise by Super Admin
-//       // 30	Cancel by Line Approver
-//       // 31	Pending by Line Approver
-//       // 32	Approve by Line Approver
-//       // 40	Cancel by CAP
-//       // 41	Pending by CAP
-//       // 42	Approved
-//       // 50	Completed
+//     //   // 0	Cancel
+//     //   // 5	Submit by Super Admin
+//     //   // 10	Cancel by Requester
+//     //   // 11	Save Draft by Requester
+//     //   // 20	Cancel by Admin
+//     //   // 21	Pending by Super Admin
+//     //   // 22	Pending by initiator
+//     //   // 23	Revise by Super Admin
+//     //   // 30	Cancel by Line Approver
+//     //   // 31	Pending by Line Approver
+//     //   // 32	Approve by Line Approver
+//     //   // 40	Cancel by CAP
+//     //   // 41	Pending by CAP
+//     //   // 42	Approved
+//     //   // 50	Completed
 
-//       this.model.doc_status = dao[ "doc_status" ];
+//     //   this.model.doc_status = dao[ "doc_status" ];
 
-//       this.model.after.ref1.value = dao[ "after_trip" ][ "opt1" ] == "true" ? true : false
+//     //   this.model.after.ref1.value = dao[ "after_trip" ][ "opt1" ] == "true" ? true : false
 
-//       this.model.after.ref2.value = dao[ "after_trip" ][ "opt2" ][ "status" ] == "true" ? true : false
-//       this.model.after.ref2.remark = dao[ "after_trip" ][ "opt2" ][ "remark" ]
+//     //   this.model.after.ref2.value = dao[ "after_trip" ][ "opt2" ][ "status" ] == "true" ? true : false
+//     //   this.model.after.ref2.remark = dao[ "after_trip" ][ "opt2" ][ "remark" ]
 
-//       this.model.after.ref3.value = dao[ "after_trip" ][ "opt3" ][ "status" ] == "true" ? true : false
-//       this.model.after.ref3.remark = dao[ "after_trip" ][ "opt3" ][ "remark" ]
+//     //   this.model.after.ref3.value = dao[ "after_trip" ][ "opt3" ][ "status" ] == "true" ? true : false
+//     //   this.model.after.ref3.remark = dao[ "after_trip" ][ "opt3" ][ "remark" ]
 
-//       this.model.remark = dao[ "remark" ]
+//     //   this.model.remark = dao[ "remark" ]
 
-//       ////debugger;
-//       // AUN : Check user request type
-//       this.model.user_type = dao[ "user_type" ];
-//       this.model.requestr_user_type = dao[ "request_user_type" ];
+//     //   ////debugger;
+//     //   // AUN : Check user request type
+//     //   this.model.user_type = dao[ "user_type" ];
+//     //   this.model.requestr_user_type = dao[ "request_user_type" ];
 
-//       // if (this.model.requestr_user_type === "2" && dao["behalf"]["status"] === "true") {
-//       if (this.model.requestr_user_type === "2") {
-//         this.model.behalf.status = dao[ "behalf" ][ "status" ] === "true" ? true : false;
-//         this.model.behalf.status = true;
-//         this.disCheckEmp = true;
-//       } else {
+//     //   // if (this.model.requestr_user_type === "2" && dao["behalf"]["status"] === "true") {
+//     //   if (this.model.requestr_user_type === "2") {
+//     //     this.model.behalf.status = dao[ "behalf" ][ "status" ] === "true" ? true : false;
+//     //     this.model.behalf.status = true;
+//     //     this.disCheckEmp = true;
+//     //   } else {
 
-//         this.model.behalf.status = dao[ "behalf" ][ "status" ] === "true" ? true : false;
-//         //this.model.behalf.status = false;
-//         this.disCheckEmp = false;
-//       }
+//     //     this.model.behalf.status = dao[ "behalf" ][ "status" ] === "true" ? true : false;
+//     //     //this.model.behalf.status = false;
+//     //     this.disCheckEmp = false;
+//     //   }
 
-//       // Rule Menu
-//       this.app.buttons.PartII = dao[ "button" ][ "part_ii" ] == "true" ? true : false
-//       this.app.buttons.PartIII = dao[ "button" ][ "part_iii" ] == "true" ? true : false
-//       this.app.buttons.PartIIII = dao[ "button" ][ "part_iiii" ] == "true" ? true : false
+//     //   // Rule Menu
+//     //   this.app.buttons.PartII = dao[ "button" ][ "part_ii" ] == "true" ? true : false
+//     //   this.app.buttons.PartIII = dao[ "button" ][ "part_iii" ] == "true" ? true : false
+//     //   this.app.buttons.PartIIII = dao[ "button" ][ "part_iiii" ] == "true" ? true : false
 
-//       // Rule Button
-//       this.buttons.save = dao[ "button" ][ "save" ] == "true" ? true : false
-//       this.buttons.submit = dao[ "button" ][ "submit" ] == "true" ? true : false
-//       this.buttons.cancel = dao[ "button" ][ "cancel" ] == "false" ? false : true
+//     //   // Rule Button
+//     //   this.buttons.save = dao[ "button" ][ "save" ] == "true" ? true : false
+//     //   this.buttons.submit = dao[ "button" ][ "submit" ] == "true" ? true : false
+//     //   this.buttons.cancel = dao[ "button" ][ "cancel" ] == "false" ? false : true
 
-//       //this.disCheckApproved = !this.buttons.save;
-//       //this.disCheckEmp = !this.buttons.save;
+//     //   //this.disCheckApproved = !this.buttons.save;
+//     //   //this.disCheckEmp = !this.buttons.save;
 
-//       this.onLoadMasterCountry();
+//     //   this.onLoadMasterCountry();
 
-//       // master province in local
-//       if (this.type == "local" || this.type == "localtraining") {
-//         this.model.add_travel.country.list = []
-//         dao[ "province" ].forEach(current => {
-//           this.model.add_travel.country.list.push({
-//             '_id': '' + current[ "province_id" ],
-//             'index': current[ "province_id" ],
-//             'name': current[ "province_name" ]
-//           })
-//         });
-//       }
+//     //   // master province in local
+//     //   if (this.type == "local" || this.type == "localtraining") {
+//     //     this.model.add_travel.country.list = []
+//     //     dao[ "province" ].forEach(current => {
+//     //       this.model.add_travel.country.list.push({
+//     //         '_id': '' + current[ "province_id" ],
+//     //         'index': current[ "province_id" ],
+//     //         'name': current[ "province_name" ]
+//     //       })
+//     //     });
+//     //   }
 
-//       if (this.model.type_radio == "single") {
-//         this.model.add_travel.continent = dao[ "continent" ].length == 1 ? dao[ "continent" ][ 0 ][ "name" ] : ""
-//         if (this.type == "oversea" || this.type == "overseatraining") {
-//           if (dao[ "country" ].length == 1) {
-//             this.model.add_travel.country.value = [ {
-//               index: "" + dao[ "country" ][ 0 ][ "contry_id" ],
-//               name: dao[ "country" ][ 0 ][ "country_name" ],
-//               _id: "" + dao[ "country" ][ 0 ][ "contry_id" ]
-//             } ]
-//           }
-//           this.model.add_travel.city = this.model.city
-//         } else {
-//           if (dao[ "province" ].length == 1) {
-//             this.model.add_travel.country.value = [ {
-//               index: "" + dao[ "province" ][ 0 ][ "province_id" ],
-//               name: dao[ "province" ][ 0 ][ "province_name" ],
-//               _id: "" + dao[ "province" ][ 0 ][ "province_id" ]
-//             } ]
-//           }
-//           this.model.add_travel.city = this.model.city
-//         }
-//       }
+//     //   if (this.model.type_radio == "single") {
+//     //     this.model.add_travel.continent = dao[ "continent" ].length == 1 ? dao[ "continent" ][ 0 ][ "name" ] : ""
+//     //     if (this.type == "oversea" || this.type == "overseatraining") {
+//     //       if (dao[ "country" ].length == 1) {
+//     //         this.model.add_travel.country.value = [ {
+//     //           index: "" + dao[ "country" ][ 0 ][ "contry_id" ],
+//     //           name: dao[ "country" ][ 0 ][ "country_name" ],
+//     //           _id: "" + dao[ "country" ][ 0 ][ "contry_id" ]
+//     //         } ]
+//     //       }
+//     //       this.model.add_travel.city = this.model.city
+//     //     } else {
+//     //       if (dao[ "province" ].length == 1) {
+//     //         this.model.add_travel.country.value = [ {
+//     //           index: "" + dao[ "province" ][ 0 ][ "province_id" ],
+//     //           name: dao[ "province" ][ 0 ][ "province_name" ],
+//     //           _id: "" + dao[ "province" ][ 0 ][ "province_id" ]
+//     //         } ]
+//     //       }
+//     //       this.model.add_travel.city = this.model.city
+//     //     }
+//     //   }
 
-//       if (this.type === "localtraining" || this.type === "overseatraining") {
-//         this.model.approved.status = true;
-//         this.disCheckApproved = true;
-//       }
+//     //   if (this.type === "localtraining" || this.type === "overseatraining") {
+//     //     this.model.approved.status = true;
+//     //     this.disCheckApproved = true;
+//     //   }
 
-//       // duration
-//       this.updateTravelDate("root")
-//       console.log(this.model)
-//     }
-//     this.partIHttp.didFetch(this.model.document_id).subscribe(dao => onSuccess(dao), error => this.appMain.isLoading = false)
+//     //   // duration
+//     //   this.updateTravelDate("root")
+//     //   console.log(this.model)
+//     // }
+//     // this.partIHttp.didFetch(this.model.document_id).subscribe(dao => onSuccess(dao), error => this.appMain.isLoading = false)
 //   }
 
 //   // MARK :: Generate Document id in first document
 //   generateDocumentID(state: String) {
-//     const onSuccess = (dao) => {
+//     const onSuccess = (dao : any) => {
 //       console.log(">>> generateDocumentID <<<");
 //       console.log(state);
 //       console.log(dao);
 //       if (dao[ "status" ] == "S") {
-//         this.app.root_doc_id = dao[ "value" ]
-//         this.app.root_doc_status = "Draft"
+//         // this.app.root_doc_id = dao[ "value" ]
+//         // this.app.root_doc_status = "Draft"
 //         this.model.document_id = dao[ "value" ]
 //       } else {
-//         this.appMain.showMessage(dao[ "message" ]);
+//         // this.appMain.showMessage(dao[ "message" ]);
 //       }
 //     }
-//     this.partIHttp.didGenerateDocument(state).subscribe(dao => onSuccess(dao))
+//     // this.partIHttp.didGenerateDocument(state).subscribe(dao => onSuccess(dao))
 //   }
 
 //   // onSelectedContinent(event) {
@@ -709,7 +709,7 @@
 //     this.didFetchProvince();
 
 //     if (this.isParams) {
-//       this.appMain.isLoading = true;
+//     //   this.appMain.isLoading = true;
 //       setTimeout(() => {
 //         //debugger;
 //         if (this.arrayOfValues.country_id != "") {
@@ -749,12 +749,12 @@
 //   }
 
 //   // MARK :: check object empty
-//   isEmpty(obj) {
+//   isEmpty(obj : any) {
 //     return Object.keys(obj).length === 0;
 //   }
 
 //   didFetchProvince() {
-//     const onSuccess = (dao) => {
+//     const onSuccess = (dao : any) => {
 //       console.log(dao)
 //       this.model.province.list = [];
 //       dao.forEach(current => {
@@ -778,7 +778,7 @@
 //         })
 //       }
 
-//       const edit = (indexPath) => {
+//       const edit = (indexPath : any) => {
 
 //         this.model.add_travel.gl_auto.list = []
 //         this.model.add_travel.cost_center_master.list = []

@@ -1,0 +1,687 @@
+<!-- <p>allowance works!</p>
+ <p>accommodation works!</p> -->
+ <div class="col-12 boxcolor-mm background-Slide animate__animated animate__fadeIn" style="height: 350px" *ngIf="emp_list.length > 0">
+  <div class="row math-height">
+    <div class="col-lg-12">
+      <div class="card box-shadow-1 mt-3">
+        <div class="card-body m-0 p-0">
+          <div class="row mx-0" #container>
+            <!-- Title & DDL User List -->
+            <div class="col-lg-6 col-md-6 col-sm-12" style="min-height: 67px">
+              <div class="marker marker-ribbon marker-top-blue pos-absolute mt-4 l-0 pl-5 pr-5">
+                <p class="tx-24 m-0">
+                  &#32;
+                  <i class="fa fa-bed d-none"></i>
+                  <img src="{{ ws.checkPathForDevServer('assets/imgs/allowance-white.png') }}" class="mr-1 mb-2" width="26" height="24" />
+                  &#32;ISOS
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <div class="text-right mt-4 pr-4" *ngIf="status != true">
+                <p class="tx-24 m-0 tx-top-blue text-bold-500">
+                  {{ namex }}
+                </p>
+              </div>
+              <div class="mt-4 ml-auto col-12 col-lg-8 col-sm-12 col-md-10" *ngIf="status">
+                <mat-select #select [(ngModel)]="emp_idS" (ngModelChange)="update_userByDOC(emp_idS)" class="form-control line-height-2 tx-gray-700 text-bold-500" placeholder="Select">
+                  <mat-option *ngFor="let topping of emp_list; let i = index" [value]="topping.emp_id">
+                    {{ topping.userDisplay }}
+                  </mat-option>
+                </mat-select>
+              </div>
+              <div class="text-right mt-4 pr-4" [hidden]="!pathPhase1">
+                <span class="link-text">
+                  <p class="tx-14 m-0 text-bold-500" (click)="OpenDocument(doc_id, pathPhase1)">
+                    Document No: {{ doc_id }}
+                  </p>
+                  <i class="fa fa-external-link ml-1"></i>
+                </span>
+              </div>
+            </div>
+
+            <div class="container px-0">
+              <!--  **Traveler Datail -->
+              <div class="col-12">
+                <div class="container border-bottom-3 border-bottom-grey-blue border-bottom-lighten-5 mb-4 py-4">
+                  <div class="row no-gutters">
+                    <p class="col-4 col-lg-2 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">Travel Topic :</p>
+                    <p class="col-8 col-lg-10 col-md-10 tx-gray-700 tx-14 text-bold-500 text-capitalize">
+                      {{ travel }}
+                    </p>
+                    <p class="col-4 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">Business Date :</p>
+                    <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                      {{ business_date }}
+                    </p>
+                    <p class="col-4 col-md-2 offset-0 offset-md-1 tx-gray-700 tx-14 m-0 text-dark text-bold-500">
+                      Travel Date :
+                    </p>
+                    <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                      {{ travel_date }}
+                    </p>
+                    <p class="col-4 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">{{ TRAVEL_TYPE }}</p>
+                    <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                      {{ country_city }}
+                    </p>
+                    <p class="col-4 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">Total Traveler(s) :</p>
+                    <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">{{ getTotalPerson }} Person(s)</p>
+                  </div>
+                </div>
+              </div>
+              <!-- **Traveler Datail -->
+              <!-- //width sm -->
+              <!-- Current Status -->
+              <div class="col-12 py-3 mx-2 mb-4">
+                <div class="row justify-content-center align-items-baseline">
+                  <ul id="progressbar" class="px-0 px-md-1 mb-0">
+                    <li class="cursor-pointer" [ngClass]="{ active: docStatus(1) }" id="time"><strong></strong></li>
+                    <li class="cursor-pointer" [ngClass]="{ active: docStatus(2) }" id="pencil"><strong></strong></li>
+                    <li class="cursor-pointer" [ngClass]="{ active: docStatus(3) }" id="cog"><strong></strong></li>
+                    <li class="cursor-pointer" [ngClass]="{ active: docStatus(4) }" id="check"><strong></strong></li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Current Status -->
+              <div class="col-12 pt-3 d-none" *ngIf="false">
+                <div class="row justify-content-center align-items-baseline">
+                  <ul id="progressbar" class="p-0 ml-0" *ngFor="let fx of barStatus">
+                    <li class="cursor-pointer" id="{{ fx.id }}" [ngClass]="fx.statusX == 'active' ? 'active' : ''">
+                      <strong></strong>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Text Editor -->
+              <div class="col-12 mb-5">
+                <div class="container" id="container-mat-isos">
+                  <mat-expansion-panel class="margin-top margin-bottoms pb-2" [expanded]="panel.show">
+                    <mat-expansion-panel-header (click)="panel.show = !panel.show">
+                      <mat-panel-title>
+                        <mat-icon class="material-icons">file_copy</mat-icon>
+                        <mat-panel-description class="margin-left"> ISOS DETAIL </mat-panel-description>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <div class="row col-sm-12 m-0 p-0" *ngIf="!displayPreview">
+                      <angular-editor (input)="showHTML()" [(ngModel)]="htmlContent" [config]="config" class="col-12 m-0 p-0">
+                      </angular-editor>
+                    </div>
+                    <div id="htmlDiv" class="html d-none" [innerHTML]="htmlContent"></div>
+                    <div class="html mt-2 d-none">
+                      {{ htmlContentWithoutStyles }}
+                    </div>
+                    <div [innerHTML]="htmlContent | safe: 'html'" *ngIf="displayPreview" id="displayPreview"></div>
+
+                    <!-- d-md-block d-lg-block d-none -->
+                    <div class="col-12 mt-5" align="center" *ngIf="ConverstNum(container.offsetWidth) > 600">
+                      <!-- table-responsivexxx -->
+
+                      <div class="video">
+                        <video muted autoplay controls #videoPlayer width="600px" *ngIf="videoSource != ''">
+                          <!-- width="350px" height="195px" -->
+                          <source src="{{ videoSource }}" type="video/mp4" />
+                          Browser not supported
+                        </video>
+                        <div class="bg-gray-1 wd-600 ht-300" *ngIf="videoSource == '' && !displayPreview">
+                          <i class="fa fa-file-video-o fa-3x mg-t-100"></i><br />Upload video
+                          <p class="tx-12 tx-gray-500">Maximum upload file size 50 mb.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 mt-5" align="center" *ngIf="ConverstNum(container.offsetWidth) <= 600">
+                      <div class="video">
+                        <video muted autoplay controls #videoPlayer width="100%" *ngIf="videoSource != ''">
+                          <source src="{{ videoSource }}" type="video/mp4" />
+                          Browser not supported
+                        </video>
+                        <div class="bg-gray-1 wd-600 ht-300" *ngIf="videoSource == '' && !displayPreview">
+                          <i class="fa fa-file-video-o fa-3x mg-t-100"></i><br />Upload video
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12 mt-2 mb-4" align="center">
+                      <input type="file" accept="video/*" (change)="onFileSelect($event)" *ngIf="videoSource == '' && !displayPreview" />
+                      <button class="bg-top-blue btn btn-round tx-14 text-white cursor-pointer btn-min-width" *ngIf="videoSource != '' && !displayPreview" (click)="deleteVideo()">
+                        Delete Video
+                      </button>
+
+                      <!-- //TODO TEST ALERT  -->
+                      <button class="bg-top-blue btn btn-round col-2 py-2 tx-14 text-white cursor-pointer d-none" (click)="test_swal()">
+                        Swal
+                      </button>
+                      <button class="bg-top-blue btn btn-round col-2 py-2 tx-14 text-white cursor-pointer d-none" (click)="test_Toastr()">
+                        Toastr
+                      </button>
+                      <!-- //TODO TEST ALERT  -->
+                    </div>
+                    <!-- for Search Emp -->
+                    <div class="col-sm-12" *ngIf="false">
+                      <mat-form-field class="example-chip-list">
+                        <!-- <mat-chip-list #chipList>
+                          <mat-chip *ngFor="let EmpList of MailList; let indx = index" [selectable]="selectable" [removable]="removable" (removed)="remove(EmpList, indx)">
+                            {{ EmpList.displayname }}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                          </mat-chip>
+                          <input placeholder="New contacts..." #fInput [formControl]="fCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" [(ngModel)]="inputText" (ngModelChange)="doFilter()" />
+                        </mat-chip-list>
+                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                          <mat-option *ngFor="let EmpList of filteredEmp | async" [value]="EmpList">
+                            {{ displayName(EmpList) }}
+                          </mat-option>
+                        </mat-autocomplete> -->
+                      </mat-form-field>
+                    </div>
+                    <pre *ngIf="false">{{ MailList | json }}</pre>
+                    <!-- for Search Emp -->
+
+                    <div class="col-12 border-top-grey-blue border-top-lighten-5"></div>
+                    <!-- //?? แบบใช้ btn-min-width -->
+                    <div class="col-12 mt-4">
+                      <div class="row gap">
+                        <!-- Edit  -->
+                        <button class="
+                            bg-top-blue
+                            btn btn-round
+                            font-weight-bold
+                            btn-min-width
+                            tx-14
+                            text-white
+                            mr-sm-0 mr-md-auto
+                          " *ngIf="displayPreview" [hidden]="!status" [disabled]="!show_button" [class.cursor-not-allowed]="!show_button" (click)="edit()">
+                          Edit
+                        </button>
+                        <!-- preview -->
+                        <button class="
+                            bg-top-blue
+                            btn btn-round
+                            font-weight-bold
+                            btn-min-width
+                            tx-14
+                            text-white
+                            cursor-pointer
+                          " *ngIf="!displayPreview" (click)="preview()">
+                          Preview
+                        </button>
+                        <!-- Save  -->
+                        <button class="
+                            bg-top-pink
+                            btn btn-round
+                            font-weight-bold
+                            btn-min-width
+                            tx-14
+                            text-white
+                            cursor-pointer
+                          " *ngIf="!displayPreview" (click)="ConfrimSave()">
+                          Save
+                        </button>
+                        <!-- Cancel -->
+                        <button class="
+                            bg-white
+                            pink
+                            border-pink
+                            btn btn-round
+                            font-weight-bold
+                            btn-min-width
+                            tx-14
+                            text-pink
+                            cursor-pointer
+                          " *ngIf="!displayPreview" (click)="cancel()">
+                          Cancel
+                        </button>
+
+                        <!--!! //    Send E-mail To Broker -->
+                        <button class="bg-white border-color-top btn btn-round btn-min-width tx-color-top font-weight-bold" *ngIf="displayPreview" (click)="openModalx(templete_sendmail)" [disabled]="!show_button" [hidden]="!status" [class.cursor-not-allowed]="!show_button">
+                          Send E-mail To Broker
+                        </button>
+                        <!--!! //    Send E-mail To Broker -->
+
+                        <!--!! //    Send E-mail To Traveler  ยกเลิกแล้ว-->
+                        <button class="bg-white border-color-top btn btn-round btn-min-width tx-color-top font-weight-bold" *ngIf="displayPreview && false" (click)="Send_Email()" [disabled]="!show_button" [class.cursor-not-allowed]="!show_button">
+                          Send E-mail To Traveler
+                        </button>
+                        <!--!! //    Send E-mail To Traveler ยกเลิกแล้ว-->
+                      </div>
+                    </div>
+                    <!-- //?? แบบใช้ btn-min-width -->
+
+                    <div class="col-12 mt-4" *ngIf="false">
+                      <!-- ?? BTN แบบแยก col -->
+                      <!-- bth sm  -->
+                      <!-- Edit SM -->
+                      <button class="
+                          bg-top-blue
+                          btn btn-round
+                          py-2
+                          font-weight-bold
+                          tx-14
+                          text-white
+                          cursor-pointer
+                          mr-2
+                          mt-3
+                          d-sm-none
+                          col-sm-12
+                          float-left
+                        " *ngIf="displayPreview" (click)="edit()">
+                        Edit
+                      </button>
+                      <!-- preview SM -->
+                      <button class="
+                          bg-top-blue
+                          btn btn-round
+                          py-2
+                          font-weight-bold
+                          tx-14
+                          text-white
+                          cursor-pointer
+                          mr-2
+                          mt-3
+                          d-sm-none
+                          col-sm-12
+                          float-left
+                        " *ngIf="!displayPreview" (click)="preview()">
+                        Preview
+                      </button>
+                      <!-- Save SM -->
+                      <button class="
+                          bg-top-pink
+                          btn btn-round
+                          py-2
+                          font-weight-bold
+                          tx-14
+                          text-white
+                          cursor-pointer
+                          mr-2
+                          mt-3
+                          d-sm-none
+                          col-sm-12
+                          float-left
+                        " *ngIf="!displayPreview" (click)="ConfrimSave()">
+                        Save
+                      </button>
+                      <!-- cancel SM -->
+                      <button class="
+                          bg-white
+                          pink
+                          border-pink
+                          btn btn-round
+                          py-2
+                          font-weight-bold
+                          tx-14
+                          text-pink
+                          cursor-pointer
+                          mt-3
+                          d-sm-none
+                          col-sm-12
+                          float-left
+                        " *ngIf="!displayPreview" (click)="cancel()">
+                        Cancel
+                      </button>
+                      <!-- bth sm  -->
+
+                      <!-- bth lg md  -->
+                      <!-- Edit md -->
+                      <button class="
+                          float-left
+                          btn btn-round
+                          bg-top-blue
+                          btn-min-width
+                          mr-1
+                          mb-1
+                          text-white
+                          font-weight-bold
+                          d-md-block d-lg-block d-none
+                        " *ngIf="displayPreview" (click)="edit()">
+                        Edit
+                      </button>
+
+                      <div class="row">
+                        <!-- Preview SM -->
+                        <button class="
+                            bg-top-blue
+                            btn btn-round
+                            col-2
+                            py-2
+                            font-weight-bold
+                            tx-14
+                            text-white
+                            cursor-pointer
+                            mr-2
+                            mt-3
+                            d-md-block d-lg-block d-none
+                          " *ngIf="!displayPreview" (click)="preview()">
+                          Preview
+                        </button>
+                        <!-- Save SM -->
+                        <button class="
+                            bg-top-pink
+                            btn btn-round
+                            col-2
+                            py-2
+                            font-weight-bold
+                            tx-14
+                            text-white
+                            cursor-pointer
+                            mr-2
+                            mt-3
+                            d-md-block d-lg-block d-none
+                          " *ngIf="!displayPreview" (click)="ConfrimSave()">
+                          Save
+                        </button>
+                        <!-- Cancel SM -->
+                        <button class="
+                            bg-white
+                            pink
+                            border-pink
+                            btn btn-round
+                            col-2
+                            py-2
+                            font-weight-bold
+                            tx-14
+                            text-pink
+                            cursor-pointer
+                            mt-3
+                            d-md-block d-lg-block d-none
+                          " *ngIf="!displayPreview" (click)="cancel()">
+                          Cancel
+                        </button>
+                      </div>
+
+                      <!-- Send E-mail To Broker -->
+                      <button class="
+                          bg-white
+                          border-color-top
+                          btn btn-round btn-min-width
+                          mr-1
+                          mb-1
+                          tx-color-top
+                          font-weight-bold
+                          mt-3
+                          d-sm-none
+                          col-sm-12
+                        " *ngIf="displayPreview" (click)="openModalx(templete_sendmail)">
+                        Send E-mail To Broker
+                      </button>
+                      <button class="
+                          bg-white
+                          border-color-top
+                          btn btn-round btn-min-width
+                          mr-1
+                          mb-1
+                          tx-color-top
+                          float-right
+                          font-weight-bold
+                          d-md-block d-lg-block d-none
+                        " *ngIf="displayPreview" (click)="openModalx(templete_sendmail)">
+                        Send E-mail To Broker
+                      </button>
+                      <!-- Send E-mail To Broker -->
+
+                      <!-- Send E-mail To Traveler -->
+                      <button class="
+                          bg-white
+                          border-color-top
+                          btn btn-round btn-min-width
+                          mr-1
+                          mb-1
+                          tx-color-top
+                          font-weight-bold
+                          mt-3
+                          d-sm-none
+                          col-sm-12
+                        " *ngIf="displayPreview" (click)="Send_Email()">
+                        Send E-mail To Traveler
+                      </button>
+                      <button class="
+                          bg-white
+                          border-color-top
+                          btn btn-round btn-min-width
+                          mr-1
+                          mb-1
+                          tx-color-top
+                          float-right
+                          font-weight-bold
+                          d-md-block d-lg-block d-none
+                        " *ngIf="displayPreview" (click)="Send_Email()">
+                        Send E-mail To Traveler
+                      </button>
+                      <!-- Send E-mail To Traveler -->
+
+                      <!-- bth lg md  -->
+                      <!-- ?? BTN แบบแยก col -->
+                    </div>
+                  </mat-expansion-panel>
+                </div>
+              </div>
+
+              <!-- Text Editor -->
+
+              <div class class="col-lg-12 pt-2 pl-4 pr-4 py-3 d-none" *ngIf="false">
+                <mat-expansion-panel class="margin-top margin-bottoms pb-2 mx-2" [expanded]="panel.show">
+                  <mat-expansion-panel-header (click)="panel.show = !panel.show">
+                    <mat-panel-title>
+                      <mat-icon class="material-icons">file_copy</mat-icon>
+                      <mat-panel-description class="margin-left tx-20">
+                        ISOS MEMBER LIST OF 2021
+                      </mat-panel-description>
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="col-12 table-responsive">
+                    <!--  style="height:250px;" -->
+                    <table class="table table-bordered table-striped table-hover text-center tx-gray-700">
+                      <thead>
+                        <tr>
+                          <th>Running No.</th>
+                          <th>Business Type 1st</th>
+                          <th>EMP. NO.</th>
+                          <th>NAME</th>
+                          <th>SECTION</th>
+                          <th>DEPART</th>
+                          <th>FUNCTION</th>
+                        </tr>
+                      </thead>
+                      <tbody class="border-0">
+                        <tr *ngFor="let a_d of isos_detailX; let ii = index">
+                          <ng-container *ngIf="a_d.emp_id == emp_idS">
+                            <td class="">
+                              {{ ii + 1 }}
+                            </td>
+                            <td class="">
+                              {{ business_name(a_d.business_type_id) }}
+                            </td>
+                            <td class="">
+                              {{ a_d.isos_emp_id }}
+                            </td>
+                            <td class="">
+                              {{ a_d.isos_emp_name }}
+                            </td>
+                            <td class="">
+                              {{ a_d.isos_emp_section }}
+                            </td>
+                            <td class="">
+                              {{ a_d.isos_emp_department }}
+                            </td>
+                            <td class="">
+                              {{ a_d.isos_emp_function }}
+                            </td>
+                          </ng-container>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div class="col-12 px-2 pt-2 pb-3">
+                    <div class="custom-file w-100 row">
+                      <button class="btn btn-round btn-secondary col-2 mr-2 disabled mr-2" disabled *ngIf="status != true">
+                        Save
+                      </button>
+                      <button class="btn btn-round col-2 btn-secondary disabled" *ngIf="status != true">Cancel</button>
+                      <button class="
+                          bg-top-pink
+                          btn btn-round
+                          col-2
+                          py-2
+                          font-weight-bold
+                          tx-14
+                          text-white
+                          cursor-pointer
+                          mr-2
+                        " *ngIf="status == true">
+                        Save
+                      </button>
+                      <button class="
+                          bg-white
+                          pink
+                          border-pink
+                          btn btn-round
+                          col-2
+                          py-2
+                          font-weight-bold
+                          tx-14
+                          text-pink
+                          cursor-pointer
+                        " *ngIf="status == true">
+                        Cancel
+                      </button>
+
+                      <input type="file" accept="file_extension" #file class="d-none" (change)="onFileSelect($event)" />
+
+                      <button class="btn btn-round bg-top-blue col-2 mx-2 float-right" [ngClass]="status ? 'bg-top-blue' : 'bg-secondary'" [disabled]="status == false" style="color: white" (click)="file.click()">
+                        <i class="fa fa-upload font-weight-bold tx-14" style="color: white" aria-hidden="true"></i>&#32;&#32;Upload
+                      </button>
+                      <button class="btn btn-round bg-top-blue float-right col-3" style="color: #08508c; border: 1px solid #08508c; background-color: white" (click)="openModalx(template)">
+                        <i class="fa fa-envelope" aria-hidden="true"></i> Send E-mail
+                      </button>
+                      <button class="btn btn-round bg-top-blue float-right col-2 mr-2 d-none" style="color: white">
+                        <i class="fa fa-download" aria-hidden="true"></i>&nbsp;&nbsp;Export
+                      </button>
+                      <button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#exampleModalCenter">
+                        Open Modal
+                      </button>
+                    </div>
+                  </div>
+                </mat-expansion-panel>
+              </div>
+            </div>
+
+            <button class="d-none" #closeModel (click)="modalRef?.hide()"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #template>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <button type="button" class="close pb-2" style="color: red" data-dismiss="modal" (click)="CancelModel()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="col-12">
+        <label for="sendxx" class="font-weight-bold tx-gray-700">Send to :</label>
+
+        <input type="text" placeholder="" class="form-control" [(ngModel)]="mail_curent" [matAutocomplete]="mail_curent_val" (click)="set_modal()" (ngModelChange)="modelChanged($event)" />
+        <mat-autocomplete #mail_curent_val="matAutocomplete">
+          <mat-option *ngFor="let option of email_send" [value]="option.userEmail" [hidden]="option.userEmail == null || option.userEmail == '' ? true : false">
+            {{ option.userEmail }}
+          </mat-option>
+        </mat-autocomplete>
+      </div>
+      <div class="col-12">
+        <!-- (click)="add_email(sendx.value)" -->
+        <!--  <button class="btn btn-round bg-top-blue text-bold-500 col-3  my-2"
+                    (click)="add_email(mail_curent)" style="color:white">
+                    Add
+                </button> -->
+        <button class="btn btn-round bg-top-blue text-bold-500 col-3 my-2" (click)="addemail(mail_curent)" style="color: white">
+          Add
+        </button>
+        <!-- *ngIf="listx.emp_id == emp_idS" -->
+      </div>
+      <div class="col-12">
+        <div class="form-group position-relative has-icon-right" *ngFor="let listx of Email_sendX; let ii = index">
+          <div>
+            <input type="text" class="form-control mb-1" [value]="listx.userEmail" />
+            <div class="form-control-position">
+              <i class="fa fa-times danger cursor-pointer" (click)="deleteRow(ii)" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12" *ngIf="Email_sendX.length != 0">
+        <button class="btn btn-round bg-top-blue text-bold-500 col-3 my-2" style="color: white" (click)="SendEmail()">
+          Send
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templete_sendmail>
+  <div class="modal-header">
+    <div class="col-sm-12 px-0">
+      <span class="modal-title tx-20" id="my-modal-title">
+        <span class="material-icons" style="vertical-align: middle"> mail </span> E-MAIL
+      </span>
+      <button type="button" class="close pb-2" style="color: red" data-dismiss="modal" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="col-12 px-0">
+      <div class="row mt-2 mb-2">
+        <div class="col-12">
+          <label class="tx-gray-700 text-bold-500">To : {{ BrokerArrModel.name }}</label>
+          <fieldset class="form-group d-none" style="height: 15px">
+            <div class="">
+              <ngx-select-dropdown id="Toplevel1" class="" [multiple]="false" [(ngModel)]="BrokerArrModel" [disabled]="true" (click)="setcssWidth()" [config]="country_model.config" [options]="BrokerArr">
+              </ngx-select-dropdown>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="table-responsive my-2" style="max-height: 210px; min-height: 100px; max-width: 100%">
+        <table class="table table-bordered table-striped table-hover border-0 table-wrapper mb-0">
+          <thead>
+            <tr class="tx-gray-700 text-bold-500 text-center">
+              <th style="width: 40px"></th>
+              <th>Name</th>
+              <!-- <th>E-mail</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="tx-gray-700" *ngFor="let dt of emp_listx; let ii = index">
+              <td style="vertical-align: middle">
+                <input type="checkbox" [(ngModel)]="dt.Check_status" style="vertical-align: middle" [disabled]="dt.type_send_to_broker" />
+              </td>
+              <td>{{ dt.userDisplay }}</td>
+              <!-- <td>{{dt.userEmail}}</td> -->
+            </tr>
+          </tbody>
+        </table>
+        <div class="col-12 text-left p-0" [hidden]="EmpallhasISOSRECORD === false">
+          <span class="pb-1 tx-12 link-savedinfo">
+            <p class="text-underline my-0">The traveller all has been in ISOS MEMBER LIST RECORD.</p>
+            <i class="fa fa-info-circle ml-1"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="col-12 px-0">
+      <button class="btn btn-round btn-min-width btn-top text-bold-500" style="color: white" [disabled]="EmpallhasISOSRECORD" (click)="send_mail_to_insurance()">
+        Send
+      </button>
+    </div>
+  </div>
+</ng-template>

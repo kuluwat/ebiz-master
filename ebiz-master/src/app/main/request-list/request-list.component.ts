@@ -151,7 +151,7 @@ export class RequestListComponent implements OnInit {
 
 
   constructor(
-    @Inject(forwardRef(() => MainComponent)) private appMain: MainComponent,
+    // @Inject(forwardRef(() => MainComponent)) private appMain: MainComponent,
     private route: ActivatedRoute,
     private loadList: LoadListService,
     private masterHttp: MasterService,
@@ -168,115 +168,115 @@ export class RequestListComponent implements OnInit {
 
     // @ts-ignore
     console.log(this.onloadStart, this.onloadEnd)
-    this.route.params.subscribe(params => {
-      this.state = params[ "types" ];
+    // this.route.params.subscribe(params => {
+    //   this.state = params[ "types" ];
 
 
-      const checkParams = () => {
-        if (this.state === 'local' || this.state === 'oversea') {
-          this.requestTypeDisplay = "Business trip";
-          this.model.request_type.list = [];
+    //   const checkParams = () => {
+    //     if (this.state === 'local' || this.state === 'oversea') {
+    //       this.requestTypeDisplay = "Business trip";
+    //       this.model.request_type.list = [];
 
-          this.model.request_type.list = [
-            {
-              '_id': '5a66d6c31d5e4e36c7711b7a',
-              'val': 'oversea',
-              'name': 'Oversea business',
-              'sort': 1
-            }, {
-              '_id': '5a66d6c31d5e4e36c7711b7a',
-              'val': 'local',
-              'name': 'Local business',
-              'sort': 2
-            }
-          ];
+    //       this.model.request_type.list = [
+    //         {
+    //           '_id': '5a66d6c31d5e4e36c7711b7a',
+    //           'val': 'oversea',
+    //           'name': 'Oversea business',
+    //           'sort': 1
+    //         }, {
+    //           '_id': '5a66d6c31d5e4e36c7711b7a',
+    //           'val': 'local',
+    //           'name': 'Local business',
+    //           'sort': 2
+    //         }
+    //       ];
 
-          // this.model.request_type.value = [ {
-          //   '_id': '5a66d6c31d5e4e36c7711b7a',
-          //   'val': this.state == "local" ? 'local' : "oversea",
-          //   'name': this.state == "local" ? 'Local business' : "Oversea business",
-          //   'sort': this.state == "local" ? 2 : 1,
-          // } ];
+    //       // this.model.request_type.value = [ {
+    //       //   '_id': '5a66d6c31d5e4e36c7711b7a',
+    //       //   'val': this.state == "local" ? 'local' : "oversea",
+    //       //   'name': this.state == "local" ? 'Local business' : "Oversea business",
+    //       //   'sort': this.state == "local" ? 2 : 1,
+    //       // } ];
 
-          this.model.req_type = this.state === "local" ? 'local' : "oversea";
+    //       this.model.req_type = this.state === "local" ? 'local' : "oversea";
 
-        } else if (this.state === 'localtraining' || this.state === 'overseatraining') {
+    //     } else if (this.state === 'localtraining' || this.state === 'overseatraining') {
 
-          this.requestTypeDisplay = "Training trip";
-          this.model.request_type.list = [];
+    //       this.requestTypeDisplay = "Training trip";
+    //       this.model.request_type.list = [];
 
-          this.model.request_type.list = [
-            {
-              '_id': '5a66d6c31d5e4e36c7711b7a',
-              'val': 'overseatraining',
-              'name': 'Oversea training',
-              'sort': 3
-            }, {
-              '_id': '5a66d6c31d5e4e36c7711b7a',
-              'val': 'localtraining',
-              'name': 'Local training',
-              'sort': 4
-            }
-          ];
+    //       this.model.request_type.list = [
+    //         {
+    //           '_id': '5a66d6c31d5e4e36c7711b7a',
+    //           'val': 'overseatraining',
+    //           'name': 'Oversea training',
+    //           'sort': 3
+    //         }, {
+    //           '_id': '5a66d6c31d5e4e36c7711b7a',
+    //           'val': 'localtraining',
+    //           'name': 'Local training',
+    //           'sort': 4
+    //         }
+    //       ];
 
-          // this.model.request_type.value = [ {
-          //   '_id': '5a66d6c31d5e4e36c7711b7a',
-          //   'val': this.state === "localtraining" ? "localtraining" : 'overseatraining',
-          //   'name': this.state === "localtraining" ? "Local training" : 'Oversea training',
-          //   'sort': this.state === "localtraining" ? 4 : 3,
-          // } ];
+    //       // this.model.request_type.value = [ {
+    //       //   '_id': '5a66d6c31d5e4e36c7711b7a',
+    //       //   'val': this.state === "localtraining" ? "localtraining" : 'overseatraining',
+    //       //   'name': this.state === "localtraining" ? "Local training" : 'Oversea training',
+    //       //   'sort': this.state === "localtraining" ? 4 : 3,
+    //       // } ];
 
-          this.model.req_type = this.state === "localtraining" ? "localtraining" : 'overseatraining';
-        }
-        else {
-          this.model.btnCreate = false;
-          this.requestTypeDisplay = "";
-          this.model.request_type.list = [];
+    //       this.model.req_type = this.state === "localtraining" ? "localtraining" : 'overseatraining';
+    //     }
+    //     else {
+    //       this.model.btnCreate = false;
+    //       this.requestTypeDisplay = "";
+    //       this.model.request_type.list = [];
 
-          this.model.request_type.list = [
-            {
-              '_id': '5a66d6c31d5e4e36c7711b7a',
-              'val': 'oversea',
-              'name': 'Oversea business',
-              'sort': 1
-            }, {
-              '_id': '5a66d6c31d5e4e36c7711b7a',
-              'val': 'local',
-              'name': 'Local business',
-              'sort': 2
-            },
-            {
-              '_id': '5a66d6c31d5e4e36c7711b7a',
-              'val': 'overseatraining',
-              'name': 'Oversea training',
-              'sort': 3
-            }, {
-              '_id': '5a66d6c31d5e4e36c7711b7a',
-              'val': 'localtraining',
-              'name': 'Local training',
-              'sort': 4
-            }
-          ];
-        }
+    //       this.model.request_type.list = [
+    //         {
+    //           '_id': '5a66d6c31d5e4e36c7711b7a',
+    //           'val': 'oversea',
+    //           'name': 'Oversea business',
+    //           'sort': 1
+    //         }, {
+    //           '_id': '5a66d6c31d5e4e36c7711b7a',
+    //           'val': 'local',
+    //           'name': 'Local business',
+    //           'sort': 2
+    //         },
+    //         {
+    //           '_id': '5a66d6c31d5e4e36c7711b7a',
+    //           'val': 'overseatraining',
+    //           'name': 'Oversea training',
+    //           'sort': 3
+    //         }, {
+    //           '_id': '5a66d6c31d5e4e36c7711b7a',
+    //           'val': 'localtraining',
+    //           'name': 'Local training',
+    //           'sort': 4
+    //         }
+    //       ];
+    //     }
 
 
 
-        this.model.request_type.list.sort(function (a, b) {
-          if (a.sort < b.sort) {return -1;}
-          if (a.sort > b.sort) {return 1;}
-          return 0;
-        });
-        //this.model.request_type.value = this.model.request_type.list[0]//this.state === "local" ? this.model.request_type.list[1] : this.state === "oversea" ? this.model.request_type.list[0] : [];
-        return true
-      }
-      if (checkParams()) {
-        this.didSetDefault(this.state)
-        this.didFetchProvince();
-        this.didFetchCountry();
-        this.didFetchRequestStatus();
-        this.didSearchRequestTacking();
-      }
-    });
+    //     this.model.request_type.list.sort(function (a, b) {
+    //       if (a.sort < b.sort) {return -1;}
+    //       if (a.sort > b.sort) {return 1;}
+    //       return 0;
+    //     });
+    //     //this.model.request_type.value = this.model.request_type.list[0]//this.state === "local" ? this.model.request_type.list[1] : this.state === "oversea" ? this.model.request_type.list[0] : [];
+    //     return true
+    //   }
+    //   if (checkParams()) {
+    //     this.didSetDefault(this.state)
+    //     this.didFetchProvince();
+    //     this.didFetchCountry();
+    //     this.didFetchRequestStatus();
+    //     this.didSearchRequestTacking();
+    //   }
+    // });
   }
 
   handleGoToDetail(docID : any, part : any) {
@@ -290,14 +290,14 @@ export class RequestListComponent implements OnInit {
       case "4": states = "cap"; break;
       default: states = "i"; break;
     }
-    this.router.navigate([ '/main/request/edit', docID, states ])
+    // this.router.navigate([ '/main/request/edit', docID, states ])
   }
 
   didSearchRequestTacking() {
-    this.appMain.isLoading = true;
+    // this.appMain.isLoading = true;
     const onSuccess = (dao : any) => {
       this.onload = false;
-      this.appMain.isLoading = false;
+      // this.appMain.isLoading = false;
       console.log('>>> LoadDocList (Tracking) <<<')
       console.log(dao)
       this.model.data_set = dao
@@ -342,16 +342,16 @@ export class RequestListComponent implements OnInit {
       if (dao[ "status" ] == "S") {
         // success
         alert("Copy Done.")
-        this.router.navigate([ '/main/request/edit', dao[ "value" ], "i" ])
+        // this.router.navigate([ '/main/request/edit', dao[ "value" ], "i" ])
       } else {
         // failed
         alert(dao[ "message" ])
       }
     }
-    this.appMain.showConfirm("Do you want to copy?", () => {
-      // if(confirm("Do you want to copy?")){
-      this.loadList.onCopy(id).subscribe(dao => didCopy(dao))
-    })
+    // this.appMain.showConfirm("Do you want to copy?", () => {
+    //   // if(confirm("Do you want to copy?")){
+    //   this.loadList.onCopy(id).subscribe(dao => didCopy(dao))
+    // })
   }
 
   // set default 
@@ -380,7 +380,7 @@ export class RequestListComponent implements OnInit {
       });
     }
 
-    this.masterHttp.onFetchCountry("").subscribe(dao => onSuccess(dao))
+    // this.masterHttp.onFetchCountry("").subscribe(dao => onSuccess(dao))
   }
 
   didFetchProvince() {
@@ -396,7 +396,7 @@ export class RequestListComponent implements OnInit {
       console.log(this.model.province.list)
     }
 
-    this.masterHttp.onFetchProvince().subscribe(dao => onSuccess(dao))
+    // this.masterHttp.onFetchProvince().subscribe(dao => onSuccess(dao))
   }
 
   didFetchRequestStatus() {
@@ -414,10 +414,12 @@ export class RequestListComponent implements OnInit {
         }
       });
     }
-    this.masterHttp.onFetchRequestStatus().subscribe(dao => onSuccess(dao))
+    // this.masterHttp.onFetchRequestStatus().subscribe(dao => onSuccess(dao))
   }
 
-  handleOnCreate() {this.router.navigate([ '/main/request/create', this.model.request_type.value, 'i' ])}
+  handleOnCreate() {
+    // this.router.navigate([ '/main/request/create', this.model.request_type.value, 'i' ])
+  }
 
 
   // phase2
@@ -452,7 +454,7 @@ export class RequestListComponent implements OnInit {
     };
 
 
-    this.router.navigate([ '/master', id, {t: typeStr} ], {state: {paramsDesc: navigationExtras}});
+    // this.router.navigate([ '/master', id, {t: typeStr} ], {state: {paramsDesc: navigationExtras}});
 
 
     // const url = this.router.serializeUrl(

@@ -1,0 +1,942 @@
+<div class="col-12 boxcolor-mm background-Slide animate__animated animate__fadeIn" *ngIf="model_all.emp_list.length > 0" style="height: 350px" (window:keypress)="onKeyDown($event)">
+  <div class="row math-height">
+    <div class="col-lg-12">
+      <div class="card box-shadow-1 mt-3">
+        <div class="card-body m-0 p-0">
+          <div class="row mx-0">
+            <div class="col-12 col-md-6 col-lg-6 col-sm-12" style="min-height: 67px">
+              <div class="marker marker-ribbon marker-top-blue pos-absolute mt-4 l-0 pl-5 pr-5" id="pagepassport">
+                <p class="tx-24 m-0">&#32;<i class="fa fa-address-book-o" aria-hidden="true"></i>&#32;PASSPORT</p>
+              </div>
+            </div>
+            <!--** Travel Display Name  -->
+            <div class="col-12 col-md-6 col-sm-12" *ngIf="personer != 'personal'">
+              <div class="container px-0">
+                <div class="text-center text-md-right mt-4 pr-4" *ngIf="!user_admin && personer != 'personal'">
+                  <p class="tx-24 m-0 tx-top-blue text-bold-500">
+                    {{ get_data_by_emp_user(model_all.emp_list) }}
+                  </p>
+                </div>
+                <div class="text-center text-md-right mt-4 pr-4" *ngIf="personer == 'personal'">
+                  <p class="tx-24 m-0 tx-top-blue text-bold-500">
+                    {{ personal_name }}
+                  </p>
+                </div>
+                <div class="mt-4 col-12 col-md-10 col-lg-8 ml-md-auto" *ngIf="user_admin && personer != 'personal'">
+                  <mat-select [(ngModel)]="list_emp" #select (selectionChange)="update_userByDOC(list_emp, select)" class="form-control line-height-2 tx-gray-700 text-bold-500" placeholder="Select">
+                    <mat-option *ngFor="let topping of model_all.emp_list; let i = index" >
+                      <!-- [value]="topping.emp_id" -->
+                      <!-- {{ topping.userDisplay }} -->
+                    </mat-option>
+                  </mat-select>
+                </div>
+                <div class="text-right mt-4 pr-4" *ngIf="pathPhase1 && personer != 'personal'">
+                  <span class="link-text">
+                    <p class="tx-14 m-0 text-bold-500" (click)="OpenDocument(model_all.doc_id, pathPhase1)">
+                      Document No: {{ model_all.doc_id }}
+                    </p>
+                    <i class="fa fa-external-link ml-1"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!--** Travel Display Name -->
+
+            <!-- ** Traveler Detail -->
+            <div class="col-12" *ngIf="userDetail && personer != 'personal'">
+              <div class="container border-bottom-3 border-bottom-grey-blue border-bottom-lighten-5 mb-4 py-4">
+                <div class="row no-gutters">
+                  <p class="col-4 col-lg-2 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">Travel Topic :</p>
+                  <p class="col-8 col-lg-10 col-md-10 tx-gray-700 tx-14 text-bold-500 text-capitalize">
+                    {{ userDetail.travel_topic ? userDetail.travel_topic : '' }}
+                  </p>
+                  <p class="col-4 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">Business Date :</p>
+                  <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                    {{ userDetail.business_date ? userDetail.business_date : '' }}
+                  </p>
+                  <p class="col-4 col-md-2 offset-0 offset-md-1 tx-gray-700 tx-14 m-0 text-dark text-bold-500">
+                    Travel Date :
+                  </p>
+                  <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                    {{ userDetail.travel_date ? userDetail.travel_date : '' }}
+                  </p>
+                  <p class="col-4 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">Country / City :</p>
+                  <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                    {{ userDetail.country_city ? userDetail.country_city : '' }}
+                  </p>
+                  <p class="col-4 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">Total Traveler(s) :</p>
+                  <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                    {{ model_all.emp_list.length }} Person(s)
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- ** Traveler Detail -->
+            <!-- //todo ถ้า admin หรือ traveler save จะเป็น complete เสมอ -->
+            <!--** Current Status -->
+            <div class="col-12 py-3 mt-0 mb-4" *ngIf="personer != 'personal'">
+              <div class="row justify-content-center align-content-start">
+                <ul id="progressbar" class="p-0 mb-0">
+                  <li class="cursor-pointer" [ngClass]="{ active: docStatus(1) }" id="time"><strong></strong></li>
+                  <li class="cursor-pointer" [ngClass]="{ active: docStatus(2) }" id="pencil"><strong></strong></li>
+                  <li class="cursor-pointer" [ngClass]="{ active: docStatus(3) }" id="cog"><strong></strong></li>
+                  <li class="cursor-pointer" [ngClass]="{ active: docStatus(4) }" id="check"><strong></strong></li>
+                </ul>
+              </div>
+            </div>
+
+            <div *ngIf="personer == 'personal'" class="col-12 pb-2 pt-4"></div>
+            <!--** Current Status -->
+            <!-- //todo ถ้า admin หรือ traveler save จะเป็น complete เสมอ -->
+
+            <div class="btn d-none" id="swich_user" (click)="user_admin = !model_all.user_admin">swich</div>
+
+            <div class="container px-0">
+              <!--** Passport Deatil -->
+              <div class="col-12">
+                <div class="container">
+                  <div class="card-header border-none bg-white border-bottom-0 px-0 pt-0">
+                    <div (click)="user_reject && openModal(template_add_passport, 'new_passport')">
+                      <span class="d-flex w-auto">
+                        <div class="media gap align-items-center" [ngClass]="{
+                            'cursor-not-allowed tx-top-blue-disable': !user_reject,
+                            'cursor-pointer tx-top-blue_': user_reject
+                          }">
+                          <mat-icon aria-hidden="false">add_circle_outline</mat-icon>
+                          <strong> Add Passport </strong>
+                        </div>
+                      </span>
+                    </div>
+                  </div>
+                  <mat-expansion-panel *ngFor="
+                      let item of get_data_by_emp(model_all.passport_detail);
+                      index as i;
+                      last as lastrow;
+                      first as firstrow
+                    " [expanded]="!typeLoad ? item.panel : firstrow" (opened)="item.panel = true" (closed)="item.panel = false" class="radiusX box-shadow-1" [ngClass]="{ 'mb-4': !lastrow, 'mb-3': !user_reject && lastrow }">
+                    <!-- (click)="item.panel = !item.panel" -->
+                    <!-- (expandedChange)="item.panel = !item.panel" -->
+                    <!-- (expandedChange)="item.panel = !item.panel" -->
+                    <!-- [expanded]="!typeLoad ? item.panel : firstrow" -->
+
+                    <!-- {{ item.panel }} -->
+                    <!-- //TODO DEBUG TYPE -->
+                    <!-- <pre>
+                    default_type : {{ item.default_type }} 
+                    default_action_change :
+                    {{ item.default_action_change }} 
+                    action_change : {{ item.action_change }}
+                  </pre> -->
+                    <!-- //TODO DEBUG TYPE -->
+                    <mat-expansion-panel-header>
+                      <h5 class="tx-gray-700">Passport {{ i + 1 }}</h5>
+                      <!-- {{ item.panel }} -->
+                    </mat-expansion-panel-header>
+
+                    <input value="{{ item.id }}" type="hidden" #selected_id />
+                    <!-- //!! PDPA -->
+                    <!-- <span (click)="openModal(templatePDPA, (accept_id = item.id))" class="cursor-pointer tx-top-blue_"
+                      >ShowPDPA</span
+                    > -->
+                    <!-- //!! PDPA -->
+
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="d-flex justify-content-between align-items-start">
+                          <ng-container *ngIf="get_data_by_emp(model_all.passport_detail).length <= 1">
+                            <mat-slide-toggle class="font-medium-1 text-bold-600" [color]="'success'" [(ngModel)]="item.default_type_bool" (ngModelChange)="item.default_type_bool || (item.accept_type = true)" [disabled]="get_data_by_emp(model_all.passport_detail).length <= 1 || !user_reject" #curent_passport [ngClass]="{
+                                'text-danger': item.default_type_bool == false,
+                                'text-successx': item.default_type_bool
+                              }">
+                              {{ item.default_type_bool == true ? 'Active' : 'Inactive' }}
+                            </mat-slide-toggle>
+                          </ng-container>
+
+                          <ng-container *ngIf="get_data_by_emp(model_all.passport_detail).length > 1">
+                            <mat-slide-toggle class="font-medium-1 text-bold-600" [color]="'success'" [(ngModel)]="item.default_type_bool" (ngModelChange)="[Sort_by_passport(model_all.passport_detail, item)]" #curent_passport [disabled]="!user_reject" [ngClass]="{
+                                'text-danger': item.default_type_bool == false,
+                                'text-successx': item.default_type_bool
+                              }">
+                              {{ item.default_type_bool == true ? 'Active' : 'Inactive' }}
+                            </mat-slide-toggle>
+                          </ng-container>
+                          <div class="justify-content-end flex-row tx-18">
+                            <span class="mx-2" [hidden]="true" (click)="Add_Passport_NULL_DATA(get_data_by_passport_new())"><i class="cursor-pointer fa fa-plus-circle success" aria-hidden="true"> </i></span>
+
+                            <span (click)="Delete_Passport(item)" [hidden]="!user_reject">
+                              <i class="cursor-pointer fa fa-minus-circle danger" aria-hidden="true"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="form-group">
+                          <label class="font-weight-bold tx-14" [ngClass]="check_el(passport_no) ? 'text-error' : 'tx-gray-700'">
+                            Passport No.
+                            <span [ngClass]="check_el(passport_no) ? 'text-error' : 'span-mark'">*</span>
+                            :
+                          </label>
+                          <input type="text" class="form-control" [ngClass]="check_el(passport_no) ? 'border-error' : ''" required [disabled]="StatusPassport(item)" (change)="[actionInput(item), (item.action_change = 'true')]" (paste)="actionInput(item)" [(ngModel)]="item.passport_no" #passport_no="ngModel" />
+                        </div>
+                      </div>
+                      <div class="col-lg-4">
+                        <label class="font-weight-bold tx-14" [ngClass]="check_el(passport_date_issue) ? 'text-error' : 'tx-gray-700'">Date of Issue
+                          <span [ngClass]="check_el(passport_date_issue) ? 'text-error' : 'span-mark'">*</span> :</label>
+                        <div class="form-group position-relative has-icon-right">
+                          <input autocomplete="off" type="text" placeholder="" #dp="bsDatepicker" id="op_Picker_Date_Issue{{ i }}" required class="form-control" [class.bg-disable]="StatusPassport(item)" [readonly]="true" [ngClass]="check_el(passport_date_issue) ? 'border-error' : ''" bsDatepicker [disabled]="StatusPassport(item)" [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', showWeekNumbers: false }" [(ngModel)]="item.passport_date_issue_type" (change)="item.action_change = 'true'" [maxDate]="item.passport_date_expire_type" (ngModelChange)="updatedata(item, $event, 'passport_date_issue')" #passport_date_issue="ngModel" />
+                          <label class="form-control-position" for="op_Picker_Date_Issue{{ i }}">
+                            <i class="material-icons tx-top-blue cursor-pointer">today</i>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-lg-4">
+                        <label class="font-weight-bold tx-14 tx-gray-700" [ngClass]="check_el(Date_of_Expire) ? 'text-error' : 'tx-gray-700'">Date of Expire
+                          <span [ngClass]="check_el(Date_of_Expire) ? 'text-error' : 'span-mark'">*</span>
+                          :</label>
+                        <div class="form-group position-relative has-icon-right">
+                          <input type="text" class="form-control" [ngClass]="check_el(Date_of_Expire) ? 'border-error' : ''" id="Date_of_Expire{{ i }}" #Date_of_Expire="ngModel" required bsDatepicker [class.bg-disable]="StatusPassport(item)" [disabled]="StatusPassport(item)" [minDate]="item.passport_date_issue_type" [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', showWeekNumbers: false }" [(ngModel)]="item.passport_date_expire_type" (change)="item.action_change = 'true'" [readonly]="true" (ngModelChange)="updatedata(item, $event, 'passport_date_expire')" />
+
+                          <label class="form-control-position" for="Date_of_Expire{{ i }}">
+                            <i class="material-icons tx-top-blue cursor-pointer">today</i>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="form-group">
+                          <label class="font-weight-bold tx-14 tx-gray-700">Title : </label>
+                          <input type="text" class="form-control" [(ngModel)]="item.passport_title" (ngModelChange)="[(item.action_change = 'true'), (item.default_action_change = 'true')]" [disabled]="StatusPassport(item)" />
+                        </div>
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="form-group">
+                          <label class="font-weight-bold tx-14 tx-gray-700"> Name :</label>
+                          <input type="text" class="form-control" [(ngModel)]="item.passport_name" (ngModelChange)="[(item.action_change = 'true'), (item.default_action_change = 'true')]" [disabled]="StatusPassport(item)" />
+                        </div>
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="form-group">
+                          <label class="font-weight-bold tx-14 tx-gray-700">Surname :</label>
+                          <input type="text" class="form-control" [(ngModel)]="item.passport_surname" (ngModelChange)="[(item.action_change = 'true'), (item.default_action_change = 'true')]" [disabled]="StatusPassport(item)" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <label class="font-weight-bold tx-14" [ngClass]="check_el(Date_of_birth) ? 'text-error' : 'tx-gray-700'">Date of birth
+                          <span [ngClass]="check_el(Date_of_birth) ? 'text-error' : 'span-mark'">*</span>
+                          :
+                        </label>
+                        <div class="form-group position-relative has-icon-right">
+                          <input type="text" class="form-control" id="op_Picker_Date_ฺBirth{{ i }}" [ngClass]="check_el(Date_of_birth) ? 'border-error' : ''" #Date_of_birth="ngModel" required (change)="item.action_change = 'true'" [class.bg-disable]="StatusPassport(item)" [disabled]="StatusPassport(item)" [(ngModel)]="item.passport_date_birth_type" [readonly]="true" [maxDate]="currentDate" (ngModelChange)="updatedata(item, $event, 'passport_date_birth')" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', showWeekNumbers: false }" />
+                          <!-- [disabled]=" StatusPassport()item.IsEdit == 'update'" -->
+                          <label class="form-control-position" for="op_Picker_Date_ฺBirth{{ i }}">
+                            <i class="material-icons tx-top-blue cursor-pointer">today</i>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-12 col-lg-8 align-self-center">
+                        <div class="row align-items-end justify-content-start flex-column flex-md-row align-content-center">
+                          <input type="file" class="d-none" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" (change)="uploadFile($event, item.id)" #file />
+
+                          <div class="align-self-start align-self-md-end pb-2 ml-0 ml-md-3 pt-3 mt-0 mt-md-3">
+                            <button class="
+                                btn btn-round btn-min-width
+                                bg-white
+                                border-color-top
+                                tx-color-top
+                                font-weight-bold
+                                tx-14
+                                align-self-start align-self-md-end
+                              " (click)="file.click()" [disabled]="!user_reject" [ngClass]="{ 'd-none': countFile(item.id), 'cursor-not-allowed': !user_reject }">
+                              Upload Passport
+                            </button>
+                          </div>
+                          <div class="align-self-center align-self-md-center pb-2 ml-0 ml-md-3 pt-3 mt-0 mt-md-3" *ngFor="let items of model_all.img_list" [ngClass]="check_action(items, item.id) ? 'd-none' : 'd-flex flex-warp'">
+                            <i class="material-icons tx-16 tx-top-blue tx-bold">attach_file</i>
+
+                            <a class="mx-2 text-primary txunderline text-bold-600 text-truncate link-width" target="_blank" matTooltip="{{ items.filename }}" (click)="downloadFile(items.path + items.filename, items.filename)">{{
+                              items.filename && items.filename.length > 15 ? (items.filename | slice: 0:15) + '...' : items.filename
+                              }}</a>
+                            <span [hidden]="!user_reject" [ngClass]="
+                                items.action_type === 'insert' || items.action_type === 'update' ? '' : 'd-none'
+                              ">
+                              <i class="cursor-pointer fa fa-minus-circle danger" (click)="[(items.action_type = 'delete'), alerts.toastr_success('Delete File')]"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row justify-content-start mx-1">
+                      <button class="
+                          bg-top-blue
+                          btn btn-round
+                          d-flex
+                          align-items-center
+                          justify-content-center
+                          py-2
+                          col-4 col-sm-4 col-md-2 col-lg-2
+                          font-weight-bold
+                          tx-14
+                          text-white
+                          cursor-pointer
+                          ml-auto ml-md-0
+                        " (click)="[Check_Passport_no(item)]" *ngIf="item.IsEdit != 'update'">
+                        Change
+                      </button>
+
+                      <button class="
+                          bg-white
+                          tx-top-blue
+                          border-color-top
+                          align-items-center
+                          justify-content-center
+                          btn btn-round
+                          py-2
+                          mx-2
+                          col-4 col-sm-4 col-md-2 col-lg-2
+                          font-weight-bold
+                          tx-14
+                          text-pink
+                          cursor-pointer
+                          mr-auto mr-md-0
+                        " *ngIf="item.IsEdit != 'update'" (click)="item.action_change == 'true' ? btnCencel_Onclick() : (item.IsEdit = 'update')">
+                        Cancel
+                      </button>
+
+                      <button class="
+                          bg-top-blue
+                          btn btn-round
+                          py-2
+                          col-4 col-sm-4 col-md-2 col-lg-2 col-xl-2
+                          font-weight-bold
+                          tx-14
+                          text-white
+                          cursor-pointer
+                        " *ngIf="item.IsEdit == 'update' && false" (click)="
+                          user_admin
+                            ? openModal(template_Edit_passport, 'edit_passport', item)
+                            : item.accept_type
+                            ? openModal(template_Edit_passport, 'edit_passport', item)
+                            : openModal(template, (accept_id = item.id))
+                        ">
+                        Edit
+                      </button>
+
+                      <button class="d-none" (click)="deleteimgallrow()">xxxxxxxxxx delete</button>
+                      <!-- <button (click)="openModal(template, (accept_id = item.id))">ShowPDPA</button> -->
+                    </div>
+                  </mat-expansion-panel>
+                  <!-- ?? แบบใช้ card // -->
+                  <div class="card box-shadow-1 border-none border-0 mb-0" *ngIf="false">
+                    <div class="card-header border-none bg-white border-bottom-0 px-0 pt-0">
+                      <button class="
+                          btn
+                          bg-top-blue
+                          d-none
+                          btn-round
+                          cursor-pointer
+                          py-2
+                          col-4 col-sm-4 col-md-2 col-lg-2
+                          font-weight-bold
+                          tx-14
+                          text-white
+                          cursor-pointer
+                          ml-auto ml-md-0
+                        " (click)="openModal(template_add_passport, 'new_passport')">
+                        Add Passport
+                      </button>
+                      <span class="d-flex align-items-center gap cursor-pointer" (click)="openModal(template_add_passport, 'new_passport')">
+                        <mat-icon aria-hidden="false">add_circle_outline</mat-icon>
+                        <strong> Add Passport </strong>
+                      </span>
+                    </div>
+                    <!-- *ngIf="get_data_by_emp(model_all.passport_detail).length <= 1" -->
+                    <div class="card-body radiusX mb-2 animate__animated animate__fadeIn" *ngFor="
+                        let item of get_data_by_emp(model_all.passport_detail);
+                        index as i;
+                        last as lastrow;
+                        first as firstrow
+                      ">
+                      <input value="{{ item.id }}" type="hidden" #selected_id />
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="d-flex justify-content-between align-items-start">
+                            <ng-container *ngIf="get_data_by_emp(model_all.passport_detail).length <= 1">
+                              <mat-slide-toggle class="font-medium-1 text-bold-600" [color]="'success'" [(ngModel)]="item.default_type_bool" (ngModelChange)="item.default_type_bool || (item.accept_type = true)" [disabled]="get_data_by_emp(model_all.passport_detail).length <= 1" #curent_passport [ngClass]="{
+                                  'text-danger': item.default_type_bool == false,
+                                  'text-successx': item.default_type_bool
+                                }">
+                                {{ item.default_type_bool == true ? 'Active' : 'Inactive' }}
+                              </mat-slide-toggle>
+                            </ng-container>
+
+                            <ng-container *ngIf="get_data_by_emp(model_all.passport_detail).length > 1">
+                              <mat-slide-toggle class="font-medium-1 text-bold-600" [color]="'success'" [(ngModel)]="item.default_type_bool" (ngModelChange)="[Sort_by_passport(model_all.passport_detail, item)]" #curent_passport [ngClass]="{
+                                  'text-danger': item.default_type_bool == false,
+                                  'text-successx': item.default_type_bool
+                                }">
+                                {{ item.default_type_bool == true ? 'Active' : 'Inactive' }}
+                              </mat-slide-toggle>
+                            </ng-container>
+
+                            <div class="justify-content-end flex-row tx-18">
+                              <span class="mx-2" [hidden]="true" (click)="Add_Passport_NULL_DATA(get_data_by_passport_new())"><i class="cursor-pointer fa fa-plus-circle success" aria-hidden="true"> </i></span>
+                              <span (click)="Delete_Passport(item)">
+                                <i class="cursor-pointer fa fa-minus-circle danger" aria-hidden="true"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="form-group">
+                            <label class="font-weight-bold tx-14" [ngClass]="check_el(passport_no) ? 'text-error' : 'tx-gray-700'">
+                              Passport No.
+                              <span [ngClass]="check_el(passport_no) ? 'text-error' : 'span-mark'">*</span>
+                              :
+                            </label>
+                            <input type="text" class="form-control" [ngClass]="check_el(passport_no) ? 'border-error' : ''" required [disabled]="StatusPassport(item)" (change)="item.action_change = 'true'" [(ngModel)]="item.passport_no" #passport_no="ngModel" />
+                          </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <label class="font-weight-bold tx-14" [ngClass]="check_el(passport_date_issue) ? 'text-error' : 'tx-gray-700'">Date of Issue
+                            <span [ngClass]="check_el(passport_date_issue) ? 'text-error' : 'span-mark'">*</span>:</label>
+                          <div class="form-group position-relative has-icon-right">
+                            <input autocomplete="off" type="text" placeholder="" #dp="bsDatepicker" id="op_Picker_Date_Issue{{ i }}" required class="form-control" [readonly]="true" [ngClass]="check_el(passport_date_issue) ? 'border-error' : ''" bsDatepicker [disabled]="StatusPassport(item)" [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', showWeekNumbers: false }" [(ngModel)]="item.passport_date_issue_type" (change)="item.action_change = 'true'" [maxDate]="item.passport_date_expire_type" (ngModelChange)="updatedata(item, $event, 'passport_date_issue')" #passport_date_issue="ngModel" />
+                            <label class="form-control-position" for="op_Picker_Date_Issue{{ i }}">
+                              <i class="material-icons tx-top-blue cursor-pointer">today</i>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <label class="font-weight-bold tx-14 tx-gray-700" [ngClass]="check_el(Date_of_Expire) ? 'text-error' : 'tx-gray-700'">Date of Expire
+                            <span [ngClass]="check_el(Date_of_Expire) ? 'text-error' : 'span-mark'">*</span>
+                            :</label>
+                          <div class="form-group position-relative has-icon-right">
+                            <input type="text" class="form-control" [ngClass]="check_el(Date_of_Expire) ? 'border-error' : ''" id="Date_of_Expire{{ i }}" #Date_of_Expire="ngModel" required bsDatepicker [disabled]="StatusPassport(item)" [minDate]="item.passport_date_issue_type" [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', showWeekNumbers: false }" [(ngModel)]="item.passport_date_expire_type" (change)="item.action_change = 'true'" [readonly]="true" (ngModelChange)="updatedata(item, $event, 'passport_date_expire')" />
+
+                            <label class="form-control-position" for="Date_of_Expire{{ i }}">
+                              <i class="material-icons tx-top-blue cursor-pointer">today</i>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="form-group">
+                            <label class="font-weight-bold tx-14 tx-gray-700">Title : </label>
+                            <input type="text" class="form-control" [(ngModel)]="item.passport_title" [disabled]="StatusPassport(item)" />
+                          </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="form-group">
+                            <label class="font-weight-bold tx-14 tx-gray-700"> Name :</label>
+                            <input type="text" class="form-control" [(ngModel)]="item.passport_name" [disabled]="StatusPassport(item)" />
+                          </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="form-group">
+                            <label class="font-weight-bold tx-14 tx-gray-700">Surname :</label>
+                            <input type="text" class="form-control" [(ngModel)]="item.passport_surname" [disabled]="StatusPassport(item)" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <label class="font-weight-bold tx-14" [ngClass]="check_el(Date_of_birth) ? 'text-error' : 'tx-gray-700'">Date of birth
+                            <span [ngClass]="check_el(Date_of_birth) ? 'text-error' : 'span-mark'">*</span>
+                            :
+                          </label>
+                          <div class="form-group position-relative has-icon-right">
+                            <input type="text" class="form-control" id="op_Picker_Date_ฺBirth{{ i }}" [ngClass]="check_el(Date_of_birth) ? 'border-error' : ''" #Date_of_birth="ngModel" required (change)="item.action_change = 'true'" [disabled]="StatusPassport(item)" [(ngModel)]="item.passport_date_birth_type" [readonly]="true" [maxDate]="currentDate" (ngModelChange)="updatedata(item, $event, 'passport_date_birth')" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', showWeekNumbers: false }" />
+                            <!-- [disabled]=" StatusPassport()item.IsEdit == 'update'" -->
+                            <label class="form-control-position" for="op_Picker_Date_ฺBirth{{ i }}">
+                              <i class="material-icons tx-top-blue cursor-pointer">today</i>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-12 col-lg-8 align-self-center">
+                          <div class="
+                              row
+                              align-items-end
+                              justify-content-start
+                              flex-column flex-md-row
+                              align-content-center
+                            ">
+                            <input type="file" class="d-none" accept="file_extension" (change)="uploadFile($event, item.id)" #file />
+
+                            <div class="align-self-start align-self-md-end pb-2 ml-0 ml-md-3 pt-3 mt-0 mt-md-3">
+                              <button class="
+                                  btn btn-round btn-min-width
+                                  bg-white
+                                  border-color-top
+                                  tx-color-top
+                                  font-weight-bold
+                                  tx-14
+                                  align-self-start align-self-md-end
+                                " (click)="file.click()" [ngClass]="{ 'd-none': countFile(item.id) }">
+                                Upload Passport
+                              </button>
+                            </div>
+                            <div class="align-self-center align-self-md-center pb-2 ml-0 ml-md-3 pt-3 mt-0 mt-md-3" *ngFor="let items of model_all.img_list" [ngClass]="check_action(items, item.id) ? 'd-none' : 'd-flex flex-warp'">
+                              <i class="material-icons tx-16 tx-top-blue tx-bold">attach_file</i>
+
+                              <a class="mx-2 text-primary txunderline text-bold-600" target="_blank" (click)="downloadFile(items.path + items.filename, items.filename)">{{ items.filename }}</a>
+                              <span [ngClass]="
+                                  items.action_type === 'insert' || items.action_type === 'update' ? '' : 'd-none'
+                                ">
+                                <i class="cursor-pointer fa fa-minus-circle danger" (click)="[(items.action_type = 'delete'), alerts.toastr_success('Delete File')]"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row justify-content-start mx-1">
+                        <button class="
+                            bg-top-blue
+                            btn btn-round
+                            d-flex
+                            align-items-center
+                            justify-content-center
+                            py-2
+                            col-4 col-sm-4 col-md-2 col-lg-2
+                            font-weight-bold
+                            tx-14
+                            text-white
+                            cursor-pointer
+                            ml-auto ml-md-0
+                          " (click)="[Check_Passport_no(item)]" *ngIf="item.IsEdit != 'update'">
+                          Change
+                        </button>
+
+                        <button class="
+                            bg-white
+                            tx-top-blue
+                            border-color-top
+                            align-items-center
+                            justify-content-center
+                            btn btn-round
+                            py-2
+                            mx-2
+                            col-4 col-sm-4 col-md-2 col-lg-2
+                            font-weight-bold
+                            tx-14
+                            text-pink
+                            cursor-pointer
+                            mr-auto mr-md-0
+                          " *ngIf="item.IsEdit != 'update'" (click)="item.action_change == 'true' ? btnCencel_Onclick() : (item.IsEdit = 'update')">
+                          Cancel
+                        </button>
+
+                        <button class="
+                            bg-top-blue
+                            btn btn-round
+                            py-2
+                            col-4 col-sm-4 col-md-2 col-lg-2 col-xl-2
+                            font-weight-bold
+                            tx-14
+                            text-white
+                            cursor-pointer
+                          " *ngIf="item.IsEdit == 'update' && false" (click)="
+                            user_admin
+                              ? openModal(template_Edit_passport, 'edit_passport', item)
+                              : item.accept_type
+                              ? openModal(template_Edit_passport, 'edit_passport', item)
+                              : openModal(template, (accept_id = item.id))
+                          ">
+                          Edit
+                        </button>
+
+                        <button class="d-none" (click)="deleteimgallrow()">xxxxxxxxxx delete</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- ?? แบบใช้ card // -->
+                  <!-- 
+                            <div class=" row justify-content-start  mb-4 mx-2"
+                                *ngFor="let item of get_data_by_emp(model_all.passport_detail); index as i"> -->
+
+                  <div class="row justify-content-start my-3 mx-0 gapbtn">
+                    <ng-container *ngIf="user_reject">
+                      <button class="
+                          bg-top-pink
+                          btn btn-round btn-min-width
+                          font-weight-bold
+                          tx-14
+                          text-white
+                          ml-auto ml-md-0
+                        " (click)="openModal(templatePDPA, '')">
+                        Save
+                      </button>
+
+                      <button class="
+                          bg-white
+                          pink
+                          border-pink
+                          btn btn-round btn-min-width
+                          font-weight-bold
+                          text-pink
+                          mr-auto mr-md-0
+                        " (click)="btnCencel_Onclick()">
+                        <!-- (click)="CheckACTION() ? btnCencel_Onclick() : Onload_def()" -->
+
+                        Cancel
+                      </button>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+
+              <!--** Passport Deatil -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bd-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-header border-bottom-0">
+      <div class="row align-items-center px-4 mx-2">
+        <!-- <i class="fa fa-2x fa-info tx-top-blue border-2 border-blue px-3 py-1 rounded-circle" aria-hidden="true"></i> -->
+        <span class="material-icons tx-top-blue tx-24"> error_outline </span>
+
+        <h5 class="modal-title XfontKanit tx-top-blue font-weight-bold tx-24 mx-2">ยืนยันการขอใช้ข้อมูล</h5>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="card border-blue-grey border-lighten-1 box-shadow-0 mb-0 mx-5">
+        <div class="card-body table-responsive" style="max-height: 300px">
+          <p class="tx-top-blue XfontKanit tx-14 text-bold-700">
+            We muy nino collnot intormation how th, Sorvioe in acroemnrd and umnd ("Uaaggh CData"). Tis Unago Dnla may
+            include intormation nuoh an your o cornputot'n Intornot Proloool nedelronn (e-gg- IF' address), browmn type,
+            brownan vernion, the pogun of our Eaar vioh; thant you vinit, tho time and inte of your vinil, tho timne
+            ppont on thom pagon, unique dovioe icentifieor n and ollar dingnostio dataa. Wo unse oookion and timiler
+            tracking toohnologins to traok the nolivily on our Bar vioe and hold ourtain intormntion. Cookien are files
+            with amall amount ol date which may inolude an ancmymous นmiqนง idantifior. Cookios are sent to your browser
+            lromn a webbaite and elored on your device. Traohing faohnologios also uned are beadong, tags, and soripta
+            to oolleot and traok information and to improve and analyze our Berviog.
+          </p>
+        </div>
+      </div>
+      <br />
+      <div class="row justify-content-start mx-5 mb-1">
+        <div class="col-lg-12">
+          <input type="checkbox" #confrimadmin [(ngModel)]="accept_true" />&nbsp;
+          <label class="tx-14 tx-top-blue text-bold-700">&#32;&#32;ฉันยินยอมให้ Super Admin สามารถใช้ข้อมูลส่วนตัวนี้ได้
+          </label>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <button type="button" class="btn btn-round bg-top-blue white col-2 font-weight-bold tx-14" [disabled]="!accept_true" (click)="Onsave('saved')" data-dismiss="modal" aria-label="Close">
+          Accept
+        </button>
+        <button type="button" class="btn btn-round btn-outline-bitbucket tx-color-top col-2 mx-1 font-weight-bold tx-14" data-dismiss="modal" aria-label="Close">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a id="btnToTop" data-toggle="tooltip" data-placement="top" #btntopPage title="" class="d-none" data-original-title="Go to top" (click)="topFunction()"></a>
+
+<ng-template #template class="border-top-yellow">
+  <div class="modal-header border-bottom-0" id="modal-test">
+    <div class="row align-items-center px-4 mx-2">
+      <i class="fa fa-2x fa-info tx-top-blue border-color-top px-3 py-1 rounded-circle" aria-hidden="true"></i>
+      <h5 class="modal-title XfontKanit tx-top-blue font-weight-bold tx-20 mx-2">ยืนยันการขอใช้ข้อมูล</h5>
+    </div>
+  </div>
+  <div class="modal-body" *ngFor="let item of get_data_by_emp(model_all.passport_detail); index as i" [hidden]="!(item.id == accept_id)">
+    <div class="card box-shadow-0 mb-0 mx-0 mx-md-5">
+      <div class="card-body table-responsive border-blue-grey border-lighten-1" style="max-height: 300px">
+        <p class="tx-top-blue tx-14 text-bold-700 text-justify">{{ pdpa_wording }}</p>
+      </div>
+    </div>
+    <br />
+    <div class="row justify-content-start mx-0 mx-md-5 mb-1">
+      <div class="col-lg-12 d-flex align-items-lg-center">
+        <input type="checkbox" id="confrimadmin" class="mt-1 mx-1" [(ngModel)]="item.accept_type" />
+        <label class="tx-14 tx-top-blue text-bold-700 XfontKanit mb-0" for="confrimadmin">&#32;&#32;ฉันยินยอมให้ Super Admin สามารถใช้ข้อมูลส่วนตัวนี้ได้
+        </label>
+      </div>
+    </div>
+    <div class="row justify-content-center mt-1">
+      <button type="button" class="btn btn-round border-color-top bg-top-blue white col-3 col-sm-2 font-weight-bold tx-14" [disabled]="!item.accept_type" (click)="hide_modal('Accept', item)" data-dismiss="modal" aria-label="Close">
+        Accept
+      </button>
+      <button type="button" class="btn btn-round border-color-top bg-white tx-color-top col-3 col-sm-2 mx-1 font-weight-bold tx-14" data-dismiss="modal" aria-label="Close" (click)="hide_modal(btncancel, (accept_id = ''))">
+        Cancel
+      </button>
+      <b #btncancel [hidden]="true" (click)="item.accept_type = false"></b>
+    </div>
+  </div>
+  <!-- //endfor -->
+</ng-template>
+<ng-template #templatePDPA class="border-top-yellow">
+  <div class="modal-header" id="modal-test">
+    <div class="col-sm-12 px-0">
+      <span class="modal-title tx-20" id="my-modal-title">
+        <i class="fa fa-info-circle" aria-hidden="true"></i>
+        Condition & Agreement
+      </span>
+      <button type="button" class="close pb-2" style="color: red" (click)="[modalRef.hide()]">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="card box-shadow-0 mb-0 mx-0 mx-md-2">
+      <div class="card-body table-responsive border-blue-grey border-lighten-5" style="max-height: 300px">
+        <p class="tx-top-blue tx-14 text-bold-500 text-justify mb-0" [innerText]="pdpa_wording">{{ pdpa_wording }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer justify-content-center">
+    <button type="button" class="btn btn-round btn-min-width btn-top white font-weight-bold tx-14" (click)="hide_modal('Accept', '')">
+      Accept
+    </button>
+    <b #btncancel [hidden]="true"></b>
+  </div>
+  <!-- //endfor -->
+</ng-template>
+
+<ng-template #template_add_passport class="border-top-yellow">
+  <div class="modal-header" id="modal-test">
+    <div class="col-sm-12 px-0">
+      <span class="modal-title tx-20" id="my-modal-title">
+        <i class="fa fa-info-circle" aria-hidden="true"></i>
+        Passport Detail
+      </span>
+    </div>
+  </div>
+  <div class="modal-body px-0">
+    <div class="card-body pb-0 animate__animated animate__fadeIn">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label class="font-weight-bold tx-14" [ngClass]="check_el(passport_nofrmhandle) ? 'text-error' : 'tx-gray-700'">
+              Passport No.
+              <span [ngClass]="check_el(passport_nofrmhandle) ? 'text-error' : 'span-mark'">*</span>
+              :
+            </label>
+            <input type="text" class="form-control" [ngClass]="check_el(passport_nofrmhandle) ? 'border-error' : ''" required [disabled]="frmHandle.IsEdit == 'update'" (change)="frmHandle.action_change = 'true'" [(ngModel)]="frmHandle.passport_no" #passport_nofrmhandle="ngModel" />
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <label class="font-weight-bold tx-14" [ngClass]="check_el(passport_date_issuefrmhandel) ? 'text-error' : 'tx-gray-700'">Date of Issue
+            <span [ngClass]="check_el(passport_date_issuefrmhandel) ? 'text-error' : 'span-mark'">*</span> :</label>
+          <div class="form-group position-relative has-icon-right">
+            <input autocomplete="off" type="text" placeholder="" #dp="bsDatepicker" id="op_Picker_Date_IssuefrmHandle" required class="form-control" [ngClass]="check_el(passport_date_issuefrmhandel) ? 'border-error' : ''" bsDatepicker [disabled]="frmHandle.IsEdit == 'update'" [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', showWeekNumbers: false }" [(ngModel)]="frmHandle.passport_date_issue_type" (change)="frmHandle.action_change = 'true'" [maxDate]?="frmHandle.passport_date_expire_type" (ngModelChange)="updatedatafrmhandle('', $event, 'passport_date_issue')" [readonly]="true" #passport_date_issuefrmhandel="ngModel" />
+            <label class="form-control-position" for="op_Picker_Date_IssuefrmHandle">
+              <i class="material-icons tx-top-blue cursor-pointer">today</i>
+            </label>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <label class="font-weight-bold tx-14 tx-gray-700" [ngClass]="check_el(Date_of_Expirefrmhandel) ? 'text-error' : 'tx-gray-700'">Date of Expire
+            <span [ngClass]="check_el(Date_of_Expirefrmhandel) ? 'text-error' : 'span-mark'">*</span>
+            :</label>
+          <div class="form-group position-relative has-icon-right">
+            <input type="text" class="form-control" [ngClass]="check_el(Date_of_Expirefrmhandel) ? 'border-error' : ''" id="Date_of_ExpirefrmHandle" #Date_of_Expirefrmhandel="ngModel" required bsDatepicker [disabled]="frmHandle.IsEdit == 'update'" [minDate]?="frmHandle.passport_date_issue_type" [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', showWeekNumbers: false }" [(ngModel)]="frmHandle.passport_date_expire_type" (change)="frmHandle.action_change = 'true'" [readonly]="true" (ngModelChange)="updatedatafrmhandle('', $event, 'passport_date_expire')" />
+            <label class="form-control-position" for="Date_of_ExpirefrmHandle">
+              <i class="material-icons tx-top-blue cursor-pointer">today</i>
+            </label>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label class="font-weight-bold tx-14 tx-gray-700">Title : </label>
+            <input type="text" class="form-control" [(ngModel)]="frmHandle.passport_title" [disabled]="frmHandle.IsEdit == 'update'" />
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label class="font-weight-bold tx-14 tx-gray-700"> Name :</label>
+            <input type="text" class="form-control" [(ngModel)]="frmHandle.passport_name" [disabled]="frmHandle.IsEdit == 'update'" />
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label class="font-weight-bold tx-14 tx-gray-700">Surname :</label>
+            <input type="text" class="form-control" [(ngModel)]="frmHandle.passport_surname" [disabled]="frmHandle.IsEdit == 'update'" />
+          </div>
+        </div>
+      </div>
+      <div class="row align-items-stretch">
+        <div class="col-lg-4">
+          <label class="font-weight-bold tx-14" [ngClass]="check_el(Date_of_birthfrmhandel) ? 'text-error' : 'tx-gray-700'">Date of birth
+            <span [ngClass]="check_el(Date_of_birthfrmhandel) ? 'text-error' : 'span-mark'">*</span>
+            :
+          </label>
+          <div class="form-group position-relative has-icon-right">
+            <input type="text" class="form-control" id="op_Picker_Date_ฺBirthfrmHandle" [ngClass]="check_el(Date_of_birthfrmhandel) ? 'border-error' : ''" #Date_of_birthfrmhandel="ngModel" required (change)="frmHandle.action_change = 'true'" [disabled]="frmHandle.IsEdit == 'update'" [(ngModel)]="frmHandle.passport_date_birth_type" [maxDate]="currentDate" (ngModelChange)="updatedatafrmhandle('', $event, 'passport_date_birth')" [readonly]="true" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', showWeekNumbers: false }" />
+            <label class="form-control-position" for="op_Picker_Date_ฺBirthfrmHandle">
+              <i class="material-icons tx-top-blue cursor-pointer">today</i>
+            </label>
+          </div>
+        </div>
+        <div class="col-12 col-lg-8 align-self-end">
+          <div class="row align-items-center justify-content-start flex-column flex-md-row gap form-group mx-0">
+            <input type="file" class="d-none" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" (change)="uploadFile($event, '', 'addpassport')" #file />
+            <button class="btn btn-round btn-min-width bg-white border-color-top tx-color-top font-weight-bold tx-14" (click)="file.click()" [disabled]="frmHandle.IsEdit == 'update'" >
+              <!-- [hidden]="frmHandle.img_def?.length > 0" -->
+              Upload Passport
+            </button>
+            <div class="d-flex" *ngIf="frmHandle.img_def.length > 0">
+              <i class="material-icons tx-16 tx-top-blue tx-bold">attach_file</i>
+              <a class="mx-2 text-primary txunderline text-bold-600" target="_blank" (click)="
+                  downloadFile(
+                    frmHandle.img_def[0]['path'] + frmHandle.img_def[0]['filename'],
+                    frmHandle.img_def[0]['filename']
+                  )
+                ">
+                <!-- {{
+                frmHandle.img_def[0]['filename'].length > 15
+                ? (frmHandle.img_def[0]['filename'] | slice: 0:15) + '...'
+                : frmHandle.img_def[0]['filename']
+                }} -->
+              </a>
+              <span [ngClass]="frmHandle.action_type == 'update' ? 'd-none' : ''">
+                <i class="cursor-pointer fa fa-minus-circle danger" (click)="[(frmHandle.img_def = []), alerts.toastr_success('Delete File')]"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer justify-content-start gapbtn flex-wrap">
+    <button type="button" class="btn btn-round border-color-top bg-top-blue white btn-min-width font-weight-bold tx-14" data-dismiss="modal" aria-label="Close" (click)="Add_Passport(frmHandle)">
+      Confirm
+    </button>
+    <button type="button" class="btn btn-round border-color-top bg-white tx-color-top btn-min-width font-weight-bold tx-14" data-dismiss="modal" aria-label="Close" (click)="hide_modal('new_passport', '')">
+      Cancel
+    </button>
+  </div>
+  <!-- //endfor -->
+</ng-template>
+
+<ng-template #template_Edit_passport class="border-top-yellow">
+  <div class="modal-header border-bottom-0" id="modal-test">
+    <div class="row align-items-center px-4">
+      <i class="fa fa-2x fa-info tx-top-blue border-color-top px-3 py-1 rounded-circle" aria-hidden="true"></i>
+      <h5 class="modal-title XfontKanit tx-top-blue font-weight-bold tx-20 mx-2">Passport Detail</h5>
+    </div>
+  </div>
+  <div class="modal-body px-0">
+    <div class="card-body mb-2 animate__animated animate__fadeIn">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label class="font-weight-bold tx-14" [ngClass]="check_el(passport_nofrmhandle) ? 'text-error' : 'tx-gray-700'">
+              Passport No.
+              <span [ngClass]="check_el(passport_nofrmhandle) ? 'text-error' : 'span-mark'">*</span>
+
+              :
+            </label>
+
+            <input type="text" class="form-control" [ngClass]="check_el(passport_nofrmhandle) ? 'border-error' : ''" required [disabled]="frmHandle.IsEdit == 'update'" (change)="frmHandle.action_change = 'true'" [(ngModel)]="frmHandle.passport_no" #passport_nofrmhandle="ngModel" />
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <label class="font-weight-bold tx-14" [ngClass]="check_el(passport_date_issuefrmhandel) ? 'text-error' : 'tx-gray-700'">Date of Issue
+            <span [ngClass]="check_el(passport_date_issuefrmhandel) ? 'text-error' : 'span-mark'">*</span>:</label>
+          <div class="form-group position-relative has-icon-right">
+            <input autocomplete="off" type="text" placeholder="" #dp="bsDatepicker" id="op_Picker_Date_IssuefrmHandle" required class="form-control" [ngClass]="check_el(passport_date_issuefrmhandel) ? 'border-error' : ''" bsDatepicker [disabled]="frmHandle.IsEdit == 'update'" [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', showWeekNumbers: false }" [(ngModel)]="frmHandle.passport_date_issue_type" (change)="frmHandle.action_change = 'true'" [maxDate]?="frmHandle.passport_date_expire_type" (ngModelChange)="updatedatafrmhandle('', $event, 'passport_date_issue')" [readonly]="true" #passport_date_issuefrmhandel="ngModel" />
+            <label class="form-control-position" for="op_Picker_Date_IssuefrmHandle">
+              <i class="material-icons tx-top-blue cursor-pointer">today</i>
+            </label>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <label class="font-weight-bold tx-14 tx-gray-700" [ngClass]="check_el(Date_of_Expirefrmhandel) ? 'text-error' : 'tx-gray-700'">Date of Expire
+            <span [ngClass]="check_el(Date_of_Expirefrmhandel) ? 'text-error' : 'span-mark'">*</span>
+            :</label>
+          <div class="form-group position-relative has-icon-right">
+            <input type="text" class="form-control" [ngClass]="check_el(Date_of_Expirefrmhandel) ? 'border-error' : ''" id="Date_of_ExpirefrmHandle" #Date_of_Expirefrmhandel="ngModel" required bsDatepicker [disabled]="frmHandle.IsEdit == 'update'" [minDate]?="frmHandle.passport_date_issue_type" [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', showWeekNumbers: false }" [(ngModel)]="frmHandle.passport_date_expire_type" (change)="frmHandle.action_change = 'true'" [readonly]="true" (ngModelChange)="updatedatafrmhandle('', $event, 'passport_date_expire')" />
+
+            <label class="form-control-position" for="Date_of_ExpirefrmHandle">
+              <i class="material-icons tx-top-blue cursor-pointer">today</i>
+            </label>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label class="font-weight-bold tx-14 tx-gray-700">Title : </label>
+            <input type="text" class="form-control" [(ngModel)]="frmHandle.passport_title" [disabled]="frmHandle.IsEdit == 'update'" />
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label class="font-weight-bold tx-14 tx-gray-700"> Name :</label>
+            <input type="text" class="form-control" [(ngModel)]="frmHandle.passport_name" [disabled]="frmHandle.IsEdit == 'update'" />
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label class="font-weight-bold tx-14 tx-gray-700">Surname :</label>
+            <input type="text" class="form-control" [(ngModel)]="frmHandle.passport_surname" [disabled]="frmHandle.IsEdit == 'update'" />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4">
+          <label class="font-weight-bold tx-14" [ngClass]="check_el(Date_of_birthfrmhandel) ? 'text-error' : 'tx-gray-700'">Date of birth
+            <span [ngClass]="check_el(Date_of_birthfrmhandel) ? 'text-error' : 'span-mark'">*</span>
+            :
+          </label>
+          <div class="form-group position-relative has-icon-right">
+            <input type="text" class="form-control" id="op_Picker_Date_ฺBirthfrmHandle" [ngClass]="check_el(Date_of_birthfrmhandel) ? 'border-error' : ''" #Date_of_birthfrmhandel="ngModel" required (change)="frmHandle.action_change = 'true'" [disabled]="frmHandle.IsEdit == 'update'" [(ngModel)]="frmHandle.passport_date_birth_type" (ngModelChange)="updatedatafrmhandle('', $event, 'passport_date_birth')" [maxDate]="currentDate" [readonly]="true" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', showWeekNumbers: false }" />
+            <label class="form-control-position" for="op_Picker_Date_ฺBirthfrmHandle">
+              <i class="material-icons tx-top-blue cursor-pointer">today</i>
+            </label>
+          </div>
+        </div>
+        <div class="col-12 col-lg-8 align-self-center">
+          <div class="row align-items-end justify-content-start flex-column flex-md-row">
+            <input type="file" class="d-none" accept="file_extension" (change)="uploadFile($event, '', 'editpassport')" #file />
+            <button class="
+                btn btn-round btn-min-width
+                bg-white
+                border-color-top
+                tx-color-top
+                font-weight-bold
+                tx-14
+                align-self-start align-self-md-end
+              " (click)="file.click()">
+              Upload Passport
+            </button>
+            <div class="align-self-start align-self-md-end pb-2 ml-0 ml-md-3 pt-3 mt-0 mt-md-3 d-flex" *ngIf="frmHandle.img_def.length > 0">
+              <i class="material-icons tx-16 tx-top-blue tx-bold">attach_file</i>
+              <a class="mx-2 text-primary txunderline text-bold-600" target="_blank" (click)="
+                  downloadFile(
+                    frmHandle.img_def[0]['path'] + frmHandle.img_def[0]['filename'],
+                    frmHandle.img_def[0]['filename']
+                  )
+                ">{{ frmHandle.img_def[0]['filename'] }}</a>
+              <span [ngClass]="frmHandle.action_type == 'update' ? 'd-none' : ''">
+                <i class="cursor-pointer fa fa-minus-circle danger" >(click)="[CheckImg_Edit(frmHandle.img_def, frmHandle['id']), alerts.toastr_success('Delete File')]"</i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-start mt-1 mx-3">
+      <button type="button" class="btn btn-round border-color-top bg-top-blue white col-3 col-sm-2 font-weight-bold tx-14" data-dismiss="modal" aria-label="Close" (click)="Change_Passport(frmHandle)">
+        Change
+      </button>
+      <button type="button" class="btn btn-round border-color-top bg-white tx-color-top col-3 col-sm-2 mx-1 font-weight-bold tx-14" data-dismiss="modal" aria-label="Close" (click)="hide_modal('new_passport', '')">
+        Cancel
+      </button>
+    </div>
+  </div>
+</ng-template>

@@ -130,4 +130,24 @@ export function didCheckTokenDied(ws: AspxserviceService , username: any, img:an
   // this.authenHttp.onCheckToken().subscribe(dao => onSuccess(dao), error => alert("Can't connect server, please check connect VPN."))
 
 }
+
+export function getDocStatus(
+  emp_id: string,
+  emp_list: any[],
+  TrackingStatus: any[],
+  Status: number
+): boolean {
+  let id = 1;
+  if (emp_list.length > 0) {
+    let dt = emp_list.find((item: any) => item.emp_id === emp_id);
+    if (dt) {
+      id = Number(dt.doc_status_id);
+      if (Status === id) {
+        TrackingStatus[Status] = true;
+      }
+    }
+  }
+  return TrackingStatus[Status];
+}
+
   

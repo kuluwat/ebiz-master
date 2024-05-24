@@ -1,0 +1,755 @@
+<div class="box-contents">
+    <h4 class="title-main"><i class="material-icons">
+            flight_takeoff
+        </i> PART I : TRAVEL DETAILS</h4>
+
+    <!-- Has been Approved -->
+    <div class="row ">
+        <div class="col-lg-4 col-md-4 col-sm-2" style="margin-top: 10px;">
+            <label for="sts_behalf" style="color: rgb(104, 103, 103);">This document has been approved :</label>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-10" style="margin-top: 10px;">
+            <fieldset>
+                <input autocomplete="off" type="checkbox" id="sts_approved" [(ngModel)]="model.approved.status" (ngModelChange)="changeApprovedStatus()" value="true" [disabled]="disCheckApproved || !this.buttons.save">
+                <label for="sts_approved" style="margin-left: 5px;" [ngClass]="{'tx-top-blue':model.approved.status===true, 'red':model.approved.status===false}">Approved</label>
+            </fieldset>
+        </div>
+    </div>
+
+    <!-- ON BEHALF -->
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-2" style="margin-top: 10px;">
+            <label for="sts_behalf" style="color: rgb(104, 103, 103);">Requested by :
+                {{ model.requester_emp_name }}</label>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-10" style="margin-top: 10px;">
+            <fieldset>
+                <!-- <input autocomplete="off" type="checkbox" id="sts_behalf" [(ngModel)]="model.behalf.status" value="true" [disabled]="disCheckEmp || !this.buttons.save" (change)="onChangeCheckBoxBehalf()"> -->
+                <label for="sts_behalf" style="margin-left: 5px; color: red;">On behalf of</label>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="row" [hidden]="!model.behalf.status">
+        <div class="col-xl-2 col-lg-2 col-md-12 mb-1">
+            <fieldset class="form-group">
+                <label class="sub-title-input-layer {{ ((statusValidate)&&(model.behalf.emp_id.value == '')?'text-error':'') }}">Employee
+                    ID <span class="span-mark">*</span> : </label>
+                <!-- <ng-autocomplete [data]="model.behalf.emp_id.list" [(ngModel)]="model.behalf.emp_id.value" [hidden]="!buttons.save && !buttons.submit" [searchKeyword]="'name'" (inputChanged)='onSearchBehalfEmpID()' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" (selected)="onSelectedBehalfEmpID($event)">
+                </ng-autocomplete> -->
+
+                <input type="text" class="form-control" [(ngModel)]="model.behalf.emp_id.value" [hidden]="buttons.save && buttons.submit" disabled>
+
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.name"></a>
+                </ng-template>
+
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template>
+            </fieldset>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 mb-1">
+            <fieldset class="form-group">
+                <label class="sub-title-input-layer {{ ((statusValidate)&&(model.behalf.emp_id.value == '')?'text-error':'') }}">Employee
+                    Name <span class="span-mark">*</span> : </label>
+                <!-- <ng-autocomplete [data]="model.behalf.emp_name.list" [(ngModel)]="model.behalf.emp_name.value" [hidden]="!buttons.save && !buttons.submit" [searchKeyword]="'name'" (inputChanged)='onSearchBehalfEmpName($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" (selected)="onSelectedBehalfEmpName($event)">
+                </ng-autocomplete> -->
+
+                <input type="text" class="form-control" [(ngModel)]="model.behalf.emp_name.value" [hidden]="buttons.save && buttons.submit" disabled>
+
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.name"></a>
+                </ng-template>
+
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template>
+            </fieldset>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-12 mb-1">
+            <fieldset class="form-group">
+                <label class="sub-title-input-layer {{ ((statusValidate)&&(model.behalf.emp_id.data == '')?'text-error':'') }}">Organization
+                    Unit : </label>
+                <input autocomplete="off" type="text" class="form-control" id="basicInput" [(ngModel)]="model.behalf.emp_org" disabled>
+            </fieldset>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-12 mb-1">
+            <fieldset class="form-group">
+                <label class="sub-title-input-layer {{ ((statusValidate)&&(model.company.value == undefined)?'text-error':'') }}">For
+                    Company <span class="span-mark">*</span> : </label>
+                <ngx-select-dropdown [(ngModel)]="model.company.value" [multiple]="false" [disabled]="!buttons.save && !buttons.submit" [config]="model.company.config" [options]="model.company.list">
+                </ngx-select-dropdown>
+                <!-- <ngx-select-dropdown [(ngModel)]="model.company.value" [multiple]="false"
+                    [config]="model.company.config" [options]="model.company.list.sort((a,b) => a.name.localeCompare(b.name))">
+                </ngx-select-dropdown> -->
+                <!-- array.sort((a,b) => a.title.rendered.localeCompare(b.title.rendered)); -->
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="row icheck_minimal skin margin-bottoms">
+        <div class="col-md-12 col-sm-12">
+            <label class="sub-title-input-layer {{ 
+                ((statusValidate)&&
+                (model.type_of_travel.meeting != true) &&
+                (model.type_of_travel.siteVisite != true) &&
+                (model.type_of_travel.workshop != true) &&
+                (model.type_of_travel.roadshow != true) &&
+                (model.type_of_travel.conference != true) &&
+                (model.type_of_travel.training != true) &&
+                (model.type_of_travel.other != true)
+                ?'text-error':'') }}">Travel Type <span class="span-mark">*</span> :</label>
+        </div>
+        <div class="col-md-2 col-sm-6 col-6">
+            <fieldset>
+                <!-- <input autocomplete="off" type="checkbox" id="radio-1" [(ngModel)]="model.type_of_travel.meeting" (change)="checkBoxTravelType('meeting',model.type_of_travel.meeting)" [disabled]="!buttons.save && !buttons.submit"> -->
+                <label for="radio-1" style="margin-left: 5px;">Meeting</label>
+            </fieldset>
+        </div>
+        <div class="col-md-2 col-sm-6 col-6">
+            <fieldset>
+                <!-- <input autocomplete="off" type="checkbox" id="radio-2" [(ngModel)]="model.type_of_travel.siteVisite" (change)="checkBoxTravelType('siteVisite',model.type_of_travel.siteVisite)" [disabled]="!buttons.save && !buttons.submit"> -->
+                <label for="radio-2" style="margin-left: 5px;">Site visit</label>
+            </fieldset>
+        </div>
+        <div class="col-md-2 col-sm-6 col-6">
+            <fieldset>
+                <!-- <input autocomplete="off" type="checkbox" id="radio-3" [(ngModel)]="model.type_of_travel.workshop" (change)="checkBoxTravelType('workshop',model.type_of_travel.workshop)" [disabled]="!buttons.save && !buttons.submit"> -->
+                <label for="radio-3" style="margin-left: 5px;">Workshop</label>
+            </fieldset>
+        </div>
+        <div class="col-md-2 col-sm-6 col-6">
+            <fieldset>
+                <!-- <input autocomplete="off" type="checkbox" id="radio-4" [(ngModel)]="model.type_of_travel.roadshow" (change)="checkBoxTravelType('roadshow',model.type_of_travel.roadshow)" [disabled]="!buttons.save && !buttons.submit"> -->
+                <label for="radio-4" style="margin-left: 5px;">Roadshow</label>
+            </fieldset>
+        </div>
+        <div class="col-md-2 col-sm-12 col-12">
+            <fieldset>
+                <!-- <input autocomplete="off" type="checkbox" id="radio-5" [(ngModel)]="model.type_of_travel.conference" (change)="checkBoxTravelType('conference',model.type_of_travel.conference)" [disabled]="!buttons.save && !buttons.submit"> -->
+                <label for="radio-5" style="margin-left: 5px;">Conference</label>
+            </fieldset>
+        </div>
+        <div class="col-md-2 col-sm-12 col-12">
+            <fieldset>
+                <!-- <input autocomplete="off" type="checkbox" id="radio-5" [(ngModel)]="model.type_of_travel.training" (change)="checkBoxTravelType('training',model.type_of_travel.training)" [disabled]="!buttons.save && !buttons.submit"> -->
+                <label for="radio-5" style="margin-left: 5px;">Training</label>
+            </fieldset>
+        </div>
+        <div class="col-md-12 col-sm-12 col-12">
+            <fieldset>
+                <div class="input-group mt-lg-2">
+                    <!-- <input autocomplete="off" type="checkbox" id="radio-6" class="mg-t-3" [(ngModel)]="model.type_of_travel.other" (change)="checkBoxTravelType('other',model.type_of_travel.other)" [disabled]="!buttons.save && !buttons.submit"> -->
+                    <label for="radio-6" id="lbl1" style="margin-left: 5px;" class="{{ ((statusValidate)&&(model.type_of_travel.other && (model.type_of_travel.remark === '' || model.type_of_travel.remark === null))?'text-error':'') }}">Others
+                        <span class="span-mark" [hidden]="!model.type_of_travel.other">*</span></label>
+                    <div class="input-group-btn">
+                        <input autocomplete="off" type="text" class="input-non-border ml-2 wd-lg-750-f " placeholder="Enter Here Other" *ngIf="model.type_of_travel.other" [disabled]="!buttons.save && !buttons.submit" [(ngModel)]="model.type_of_travel.remark">
+                    </div>
+                </div>
+
+            </fieldset>
+        </div>
+        <!-- <div class="col-md-4 col-sm-12" *ngIf="model.type_of_travel.other">
+            <fieldset>
+                <input autocomplete="off" type="text" class="box-other" placeholder="Enter Here Other"
+                    [disabled]="!buttons.save && !buttons.submit" [(ngModel)]="model.type_of_travel.remark">
+            </fieldset>
+        </div> -->
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
+            <fieldset class="form-group">
+                <label class="sub-title-input-layer {{ ((statusValidate)&&(model.topic_of_travel == '')?'text-error':'') }}">Travel
+                    Topic <span class="span-mark">*</span> : </label>
+                <input autocomplete="off" type="search" class="form-control" id="basicInput" [disabled]="!buttons.save && !buttons.submit" [(ngModel)]="model.topic_of_travel">
+            </fieldset>
+        </div>
+    </div>
+    <div class="row icheck_minimal skin margin-bottoms">
+        <div class="col-xl-2 col-md-4 col-sm-6 col-6">
+            <fieldset>
+                <!-- <input autocomplete="off" type="radio" id="single-11" name="radios" [(ngModel)]="model.type_radio" [disabled]="!buttons.save && !buttons.submit" value="single" (change)="onChangeTypeTravel()"> -->
+                <label for="single-11" style="margin-left: 5px;">Single Travel</label>
+            </fieldset>
+        </div>
+        <div class="col-xl-2 col-md-4 col-sm-6 col-6">
+            <fieldset>
+                <!-- <input autocomplete="off" type="radio" id="milti-22" name="radios" [(ngModel)]="model.type_radio" [disabled]="!buttons.save && !buttons.submit" value="multi" (change)="onChangeTypeTravel()"> -->
+                <label for="milti-22" style="margin-left: 5px;">Multiple Travel</label>
+            </fieldset>
+        </div>
+    </div>
+
+    <!-- BOX FOR OVERSEA -->
+    <div class="row margin-bottoms" [hidden]="this.type == 'local' || this.type == 'localtraining'">
+        <!-- <div class="row margin-bottoms" *ngIf="type.toString() === 'local'"> -->
+        <div class="col-xl-4 col-lg-4 col-md-12 mb-1">
+            <!-- <fieldset class="form-group">
+                <label class="sub-title-input-layer">Continent : </label>
+                <ngx-select-dropdown [(ngModel)]="model.continent.value" [multiple]="false"
+                    [config]="model.continent.config" [options]="model.continent.list"
+                    (change)="onSelectedContinent($event)">
+                </ngx-select-dropdown>
+            </fieldset> -->
+            <fieldset class="form-group">
+                <label class="sub-title-input-layer">Continent : </label>
+                <div style="position: relative;">
+                    <ng-multiselect-dropdown [placeholder]="''" [data]="model.continent.list" [(ngModel)]="model.continent.select" [settings]="model.continent.settingMulti" (onSelect)="handleSelectedContinentToLoadMasterCountry()" (onDeSelect)="handleSelectedContinentToLoadMasterCountry()">
+                    </ng-multiselect-dropdown>
+                    <span class="disable-dropdown" [hidden]="buttons.save && buttons.submit"></span>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-12 mb-1">
+            <fieldset class="form-group">
+                <label class="sub-title-input-layer {{ ((statusValidate)&&(model.country.select.length == 0)?'text-error':'') }}">Country
+                    <span class="span-mark">*</span> : </label>
+                <div style="position: relative;">
+                    <ng-multiselect-dropdown *ngIf="model.type_radio == 'single'" [placeholder]="''" [data]="model.country.list" [(ngModel)]="model.country.select" [settings]="model.country.settingSingle" (onSelect)="onSelectCountry($event)">
+                    </ng-multiselect-dropdown>
+                    <ng-multiselect-dropdown class="custom-font-size" *ngIf="model.type_radio == 'multi'" [placeholder]="''" [data]="model.country.list" [(ngModel)]="model.country.select" [settings]="model.country.settingMulti" (onSelect)="onSelectCountry($event)">
+                    </ng-multiselect-dropdown>
+                    <span class="disable-dropdown" [hidden]="buttons.save && buttons.submit"></span>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-12 mb-1">
+            <fieldset class="form-group">
+                <!-- <label class="sub-title-input-layer">City <span class="span-mark">*</span> : </label> -->
+                <label class="sub-title-input-layer {{ ((statusValidate)&&(model.city == '')?'text-error':'') }}">City
+                    <span class="span-mark">*</span> : </label>
+                <input autocomplete="off" type="text" class="form-control" [(ngModel)]="model.city" id="basicInput" [disabled]="!buttons.save && !buttons.submit" (change)="handleCityFreeTextChange()">
+            </fieldset>
+        </div>
+    </div>
+
+    <!-- BOX FOR LOCAL -->
+    <div class="row margin-bottoms" [hidden]="this.type == 'oversea' || this.type == 'overseatraining'">
+        <div class="col-xl-4 col-lg-4 col-md-12 mb-1">
+            <fieldset class="form-group">
+                <label class="sub-title-input-layer {{ ((statusValidate)&&(model.province.select.length == 0)?'text-error':'') }}">Province
+                    <span class="span-mark">*</span> : </label>
+                <div style="position: relative;">
+                    <ng-multiselect-dropdown *ngIf="model.type_radio == 'single'" [placeholder]="''" [data]="model.province.list" [(ngModel)]="model.province.select" [settings]="model.province.settingSingle" (onSelect)="onSelectProvince($event)">
+                    </ng-multiselect-dropdown>
+                    <ng-multiselect-dropdown *ngIf="model.type_radio == 'multi'" [placeholder]="''" [data]="model.province.list" [(ngModel)]="model.province.select" [settings]="model.province.settingMulti" (onSelect)="onSelectProvince($event)">
+                    </ng-multiselect-dropdown>
+                    <span class="disable-dropdown" [hidden]="buttons.save && buttons.submit"></span>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-12 mb-1">
+            <fieldset class="form-group">
+                <label class="sub-title-input-layer">City / Location : </label>
+                <input autocomplete="off" type="search" class="form-control" id="basicInput" [(ngModel)]="model.city" [disabled]="!buttons.save && !buttons.submit" (change)="handleCityFreeTextChange()">
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="row margin-bottoms">
+        <div class="col-xl-4 col-lg-4 col-md-12 mb-1">
+            <fieldset class="form-group">
+                <label for="test2" class="sub-title-input-layer {{ ((statusValidate)&&((model.business_date == null)||(model.business_date == [])||(model.business_date.length < 2))?'text-error':'') }}">Business
+                    Date (Working Date) <span class="span-mark">*</span> :</label>
+                <div class="input-group">
+                    <input type="text" style="display:none" />
+                    <input autocomplete="off" type="text" placeholder="" id="test2" class="form-control" [disabled]="!buttons.save && !buttons.submit" [(ngModel)]="model.business_date" [bsConfig]="{ rangeInputFormat: 'DD MMM YYYY',showWeekNumbers:false }" (ngModelChange)="changeBisinessDate()" bsDaterangepicker>
+                    <div class="input-group-btn">
+                        <label for="test2" class="calendar-icon">
+                            <i class="material-icons">
+                                today
+                            </i>
+                        </label>
+                    </div>
+                </div>
+
+            </fieldset>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-12 mb-1">
+            <fieldset class="form-group">
+                <label class="sub-title-input-layer  {{ ((statusValidate)&&((model.travel_date == null)||(model.travel_date[0] == null)||(model.travel_date.length < 2))?'text-error':'') }}">Travel
+                    Date (Departure & return date) <span class="span-mark">*</span> : </label>
+                <div class="input-group">
+                    <input autocomplete="off" type="text" placeholder="" id="test3" class="form-control" [disabled]="!buttons.save && !buttons.submit" [(ngModel)]="model.travel_date" (ngModelChange)="updateTravelDate('root')" [bsConfig]="{ rangeInputFormat: 'DD MMM YYYY',showWeekNumbers:false }" bsDaterangepicker>
+                    <div class="input-group-btn">
+                        <label for="test3" class="calendar-icon">
+                            <i class="material-icons">
+                                today
+                            </i>
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-12 mb-1">
+            <fieldset class="form-group">
+                <label class="sub-title-input-layer">Travel Duration(Days) :</label>
+                <input autocomplete="off" type="text" class="form-control" [(ngModel)]="model.duration" id="basicInput" disabled>
+            </fieldset>
+        </div>
+    </div>
+
+
+    <div class="row margin-bottoms">
+        <div class="col-xl-12 col-lg-12 col-md-12">
+            <fieldset class="form-group">
+                <label class="sub-title-input-layer {{ ((statusValidate)&&(model.travel_object_expected == '')?'text-error':'') }}">Traveling
+                    Objective / Expectation <span class="span-mark">*</span>
+                    : </label>
+                <textarea class="form-control" id="basicTextarea" rows="5" [disabled]="!buttons.save && !buttons.submit" [(ngModel)]="model.travel_object_expected" placeholder="limit string to 3000 characters..." maxlength="3000"></textarea>
+            </fieldset>
+        </div>
+    </div>
+
+    <!-- Add Travel -->
+    <mat-expansion-panel class="margin-bottoms" [expanded]="panel.travel">
+        <mat-expansion-panel-header (click)="panel.travel = !panel.travel;">
+            <mat-panel-title>
+                <mat-icon class="material-icons">add_circle_outline</mat-icon>
+                <mat-panel-description class="margin-left">
+                    Add Traveler
+                </mat-panel-description>
+            </mat-panel-title>
+
+        </mat-expansion-panel-header>
+
+        <!-- Country for oversea -->
+        <div class="row margin-bottoms">
+            <div class="col-xl-4 col-lg-4 col-md-12 mb-1" [hidden]="this.type == 'local' || this.type == 'localtraining'">
+                <fieldset class="form-group">
+                    <label class="sub-title-input-layer">Continent : </label>
+                    <input autocomplete="off" type="search" class="form-control" id="basicInput" [(ngModel)]="model.add_travel.continent" disabled>
+                </fieldset>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-12 mb-1">
+                <fieldset class="form-group">
+                    <!-- <label class="sub-title-input-layer">{{ this.type == 'oversea' ? 'Country' : 'Province' }} <span
+                            class="span-mark">*</span> : </label> -->
+                    <label class="sub-title-input-layer {{ ((statusValidateAddTravel)&&((model.add_travel.country.value == undefined) || (model.add_travel.country.value == []))?'text-error':'') }}">{{
+                        this.type == 'oversea' || this.type == 'overseatraining' ? 'Country' : 'Province' }}
+                        <span class="span-mark">*</span> : </label>
+                    <ngx-select-dropdown [(ngModel)]="model.add_travel.country.value" [multiple]="false" [disabled]="!buttons.save && !buttons.submit" [config]="model.add_travel.country.config" [options]="model.add_travel.country.list" (change)="onSelectCountryAddTravel($event)">
+                    </ngx-select-dropdown>
+                </fieldset>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-12 mb-1">
+                <fieldset class="form-group">
+                    <label class="sub-title-input-layer {{ ((statusValidateAddTravel)&&((model.add_travel.city == undefined) || (model.add_travel.city == ''))?'text-error':'') }}">City
+                        <span class="span-mark">*</span> : </label>
+                    <input autocomplete="off" type="search" class="form-control" id="basicInput" [disabled]="!buttons.save && !buttons.submit" [(ngModel)]="model.add_travel.city">
+                </fieldset>
+            </div>
+
+        </div>
+
+        <div class="row margin-bottoms" [hidden]="model.type_radio == 'single'">
+            <div class="col-xl-4 col-lg-4 col-md-12 mb-1">
+                <fieldset class="form-group">
+                    <!-- <label class="sub-title-input-layer">Business Date (Working Date) <span class="span-mark">*</span>
+                        :</label> -->
+                    <label class="sub-title-input-layer {{ ((statusValidateAddTravel)&&((model.add_travel.business_date == []) || (model.add_travel.business_date.length < 2))?'text-error':'') }}">Business
+                        Date (Working Date) <span class="span-mark">*</span> : </label>
+                    <div class="input-group" [hidden]="!buttons.save && !buttons.submit">
+                        <!-- <input autocomplete="off" type="text" placeholder="" id="test4" class="form-control" [disabled]="(model.add_travel.country.value === undefined) || (model.add_travel.country.value === [])" [(ngModel)]="model.add_travel.business_date" (ngModelChange)="changeBisinessDateToSummary()" [bsConfig]="{ rangeInputFormat: 'DD MMM YYYY',showWeekNumbers:false }" [minDate]="checkMinMaxDate('min', 'business_date')" [maxDate]="checkMinMaxDate('max', 'business_date')" bsDaterangepicker> -->
+                        <div class="input-group-btn">
+                            <label for="test4" class="calendar-icon cursor-pointer">
+                                <i class="material-icons">
+                                    today
+                                </i>
+                            </label>
+                        </div>
+                    </div>
+                    <input autocomplete="off" type="text" placeholder="" id="test5xxx" class="form-control" [(ngModel)]="model.add_travel.business_date" [hidden]="buttons.save && buttons.submit" disabled>
+                </fieldset>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-12 mb-1">
+                <fieldset class="form-group">
+                    <label class="sub-title-input-layer {{ ((statusValidateAddTravel)&&((model.add_travel.travel_date == []) || (model.add_travel.travel_date.length < 2))?'text-error':'') }}">Travel
+                        Date (Departure & return date) <span class="span-mark">*</span> :</label>
+                    <div class="input-group" [hidden]="!buttons.save && !buttons.submit">
+                        <!-- <input autocomplete="off" type="text" placeholder="" id="test5" class="form-control" [disabled]="(model.add_travel.country.value === undefined) || (model.add_travel.country.value === [])" [(ngModel)]="model.add_travel.travel_date" (ngModelChange)="updateTravelDate('table')" [bsConfig]="{ rangeInputFormat: 'DD MMM YYYY',showWeekNumbers:false }" [minDate]="checkMinMaxDate('min', 'travel_date')" [maxDate]="checkMinMaxDate('max', 'travel_date')" bsDaterangepicker> -->
+                        <div class="input-group-btn">
+                            <label for="test5" class="calendar-icon cursor-pointer">
+                                <i class="material-icons">
+                                    today
+                                </i>
+                            </label>
+                        </div>
+
+                    </div>
+                    <input autocomplete="off" type="text" placeholder="" id="test5xx" class="form-control" [(ngModel)]="model.add_travel.travel_date" [hidden]="buttons.save && buttons.submit" disabled>
+                </fieldset>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-12 mb-1">
+                <fieldset class="form-group">
+                    <label class="sub-title-input-layer">Travel Duration (Days) :</label>
+                    <input autocomplete="off" type="text" class="form-control" id="basicInput" [disabled]="!buttons.save && !buttons.submit" [(ngModel)]="model.add_travel.duration" disabled>
+                </fieldset>
+            </div>
+        </div>
+
+
+        <div class="row margin-bottoms">
+            <div class="col-xl-2 col-lg-2 col-md-12 mb-1">
+                <fieldset class="form-group">
+                    <!-- <label class="sub-title-input-layer">Employee ID <span class="span-mark">*</span> : </label> -->
+                    <label class="sub-title-input-layer {{ ((statusValidateAddTravel)&&(model.add_travel.emp_id.value == '')?'text-error':'') }}">Employee
+                        ID <span class="span-mark">*</span> : </label>
+                    <!-- <ng-autocomplete [data]="model.add_travel.emp_id.list" [(ngModel)]="model.add_travel.emp_id.value" [disabled]="!buttons.save && !buttons.submit" [searchKeyword]="'name'" (inputChanged)='onSearchAddTravelEmpID("load", $event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" (selected)='onSearchAddTravelEmpID("selected", $event)'> -->
+                    <!-- </ng-autocomplete> -->
+
+                    <ng-template #itemTemplate let-item>
+                        <a [innerHTML]="item.name"></a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                        <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                </fieldset>
+            </div>
+            <!-- <div class="col-xl-2 col-lg-2 col-md-12 mb-1">
+                <fieldset class="form-group">
+                    <label class="sub-title-input-layer">Title : </label>
+                    <input autocomplete="off" type="text" class="form-control" id="basicInput" [(ngModel)]="model.add_travel.emp_title"
+                        disabled>
+                </fieldset>
+            </div> -->
+            <div class="col-xl-6 col-lg-6 col-md-12 mb-1">
+                <fieldset class="form-group">
+                    <label class="sub-title-input-layer {{ ((statusValidateAddTravel)&&(model.add_travel.emp_name.value == '')?'text-error':'') }}">Employee
+                        Name <span class="span-mark">*</span> : </label>
+                    <!-- <label class="sub-title-input-layer">Employee Name <span class="span-mark">*</span> : </label> -->
+                    <!-- <ng-autocomplete [data]="model.add_travel.emp_name.list" [disabled]="!buttons.save && !buttons.submit" [(ngModel)]="model.add_travel.emp_name.value" [searchKeyword]="'name'" (inputChanged)='onSearchAddTravelEmpName("load", $event)' (selected)='onSearchAddTravelEmpName("selected", $event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"> -->
+                    <!-- </ng-autocomplete> -->
+
+                    <ng-template #itemTemplate let-item>
+                        <a [innerHTML]="item.name"></a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                        <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                </fieldset>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-12 mb-1">
+                <fieldset class="form-group">
+                    <label class="sub-title-input-layer">Organization Unit : </label>
+                    <input autocomplete="off" type="text" class="form-control" id="basicInput" [disabled]="!buttons.save && !buttons.submit" [(ngModel)]="model.add_travel.emp_org" disabled>
+                </fieldset>
+            </div>
+
+        </div>
+
+        <div class="row margin-bottoms">
+            <div class="col-xl-4 col-lg-4 col-md-12 mb-1">
+
+                <fieldset class="form-group">
+                    <label class="sub-title-input-layer ">GL
+                        Account : </label>
+                    <!-- <ng-autocomplete class="warnings" [data]="model.add_travel.gl_auto.list" [disabled]="!buttons.save && !buttons.submit" [(ngModel)]="model.add_travel.gl" [searchKeyword]="'name'" (inputChanged)='onLoadGL($event)' (selected)='onSelectGL($event)' [itemTemplate]="itemTemplate">
+                    </ng-autocomplete> -->
+
+                    <ng-template #itemTemplate let-item>
+                        <a [innerHTML]="item.name"></a>
+                    </ng-template>
+
+                </fieldset>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-12 mb-1">
+
+                <fieldset class="form-group">
+                    <label class="sub-title-input-layer">Cost Center : </label>
+                    <!-- <ng-autocomplete [data]="model.add_travel.cost_center_master.list" [disabled]="!buttons.save && !buttons.submit" [(ngModel)]="model.add_travel.cost" [searchKeyword]="'name'" (inputChanged)='onLoadCost($event)' (closed)="onSelectCost()" (selected)='onSelectCost()' [itemTemplate]="itemTemplate">
+                    </ng-autocomplete> -->
+
+                    <ng-template #itemTemplate let-item>
+                        <a [innerHTML]="item.name"></a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                        <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                </fieldset>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-12 mb-1">
+
+                <fieldset class="form-group">
+                    <label class="sub-title-input-layer {{ ((statusValidateAddTravel)&&(model.add_travel.order_wrs == '')?'text-error':'') }}">Order
+                        / WBS <span class="span-mark">*</span> : </label>
+                    <!-- <ng-autocomplete [data]="model.add_travel.wbs.list" [(ngModel)]="model.add_travel.order_wrs" [disabled]="!buttons.save && !buttons.submit" [searchKeyword]="'name'" (inputChanged)='onLoadWbs($event)' (selected)='onSelectWbs($event)' [itemTemplate]="itemTemplate">
+                    </ng-autocomplete> -->
+
+                    <ng-template #itemTemplate let-item>
+                        <a [innerHTML]="item.name"></a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                        <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                </fieldset>
+            </div>
+
+        </div>
+
+        <div class="row margin-bottoms">
+            <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
+                <fieldset class="form-group">
+                    <label class="sub-title-input-layer">Remark : </label>
+                    <input autocomplete="off" type="search" class="form-control" id="basicInput" placeholder="limit string to 120 characters..." [disabled]="!buttons.save && !buttons.submit" [(ngModel)]="model.add_travel.note" maxlength="120">
+                </fieldset>
+            </div>
+        </div>
+
+        <button type="submit" class="btn" ngClass="{{ buttons.save ? 'btn-add' : 'btn-add-disable' }}" (click)="handleAddToSummary()" [disabled]="!buttons.save && !buttons.submit" *ngIf="states.add_travel_type == 'add'"><i class="ft-plus"></i> Add to Traveler List Summary Table</button>
+        <button type="submit" class="btn btn-add" (click)="handleAddToSummary('change')" *ngIf="states.add_travel_type == 'edit'"><i class="ft-plus"></i> Change</button>
+        <button type="submit" class="btn" ngClass="{{ buttons.save ? 'btn-clear' : 'btn-clear-disable' }}" (click)="handleAddToSummary('clear')" [disabled]="!buttons.save && !buttons.submit"><i class="ft-x"></i>
+            Clear</button>
+
+
+    </mat-expansion-panel>
+
+    <!-- Summary Table -->
+    <mat-expansion-panel class="margin-bottoms" [expanded]="panel.table">
+        <mat-expansion-panel-header (click)="panel.table = !panel.table">
+            <mat-panel-title>
+                <mat-icon class="material-icons">filter_none</mat-icon>
+                <mat-panel-description class="margin-left">
+                    Traveler List Summary
+                </mat-panel-description>
+            </mat-panel-title>
+
+        </mat-expansion-panel-header>
+
+        <div class="scroll-hori">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr class="text-center">
+                        <th [style.maxWidth]="40 + 'px'" class="ml-0 mr-0 pl-0 pr-0 text-center">No.</th>
+                        <th [style.minWidth]="260 + 'px'">Employee Name</th>
+                        <th [style.minWidth]="140 + 'px'">Organization Unit</th>
+                        <th [style.minWidth]="200 + 'px'">{{ this.type == 'oversea' || this.type == 'overseatraining' ?
+                            'Country' : 'Province/City'}}
+                        </th>
+                        <th [style.minWidth]="220 + 'px'">Business Date</th>
+                        <th [style.minWidth]="220 + 'px'">Travel Date</th>
+                        <th [style.minWidth]="140 + 'px'">GL Account</th>
+                        <th [style.minWidth]="140 + 'px'">Cost Center</th>
+                        <th [style.minWidth]="140 + 'px'">Order / WBS</th>
+                        <th class="tdWidth" [style.minWidth]="200 + 'px'">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Remark&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </th>
+                        <th class="headcol"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let show of model.summary_table; let i = index">
+                        <!-- index as i -->
+                        <!-- <td>{{ show.no }}</td>
+                        <td [ngClass]="{'danger':show.approve_status === '5'}">{{ show.emp_title }} {{ show.emp_name }}
+                        </td>
+                        <td [ngClass]="{'danger':show.approve_status === '5'}">{{ show.emp_org }}</td>
+                        <td [ngClass]="{'danger':show.approve_status === '5'}">{{ this.type == 'oversea' || this.type ==
+                            'overseatraining' ? show.country_name + '/'+ show.city : show.country_name + '/'+ show.city
+                            }}</td> -->
+                        <!-- <td>{{ show.business }}</td> -->
+                        <!-- <td [ngClass]="{'danger':show.approve_status === '5'}">{{ show.business_date[0] | date:'dd MMM y' }} - {{ show.business_date[1] | date:'dd MMM y' }}</td>
+                        <td [ngClass]="{'danger':show.approve_status === '5'}">{{ show.travel_date[0] | date:'dd MMM y'
+                            }} - {{ show.travel_date[1] | date:'dd MMM y' }}
+                        </td>
+                        <td [ngClass]="{'danger':show.approve_status === '5'}">{{ show.gl }}</td>
+                        <td [ngClass]="{'danger':show.approve_status === '5'}">{{ show.cost }}</td>
+                        <td class="tdWidth" [ngClass]="{'danger':show.approve_status === '5'}">{{ show.order_wrs }}</td>
+                        <td [ngClass]="{'danger':show.approve_status === '5'}">{{ show.note }}</td>
+                        <td class="text-center headcol">
+                            <div [hidden]="show.approve_status === '5' || show.approve_status === '3' || show.approve_status === '2'"> -->
+                                <!-- || show.approve_status != '4' -->
+                                <!-- <i class="ft-edit {{(buttons.save && buttons.submit)?'icon-colors':'icon-colors-disabled'}}" (click)="handleActionSummary('edit', i)"></i>
+                                <i class="ft-trash-2 {{(buttons.save && buttons.submit)?'icon-colors':'icon-colors-disabled'}}" (click)="handleActionSummary('trash', i)"></i>
+                            </div>
+                            <div [hidden]="show.approve_status != '5'"> -->
+                                <!-- <div class="badge badge-danger pt-2 cursor-pointer" matTooltip="Show details"
+                                    (click)="showRemarkFlow(show.approve_remark)"></div> -->
+                                <span class="">Reject</span>
+                            <!-- </div>
+                            <div [hidden]="show.approve_status != '2'"> -->
+                                <!-- <div class="badge badge-blue pt-2 "></div> -->
+                                <span class="">Pendding</span>
+                            <!-- </div>
+                            <div [hidden]="show.approve_status != '3'"> -->
+                                <span class="">Approved</span>
+                            <!-- </div> -->
+                            <!-- <div [hidden]="show.approve_status != '4'">
+                                <div class="badge badge-blue pt-2 "><span class="">Revise</span></div>
+                            </div> -->
+                        <!-- </td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </mat-expansion-panel>
+
+    <div class="row icheck_minimal skin margin-bottoms">
+        <div class="col-md-12 col-sm-12">
+            <fieldset>
+                <input autocomplete="off" type="checkbox" id="Initiator-10" [(ngModel)]="model.initiator.status" [disabled]="(!buttons.save && !buttons.submit)||model.doc_status==='22' || model.approved.status || disCheckApproved" value="true">
+                <label for="Initiator-10" style="margin-left: 5px;">Initiator</label>
+            </fieldset>
+        </div>
+    </div>
+
+
+    <!-- Initiator -->
+    <mat-expansion-panel class="margin-bottoms" [expanded]="panel.initiator || model.initiator.status" [hidden]="!model.initiator.status">
+        <mat-expansion-panel-header (click)="panel.initiator = !panel.initiator">
+            <mat-panel-title>
+                <mat-icon class="material-icons">cached</mat-icon>
+                <mat-panel-description class="margin-left">
+                    Initiator
+                </mat-panel-description>
+            </mat-panel-title>
+
+        </mat-expansion-panel-header>
+
+
+        <div class="row margin-bottoms">
+            <div class="col-xl-2 col-lg-2 col-md-12 mb-1">
+                <fieldset class="form-group">
+                    <label class="sub-title-input-layer {{ ((statusValidate)&&(model.initiator.emp_id.value == '')?'text-error':'') }}">Employee
+                        ID <span class="span-mark">*</span> : </label>
+                    <!-- <label class="sub-title-input-layer">Employee ID <span class="span-mark">*</span> : </label> -->
+                    <!-- <ng-autocomplete [data]="model.initiator.emp_id.list" [(ngModel)]="model.initiator.emp_id.value" [disabled]="!buttons.save && !buttons.submit" [searchKeyword]="'name'" (inputChanged)='onSearchInitiatorEmpId("load", $event)' [itemTemplate]="itemTemplate" (selected)='onSearchInitiatorEmpId("selected", $event)' [notFoundTemplate]="notFoundTemplate" [hidden]="model.doc_status === '22'"> -->
+                    <!-- </ng-autocomplete> -->
+
+                    <input type="text" class="form-control" [(ngModel)]="model.initiator.emp_id.value" [hidden]="model.doc_status != '22'" disabled>
+
+                    <ng-template #itemTemplate let-item>
+                        <a [innerHTML]="item.name"></a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                        <div [innerHTML]="notFound" [hidden]="model.initiator.emp_id.value === '' || model.initiator.emp_id.value === null">
+                        </div>
+                    </ng-template>
+                </fieldset>
+            </div>
+
+            <div class="col-xl-6 col-lg-6 col-md-12 mb-1">
+                <fieldset class="form-group">
+                    <label class="sub-title-input-layer {{ ((statusValidate)&&(model.initiator.emp_name.value == '')?'text-error':'') }}">Employee
+                        Name <span class="span-mark">*</span> : </label>
+                    <!-- <label class="sub-title-input-layer">Employee Name <span class="span-mark">*</span> : </label> -->
+                    <!-- <ng-autocomplete [data]="model.initiator.emp_name.list" [(ngModel)]="model.initiator.emp_name.value" [disabled]="!buttons.save && !buttons.submit" [searchKeyword]="'name'" (inputChanged)='onSearchInitiatorEmpName("load", $event)' (selected)='onSearchInitiatorEmpName("selected", $event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" [hidden]="model.doc_status === '22'"> -->
+                    <!-- </ng-autocomplete> -->
+
+                    <input type="text" class="form-control" [(ngModel)]="model.initiator.emp_name.value" [hidden]="model.doc_status != '22'" disabled>
+
+                    <ng-template #itemTemplate let-item>
+                        <a [innerHTML]="item.name"></a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                        <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                </fieldset>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-12 mb-1">
+                <fieldset class="form-group">
+                    <label class="sub-title-input-layer">Organization Unit : </label>
+                    <input autocomplete="off" type="text" class="form-control" id="basicInput" [(ngModel)]="model.initiator.emp_org" [disabled]="true">
+                </fieldset>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
+                <fieldset class="form-group">
+                    <label class="sub-title-input-layer">Remark / Message to initiator : </label>
+                    <input class="form-control" id="basicTextarea" [disabled]="!buttons.save && !buttons.submit" [(ngModel)]="model.initiator.remark">
+                </fieldset>
+                <button type="submit" class="btn btn-clear d-none" (click)="handleClearInitiator()"><i class="ft-x"></i>
+                    Clear</button>
+            </div>
+
+        </div>
+
+    </mat-expansion-panel>
+
+    <!-- After the mission -->
+    <mat-expansion-panel class="margin-bottoms" [expanded]="panel.after">
+        <mat-expansion-panel-header (click)="panel.after = !panel.after">
+            <mat-panel-title>
+                <mat-icon class="material-icons">list_alt</mat-icon>
+                <mat-panel-description class="margin-left oneline"> After business trip completed, the staff should
+                    <!-- <span class="span-mark">*</span> -->
+                </mat-panel-description>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+
+        <div class="row margin-bottoms">
+            <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
+                <fieldset class="form-group">
+                    <label>
+                        <input autocomplete="off" type="checkbox" id="input-11" [(ngModel)]="model.after.ref1.value" [disabled]="!buttons.save && !buttons.submit" value="true">
+                        <span for="input-11" style="margin-left: 5px;" class="sub-title-input-layer">Submit a report to
+                            line manager within 30 days after the trip is completed.</span>
+                    </label>
+                </fieldset>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
+                <fieldset class="form-group">
+                    <label>
+                        <input autocomplete="off" type="checkbox" id="input-12" [(ngModel)]="model.after.ref2.value" [disabled]="!buttons.save && !buttons.submit" value="true">
+                        <span for="input-12" style="margin-left: 5px;" class="sub-title-input-layer {{ ((statusValidate)&&(model.after.ref2.remark == '')&&(model.after.ref2.value)?'text-error':'') }}">Share
+                            knowledge to
+                            concerned person using methods. <span class="span-mark" [hidden]="!model.after.ref2.value">*</span></span></label>
+
+                    <input autocomplete="off" type="search" class="input-non-border" placeholder="more...." [disabled]="!buttons.save && !buttons.submit" [hidden]="!model.after.ref2.value" [(ngModel)]="model.after.ref2.remark">
+                </fieldset>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
+                <fieldset class="form-group">
+                    <label>
+                        <input autocomplete="off" type="checkbox" id="input-13" [(ngModel)]="model.after.ref3.value" [disabled]="!buttons.save && !buttons.submit" value="true">
+                        <span for="input-13" style="margin-left: 5px;" class="sub-title-input-layer {{ ((statusValidate)&&(model.after.ref3.remark == '')&&(model.after.ref3.value)?'text-error':'') }}">Others.
+                            <span class="span-mark" [hidden]="!model.after.ref3.value">*</span></span></label>
+
+                    <input autocomplete="off" type="search" class="input-non-border" placeholder="more...." [disabled]="!buttons.save && !buttons.submit" [hidden]="!model.after.ref3.value" [(ngModel)]="model.after.ref3.remark">
+                </fieldset>
+            </div>
+        </div>
+
+    </mat-expansion-panel>
+
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
+            <fieldset class="form-group">
+                <label class="sub-title-input-layer">Remark : </label>
+                <input autocomplete="off" type="text" class="form-control" id="basicInput" [(ngModel)]="model.remark" [disabled]="!buttons.save && !buttons.submit">
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 mb-1">
+            <!-- <button type="submit" class="{{ buttons.save ? 'btn-in-pink' : 'btn-in-pink-disable' }}" (click)="handleActionPages(stateGlobal.save)">Save</button> -->
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 mb-1">
+            <!-- <button type="submit" class="{{ buttons.cancel ? 'btn-out-pink' : 'btn-out-pink-disable' }}" (click)="handleActionPages(stateGlobal.cancel)">Cancel</button> -->
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 mb-1"></div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 mb-1">
+            <!-- <button type="submit" class="btn-out-dark-blue"
+                (click)="handleActionPages(stateGlobal.reject)">Reject</button> -->
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 mb-1">
+            <!-- <button type="submit" class="btn-out-dark-blue"
+                (click)="handleActionPages(stateGlobal.revise)">Revise</button> -->
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 mb-1">
+            <!-- <button type="submit" class="{{ buttons.submit ? 'btn-in-dark-blue' : 'btn-in-dark-blue-disable' }}" (click)="handleActionPages(stateGlobal.submit)">Submit</button> -->
+        </div>
+    </div>
+</div>

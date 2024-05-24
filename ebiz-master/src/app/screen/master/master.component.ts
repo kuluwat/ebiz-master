@@ -6,17 +6,15 @@ import { element } from 'protractor';
 //import { NgxZendeskWebwidgetService } from 'ngx-zendesk-webwidget';
 import { AppRoutingModule } from '../../app-routing.module';
 import { AuthenService } from '../../http/authen/authen.service';
-import { HeaderComponent } from '../../components/header/header.component';
 import { AspxserviceService } from '../../ws/httpx/aspxservice.service';
 import { forceToPageLoginWeb, gotoPage } from '../../function/globalfunction.component';
-import { TransportationComponent } from './transportation/transportation.component';
 
 
 
 @Component({
   selector: 'app-master',
-  templateUrl: './master.component.html',
-  styleUrls: ['./master.component.css']
+  templateUrl: './master.html',
+  styleUrls: ['./master.css']
 })
 export class MasterComponent implements OnInit {
 
@@ -262,13 +260,11 @@ export class MasterComponent implements OnInit {
   userSelected: string = "";
 
   constructor(
-    @Inject(forwardRef(() => HeaderComponent)) private appHeader: HeaderComponent,
     private route: ActivatedRoute,
     private authenHttp: AuthenService,
     private router: Router,
     private zone: NgZone,
     //private _NgxZendeskWebwidgetService: NgxZendeskWebwidgetService,
-    private fb: FormBuilder,
     public ws: AspxserviceService
   ) {
     //this.didCheckTokenDied()
@@ -299,6 +295,7 @@ export class MasterComponent implements OnInit {
   ngOnInit() {
 
     this.getParameter();
+
   }
 
   onActivate() {

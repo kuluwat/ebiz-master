@@ -1,0 +1,437 @@
+<!-- <p>airticket works!</p> -->
+<div class="col-12 boxcolor-mm background-Slide animate__animated animate__fadeIn" style="height: 350px" *ngIf="maindata_all.emp_list.length > 0" (window:keypress)="onKeyDown($event)">
+  <div class="row math-height">
+    <div class="col-lg-12">
+      <div class="card box-shadow-1 mt-3">
+        <div class="card-body m-0 p-0">
+          <div class="row mx-0">
+            <div class="col-lg-6 col-md-6 col-sm-12" style="min-height: 67px">
+              <!-- <div class="marker marker-ribbon marker-top-blue pos-absolute mt-4 l-0 pl-5 pr-5"> -->
+              <div class="marker marker-ribbon marker-top-blue pos-absolute mt-4 l-0 pl-5 pr-5">
+                <p class="tx-24 m-0">&#32;<i class="fa fa-plane"></i>&#32;AIR TICKET</p>
+              </div>
+            </div>
+            <!--** Travel Display Name -->
+            <div class="col-lg-6 col-sm-12 col-md-6">
+              <div class="container px-0">
+                <div class="text-center text-md-right mt-4 pr-4" *ngIf="user_admin == false">
+                  <p class="tx-24 m-0 tx-top-blue text-bold-500">{{ user_display }}</p>
+                </div>
+                <div class="mt-4 col-12 col-md-10 col-lg-8 ml-md-auto" *ngIf="user_admin">
+                  <mat-select [(ngModel)]="topping_selected" #user_selected="ngModel" (selectionChange)="update_userByDOC(topping_selected)" class="form-control line-height-2 tx-gray-700 text-bold-500" placeholder="Select">
+                    <mat-option *ngFor="let topping of air_ticket_emplist" [value]="topping">
+                      {{ topping.userDisplay }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+                <div class="text-right mt-4 pr-4" *ngIf="pathPhase1">
+                  <span class="link-text">
+                    <p class="tx-14 m-0 text-bold-500" (click)="OpenDocument(doc_id, pathPhase1)">
+                      Document No: {{ doc_id }}
+                    </p>
+                    <i class="fa fa-external-link ml-1"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!--** Travel Display Name -->
+            <div class="btn d-none" id="swich_user" (click)="user_admin = !user_admin">swich</div>
+            <div class="container px-0">
+              <!-- ** Traveler Detail -->
+              <div class="col-12" *ngIf="userDetail">
+                <div class="container border-bottom-3 border-bottom-grey-blue border-bottom-lighten-5 mb-4 py-4">
+                  <div class="row no-gutters">
+                    <p class="col-4 col-lg-2 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">Travel Topic :</p>
+                    <p class="col-8 col-lg-10 col-md-10 tx-gray-700 tx-14 text-bold-500 text-capitalize">
+                      {{ userDetail.travel_topic ? userDetail.travel_topic : '' }}
+                    </p>
+                    <p class="col-4 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">Business Date :</p>
+                    <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                      {{ userDetail.business_date ? userDetail.business_date : '' }}
+                    </p>
+                    <p class="col-4 col-md-2 offset-0 offset-md-1 tx-gray-700 tx-14 m-0 text-dark text-bold-500">
+                      Travel Date :
+                    </p>
+                    <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                      {{ userDetail.travel_date ? userDetail.travel_date : '' }}
+                    </p>
+                    <p class="col-4 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">
+                      {{ TRAVEL_TYPE }}
+                    </p>
+                    <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                      {{ userDetail.country_city ? userDetail.country_city : '' }}
+                    </p>
+                    <p class="col-4 col-md-2 tx-gray-700 tx-14 text-dark text-bold-500">Total Traveler(s) :</p>
+                    <p class="col-8 col-md-4 tx-gray-700 tx-14 text-bold-500">
+                      {{ maindata_all.emp_list.length }} Person(s)
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- ** Traveler Detail -->
+              <!-- **Curent status -->
+              <div class="col-12 py-3 mt-0 mb-4">
+                <div class="row justify-content-center align-items-baseline">
+                  <ul id="progressbar" class="px-0 px-md-1 mb-0">
+                    <li class="cursor-pointer" [ngClass]="{ active: docStatus(1) }" id="time"><strong></strong></li>
+                    <li class="cursor-pointer" [ngClass]="{ active: docStatus(2) }" id="pencil"><strong></strong></li>
+                    <li class="cursor-pointer" [ngClass]="{ active: docStatus(3) }" id="cog"><strong></strong></li>
+                    <li class="cursor-pointer" [ngClass]="{ active: docStatus(4) }" id="check"><strong></strong></li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- **Curent status -->
+              <!--** Ask booking -->
+              <div class="col-12 border-bottom-3" *ngIf="booking_detail_data && bookingX.length > 0">
+                <div class="container">
+                  <div class="row" *ngFor="let item of bookingX; index as i" [ngClass]="item.emp_id == emp_id ? '' : 'd-none'">
+                    <div class="col-lg-12">
+                      <input type="checkbox" [(ngModel)]="item.ask_booking" id="ask_booking" (ngModelChange)="item.action_change = 'true'" [disabled]="!user_reject" (change)="
+                          item.ask_booking
+                            ? (item.already_booked = false)
+                            : [(item.search_air_ticket = false), (item.as_company_recommend = false)]
+                        " />&nbsp;
+                      <label for="ask_booking">&#32;&#32;Ask Booking by Company </label>
+                    </div>
+                    <div class="col-12 ml-5">
+                      <div>
+                        <input type="checkbox" #searchairticket id="searchairticket" [(ngModel)]="item.search_air_ticket" [disabled]="item.ask_booking == false || !user_reject" (ngModelChange)="item.action_change = 'true'" (change)="clearselect('search_air_ticket', i)" />&nbsp;
+                        <label>
+                          Search Air Ticket
+
+                          <i class="fa fa-search ml-2 cursor-pointer" id="opmodal" [hidden]="!item.search_air_ticket" (click)="search_flights()"></i>
+                        </label>
+                      </div>
+                      <div>
+                        <input type="checkbox" [(ngModel)]="item.as_company_recommend" #ascompany id="ascompany" [disabled]="item.ask_booking == false || !user_reject" (ngModelChange)="item.action_change = 'true'" (change)="clearselect('as_company_recommend', i)" />
+                        &nbsp;<label for="ascompany"> As Company Recommend </label>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                      <input type="checkbox" [(ngModel)]="item.already_booked" id="already_booked" [disabled]="!user_reject" (ngModelChange)="item.action_change = 'true'" #already_booked="ngModel" (change)="clearselect('', i)" />&nbsp;
+                      <label for="already_booked">Already Booked </label>
+
+                      <div class="col-sm-5 col-md-4 col-lg-6 animate__animated animate__fadeIn" *ngIf="item.already_booked">
+                        <div class="form-row">
+                          <div class="form-group">
+                            <select class="form-control form-control-lg tx-14" [(ngModel)]="item.already_booked_id" id="Already_Booked" [disabled]="!user_reject" (ngModelChange)="item.action_change = 'true'">
+                              <option value="" disabled>-- Please Select --</option>
+                              <!-- order_by_list(model.request_type.list) -->
+                              <option *ngFor="let item of model.request_type.list" [value]="item.id">
+                                {{ item.name }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--** Ask booking -->
+              <!--** Airticket Detail -->
+              <div class="col-12 pt-4" *ngIf="booking_detail_data && booking_detail.length > 0">
+                <div class="container">
+                  <div class="card box-shadow-1 radiusX mb-0">
+                    <div class="card-body">
+                      <div class="col-12 px-0">
+                        <div class="table-responsive my-2 scroll-hori" style="max-height: 350px; max-width: 100%" *ngIf="maindata_all.emp_list.length > 0">
+                          <table class="table table table-striped table-hover table-bordered" id="table_detail">
+                            <thead>
+                              <!-- [ngClass]="(border_table(i) == true) ? 'font-weight-bold tx-14 tx-gray-700':' text-center font-weight-bold tx-14 tx-gray-700'"> -->
+                              <tr>
+                                <th style="width: 100%" *ngFor="let item of air_ticket_header; let i = index" [ngStyle]="{ width: item.width_th + '%', 'min-width': item.width_min }" class="text-center font-weight-bold tx-14 tx-gray-700">
+                                  <div *ngIf="item.col == 'Route'">{{ item.col }}</div>
+                                  <div class="btn d-none" id="backdrop" (click)="setbackdrop()"></div>
+                                  <div *ngIf="item.col != 'Route'">{{ item.col }}</div>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let item of get_data(); let i = index" (click)="stage_check(true, item.emp_id, item.id)">
+                                <td class="" *ngIf="TRAVEL_TYPE_DROPDOWN == true">
+                                  <!-- {{item.id}} // {{item.emp_id}} -->
+                                  <div class="d-flex flex-md-row align-items-center">
+                                    <input type="text" autocomplete="off" style="min-width: 120px" [matTooltip]="show_rout(item.airticket_route_from, '0')" [matTooltipPosition]="'above'" (mousedown)="openModalx(templete_airpoet, item.id)" (change)="item.action_change = 'true'" class="form-control text-center w-50 h-50" [disabled]="user_reject == false" [value]="show_rout(item.airticket_route_from, '0')" />
+                                    <small class="mx-2">-</small>
+                                    <input type="text" autocomplete="off" style="min-width: 120px" [matTooltip]="show_rout(item.airticket_route_to, '1')" [matTooltipPosition]="'above'" (mousedown)="openModalx(templete_airpoet, item.id)" (change)="item.action_change = 'true'" [value]="show_rout(item.airticket_route_to, '1')" [disabled]="user_reject == false" class="form-control text-center w-50 h-50" />
+                                  </div>
+                                </td>
+
+                                <td>
+                                  <input type="text" autocomplete="off" [(ngModel)]="item.airticket_flight" (change)="item.action_change = 'true'" [disabled]="user_reject == false" class="form-control mn-100-px text-center h-50" />
+                                </td>
+                                <td>
+                                  <input type="text" bsDatepicker #date1="ngModel" class="form-control h-50 mn-100-px text-center" [(ngModel)]="item.Datefrom" (ngModelChange)="[(item.action_change = 'true')]" (change)="date1.invalid && date1.control.setValue('')" [minDate]="min_max_date(i, 'from', item.Datefrom)" [disabled]="user_reject == false" [bsConfig]="{
+                                      dateInputFormat: 'DD MMM YYYY',
+                                      showWeekNumbers: false
+                                    }" />
+                                  <!-- {{ date1.invalid }}
+                                  {{ Log(date1) }} -->
+                                </td>
+                                <td>
+                                  <!-- <span>
+                                                                        {{item.airticket_route_to}}
+                                                                    </span> -->
+                                  <input type="time" autocomplete="off" name="usr_time" [(ngModel)]="item.airticket_departure_time" (ngModelChange)="item.action_change = 'true'" #departure_time style="min-width: 100px" [disabled]="user_reject == false" class="form-control text-center pb-px-1 h-50 time-inputmask" />
+                                </td>
+                                <!-- (click)="changModelXTime(item.id, departure_time.value, '0')" -->
+
+                                <td>
+                                  <input type="text" bsDatepicker #date2="ngModel" class="form-control h-50 mn-100-px text-center" [disabled]="user_reject == false" [(ngModel)]="item.Dateto" [minDate]="min_max_date(i, 'to', item.Datefrom)" (ngModelChange)="item.action_change = 'true'" (change)="date2.invalid && date2.control.setValue('')" [bsConfig]="{
+                                      dateInputFormat: 'DD MMM YYYY',
+                                      showWeekNumbers: false
+                                    }" />
+                                </td>
+                                <td>
+                                  <input type="time" autocomplete="off" [(ngModel)]="item.airticket_arrival_time" (ngModelChange)="item.action_change = 'true'" #arrival_time style="min-width: 100px" [disabled]="user_reject == false" class="form-control text-center pb-px-1 h-50 time-inputmask" />
+                                </td>
+                                <!-- {{
+                                  item.airticket_arrival_time.toString() + 'null'
+                                }} -->
+                                <!-- {{
+                                  item.action_change
+                                }} -->
+                                <!-- (click)="changModelXTime(item.id, arrival_time.value, '1')" -->
+
+                                <!-- [ngClass]="{'d-flex':(!booking_detail[get_index_airticket(booking_detail,emp_id)].as_company_recommend),'d-none':(booking_detail[get_index_airticket(booking_detail,emp_id)].as_company_recommend)}" -->
+                                <td style="min-width: 40px; vertical-align: middle">
+                                  <div class="justify-content-end flex-row-reverse d-flex" *ngIf="user_reject">
+                                    <span (click)="new_row(item.id, item.doc_id)" [ngClass]="get_data().length - 1 == i ? '' : 'd-none'"><i class="cursor-pointer fa fa-plus-circle success" aria-hidden="true"> </i></span>
+                                    <span class="mr-1" (click)="del_row(item.id, item.doc_id)" [ngClass]="displayop(item.action_type, 'del', i)">
+                                      <i class="cursor-pointer fa fa-minus-circle danger" aria-hidden="true"></i>
+                                    </span>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div class="row mb-2 no-gutters" *ngIf="seleced_index_booking()">
+                          <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                            <div class="form-group">
+                              <label class="font-weight-bold tx-14 tx-gray-700">Booking ref :</label>
+                              <!-- <input
+                                type="text"
+                                class="form-control"
+                                (change)="booking_detail[selected_key_booking].action_change = 'true'"
+                                [(ngModel)]="booking_detail[selected_key_booking].booking_ref"
+                                [disabled]="!booking_detail[selected_key_booking].already_booked || !user_reject"
+                              /> -->
+                              <input type="text" class="form-control" #booking_ref (change)="booking_detail[selected_key_booking].action_change = 'true'" [(ngModel)]="booking_detail[selected_key_booking].booking_ref" [disabled]="!user_reject" />
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-sm-12 col-12 px-0 px-md-2">
+                            <div class="form-group">
+                              <label class="font-weight-bold tx-14 tx-gray-700">Booking Status
+                                <span class="pink" [hidden]="!booking_detail[selected_key_booking].already_booked">*</span>
+                                :</label>
+                              <!-- {{ booking_ref.clientHeight }} -->
+                              <select #bookstatus class="form-control form-control-lg tx-14" [ngStyle]="{ 'max-height': booking_ref.clientHeight + 1.5 + 'px' }" (change)="booking_detail[selected_key_booking].action_change = 'true'" [(ngModel)]="booking_detail[selected_key_booking].booking_status" [disabled]="!user_reject">
+                                <option value="" disabled>-- Please Select --</option>
+                                <option *ngFor="let item of maindata_all.m_book_status" [value]="item.id">
+                                  {{ item.name }}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                            <div class="form-group">
+                              <label class="font-weight-bold tx-14 tx-gray-700">Additional Request :</label>
+                              <input type="text" class="form-control" autocomplete="off" (change)="booking_detail[selected_key_booking].action_change = 'true'" [disabled]="!user_reject" [(ngModel)]="booking_detail[selected_key_booking].additional_request" placeholder="Window Seat / Aisle Seat / Food Allergy" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-12 col-12">
+                            <label class="font-weight-bold tx-14 w-100 tx-gray-700">E-Ticket :</label>
+                            <input type="file" id="file_id" accept="file_extension" #file class="d-none" (change)="onFileSelect($event)" />
+                            <button class="btn btn-round bg-top-blue btn-min-width  mb-1 text-white   {{
+                                user_reject ? '' : 'cursor-not-allowed'
+                              }}" (click)="file.click()" [disabled]="!user_reject">
+                              Upload
+                            </button>
+                            <span class="pt-2">
+                              <!-- *ngFor="let item of  get_data_img(DOC_DETAIL.img_list);let i = index" -->
+                              <!-- <div class="pb-2 mx-1" *ngFor="let item of DOC_DETAIL.img_list; let i = index" [ngClass]="
+                                  s_condition(item.action_type, item.emp_id, item)
+                                    ? 'd-none'
+                                    : 'd-flex align-items-center'
+                                ">
+                                <ng-container *ngIf="item.action_type != 'delete' && item.emp_id == emp_id">
+                                  <i class="material-icons tx-16 tx-top-blue tx-bold">attach_file</i>
+                                  <a class="mx-2 text-primary txunderline text-bold-600" (click)="downloadFile(item.path + item.filename, item.filename)" target="_blank">{{ item.filename }}</a>
+                                  <i class="cursor-pointer fa fa-minus-circle danger" [hidden]="!user_reject" (click)="Delete_File(item)"></i>
+                                </ng-container>
+                              </div> -->
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- **ROW BUTTON -->
+                  <div class="row mx-1 my-3 gap">
+                    <ng-container *ngIf="user_reject">
+                      <button class="btn btn-round btn-min-width bg-top-pink text-white font-weight-bold" (click)="Onsave('saved')">
+                        Save
+                      </button>
+
+                      <button class="
+                          btn btn-round btn-min-width
+                          bg-white
+                          pink
+                          border-pink
+                          text-pink
+                          font-weight-bold
+                          mr-0 mr-md-auto
+                        " (click)="btnCencel_Onclick()">
+                        Cancel
+                      </button>
+
+                      <button class="bg-white border-color-top btn btn-round btn-min-width tx-color-top font-weight-bold" [hidden]="user_admin == false" (click)="openModal(templateCopydetail)" [disabled]="empCount" [class.cursor-not-allowed]="empCount">
+                        Copy Details
+                      </button>
+
+                      <button class="btn btn-round bg-top-blue btn-min-width text-white font-weight-bold" [ngClass]="{ 'ml-auto': user_admin == false }" (click)="Onsave('submit')">
+                        Submit
+                      </button>
+                    </ng-container>
+                  </div>
+                  <!-- **ROW BUTTON -->
+                </div>
+              </div>
+              <!--** Airticket Detail -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Copy Detail -->
+<ng-template #templateCopydetail>
+  <div class="modal-header">
+    <span class="modal-title tx-20" id="my-modal-title">
+      <i class="material-icons tx-bold tx-20">content_copy</i>
+      Copy Details
+    </span>
+    <button class="close" style="color: red" (click)="[modalRef?.hide(), (User_selected_Copy = []), (airticket_copy_selected = '1')]">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="input-group mb-4">
+          <label class="basic-url font-weight-bold tx-18 underline text-underline tx-gray-700"> Choose Type </label>
+        </div>
+        <div class="form-group">
+          <div class="input-group flex-column">
+            <div class="custom-control custom-radio">
+              <fieldset class="radio">
+                <input type="radio" name="customer1" [(ngModel)]="airticket_copy_selected" id="checked1" value="1" (ngModelChange)="airticket_copy_selected == '1' ? (User_selected_Copy = []) : ''" />
+                <label class="text-bold-400 tx-16 mx-1" for="checked1">All Person</label>
+              </fieldset>
+            </div>
+            <div class="custom-control custom-radio">
+              <fieldset class="radio">
+                <input type="radio" name="customer2" [(ngModel)]="airticket_copy_selected" id="checked2" value="2" />
+                <label class="text-bold-400 tx-16 mx-1" for="checked2">Choose by Person</label>
+              </fieldset>
+            </div>
+
+            <div class="col-12 animate__animated animate__fadeIn" *ngIf="airticket_copy_selected == '2'">
+              <mat-select [(ngModel)]="User_selected_Copy" *ngIf="user_admin" #user_selected="ngModel" multiple class="form-control line-height-2 tx-gray-700 text-bold-500" placeholder="Select">
+                <mat-option *ngFor="let item of air_ticket_emplist" [value]="item" [hidden]="item.emp_id == emp_id">
+                  {{ item.userDisplay }}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="col-12 px-0">
+      <button type="button" class="btn btn-round btn-min-width white btn-top text-bold-500 tx-14" (click)="[copyDetailAllEmp(emp_id)]" [disabled]="User_selected_Copy.length == 0 && airticket_copy_selected == '2'">
+        Paste Data
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templete_airpoet>
+  <div class="modal-header">
+    <div class="col-sm-12 px-0">
+      <span class="modal-title tx-20" id="my-modal-title"><span class="material-icons"> flight_takeoff </span> Route
+      </span>
+      <button type="button" class="close pb-2" style="color: red" data-dismiss="modal" aria-label="Close" (click)="disble_modalRef()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="col-12 px-0">
+      <div class="row mt-2 mb-5">
+        <div class="col-6" *ngIf="TRAVEL_TYPE_DROPDOWN == true">
+          <!-- [matTooltip]="displayX(airport_new1)" -->
+          <label class="tx-gray-700 text-bold-500">From ({{ TitleFromx }})</label>
+          <fieldset class="form-group" style="height: 15px" (click)="setcssWidth()">
+            <div class="">
+              <ngx-select-dropdown id="Toplevel1" class="" [multiple]="false" [(ngModel)]="airport_new1" (change)="destroyedChanged($event, '0')" [config]="country_modelDT1.config" [options]="TestAirnewMt">
+              </ngx-select-dropdown>
+            </div>
+          </fieldset>
+        </div>
+        <!-- [options]="master_airport_new_arr" (searchChange)="selectionChanged($event)" [matTooltip]="displayX(airport_new1)" -->
+        <div class="col-6" *ngIf="TRAVEL_TYPE_DROPDOWN == true">
+          <label class="tx-gray-700 text-bold-500">To ({{ TitleFromx }})</label>
+          <fieldset class="form-group" style="height: 15px" (click)="setcssWidth()">
+            <div class="">
+              <ngx-select-dropdown id="Toplevel2" class="" [multiple]="false" [(ngModel)]="airport_new2" (change)="destroyedChanged($event, '1')" [config]="country_modelDT2.config" [options]="TestAirnewMt">
+              </ngx-select-dropdown>
+              <!-- [options]="datax(master_airport_new_arrXX)" -->
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- <div class="col-6 " *ngIf="TRAVEL_TYPE_DROPDOWN == false">
+                    <label class="tx-gray-700 text-bold-500">From</label>
+                    <fieldset class="form-group" style="height: 15px;" (click)="setcssWidth()" [matTooltip]="airport_new1">
+                        <div class="">
+                            <ngx-select-dropdown id="Toplevel1" class="" [multiple]="false" [(ngModel)]="airport_new1"
+                                [matTooltip]="airport_new1"
+                                (change)="destroyedChanged($event,'0')" [config]="province_modelDT1.config"
+                                [options]="TestAirnewMt">
+                            </ngx-select-dropdown>
+                        </div>
+                    </fieldset>
+                </div> 
+                <div class="col-6 " *ngIf="TRAVEL_TYPE_DROPDOWN == false">
+                    <label class="tx-gray-700 text-bold-500">To</label>
+                    <fieldset class="form-group" style="height: 15px;" (click)="setcssWidth()">
+                        <div class="">
+                            <ngx-select-dropdown id="Toplevel2" class="" [multiple]="false" [(ngModel)]="airport_new2"
+                                (change)="destroyedChanged($event,'1')" [config]="province_modelDT2.config"
+                                [options]="TestAirnewMt">
+                            </ngx-select-dropdown> 
+                        </div>
+                    </fieldset>
+                </div> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="col-12 px-0">
+      <button class="btn btn-round btn-top text-bold-500 btn-min-width" style="color: white" (click)="add_route()">
+        OK
+      </button>
+    </div>
+  </div>
+</ng-template>
