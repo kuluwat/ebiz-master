@@ -1,6 +1,6 @@
 <!-- <p>insurancerecord works!</p> -->
-<div id="contentX" #contentX class="col-12 boxcolor-mm background-Slide d-none animate__animated animate__fadeIn"
-    style="height: 350px;">
+<div id="contentX" #contentX class="col-12"
+    style="height: auto;">
     <div class="row">
         <div class="col-sm-12">
 
@@ -26,25 +26,28 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form [formGroup]!="registerForm" (ngSubmit)="onSubmit()">
+                    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
                         <div class="row mt-2">
                             <div class="col-xl-3 col-lg-6 col-md-12">
-                                <!-- <fieldset class="form-group">
+                                <fieldset class="form-group">
                                     <label for="basicInput">Travel Insurance Record Of<span class="red">
                                             *</span></label>
 
                                     <select class="form-control input-small" #mySelectX [(ngModel)]="model.year"
-                                        formControlName="year" [ngClass]="{ 'is-invalid': submitted && f.year.errors }"
+                                        formControlName="year" [ngClass]="{ 'is-invalid': submitted }"
                                         (change)="search(model.year)">
                                         <option *ngFor="let year of model.yearArr" [ngValue]="year">{{ year }}
                                         </option>
                                     </select>
-                                    <div *ngIf="submitted && f.year.errors" class="invalid-feedback">
-                                        <div *ngIf="f.year.errors.required">Username is required</div>
+                                    <!-- && f.year.errors  -->
+                                    <div *ngIf="submitted " class="invalid-feedback">
+                                        <!-- && f.year.errors -->
+                                        <div >Username is required</div>
+                                        <!-- *ngIf="f.year.errors.required" -->
                                     </div>
 
-                                </fieldset> -->
+                                </fieldset>
 
                             </div>
                             <div class="col-xl-3 col-lg-6 col-md-12">
@@ -103,56 +106,23 @@
                                             <tr *ngFor="let dr of model.dataSource; let i = index"
                                                 [ngClass]="{'d-none':model.dataSource.length === 0}">
 
-                                                <td class="text-center">
-                                                    <!-- {{ dr.doc_id }} -->
-                                                </td>
-                                                <td class="text-center">
-                                                    <!-- {{ dr.emp_id }} -->
-                                                </td>
-                                                <td class="text-center">
-                                                    <!-- {{ dr.emp_passport }} -->
-                                                </td>
-                                                <td class="text-left">
-                                                    <!-- {{ dr.emp_display }} -->
-                                                </td>
-                                                <td class="text-center">
-                                                    <!-- {{ dr.emp_section }} -->
-                                                </td>
-                                                <td class="text-center">
-                                                    <!-- {{ dr.emp_department }} -->
-                                                </td>
-                                                <td class="text-center">
-                                                    <!-- {{ dr.emp_function }} -->
-                                                </td>
-                                                <td class="text-left">
-                                                    <!-- {{ dr.name_beneficiary }} -->
-                                                </td>
-                                                <td class="text-center">
-                                                    <!-- {{ dr.relationship }} -->
-                                                </td>
+                                                <td class="text-center">{{ dr.doc_id }}</td>
+                                                <td class="text-center">{{ dr.emp_id }}</td>
+                                                <td class="text-center">{{ dr.emp_passport }}</td>
+                                                <td class="text-left">{{ dr.emp_display }}</td>
+                                                <td class="text-center">{{ dr.emp_section }}</td>
+                                                <td class="text-center">{{ dr.emp_department }}</td>
+                                                <td class="text-center">{{ dr.emp_function }}</td>
+                                                <td class="text-left">{{ dr.name_beneficiary }}</td>
+                                                <td class="text-center">{{ dr.relationship }}</td>
 
-                                                <td class="text-center">
-                                                    <!-- {{ dr.certificates_no }} -->
-                                                </td>
-                                                <td class="text-center">
-                                                    <!-- {{ dr.period_ins_from }} -->
-                                                </td>
-                                                <td class="text-center">
-                                                    <!-- {{ dr.period_ins_to }} -->
-                                                </td>
-                                                <td class="text-right">
-                                                    
-                                                    <!-- {{ dr.duration }} -->
-                                                </td>
-                                                <td class="text-center">
-                                                    <!-- {{ dr.country }} -->
-                                                </td>
-                                                <td class="text-center">
-                                                    <!-- {{ dr.billing_charge }} -->
-                                                </td>
-                                                <td class="text-right">
-                                                    <!-- {{ checkNumber(dr.certificates_total) | number : '1.2-2' }} -->
-                                                </td>
+                                                <td class="text-center">{{ dr.certificates_no }}</td>
+                                                <td class="text-center">{{ dr.period_ins_from }}</td>
+                                                <td class="text-center">{{ dr.period_ins_to }}</td>
+                                                <td class="text-right">{{ dr.duration }}</td>
+                                                <td class="text-center">{{ dr.country }}</td>
+                                                <td class="text-center">{{ dr.billing_charge }}</td>
+                                                <td class="text-right">{{ checkNumber(dr.certificates_total) | number : '1.2-2' }}</td>
                                             </tr>
 
                                         </tbody>

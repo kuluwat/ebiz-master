@@ -2,8 +2,8 @@
 
 <!-- Admin function -->
 
-<div id="contentX" #contentX class="col-12 boxcolor-mm background-Slide d-none animate__animated animate__fadeIn"
-    style="height: 350px;">
+<div id="contentX" #contentX class="col-12"
+    style="height: auto;">
     <!--  -->
 
     <div class="row">
@@ -406,16 +406,16 @@
                             </div>
                             <div class="col-lg-5 text-left">
                                 <p class="tx-16 tx-gray-700"><span class="tx-bold">Nationality :
-                                    </span>dr.nationality</p>
+                                    </span>{{dr.nationality}}</p>
                                 <p class="tx-16 tx-gray-700"><span class="tx-bold">Type of VISA :
-                                    </span>dr.visa_type</p>
+                                    </span>{{dr.visa_type}}</p>
 
                             </div>
                             <div class="col-lg-6 text-left">
                                 <p class="tx-16 tx-gray-700"><span class="tx-bold">Valid Until :
-                                    </span>dr.valid_unit</p>
+                                    </span>{{dr.valid_unit}}</p>
                                 <p class="tx-16 tx-gray-700"><span class="tx-bold">No. Of Entry :
-                                    </span>dr.visa_entry</p>
+                                    </span>{{dr.visa_entry}}</p>
                                 <!-- <p class="tx-18 tx-top-blue font-weight-bold">{{dr.datefrom}} - {{dr.dateto}}</p> -->
                             </div>
                             <div class="col-lg-1"></div>
@@ -426,8 +426,7 @@
                                             picture_as_pdf
                                         </i><a class="text-primary" target="_blank"
                                             matTooltip="Click for download file."
-                                            >dr.file_name</a></label>
-                                            <!-- (click)="downloadFile(dr.full_path,dr.file_name)" -->
+                                            (click)="downloadFile(dr.full_path,dr.file_name)">{{dr.file_name}}</a></label>
                                 </div>
                             </div>
                         </div>

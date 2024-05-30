@@ -54,6 +54,10 @@ const routes: Routes = [
   { path: "", redirectTo: "/ebizhome", pathMatch: "full" },
   { path: "errors", component: ErrorComponent, pathMatch: "full" },
   { path: "login/:token/:user", component: LoginComponent, pathMatch: "full" },
+  { path: "i", component: RequestPartIComponent, pathMatch: "full" },
+  // { path: "ii", component: RequestPartIIComponent, pathMatch: "full" },
+
+
   {
     path: "main", component: MainComponent, children: [
       { path: "", redirectTo: "/main/services", pathMatch: "full" },
@@ -64,7 +68,7 @@ const routes: Routes = [
         path: "request/:types/:ids", component: RequestComponent,
         children: [
           { path: "", redirectTo: "/errors", pathMatch: "full" },
-          { path: "i", component: RequestPartIComponent, pathMatch: "full" },
+          // { path: "i", component: RequestPartIComponent, pathMatch: "full" },
           { path: "ii", component: RequestPartIIComponent, pathMatch: "full" },
           { path: "iii", component: RequestPartIIIComponent, pathMatch: "full" },
           { path: "cap", component: RequestPartCapComponent, pathMatch: "full" },

@@ -1,7 +1,7 @@
 <!-- <p>travelrecord works!</p> -->
-<div id="contentX" #contentX class="col-12 boxcolor-mm background-Slide d-none animate__animated animate__fadeIn"
-    style="height: 350px;">
-    <div class="row">
+<div id="contentX" #contentX class="col-12"
+    style="height: auto">
+    <div class="row math-height">
         <div class="col-sm-12">
 
             <div class="card box-shadow-1 mt-3 mn-ht-500">
@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form [formGroup]?="registerForm" (ngSubmit)="onSubmit()">
+                    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                         <div class="row">
 
                             <div class="col-xl-3 col-lg-6 col-md-12 mb-1">
@@ -46,8 +46,10 @@
                                             (onDeSelect)="handleSelectedContinentToLoadMasterCountry()"
                                             formControlName="request_type">
                                         </ng-multiselect-dropdown>
-                                        <!-- <span class="red tx-12" *ngIf="submitted && f.request_type.errors">Travel Type
-                                            is required.</span> -->
+                                        <span class="red tx-12" *ngIf="submitted">
+                                            <!-- && f.request_type.errors -->
+                                            Travel Type
+                                            is required.</span>
 
                                     </div>
                                 </fieldset>
@@ -85,11 +87,11 @@
                                             onpaste="return false;" ondrop="return false;" onkeypress="return false;"
                                             (keydown)="keyDown($event)" [(ngModel)]="model.business_date_from"
                                             [bsConfig]="{dateInputFormat: 'DD MMM YYYY',showWeekNumbers:false}"
-                                            
+                                            [ngClass]="{ 'is-invalid': submitted  }"
                                             (ngModelChange)="changeDate('date_from')"
                                             [minDate]="model.min_business_date_from" [maxDate]="model.business_date_to"
                                             bsDatepicker>
-                                            <!-- [ngClass]="{ 'is-invalid': submitted && f.date_from.errors }" -->
+                                            <!-- && f.date_from.errors -->
                                         <!-- <button class="form-control-position" mat-button matSuffix mat-icon-button 
                                                     aria-label="Clear" >
                                                     <mat-icon>close</mat-icon>
@@ -103,10 +105,12 @@
                                         <label class="form-control-position" for="business_date_from">
                                             <i class="material-icons pt-1 tx-gray-500 cursor-pointer">today</i>
                                         </label>
-                                        <!-- <div *ngIf="submitted && f.date_from.errors" class="invalid-feedback">
-                                            <div *ngIf="f.date_from.errors.required">Business Date Form is required
-                                            </div> -->
-                                        <!-- </div> -->
+                                        <div *ngIf="submitted " class="invalid-feedback">
+                                            <!-- && f.date_from.errors -->
+                                            <div >Business Date Form is required
+                                                <!-- *ngIf="f.date_from.errors.required" -->
+                                            </div>
+                                        </div>
                                     </div>
                                 </fieldset>
                             </div>
@@ -114,14 +118,15 @@
                                 <fieldset class="form-group">
                                     <label for="disabledInput">To<span class="red"> *</span><span></span></label>
                                     <div class="form-group position-relative has-icon-right">
-                                        <!-- <input autocomplete="off" id="business_date_to" type="text"
+                                        <input autocomplete="off" id="business_date_to" type="text"
                                             formControlName="date_to" class="form-control" onpaste="return false;"
                                             ondrop="return false;" onkeypress="return false;"
                                             (keydown)="keyDown($event)" [(ngModel)]="model.business_date_to"
-                                            bsDatepicker [ngClass]="{ 'is-invalid': submitted && f.date_to.errors }"
+                                            bsDatepicker [ngClass]="{ 'is-invalid': submitted }"
                                             [bsConfig]="{dateInputFormat: 'DD MMM YYYY',showWeekNumbers:false}"
                                             (ngModelChange)="changeDate('date_to')" [minDate]="model.business_date_from"
-                                            [maxDate]="model.max_business_date_to"> -->
+                                            [maxDate]="model.max_business_date_to">
+                                            <!-- && f.date_to.errors  -->
 
                                         <label id="clearDateForm" class="form-control-position mg-r-25-f"
                                             [hidden]="model.business_date_to === null" (click)="clearValue('date_to')">
@@ -131,9 +136,11 @@
                                         <label class="form-control-position" for="business_date_to">
                                             <i class="material-icons pt-1 tx-gray-500 cursor-pointer">today</i>
                                         </label>
-                                        <!-- <div *ngIf="submitted && f.date_to.errors" class="invalid-feedback">
-                                            <div *ngIf="f.date_to.errors.required">Business Date To is required</div>
-                                        </div> -->
+                                        <div *ngIf="submitted"class="invalid-feedback">
+                                            <!-- && f.date_to.errors"  -->
+                                            <div >Business Date To is required</div>
+                                            <!-- *ngIf="f.date_to.errors.required" -->
+                                        </div>
                                     </div>
                                 </fieldset>
                             </div>
@@ -296,7 +303,7 @@
                                             <tr [ngClass]="{'d-none':model.dataSource.length > 0}">
                                                 <td colspan="31" class="pl-5">No Data.</td>
                                             </tr>
-                                            <!-- <tr *ngFor="let dr of model.dataSource; let i = index"
+                                            <tr *ngFor="let dr of model.dataSource; let i = index"
                                                 [ngClass]="{'d-none':model.dataSource.length === 0}">
 
                                                 <td class="text-right">{{ i+1 }}.</td>
@@ -333,9 +340,9 @@
                                                 <td class="text-center">{{ dr.visa_fee }}</td>
                                                 <td class="text-center">{{ dr.total }}</td>
 
-                                                <td class="text-center">{{ dr.total | number:'1.2-2' }}</td> 
+                                                <!-- <td class="text-center">{{ dr.total | number:'1.2-2' }}</td> -->
 
-                                            </tr> -->
+                                            </tr>
 
                                         </tbody>
                                     </table>

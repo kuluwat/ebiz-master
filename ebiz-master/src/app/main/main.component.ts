@@ -95,11 +95,11 @@ export class MainComponent implements OnInit {
     // console.log("Login Success")
     // localStorage["token"] = "bec0e2a0-226b-4c9e-83e2-2dfe2f2c2fed"
     // localStorage["user"] = "username"
-    this.didCheckTokenDied()
+    // this.didCheckTokenDied()
   }
 
   ngOnInit() {
-    this.didCheckTokenDied()
+    // this.didCheckTokenDied()
   }
 
   didCheckTokenDied() {

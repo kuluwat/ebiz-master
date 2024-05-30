@@ -1,6 +1,6 @@
 <div
-  class="col-12 boxcolor-mm background-Slide animate__animated animate__fadeIn"
-  style="height: 350px"
+  class="col-12"
+  style="height: auto"
   *ngIf="model_all.emp_list.length > 0"
   (window:keypress)="onKeyDown($event)"
 >
@@ -35,9 +35,9 @@
                     class="form-control line-height-2 tx-gray-700 text-bold-500"
                     placeholder="Select"
                   >
-                    <!-- <mat-option *ngFor="let topping of model_all.emp_list; let i = index" [value]="topping.emp_id">
+                    <mat-option *ngFor="let topping of model_all.emp_list; let i = index" [value]="topping.emp_id">
                       {{ topping.userDisplay }}
-                    </mat-option> -->
+                    </mat-option>
                   </mat-select>
                 </div>
                 <div class="text-right mt-4 pr-2" *ngIf="pathPhase1">
@@ -153,9 +153,11 @@
                       hideToggle="true"
                       class="border-bottom-0 mb-4 box-shadow-2 animate__animated animate__fadeIn"
                       *ngFor="let item of model_all.feedback_topic_list"
-                      [ngClass]="DataBYCARID(item.id).length == 0 || item.name.toLocaleLowerCase() == 'other' ? 'd-none' : ''">
-                      <mat-expansion-panel-header  class="d-flex">
-                        <!-- (click)="item.show = !item.show" -->
+                      [ngClass]="
+                        DataBYCARID(item.id).length == 0 || item.name.toLocaleLowerCase() == 'other' ? 'd-none' : ''
+                      "
+                    >
+                      <mat-expansion-panel-header (click)="item.show = !item.show" class="d-flex">
                         <span class="material-icons-outlined mx-2 tx-24"> insert_comment </span>
                         <h5 class="tx-underline text-bold-700 text-capitalize tx-16">{{ item.name }}</h5>
                         <i class="material-icons ml-auto tx-20" *ngIf="item.show">keyboard_arrow_up</i>
@@ -171,24 +173,17 @@
                             <div class="col-12 px-0 px-sm-0 px-md-5 px-lg-5 px-xl-5">
                               <div class="row mx-1 mx-md-0 flex-column" #tagcontainer>
                                 <p class="text-bold-500 tx-14 px-3 px-sm-0 mb-0 mr-1" #tagp>
-                                  <!-- {{ detail.no }}. {{ detail.question }} -->
+                                  {{ detail.no }}. {{ detail.question }}
                                 </p>
-                                <!-- <small
+                                <small
                                   class="tx-gray-700 text-bold-500 tx-14 XfontKanit"
                                   #tagsmall
-                                  [ngClass]="addClass &&
-                                    setClass(
-                                      tagp.clientWidth,
-                                      tagsmall.clientWidth,
-                                      tagcontainer.clientWidth,
-                                      detail.no.length
-                                    )
-                                  "
+                                  
                                   >({{ detail.description }})</small
-                                > -->
+                                >
                               </div>
 
-                              <!-- <div class="d-flex justify-content-around mx-2 flex-row-reverse">
+                              <div class="d-flex justify-content-around mx-2 flex-row-reverse">
                                 <div
                                   class="d-flex flex-column text-center cursor-pointer"
                                   [ngStyle]="{ 'pointer-events': user_reject ? '' : 'none' }"
@@ -295,7 +290,7 @@
                                   >
                                   <div class="font-weight-bold tx-12">No Comment</div>
                                 </div>
-                              </div> -->
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -313,14 +308,14 @@
                 >
                   <div class="col-12 pr-0" *ngFor="let detail of DataBYCARID(item.id)">
                     <div class="form-group">
-                      <!-- <label class="text-bold-700 tx-16">{{ detail.question }}</label> -->
-                      <!-- <input
+                      <label class="text-bold-700 tx-16">{{ detail.question }}</label>
+                      <input
                         class="form-control"
                         [(ngModel)]="detail.answer"
                         (ngModelChange)="detail.action_change = 'true'"
                         type="text"
                         [disabled]="!user_reject"
-                      /> -->
+                      />
                     </div>
                     <div class="row justify-content-start my-2 px-0 mx-0 gap" *ngIf="user_reject">
                       <button
@@ -414,8 +409,7 @@
                     DataBYCARID(item.id).length == 0 || item.name.toLocaleLowerCase() == 'other' ? 'd-none' : ''
                   "
                 >
-                  <mat-expansion-panel-header  class="d-flex justify-content-around">
-                    <!-- (click)="item.show = !item.show" -->
+                  <mat-expansion-panel-header (click)="item.show = !item.show" class="d-flex justify-content-around">
                     <h5 class="tx-underline text-bold-700 text-capitalize tx-16">{{ item.name }}</h5>
                     <i class="material-icons ml-auto tx-20" *ngIf="item.show">keyboard_arrow_up</i>
                     <i class="material-icons ml-auto tx-20" *ngIf="!item.show">keyboard_arrow_down</i>
@@ -427,16 +421,12 @@
                       <div class="row my-4">
                         <div class="col-12 px-0 px-sm-0 px-md-5 px-lg-5 px-xl-5">
                           <div class="row mx-1 mx-md-0 flex-column">
-                            <p class="text-bold-500 tx-14 px-3 px-sm-0">
-                              <!-- {{ detail.no }}. {{ detail.question }} -->
-                            </p>
-                            <div class="tx-gray-700 text-bold-500 tx-14 XfontKanit">
-                              <!-- ({{ detail.description }}) -->
-                            </div>
+                            <p class="text-bold-500 tx-14 px-3 px-sm-0">{{ detail.no }}. {{ detail.question }}</p>
+                            <div class="tx-gray-700 text-bold-500 tx-14 XfontKanit">({{ detail.description }})</div>
                           </div>
 
                           <div class="d-flex justify-content-around mx-2 flex-row-reverse">
-                            <!-- <div
+                            <div
                               class="d-flex flex-column text-center cursor-pointer"
                               [ngStyle]="{ 'pointer-events': user_reject ? '' : 'none' }"
                               (click)="
@@ -456,8 +446,8 @@
                                 >sentiment_very_satisfied</i
                               >
                               <div class="font-weight-bold tx-14">Very Satisfied</div>
-                            </div> -->
-                            <!-- <div
+                            </div>
+                            <div
                               class="d-flex flex-column text-center cursor-pointer"
                               [ngStyle]="{ 'pointer-events': user_reject ? '' : 'none' }"
                               (click)="
@@ -541,7 +531,7 @@
                                 >sentiment_dissatisfied</i
                               >
                               <div class="font-weight-bold tx-14">No Comment</div>
-                            </div> -->
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -659,7 +649,7 @@
                 </button>
               </div>
 
-              <!--  <div class="col-12 pr-0"  *ngFor="let detail of DataBYCARID(item.id);">
+                <div class="col-12 pr-0"  *ngFor="let detail of DataBYCARID(item.id);">
                                 <div class="form-group">
                                   
                                     <label class="text-bold-700 tx-16">{{detail.question}}</label>
@@ -679,7 +669,7 @@
                                     font-weight-bold tx-14 text-white ml-auto cursor-pointer" (click)="Onsave('submit')">
                                         Submit</button>
     
-                                </div> -->
+                                </div> 
             </div>
           </div>
         </div>

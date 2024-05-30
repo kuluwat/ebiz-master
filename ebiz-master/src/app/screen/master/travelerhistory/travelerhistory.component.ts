@@ -45,7 +45,7 @@ export class TravelerhistoryComponent implements OnInit {
   travel_date = ""
   dateofexpire = ""
 
-  arrTraveler = [];
+  arrTraveler : any = [];
 
   passportno = ""
   dateofissue = ""
@@ -56,7 +56,7 @@ export class TravelerhistoryComponent implements OnInit {
   imgprofile = ""//this.imgpath + this.imgprofilename
 
   arrayX: any = [];
-  dataRet = [];
+  dataRet : any = [];
   selectedFile: File = null!;
   traveler_emp: any = []
 

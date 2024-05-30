@@ -3,44 +3,12 @@
 </div>
 <div class="container-fluid">
     <div class="card-container">
-        <div class="row">
-            <div class="col">
-              <nav >
-                <div class="container-fluid">
-                    <ul class="sidebar">
-                      <ng-container *ngFor="let link of menuList">
-                        <!-- <li class="sidebar"> -->
-                          <a [routerLink]="getPageUrl(link.pagename)" routerLinkActive="activate">{{ link.menuname }}</a>
-                        <!-- </li> -->
-                      </ng-container>
-                    </ul>
-                </div>
-              </nav>
-      
-              
-      
-            </div>
-            
-          </div>
-        <!-- <nav class="sidebar" > -->
-            <!-- <div *ngFor="let dr of menuList">
-            <a   [routerLink]="getPageUrl(dr.pagename)" routerLinkActive="active" [ngClass]="{'d-none': !dr.display}">
+        
+        <nav class="sidebar">
+            <a *ngFor="let dr of menuList" [routerLink]="getPageUrl(dr.pagename)" routerLinkActive="active">
                 {{ dr.menuname }}
               </a>
-</div> -->
-              <!-- <a routerLink="/master/travelerhistory" routerLinkActive="active">Traveler History</a>
-              <a routerLink="/master/airticket" routerLinkActive="active">Air Ticket</a>
-              <a routerLink="/master/accommodation" routerLinkActive="active">Accommodation</a>
-              <a routerLink="/master/visa" routerLinkActive="active">VISA</a>
-              <a routerLink="/master/passport" routerLinkActive="active">Passport</a>
-              <a routerLink="/master/allowance" routerLinkActive="active">Allowance</a>
-              <a routerLink="/master/reimbursement" routerLinkActive="active">Reimbursement</a>
-              <a routerLink="/master/travelinsurance" routerLinkActive="active">Travel Insurance</a>
-              <a routerLink="/master/isos" routerLinkActive="active">ISOS</a>
-              <a routerLink="/master/transportation" routerLinkActive="active">Transportation</a>
-              <a routerLink="/master/travelexpense" routerLinkActive="active">Travel Expense</a>
-              <a routerLink="/master/feedback" routerLinkActive="active">Feed back</a>  -->
-        <!-- </nav> -->
+        </nav>
         
         <div class="main-content">
             
@@ -51,35 +19,3 @@
     </div>
     
 </div>
-
-<!-- <div class="container">
-    <div class="row">
-      <div class="col">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container-fluid">
-            <div class="" id="navbarSupportedContent">
-              <ul class="sidebar">
-                <ng-container *ngFor="let link of menuList">
-                  <li class="sidebar">
-                    <a class="nav-link" [routerLink]="getPageUrl(link.pagename)" routerLinkActive="activate">{{ link.menuname }}</a>
-                  </li>
-                </ng-container>
-              </ul>
-            </div>
-            
-          </div>
-        </nav>
-
-        
-
-      </div>
-      
-    </div>
-    <div class="main-content">
-            
-        <router-outlet (activate)="onActivate()"></router-outlet>
-    
-
-  </div>
-  </div> -->
-  

@@ -16,12 +16,12 @@ declare var $: any;
 export class TravelrecordComponent implements OnInit {
 
 
-  panel = {
+  panel : any= {
     country: false,
     province: false
   }
 
-  model = {
+  model : any = {
     request_type: {
       value: [],
       config: {
@@ -36,9 +36,9 @@ export class TravelrecordComponent implements OnInit {
         })
         // placeholder: 'Select'
       },
-      list: [ { }
+      list: [
       ],
-      select: [{}],
+      select: [],
       settingMulti: {
         enableCheckAll: false,
         singleSelection: false,
@@ -77,7 +77,7 @@ export class TravelrecordComponent implements OnInit {
           return 0;
         })
       },
-      list: [{}],
+      list: [],
       disabled: false,
     },
     province: {
@@ -95,7 +95,7 @@ export class TravelrecordComponent implements OnInit {
         //   return 0;
         // })
       },
-      list: [{}],
+      list: [],
       disabled: false,
     },
     employee: {
@@ -181,7 +181,7 @@ export class TravelrecordComponent implements OnInit {
     dataSource: []
   }
 
-  registerForm?: FormGroup;
+  registerForm!: FormGroup;
   submitted = false;
 
   state: String = "";

@@ -16,13 +16,13 @@ declare var $: any;
 })
 export class IsosrecordComponent implements OnInit {
 
-  model = {
+  model : any = {
     yearArr: [],
     year: null,
     dataSource: []
   }
 
-  registerForm?: FormGroup;
+  registerForm!: FormGroup;
   submitted = false;
 
   state: String = "";
@@ -36,7 +36,7 @@ export class IsosrecordComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
 
-    const years : any = this.getYears().years;
+    const years = this.getYears().years;
     this.model.yearArr = years;
   }
 
@@ -49,8 +49,8 @@ export class IsosrecordComponent implements OnInit {
     // }
     const year = this.getCurrentYear();
     this.search(year);
-    var contentX : any = document.getElementById("contentX");
-    contentX.classList.remove("d-none");
+    var contentX = document.getElementById("contentX");
+    contentX!.classList.remove("d-none");
 
     // var contentX = document.getElementById("contentX");
     // contentX.classList.remove("d-none");
@@ -71,7 +71,7 @@ export class IsosrecordComponent implements OnInit {
   }
 
   getYears() {
-    const from : any = this.getCurrentYear();
+    const from = this.getCurrentYear();
     this.model.year = from;
     const years = [];
     const currentYear = this.getCurrentYear();
@@ -86,7 +86,7 @@ export class IsosrecordComponent implements OnInit {
     return { years, currentYear };
   }
 
-  get f() { return this.registerForm?.controls; }
+  get f() { return this.registerForm.controls; }
 
 
   onSubmit() {
@@ -100,7 +100,7 @@ export class IsosrecordComponent implements OnInit {
       // control.classList.add('border-red');
     // }
     // stop here if form is invalid
-    if (this.registerForm?.invalid) {
+    if (this.registerForm.invalid) {
       return;
     }
     //this.search();

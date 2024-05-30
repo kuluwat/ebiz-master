@@ -32,11 +32,11 @@ export class RequestComponent implements OnInit {
   btnGoToPhase2: boolean = false;
 
   constructor(
-    // @Inject(forwardRef(() => MainComponent)) private appMain: MainComponent,
-    // private route: ActivatedRoute,
-    // public ws: AspxserviceService,
-    // private alerts: AlertServiceService,
-    // private loadList: LoadListService
+    @Inject(forwardRef(() => MainComponent)) private appMain: MainComponent,
+    private route: ActivatedRoute,
+    public ws: AspxserviceService,
+    private alerts: AlertServiceService,
+    private loadList: LoadListService
   ) {
 
     // this.route.params.subscribe(params => {
@@ -86,7 +86,7 @@ export class RequestComponent implements OnInit {
 
   report() {
     if (this.buttons.Print) {
-      // this.appMain.isLoading = true;
+      this.appMain.isLoading = true;
       // body ให้ส่ง parameter ต่างๆที่แสดงด้านบนของ excel
       let body = {
         "token_login": localStorage["token"],
@@ -120,22 +120,22 @@ export class RequestComponent implements OnInit {
           console.log(parsed.dtResult[0].file_outbound_path);
           console.log(parsed.dtResult[0].file_outbound_name);
 
-          // this.ws.downloadFile(parsed.dtResult[0].file_outbound_path, parsed.dtResult[0].file_outbound_name);
-          // this.appMain.isLoading = false;
+          this.ws.downloadFile(parsed.dtResult[0].file_outbound_path, parsed.dtResult[0].file_outbound_name);
+          this.appMain.isLoading = false;
         }
         else {
-          // this.appMain.isLoading = false;
-          // this.alerts.swal_error(parsed.dtResult[0].status);
+          this.appMain.isLoading = false;
+          this.alerts.swal_error(parsed.dtResult[0].status);
         }
       }
 
       //data, function name(ฝั่ง asmx), method name(phase1report, allowance, reimbursement)
-      // this.ws.excel_report(body, JSON.stringify(jsondata), 'TravelReport', 'phase1report').subscribe(data => onSuccess(data), error => {
-      //   this.appMain.isLoading = false
-      //   this.alerts.swal_error(error);
-        // console.log(error);
-        // alert('Can\'t call web api.' + ' : ' + error.message);
-      // });
+      this.ws.excel_report(body, JSON.stringify(jsondata), 'TravelReport', 'phase1report').subscribe(data => onSuccess(data), error => {
+        this.appMain.isLoading = false
+        this.alerts.swal_error(error);
+        console.log(error);
+        alert('Can\'t call web api.' + ' : ' + error.message);
+      });
     }
   }
 }

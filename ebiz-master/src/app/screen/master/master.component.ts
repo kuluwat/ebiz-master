@@ -389,6 +389,7 @@ export class MasterComponent implements OnInit {
     else if (this.DOC_ID === 'feedback') {
       pagename = "feedback";
     }
+    
     return pagename;
   }
 

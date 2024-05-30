@@ -1,10 +1,11 @@
-<div class="col-12 boxcolor-mm background-Slide animate__animated animate__fadeIn" style="height: 350px" *ngIf="model_all.emp_list.length > 0" (window:keypress)="onKeyDown($event)">
+<div class="col-12" style="height: auto" *ngIf="model_all.emp_list.length > 0">
   <div class="row math-height">
     <div class="col-lg-12">
       <div class="card box-shadow-1 mt-3">
         <div class="card-body m-0 p-0">
-          <div class="row mx-0">
-            <div class="col-lg-6 col-sm-12 col-md-6 col-12" style="min-height: 67px">
+          <div class="row mx-0" #container>
+            <!-- Title & DDL User List -->
+            <div class="col-lg-6 col-md-6 col-sm-12" style="min-height: 67px">
               <div class="marker marker-ribbon marker-top-blue pos-absolute mt-4 l-0 pl-5 pr-5">
                 <p class="tx-24 m-0 text-uppercase d-flex align-items-center justify-content-around">
                   &#32;<i class="material-icons mx-2" id="initPage">directions_bus</i>&#32;transportation
@@ -253,9 +254,12 @@
                     </div>
                   </div>
                 </div>
-                <div class="container">
-                  <mat-expansion-panel class="margin-top margin-bottoms px-0 w-100 overflow-scroll" [expanded]="transportation_car_length ? panel.showTS : false" [disabled]="transportation_car_length === false">
-                    <mat-expansion-panel-header (click)="transportation_car_length ? (panel.showTS = !panel.showTS) : (panel.showTS = false)">
+                
+              </div>
+              <div class="col-12 mb-5">
+                <div class="container" id="container-mat-transport">
+                  <mat-expansion-panel class="margin-top margin-bottoms pb-2" [expanded]="transportation_car_length ? panel.showTS : false" [disabled]="transportation_car_length === false">
+                    <mat-expansion-panel-header (click)="transportation_car_length ? (panel.showTS = !panel.showTS) : (panel.showTS = false)" collapsedHeight="56px" expandedHeight="56px">
                       <mat-panel-title>
                         <mat-icon class="material-icons">file_copy</mat-icon>
 
@@ -400,9 +404,8 @@
                     </div>
                   </mat-expansion-panel>
                 </div>
-              </div>
-              <!--** Company Car -->
 
+              <!--** Company Car -->
               <!--** Personal Car -->
               <!--               
               <div
@@ -503,3 +506,4 @@
     </div>
   </div>
 </div>
+

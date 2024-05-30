@@ -14,13 +14,17 @@ declare var $: any;
 })
 export class InsurancerecordComponent implements OnInit {
 
-  model = {
+  model : any = {
     yearArr: [],
-    year: null,
+    year: [
+      {
+        errors: ''
+      }
+    ],
     dataSource: []
   }
 
-  registerForm?: FormGroup;
+  registerForm!: FormGroup;
   submitted = false;
 
   state: String = "";

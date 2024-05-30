@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, forwardRef, Inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin, of } from 'rxjs';
 import { FileuploadserviceService } from '../../ws/fileuploadservice/fileuploadservice.service';
 import { AspxserviceService } from '../../ws/httpx/aspxservice.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -35,8 +35,8 @@ export class MtalreadybookedComponent implements OnInit {
   doc_id: any;
   pagename = 'transportation';
   emp_id: any;
-  selectfile!: File ;
-  list_emp!: string;
+  selectfile?: File;
+  list_emp?: string;
   select_user: any;
   totalgantotal: number = 0;
   car_selected_val = 'personal_car';
@@ -44,8 +44,8 @@ export class MtalreadybookedComponent implements OnInit {
   feedback_type_id_selected = '1';
   user_reject: boolean = false;
   user_display: string = '';
-  tp_clone!: TemplateRef<any>;
-  modalRef!: BsModalRef;
+  tp_clone?: TemplateRef<any>;
+  modalRef?: BsModalRef;
   obj_save: any;
   x_text: any;
   panel = {
@@ -53,28 +53,26 @@ export class MtalreadybookedComponent implements OnInit {
     after: false,
   };
   ischeck = false;
-  Already_Booked_type_selected = {
-    id: { name: '', status: '', action_change: false }, // Assuming id is an object
-    name: '',
+  Already_Booked_type_selected  : any = {
+    name: null,
     status: '',
+    id: null,
     action: false,
-
-    
   };
 
   constructor(
-    // @Inject(forwardRef(() => MaintainComponent)) private Appmain: MaintainComponent,
-    // private modalService: BsModalService,
-    // private http: HttpClient,
-    // private ws: AspxserviceService,
-    // private fileuploadservice: FileuploadserviceService,
-    // private alerts: AlertServiceService
+    @Inject(forwardRef(() => MaintainComponent)) private Appmain: MaintainComponent,
+    private modalService: BsModalService,
+    private http: HttpClient,
+    private ws: AspxserviceService,
+    private fileuploadservice: FileuploadserviceService,
+    private alerts: AlertServiceService
   ) {}
 
   ngOnInit() {
     // this.doc_id = this.Appmain.DOC_ID;
     //console.log(this.doc_id)
-    // this.Onload();
+    this.Onload();
     $('mat-tab-header.mat-tab-header').hide();
   }
   onResize() {
@@ -82,49 +80,50 @@ export class MtalreadybookedComponent implements OnInit {
     this.x_text = 2;
   }
   //#region get data form API
-  // get_data_master(): Observable<any> {
-  //   var BodyX = {
-  //     token_login: localStorage['token_login'],
-  //     page_name: 'airticket',
-  //     module_name: 'master already booked',
-  //   };
-  //   var already_type = this.ws.callWs(BodyX, this.action_stage.master);
+  get_data_master(): Observable<any> {
+    var BodyX = {
+      token_login: localStorage['token_login'],
+      page_name: 'airticket',
+      module_name: 'master already booked',
+    };
+    var already_type = this.ws.callWs(BodyX, this.action_stage.master);
 
-  //   return forkJoin(already_type);
-  // }
+    return forkJoin(already_type);
+  }
 
-  // get_one_data(type : any): Observable<any> | undefined {
-  //   if (type == 'master_type') {
-  //     var BodyX = {
-  //       token_login: localStorage['token_login'],
-  //       page_name: 'feedback',
-  //       module_name: 'master feedback type',
-  //     };
-  //     var feedback_type = this.ws.callWs(BodyX, this.action_stage.master);
-  //     return forkJoin(feedback_type);
-  //   }
-  //   if (type == 'master_topic') {
-  //     var BodyXx = {
-  //       token_login: localStorage['token_login'],
-  //       page_name: 'feedback',
-  //       module_name: 'master feedback list',
-  //     };
-  //     var feedback_list = this.ws.callWs(BodyXx, this.action_stage.master);
-  //     return forkJoin(feedback_list);
-  //   }
-  //   if (type == 'master_question') {
-  //     var BodyXxx = {
-  //       token_login: localStorage['token_login'],
-  //       page_name: 'feedback',
-  //       module_name: 'master feedback type',
-  //     };
-  //     BodyXxx.module_name = 'master feedback question';
-
-  //     var feedback_detail = this.ws.callWs(BodyXxx, this.action_stage.master);
-  //     return forkJoin(feedback_detail);
-  //   }
-  //   return undefined;
-  // }
+  get_one_data(type: any): Observable<any> {
+    if (type == 'master_type') {
+      var BodyX = {
+        token_login: localStorage['token_login'],
+        page_name: 'feedback',
+        module_name: 'master feedback type',
+      };
+      var feedback_type = this.ws.callWs(BodyX, this.action_stage.master);
+      return forkJoin(feedback_type);
+    }
+    if (type == 'master_topic') {
+      var BodyXx = {
+        token_login: localStorage['token_login'],
+        page_name: 'feedback',
+        module_name: 'master feedback list',
+      };
+      var feedback_list = this.ws.callWs(BodyXx, this.action_stage.master);
+      return forkJoin(feedback_list);
+    }
+    if (type == 'master_question') {
+      var BodyXxx = {
+        token_login: localStorage['token_login'],
+        page_name: 'feedback',
+        module_name: 'master feedback type',
+      };
+      BodyXxx.module_name = 'master feedback question';
+  
+      var feedback_detail = this.ws.callWs(BodyXxx, this.action_stage.master);
+      return forkJoin(feedback_detail);
+    }
+    // Return null or an empty observable if none of the conditions are met
+    return of(null);
+  }
   convert_bool(data : any) {
     if (data.length > 0) {
       data.forEach((el : any) => {
@@ -132,72 +131,72 @@ export class MtalreadybookedComponent implements OnInit {
       });
     }
   }
-  // async Onload() {
-  //   // this.Appmain.isLoading = true;
-  //   await this.get_data_master().subscribe(
-  //     (data) => {
-  //       console.log(data);
-  //       this.convert_bool(data[0].already_booked);
-  //       this.obj_save = { ...data[0] };
-  //       this.master_data.already_booked = data[0].already_booked;
-  //     },
-  //     (err) => {
-  //       // this.Appmain.isLoading = false;
-  //       console.log(err);
-  //     },
-  //     () => {
-  //       // this.Appmain.isLoading = false;
-  //       this.model_all_def = { ...this.master_data };
-  //       this.model_all = this.master_data;
-  //       // update_filde
+  async Onload() {
+    // this.Appmain.isLoading = true;
+    await this.get_data_master().subscribe(
+      (data) => {
+        console.log(data);
+        this.convert_bool(data[0].already_booked);
+        this.obj_save = { ...data[0] };
+        this.master_data.already_booked = data[0].already_booked;
+      },
+      (err) => {
+        this.Appmain.isLoading = false;
+        console.log(err);
+      },
+      () => {
+        this.Appmain.isLoading = false;
+        this.model_all_def = { ...this.master_data };
+        this.model_all = this.master_data;
+        // update_filde
 
-  //       console.log(this.model_all);
-  //     }
-  //   );
-  // }
+        console.log(this.model_all);
+      }
+    );
+  }
   //#endregion
 
   //#region  plungin
 
-  // swal_confrim(type_data = 'data', type_action = 'delete') {
-  //   var txt = '';
-  //   if (type_action == 'delete') {
-  //     txt = 'Do you want to ' + type_action + ' ?';
-  //   } else {
-  //     txt = 'Do you want to ' + type_action + ' the ' + type_data + ' ?';
-  //   }
-  //   if (type_action == 'delete') {
-  //     return this.alerts.swal_confrim_delete('');
-  //   } else {
-  //     return this.alerts.swal_confrim_changes('');
-  //   }
-  // }
-  // Swalalert(msg : any, type : any) {
-  //   //type = success,error,warning,info
-  //   if (type == 'success') {
-  //     this.alerts.swal_sucess(msg);
-  //   }
-  //   if (type == 'error') {
-  //     this.alerts.swal_error(msg);
-  //   }
-  //   if (type == 'warning') {
-  //     this.alerts.swal_warning(msg);
-  //   }
-  //   if (type == 'info') {
-  //     this.alerts.swal_info(msg);
-  //   }
-  // }
-  // openModal(template: TemplateRef<any>) {
-  //   this.tp_clone = template;
-  //   let config: object = {
-  //     class: 'modal-md',
-  //     animated: true,
-  //     keyboard: false,
-  //     ignoreBackdropClick: true,
-  //   };
+  swal_confrim(type_data = 'data', type_action = 'delete') {
+    var txt = '';
+    if (type_action == 'delete') {
+      txt = 'Do you want to ' + type_action + ' ?';
+    } else {
+      txt = 'Do you want to ' + type_action + ' the ' + type_data + ' ?';
+    }
+    if (type_action == 'delete') {
+      return this.alerts.swal_confirm_delete('');
+    } else {
+      return this.alerts.swal_confirm_changes('');
+    }
+  }
+  Swalalert(msg : any, type : any) {
+    //type = success,error,warning,info
+    if (type == 'success') {
+      this.alerts.swal_success(msg);
+    }
+    if (type == 'error') {
+      this.alerts.swal_error(msg);
+    }
+    if (type == 'warning') {
+      this.alerts.swal_warning(msg);
+    }
+    if (type == 'info') {
+      this.alerts.swal_info(msg);
+    }
+  }
+  openModal(template: TemplateRef<any>) {
+    this.tp_clone = template;
+    let config: object = {
+      class: 'modal-md',
+      animated: true,
+      keyboard: false,
+      ignoreBackdropClick: true,
+    };
 
-  //   this.modalRef = this.modalService.show(template, config);
-  // }
+    this.modalRef = this.modalService.show(template, config);
+  }
   //#endregion
 
   onKeyDown(event : any) {
@@ -219,44 +218,45 @@ export class MtalreadybookedComponent implements OnInit {
     // return (this.vaildator_save && !this.validator_check) && el.invalid
     return el.invalid && this.ischeck;
   }
-  get_max_id(ds : any) {
+  get_max_id(ds : any ): number {
     if (ds.length > 0) {
       var dt = ds
-        .map((res :any) => {
+        .map((res : any) => {
           if (res.action_type != 'delete') {
           }
           return parseInt(res.id);
         })
-        .sort((a : any, b :any) => {
+        .sort((a : any, b : any) => {
           return a - b;
         });
 
       return dt[dt.length == 1 ? 0 : dt.length - 1];
     }
+    return 1 ;
   }
 
   change_status(type_checked : any, item : any) {
-    // this.swal_confrim('change', 'save').then((val) => {
-    //   if (val.isConfirmed == true) {
-    //     if (item.statusTF) {
-    //       item.status = '1';
-    //       item.action_change = 'true';
-    //     } else {
-    //       item.status = '0';
-    //       item.action_change = 'true';
-    //     }
-    //     if (type_checked == 'type') {
-    //       this.Onsave('saved','save');
-    //     }
-    //   } else {
-    //     item.statusTF = !item.statusTF;
-    //     if (item.statusTF) {
-    //       item.status = '1';
-    //     } else {
-    //       item.status = '0';
-    //     }
-    //   }
-    // });
+    this.swal_confrim('change', 'save').then((val) => {
+      if (val.isConfirmed == true) {
+        if (item.statusTF) {
+          item.status = '1';
+          item.action_change = 'true';
+        } else {
+          item.status = '0';
+          item.action_change = 'true';
+        }
+        if (type_checked == 'type') {
+          this.Onsave('saved');
+        }
+      } else {
+        item.statusTF = !item.statusTF;
+        if (item.statusTF) {
+          item.status = '1';
+        } else {
+          item.status = '0';
+        }
+      }
+    });
   }
 
   //Type
@@ -294,7 +294,7 @@ export class MtalreadybookedComponent implements OnInit {
 
     this.clear_type();
     console.log(ds_detail);
-    this.modalRef.hide();
+    this.modalRef?.hide();
     this.ischeck = false;
     this.Onsave('saved', 'new_row');
     //run number sort_by
@@ -308,25 +308,21 @@ export class MtalreadybookedComponent implements OnInit {
   }
   //delete_row_type
   delete_row(item : any) {
-    // this.swal_confrim().then((res) => {
-    //   if (res.isConfirmed == true) {
-    //     item.action_type = 'delete';
-    //     item.action_change = 'true';
-    //     this.Onsave('saved', 'delete');
-    //   } else {
-    //   }
-    // });
+    this.swal_confrim().then((res) => {
+      if (res.isConfirmed == true) {
+        item.action_type = 'delete';
+        item.action_change = 'true';
+        this.Onsave('saved', 'delete');
+      } else {
+      }
+    });
   }
   //clear feedback_type
   clear_type() {
     this.Already_Booked_type_selected = {
-      name: '',
+      name: null,
       status: '',
-      id:{
-        name: '',
-        status: '',
-        action_change : false
-      },
+      id: null,
       action: false,
     };
   }
@@ -338,7 +334,7 @@ export class MtalreadybookedComponent implements OnInit {
       id: row_type,
       action: true,
     };
-    // this.openModal(tem);
+    this.openModal(tem);
   }
   // update_row_type
   update_row() {
@@ -350,10 +346,10 @@ export class MtalreadybookedComponent implements OnInit {
     }
     this.Already_Booked_type_selected.id.name = this.Already_Booked_type_selected.name;
     this.Already_Booked_type_selected.id.status = this.Already_Booked_type_selected.status;
-    this.Already_Booked_type_selected.id.action_change = true;
+    this.Already_Booked_type_selected.id.action_change = 'true';
     this.clear_type();
-    this.modalRef.hide();
-    this.Onsave('saved','update_row');
+    this.modalRef?.hide();
+    this.Onsave('saved');
     this.ischeck = false;
   }
   Hide_modal() {
@@ -361,7 +357,7 @@ export class MtalreadybookedComponent implements OnInit {
     window.setTimeout(function () {
       souces.clear_type();
     }, 1000);
-    this.modalRef.hide();
+    this.modalRef?.hide();
   }
 
   //#endregion
@@ -386,23 +382,23 @@ export class MtalreadybookedComponent implements OnInit {
     }
     return true;
   }
-  Onsave(btn_type : any, type : any) {
+  Onsave(btn_type : any, type? : any) {
     if (btn_type == 'saved') {
       if (true) {
-        // this.Appmain.isLoading = true;
+        this.Appmain.isLoading = true;
         const OnsaveSucecss = (data : any) => {
-          // this.Appmain.isLoading = false;
+          this.Appmain.isLoading = false;
           console.log(data);
           if (data.after_trip.opt1 == 'true') {
             if (data.after_trip.opt2.status != 'Update data successfully.') {
               data.after_trip.opt2.status = 'Update data successfully.';
             }
             if (type == 'delete') {
-              // this.Swalalert('Delete data successfully', 'success');
+              this.Swalalert('Delete data successfully', 'success');
             } else {
               if (type == 'new_row') {
               } else {
-                // this.Swalalert(data.after_trip.opt2.status, 'success');
+                this.Swalalert(data.after_trip.opt2.status, 'success');
               }
             }
             //data.data_type = null;
@@ -412,9 +408,9 @@ export class MtalreadybookedComponent implements OnInit {
             this.obj_save.already_booked = [];
           } else {
             console.log(data);
-            // this.Swalalert(data.after_trip.opt2.status, 'error');
-            // this.Onload();
-            //this.model_all.already_booked  = {...this.model_all_def.already_booked}
+            this.Swalalert(data.after_trip.opt2.status, 'error');
+            this.Onload();
+            this.model_all.already_booked  = {...this.model_all_def.already_booked}
           }
         };
 
@@ -425,24 +421,24 @@ export class MtalreadybookedComponent implements OnInit {
         var bodyX = this.obj_save;
 
         console.log(bodyX);
-        // this.Appmain.isLoading = false;
+        this.Appmain.isLoading = false;
 
-        // this.ws.callWs(bodyX, this.action_stage.master_save).subscribe(
-        //   (res) => OnsaveSucecss(res),
-        //   (error) => {
-        //     // this.Appmain.isLoading = false;
+        this.ws.callWs(bodyX, this.action_stage.master_save).subscribe(
+          (res) => OnsaveSucecss(res),
+          (error) => {
+            this.Appmain.isLoading = false;
 
-        //     console.log(error);
-        //   },
-        //   () => {}
-        // );
+            console.log(error);
+          },
+          () => {}
+        );
       }
     } else {
       //submit
     }
   }
 
-  clearselection(emp_id : any,) {
+  clearselection(emp_id : any, ik : any) {
     this.model_all.emp_list.forEach((res : any, i : any) => {
       this.model_all.emp_list[i].isEdit = false;
       if (res.emp_id == emp_id) {
@@ -466,7 +462,7 @@ export class MtalreadybookedComponent implements OnInit {
       });
     });
   }
-  DataBYTYPEID(ds : any, topic_id : any, type: any) {
+  DataBYTYPEID(ds : any, topic_id : any, type? : any) {
     //this.runnumber();
 
     let dt = [];
@@ -490,7 +486,7 @@ export class MtalreadybookedComponent implements OnInit {
     //console.log(dt)
     return dt;
   }
-  check_action(item: any) {
+  check_action(item : any) {
     if (item.action_type == 'delete') {
       return true;
     }
@@ -500,3 +496,4 @@ export class MtalreadybookedComponent implements OnInit {
     return false;
   }
 }
+

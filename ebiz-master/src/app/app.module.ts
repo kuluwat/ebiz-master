@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule, NgModel } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
@@ -29,20 +29,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import {MatGridListModule} from '@angular/material/grid-list';
-
-import {
-  IgxAvatarModule,
-  IgxFilterModule,
-  IgxIconModule,
-  IgxListModule,
-  IgxInputGroupModule,
-  IgxButtonGroupModule,
-  IgxRippleModule,
-  IgxCarouselModule,
-  IgxSliderModule,
-  IgxTabsModule,
-} from 'igniteui-angular';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 // ngx-bootstrap
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -204,17 +191,6 @@ import { MtbrokerComponent } from './screen/mtbroker/mtbroker.component';
     MatCheckboxModule,
     MatGridListModule,
 
-    IgxAvatarModule,
-    IgxFilterModule,
-    IgxIconModule,
-    IgxListModule,
-    IgxInputGroupModule,
-    IgxButtonGroupModule,
-    IgxRippleModule,
-    IgxCarouselModule,
-    IgxSliderModule,
-    IgxTabsModule,
-
     // ngx-bootstrap
     BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
@@ -233,6 +209,8 @@ import { MtbrokerComponent } from './screen/mtbroker/mtbroker.component';
     HttpmanagerService,
     //SearchEmpService,
     MasterService,
+    // MainComponent,
+    // RequestComponent,
     //SavePartIService,
     PartIService,
     PartIiService,

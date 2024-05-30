@@ -198,7 +198,7 @@ export class MaintainComponent implements OnInit {
 
 
   constructor(
-    // @Inject(forwardRef(() => MasterComponent)) private appMain: MasterComponent,
+    @Inject(forwardRef(() => MasterComponent)) private appMain: MasterComponent,
     private route: ActivatedRoute,
     private authenHttp: AuthenService,
     private router: Router,

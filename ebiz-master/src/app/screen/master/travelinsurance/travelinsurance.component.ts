@@ -38,7 +38,7 @@ export class TravelinsuranceComponent implements OnInit {
   status = false;
   show_button = true;
   empid = '';
-  emp_list = [];
+  emp_list : any = [];
   arrX: any[] = [];
   empname = '';
   name_user = '';
@@ -48,7 +48,7 @@ export class TravelinsuranceComponent implements OnInit {
   business_date :any = new Date();
   travel_date :any = new Date();
   country_city : any;
-  img_list = [{}];
+  img_list : any = [];
   img_list_cert = [];
   selectedFile: File = null!;
   doc_id = '';
@@ -78,15 +78,15 @@ export class TravelinsuranceComponent implements OnInit {
       statusX: '',
     },
   ];
-  mail_list = [];
-  emplist = [];
-  ms_plan = [];
+  mail_list : any = [];
+  emplist : any = [];
+  ms_plan : any = [];
   text_company =
     'Thai Oil Public Company Limited Branch 00001 Address: 42/1 Moo 1, Sukhumvit Road Km 124, Tungsukla,Sriracha, Cholburi 20230 Tax ID No.010-7547000-711';
-  Email_sendX = [ {}];
+  Email_sendX : any = [];
   email_send : any;
   mail_curent = '';
-  brokerDt = [];
+  brokerDt : any = [];
   raw_dataX : any;
   Name_SetAll : any;
   tp_clone?: TemplateRef<any>;
@@ -720,7 +720,7 @@ export class TravelinsuranceComponent implements OnInit {
             }
           });
 
-          this.img_list.forEach((e) => {
+          this.img_list.forEach((e : any) => {
             // if (e.id_level_1 == id) {
             //   e.action_type = 'delete';
             //   e.action_change = 'true';
@@ -825,19 +825,18 @@ export class TravelinsuranceComponent implements OnInit {
   }
 
   XorderBy() {
-    //return this.visa_detail ;
-    var NewDataSort = this.travelInsurance_detail.sort(function (a : any, b : any) {
-      return parseInt(a.sort_by) - parseInt(b.sort_by);
+    // Sort the travel insurance details by 'sort_by' property
+    const sortedData = this.travelInsurance_detail.sort((a: any, b: any) => {
+      return parseInt(a.sort_by, 10) - parseInt(b.sort_by, 10);
     });
-    //var NewDataSort = datax.sort(function (a, b) { return parseInt(a.id) - parseInt(b.id) });
-    //console.log(NewDataSort);
-    var empidX = this.empid;
-    var NewDatafilter = this.travelInsurance_detail.filter((word : any) => word.emp_id == empidX);
-    /* NewDatafilter.forEach(e => {
-      e.panelx = false;
-    })  */
-    return NewDatafilter;
+  
+    // Filter the sorted data by the employee ID
+    const empidX = this.empid;
+    const filteredData = sortedData.filter((item: any) => item.emp_id === empidX);
+  
+    return filteredData;
   }
+  
 
   //index_page = 1;
   function_num_page() {
@@ -1358,13 +1357,14 @@ export class TravelinsuranceComponent implements OnInit {
     );
   }
 
-  ConvertTypeDate(value : any) {
-    if (!value) {
-      return '';
+  ConvertTypeDate(date: string): Date | undefined {
+    if (!date) {
+      return undefined;
     }
-
-    return new Date(value);
+    const parsedDate = new Date(date);
+    return isNaN(parsedDate.getTime()) ? undefined : parsedDate;
   }
+  
   AddDateX() { }
 
   SaveClick() {

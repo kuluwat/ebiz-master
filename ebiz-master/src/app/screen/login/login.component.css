@@ -1,44 +1,19 @@
-
-
-.card {
-    margin-top: 25vh; 
-    margin-left: 60vh;
-    max-width: 400px; 
-    border-radius: 20px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.btn-login {
+  border-radius: 100px;
+  background-color: #04528a;
+  color: white;
+  width: 250px;
+  padding: 10px;
 }
-  
-  .card-header {
-    background-color: white;
-    padding-top: 30px;
-  }
-  
-  .card-title {
-    text-align: center;
-  }
-  
-  .card-body {
-    padding: 20px; 
-  }
-  
-  .form-group {
-    margin-bottom: 20px; 
-
-  }
-  
-  .btn-login, .btn-login-auto {
-    width: 250px; 
-    height: 30px;
-    border-radius: 5px;
-    background-color: #04528a;
-    color: white;
-  }
-
-  /* .content-body {
-    align-content: center;
-        overflow: hidden;
-  } */
-
-
-  
-  
+.btn-login-auto {
+  border-radius: 100px;
+  border: 2px solid #04528a;
+  background-color: white;
+  color: #04528a;
+  width: 250px;
+  padding: 10px;
+}
+.txt-error {
+  color: red;
+  background-color: red;
+}

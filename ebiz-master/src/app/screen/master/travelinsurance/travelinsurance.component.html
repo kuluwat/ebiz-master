@@ -1,4 +1,4 @@
-<div class="col-12 boxcolor-mm background-Slide animate__animated animate__fadeIn" *ngIf="emp_list.length > 0" style="height: 350px">
+<div class="col-12" *ngIf="emp_list.length > 0" style="height: auto">
   <div class="row math-height">
     <div class="col-lg-12">
       <div class="card box-shadow-1 mt-3">
@@ -28,11 +28,11 @@
                     </p>
                   </div>
                   <div class="mt-4 col-12 col-md-10 col-lg-8 ml-md-auto" *ngIf="status">
-                    <!-- <mat-select #select [(ngModel)]="empid" (selectionChange)="update_userByDOC()" class="form-control line-height-2 tx-gray-700 text-bold-500" placeholder="Select">
+                    <mat-select #select [(ngModel)]="empid" (selectionChange)="update_userByDOC()" class="form-control line-height-2 tx-gray-700 text-bold-500" placeholder="Select">
                       <mat-option *ngFor="let topping of emp_list; let i = index" [value]="topping.emp_id">
                         {{ topping.userDisplay }}
                       </mat-option>
-                    </mat-select> -->
+                    </mat-select>
                   </div>
                   <div class="text-right mt-4 pr-4" *ngIf="pathPhase1">
                     <span class="link-text">
@@ -96,23 +96,18 @@
                     </button>
                   </div>
                   <ng-container *ngFor="let dt of XorderBy(); let i = index; last as lastrow">
-                    <ng-container >
-                      <!-- *ngIf="dt.emp_id == empid && dt.action_type != 'delete'" -->
-                      <mat-expansion-panel >
-                        <!-- [expanded]="dt.panelx" [class.mb-4]="!lastrow" -->
-                        <mat-expansion-panel-header id="clickMe2"  [collapsedHeight]="'32px'" [expandedHeight]="'32px'">
-                          <!-- #clickMe2 (click)="dt.panelx = !dt.panelx" -->
+                    <ng-container *ngIf="dt.emp_id == empid && dt.action_type != 'delete'">
+                      <mat-expansion-panel [expanded]="dt.panelx" [class.mb-4]="!lastrow">
+                        <mat-expansion-panel-header id="clickMe2" #clickMe2 (click)="dt.panelx = !dt.panelx" [collapsedHeight]="'32px'" [expandedHeight]="'32px'">
                           <div class="col-6 float-left px-0" style="vertical-align: bottom">
                             <h5 class="tx-gray-700 pt- my-0" style="vertical-align: bottom">
                               Travel Insurance {{ i + 1 }}
                             </h5>
                           </div>
                           <div class="col-6 float-right" style="vertical-align: bottom" [hidden]="!show_button">
-                            <span  style="vertical-align: bottom" class="fa fa-minus-circle danger cursor-pointer tx-18 float-right pt-2" aria-hidden="true"></span>
-                            <!-- *ngIf="i == data_retune(dt.emp_id).length - 1" 
-                            (click)="deleterow(dt.id, dt.emp_id)" -->
-                            <span  class="fa fa-plus-circle success cursor-pointer tx-18 float-right mr-2 pt-2" aria-hidden="true">
-                              <!-- *ngIf="dt.id == data_retune(dt.emp_id)" (click)="addrow(dt.emp_id)" -->
+                            <span (click)="deleterow(dt.id, dt.emp_id)" style="vertical-align: bottom" class="fa fa-minus-circle danger cursor-pointer tx-18 float-right pt-2" aria-hidden="true"></span>
+                            <!-- *ngIf="i == data_retune(dt.emp_id).length - 1" -->
+                            <span *ngIf="dt.id == data_retune(dt.emp_id)" (click)="addrow(dt.emp_id)" class="fa fa-plus-circle success cursor-pointer tx-18 float-right mr-2 pt-2" aria-hidden="true">
                             </span>
                           </div>
                         </mat-expansion-panel-header>
@@ -130,25 +125,21 @@
                                 <div class="col-md-4 col-sm-12 tx-gray-700 tx-14 m-0 text-bold-500">
                                   <label class="basic-url tx-14 text-bold-500">Employee ID :</label>
                                   <div class="custom-file w-100">
-                                    <input type="text" class="" id="passportno_input" disabled autocomplete="off"  class="form-control" />
-                                    <!-- [(ngModel)]="dt.ins_emp_id" -->
+                                    <input type="text" class="" id="passportno_input" disabled autocomplete="off" [(ngModel)]="dt.ins_emp_id" class="form-control" />
                                   </div>
                                 </div>
                                 <div class="col-md-8 col-sm-12 tx-gray-700 tx-14 m-0 text-bold-500">
-                                  <label class="basic-url tx-14 text-bold-500" >Policy Holder :</label>
-                                  <!-- [ngClass]="
+                                  <label class="basic-url tx-14 text-bold-500" [ngClass]="
                                       check_el(dt.id, Name_SetAll) == true && dt.submit_active == 'active'
                                         ? 'text-error'
                                         : 'tx-gray-700'
-                                    " -->
+                                    ">Policy Holder :</label>
                                   <div class="custom-file w-100">
-                                    <input type="text" class="" id="passportno_input"  autocomplete="off" [disabled]="!show_button" [(ngModel)]="Name_SetAll"  class="form-control" />
-                                    <!-- [ngClass]="
+                                    <input type="text" class="" id="passportno_input" [ngClass]="
                                         check_el(dt.id, Name_SetAll) == true && dt.submit_active == 'active'
                                           ? 'border-error'
                                           : ''
-                                      "
-                                      (ngModelChange)="ChangAllname(dt.id, dt.emp_id, Name_SetAll)" -->
+                                      " autocomplete="off" [disabled]="!show_button" [(ngModel)]="Name_SetAll" (ngModelChange)="ChangAllname(dt.id, dt.emp_id, Name_SetAll)" class="form-control" />
                                   </div>
                                 </div>
                                 <!-- [(ngModel)]="dt.ins_emp_name" -->
@@ -266,7 +257,7 @@
                                           check_el(dt.id, dt.Datefrom) == true && dt.submit_active == 'active'
                                             ? 'border-error'
                                             : ''
-                                        " (ngModelChange)="datePlusday3(date1.value, dt, 'period_ins_from')" [(ngModel)]="dt.Datefrom" [maxDate]?="ConvertTypeDate(dt.Dateto)" [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', showWeekNumbers: false }" />
+                                        " (ngModelChange)="datePlusday3(date1.value, dt, 'period_ins_from')" [(ngModel)]="dt.Datefrom" [maxDate]="ConvertTypeDate(dt.Dateto)" [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', showWeekNumbers: false }" />
                                       <div class="input-group-btn">
                                         <label class="form-control-position" for="datefrom{{ i }}">
                                           <i class="material-icons tx-top-blue cursor-pointer">today</i>
@@ -287,7 +278,7 @@
                                           check_el(dt.id, dt.Dateto) == true && dt.submit_active == 'active'
                                             ? 'border-error'
                                             : ''
-                                        " autocomplete="off" class="form-control ml-3" (ngModelChange)="datePlusday3(date2.value, dt, 'period_ins_to')" [(ngModel)]="dt.Dateto" [minDate]?="ConvertTypeDate(dt.Datefrom)" [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', showWeekNumbers: false }" />
+                                        " autocomplete="off" class="form-control ml-3" (ngModelChange)="datePlusday3(date2.value, dt, 'period_ins_to')" [(ngModel)]="dt.Dateto" [minDate]="ConvertTypeDate(dt.Datefrom)" [bsConfig]="{ dateInputFormat: 'DD MMM YYYY', showWeekNumbers: false }" />
                                       <div class="input-group-btn">
                                         <label class="form-control-position" for="dateto{{ i }}">
                                           <i class="material-icons tx-top-blue cursor-pointer">today</i>
@@ -350,20 +341,20 @@
                                 <div class="col-12 tx-gray-700 tx-14 m-0 text-bold-500">
                                   <label class="basic-url tx-14 text-bold-500">Remark :</label>
                                   <div class="custom-file w-100">
-                                    <!-- <textarea type="" class="" rows="3" [disabled]="!show_button" id="passportno_input" autocomplete="off" [(ngModel)]="dt.remark" (ngModelChange)="model_action_change(dt.id)" class="form-control"></textarea> -->
+                                    <textarea type="" class="" rows="3" [disabled]="!show_button" id="passportno_input" autocomplete="off" [(ngModel)]="dt.remark" (ngModelChange)="model_action_change(dt.id)" class="form-control"></textarea>
                                   </div>
                                 </div>
                               </div>
 
                               <div class="row p-2 mx-2 gap justify-content-md-end justify-content-sm-start">
                                 <input type="file" accept="image/*" #file2 class="d-none" (change)="onFileSelect2($event)" />
-                                <!-- <button class="btn btn-round bg-top-blue btn-min-width bg-top-blue font-weight-bold" style="color: #08508c; border: 1px solid #08508c; background-color: white" (click)="send_mail_Test2(dt.id, 1)" [disabled]="!show_button" [ngClass]="{ 'cursor-pointer': show_button, 'cursor-not-allowed': !show_button }"> -->
+                                <button class="btn btn-round bg-top-blue btn-min-width bg-top-blue font-weight-bold" style="color: #08508c; border: 1px solid #08508c; background-color: white" (click)="send_mail_Test2(dt.id, 1)" [disabled]="!show_button" [ngClass]="{ 'cursor-pointer': show_button, 'cursor-not-allowed': !show_button }">
                                   Send E-mail To Insurance
-                                <!-- </button> -->
+                                </button>
 
-                                <!-- <button class="btn btn-round bg-top-blue btn-min-width bg-top-blue font-weight-bold" style="color: #08508c; border: 1px solid #08508c; background-color: white" (click)="send_mail_Test2(dt.id, 0)" [disabled]="!show_button" [hidden]="!status" [ngClass]="{ 'cursor-pointer': show_button, 'cursor-not-allowed': !show_button }"> -->
+                                <button class="btn btn-round bg-top-blue btn-min-width bg-top-blue font-weight-bold" style="color: #08508c; border: 1px solid #08508c; background-color: white" (click)="send_mail_Test2(dt.id, 0)" [disabled]="!show_button" [hidden]="!status" [ngClass]="{ 'cursor-pointer': show_button, 'cursor-not-allowed': !show_button }">
                                   Send E-mail To Traveler
-                                <!-- </button> -->
+                                </button>
                               </div>
 
                               <div class="row col-12 pb-2 pt-4 px-0 mx-0">
@@ -373,34 +364,34 @@
                               </div>
                               <div class="row col-12 py-2 px-0 mx-0 gap-sm">
                                 <div class="col-md-4 col-sm-12 tx-gray-700 tx-14 text-bold-500">
-                                  <!-- <label class="basic-url tx-14 text-bold-500" [ngClass]="
+                                  <label class="basic-url tx-14 text-bold-500" [ngClass]="
                                       check_el(dt.id, dt.certificates_no) == true &&
                                       dt.submit_active == 'active' &&
                                       btnSendMail === false
                                         ? 'text-error'
                                         : 'tx-gray-700'
-                                    ">Certificates No :</label> -->
+                                    ">Certificates No :</label>
                                   <div class="custom-file w-100">
-                                    <!-- <input type="text" class="" id="passportno_input" [disabled]="!show_button" [ngClass]="
+                                    <input type="text" class="" id="passportno_input" [disabled]="!show_button" [ngClass]="
                                         check_el(dt.id, dt.certificates_no) == true &&
                                         dt.submit_active == 'active' &&
                                         btnSendMail === false
                                           ? 'border-error'
                                           : ''
-                                      " autocomplete="off" [(ngModel)]="dt.certificates_no" (ngModelChange)="model_action_change(dt.id)" class="form-control" /> -->
+                                      " autocomplete="off" [(ngModel)]="dt.certificates_no" (ngModelChange)="model_action_change(dt.id)" class="form-control" />
                                   </div>
                                 </div>
 
                                 <div class="col-md-4 col-sm-12 tx-gray-700 tx-14 text-bold-500">
-                                  <!-- <label class="basic-url tx-14 text-bold-500" [ngClass]="
+                                  <label class="basic-url tx-14 text-bold-500" [ngClass]="
                                       check_el(dt.id, dt.certificates_total) == true &&
                                       dt.submit_active == 'active' &&
                                       btnSendMail === false
                                         ? 'text-error'
                                         : 'tx-gray-700'
-                                    ">Total (THB) :</label> -->
+                                    ">Total (THB) :</label>
                                   <div class="custom-file w-100">
-                                    <!-- <input type="text" class="" id="passportno_input" [disabled]="!show_button" [ngClass]="
+                                    <input type="text" class="" id="passportno_input" [disabled]="!show_button" [ngClass]="
                                         check_el(dt.id, dt.certificates_total) == true &&
                                         dt.submit_active == 'active' &&
                                         btnSendMail === false
@@ -408,20 +399,19 @@
                                           : ''
                                       " autocomplete="off" [(ngModel)]="dt.certificates_total" (keypress)="onlyNumberKey($event)" (change)="dt.action_change = 'true'" (ngModelChange)="
                                         convertInt2('certificates_total', dt, dt.certificates_total, dt.id)
-                                      " class="form-control" /> -->
+                                      " class="form-control" />
                                   </div>
                                 </div>
                               </div>
 
                               <div class="input-group col-12 mt-0 py-2 mx-0">
                                 <div class="custom-file w-100 pb-3 pt-4">
-                                  <!-- <input type="file" id="file_id" #file accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" class="d-none" (ngModelChange)="model_action_change(dt.id)" (change)="[onFileSelect($event, dt.sort_by), model_action_change(dt.id)]" /> -->
-                                  <!-- <input type="file" id="file_id" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" #file2 class="d-none" (ngModelChange)="model_action_change(dt.id)" (change)="[onFileSelect_2($event, dt.sort_by), model_action_change(dt.id)]" /> -->
+                                  <input type="file" id="file_id" #file accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" class="d-none" (ngModelChange)="model_action_change(dt.id)" (change)="[onFileSelect($event, dt.sort_by), model_action_change(dt.id)]" />
+                                  <input type="file" id="file_id" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" #file2 class="d-none" (ngModelChange)="model_action_change(dt.id)" (change)="[onFileSelect_2($event, dt.sort_by), model_action_change(dt.id)]" />
 
-                                  <span (click)="show_button" class="tx-14 blue" [attr.disabled]="show_button == false" [ngClass]="{ 'cursor-pointer': show_button, 'cursor-not-allowed': !show_button }">
+                                  <span (click)="show_button && file.click()" class="tx-14 blue" [attr.disabled]="show_button == false" [ngClass]="{ 'cursor-pointer': show_button, 'cursor-not-allowed': !show_button }">
                                     <i class="fa fa-upload font-weight-bold tx-14" aria-hidden="true"></i>
                                     &#32;&#32;Upload
-                                    <!-- && file.click() -->
                                   </span>
 
                                   <button [disabled]="show_button == false" class="
@@ -433,35 +423,26 @@
                                       mb-1
                                       font-weight-bold
                                       text-white
-                                    " >
-                                    <!-- (click)="file.click()" -->
+                                    " (click)="file.click()">
                                     Upload
                                   </button>
 
                                   &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
-                                  <a class="blue">Insurance Coverage</a>
-                                  <!-- (click)="
-                                  downloadFile(dt.file_coverage_path + dt.file_coverage_name, dt.file_coverage_name)
-                                " -->
+                                  <a class="blue" (click)="
+                                      downloadFile(dt.file_coverage_path + dt.file_coverage_name, dt.file_coverage_name)
+                                    ">Insurance Coverage</a>
                                   &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
                                   <a class="blue" (click)="show_button && SaveClick()" [ngClass]="{ 'cursor-pointer': show_button, 'cursor-not-allowed': !show_button }">Claim form Requisition</a>
                                 </div>
                                 &nbsp;&nbsp;
                                 <span class="pt-2 ml-2">
                                   <div class="align-items-center mx-2" style="color: #08508c" *ngFor="let item of img_list; let i = index">
-                                    <div >
-                                      <!-- *ngIf="
+                                    <div *ngIf="
                                         item.id_level_1 == dt.sort_by &&
                                         item.filename != '' &&
                                         item.action_type != 'delete'
-                                      " -->
-                                      <i class="material-icons tx-16 tx-top-blue tx-bold"> attach_file </i><a class="mx-2 text-primary txunderline text-bold-600" target="_blank">
-                                        <!-- (click)="downloadFile(item.path + item.filename, item.filename)" 
-                                          {{ item.filename }} -->
-                                      </a>
-                                        <i *ngIf="show_button == true" class="cursor-pointer fa fa-minus-circle danger" style="vertical-align: middle" > 
-                                          <!-- (click)="deletefile(i, item.id)" -->
-                                        </i>
+                                      ">
+                                      <i class="material-icons tx-16 tx-top-blue tx-bold"> attach_file </i><a class="mx-2 text-primary txunderline text-bold-600" (click)="downloadFile(item.path + item.filename, item.filename)" target="_blank">{{ item.filename }}</a><i *ngIf="show_button == true" class="cursor-pointer fa fa-minus-circle danger" style="vertical-align: middle" (click)="deletefile(i, item.id)"></i>
                                     </div>
                                   </div>
                                 </span>
@@ -505,9 +486,9 @@
   <div class="modal-body">
     <div class="row">
       <div class="col-12">
-        <!-- <button type="button" class="close pb-2" style="color: red" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()"> -->
+        <button type="button" class="close pb-2" style="color: red" data-dismiss="modal" aria-label="Close" (click)="modalRef?.hide()">
           <span aria-hidden="true">&times;</span>
-        <!-- </button> -->
+        </button>
       </div>
       <div class="col-12">
         <label for="sendxx" class="font-weight-bold tx-gray-700">Send to :</label>
@@ -533,7 +514,7 @@
       <div class="col-12">
         <div class="form-group position-relative has-icon-right" *ngFor="let listx of Email_sendX; let ii = index">
           <div>
-            <!-- <input type="text" class="form-control mb-1" [value]="listx.mail_to" /> -->
+            <input type="text" class="form-control mb-1" [value]="listx.mail_to" />
             <div class="form-control-position">
               <i class="fa fa-times danger cursor-pointer" (click)="deleteRowx(ii)" aria-hidden="true"></i>
             </div>
@@ -564,18 +545,20 @@
     <div class="form-group">
       <mat-form-field class="w-100">
         <mat-label>TO</mat-label>
-        <!-- <mat-chip-list #chipList>
-          <mat-chip *ngFor="let EmpList of MailList; let indx = index" [selectable]="selectable" [removable]="removable" (removed)="remove(EmpList, indx, 'to')">
+        <mat-chip-listbox #chipList [selectable]="selectable">
+          <mat-chip *ngFor="let EmpList of MailList; let indx = index" 
+           [removable]="removable" (removed)="remove(EmpList, indx, 'to')">
             {{ EmpList.displayname }}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
-          <input placeholder="username@thaioilgroup.com" matInput #fInput [formControl]="fCtrl" [matAutocomplete]="auto" (click)="set_modal()" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event, 'to')" [(ngModel)]="inputText" (ngModelChange)="doFilter('inputText')" />
-        </mat-chip-list>
+          <input placeholder="username@thaioilgroup.com" #fInput/>
+          <!-- <input placeholder="username@thaioilgroup.com" matInput #fInput [formControl]="fCtrl" [matAutocomplete]="auto" (click)="set_modal()" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event, 'to')" [(ngModel)]="inputText" (ngModelChange)="doFilter('inputText')" /> -->
+        </mat-chip-listbox>
         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="[selected($event, 'to'), (fInput.value = '')]">
           <mat-option *ngFor="let EmpList of filteredEmp | async" [value]="EmpList" [hidden]="!CheckData(fInput.value)">
             {{ displayName(EmpList) }}
           </mat-option>
-        </mat-autocomplete> -->
+        </mat-autocomplete>
       </mat-form-field>
     </div>
     <!-- Mail TO -->
@@ -586,18 +569,19 @@
     <div class="form-group">
       <mat-form-field class="w-100">
         <mat-label>CC</mat-label>
-        <!-- <mat-chip-list #chipListCC>
-          <mat-chip *ngFor="let EmpList of MailListCC; let indx = index" [selectable]="selectable" [removable]="removable" (removed)="remove(EmpList, indx, 'cc')">
+        <mat-chip-listbox #chipListCC >
+          <mat-chip-option *ngFor="let EmpList of MailListCC; let indx = index" [selectable]="selectable" [removable]="removable" (removed)="remove(EmpList, indx, 'cc')">
             {{ EmpList.displayname }}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip>
-          <input placeholder="username@thaioilgroup.com" matInput #fInputcc [formControl]="fCtrlCC" (click)="set_modal()" [matAutocomplete]="autoCC" [matChipInputFor]="chipListCC" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event, 'cc')" [(ngModel)]="inputTextCC" (ngModelChange)="doFilter('inputTextCC')" />
-        </mat-chip-list>
+          </mat-chip-option>
+          <input placeholder="username@thaioilgroup.com" #fInputcc/>
+          <!-- <input placeholder="username@thaioilgroup.com" matInput #fInputcc [formControl]="fCtrlCC" (click)="set_modal()" [matAutocomplete]="autoCC" [matChipInputFor]="chipListCC" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event, 'cc')" [(ngModel)]="inputTextCC" (ngModelChange)="doFilter('inputTextCC')" /> -->
+        </mat-chip-listbox>
         <mat-autocomplete #autoCC="matAutocomplete" (optionSelected)="[selected($event, 'cc'), (fInputcc.value = '')]">
           <mat-option *ngFor="let EmpList of filteredEmpCC | async" [value]="EmpList" [hidden]="!CheckData(fInputcc.value)">
             {{ displayName(EmpList) }}
           </mat-option>
-        </mat-autocomplete> -->
+        </mat-autocomplete>
       </mat-form-field>
     </div>
   </div>
@@ -626,19 +610,37 @@
     <div class="form-group">
       <mat-form-field class="w-100">
         <mat-label>TO</mat-label>
-        <!-- <mat-chip-list #chipList>
-          <mat-chip *ngFor="let EmpList of MailList; let indx = index" [selectable]="selectable" [removable]="removable" (removed)="remove(EmpList, indx, 'to')">
+        <mat-chip-listbox #chipList>
+          <mat-chip-option *ngFor="let EmpList of MailList; let indx = index" 
+                    [selectable]="selectable" 
+                    [removable]="removable" 
+                    (removed)="remove(EmpList, indx, 'to')">
             {{ EmpList.displayname }}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip>
-          <input placeholder="username@thaioilgroup.com" matInput #fInput [formControl]="fCtrl" [matAutocomplete]="auto" (click)="set_modal()" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event, 'to')" [(ngModel)]="inputText" (ngModelChange)="doFilter('inputText')" />
-        </mat-chip-list> -->
-        <!-- <mat-autocomplete #auto="matAutocomplete" (optionSelected)="[selected($event, 'to'), (fInput.value = '')]">
-          <mat-option *ngFor="let EmpList of filteredEmp | async" [value]="EmpList" [hidden]="!CheckData(fInput.value)">
+          </mat-chip-option>
+          <input placeholder="username@thaioilgroup.com" #fInput [formControl]="fCtrl"/>
+          <!-- <input placeholder="username@thaioilgroup.com" 
+                 matInput 
+                 #fInput 
+                 [formControl]="fCtrl" 
+                 [matAutocomplete]="auto" 
+                 (click)="set_modal()" 
+                 [matChipInputFor]="chipList" 
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes" 
+                 [matChipInputAddOnBlur]="addOnBlur" 
+                 (matChipInputTokenEnd)="add($event, 'to')" 
+                 [(ngModel)]="inputText" 
+                 (ngModelChange)="doFilter(inputText)" /> -->
+        </mat-chip-listbox>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event, 'to')">
+          <mat-option *ngFor="let EmpList of filteredEmp | async" 
+                      [value]="EmpList" 
+                      [hidden]="!CheckData(fInput.value)">
             {{ displayName(EmpList) }}
           </mat-option>
-        </mat-autocomplete> -->
+        </mat-autocomplete>
       </mat-form-field>
+      
     </div>
   </div>
 
@@ -674,18 +676,31 @@
     <div class="form-group">
       <mat-form-field class="w-100">
         <mat-label>TO</mat-label>
-        <!-- <mat-chip-list #chipList>
-          <mat-chip *ngFor="let EmpList of MailList; let indx = index" [selectable]="selectable" [removable]="removable" (removed)="remove(EmpList, indx, 'to')">
+        <mat-chip-listbox #chipList >
+          <mat-chip-option *ngFor="let EmpList of MailList; let indx = index" [selectable]="selectable" [removable]="removable" (removed)="remove(EmpList, indx, 'to')">
             {{ EmpList.displayname }}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip>
-          <input placeholder="username@thaioilgroup.com" matInput #fInput [formControl]="fCtrl" [matAutocomplete]="auto" (click)="set_modal()" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event, 'to')" [(ngModel)]="inputText" (ngModelChange)="doFilter('inputText')" />
-        </mat-chip-list>
+          </mat-chip-option>
+          <input placeholder="username@thaioilgroup.com" #fInput/>
+          <!-- <input placeholder="username@thaioilgroup.com"
+                 matInput
+                 #fInput
+                 [formControl]="fCtrl"
+                 [matAutocomplete]="auto"
+                 (click)="set_modal()"
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event, 'to')"
+                 [(ngModel)]="inputText"
+                 (ngModelChange)="doFilter('inputText')" /> -->
+        </mat-chip-listbox>
+        
         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="[selected($event, 'to'), (fInput.value = '')]">
           <mat-option *ngFor="let EmpList of filteredEmp | async" [value]="EmpList" [hidden]="!CheckData(fInput.value)">
             {{ displayName(EmpList) }}
           </mat-option>
-        </mat-autocomplete> -->
+        </mat-autocomplete>
       </mat-form-field>
     </div>
     <!-- Mail TO -->
@@ -696,18 +711,20 @@
     <div class="form-group">
       <mat-form-field class="w-100">
         <mat-label>CC</mat-label>
-        <!-- <mat-chip-list #chipListCC>
-          <mat-chip *ngFor="let EmpList of MailListCC; let indx = index" [selectable]="selectable" [removable]="removable" (removed)="remove(EmpList, indx, 'cc')">
+        <mat-chip-listbox #chipListCC >
+          <mat-chip-option *ngFor="let EmpList of MailListCC; let indx = index" [selectable]="selectable" [removable]="removable" (removed)="remove(EmpList, indx, 'cc')">
             {{ EmpList.displayname }}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip>
-          <input placeholder="username@thaioilgroup.com" matInput #fInputcc [formControl]="fCtrlCC" (click)="set_modal()" [matAutocomplete]="autoCC" [matChipInputFor]="chipListCC" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event, 'cc')" [(ngModel)]="inputTextCC" (ngModelChange)="doFilter('inputTextCC')" />
-        </mat-chip-list>
+          </mat-chip-option>
+          <input placeholder="username@thaioilgroup.com" #fInputcc/>
+          <!-- <input placeholder="username@thaioilgroup.com" matInput #fInputcc [formControl]="fCtrlCC" (click)="set_modal()" [matAutocomplete]="autoCC" matChipInputFor=""
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event, 'cc')" [(ngModel)]="inputTextCC" (ngModelChange)="doFilter('inputTextCC')" /> -->
+        </mat-chip-listbox>
         <mat-autocomplete #autoCC="matAutocomplete" (optionSelected)="[selected($event, 'cc'), (fInputcc.value = '')]">
           <mat-option *ngFor="let EmpList of filteredEmpCC | async" [value]="EmpList" [hidden]="!CheckData(fInputcc.value)">
             {{ displayName(EmpList) }}
           </mat-option>
-        </mat-autocomplete> -->
+        </mat-autocomplete>
       </mat-form-field>
     </div>
   </div>

@@ -31,7 +31,7 @@ export class FeedbackComponent implements OnInit {
     action_load_doc: 'LoadDoc',
   };
 
-  model_all = {
+  model_all : any = {
     token_login: 'ssssxx',
     doc_id: 'D001',
     data_type: '',

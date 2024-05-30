@@ -1,41 +1,10 @@
-
-<app-header></app-header>
 <br> <br>
 <div class="app-content container center-layout mt-2">
     <div class="content-wrapper">
-    <div class="card">
-        <div class="density-chooser">
-            <igx-buttongroup></igx-buttongroup>
-        </div>
-        
-        <igx-input-group type="search" class="search">
-            <igx-prefix>
-                <igx-icon>search</igx-icon>
-            </igx-prefix>
-            <input #search igxInput placeholder="Search Contacts" >
-            <igx-suffix *ngIf="search.value.length > 0" >
-                <igx-icon>clear</igx-icon>
-            </igx-suffix>
-        </igx-input-group>
-        
-        <div class="list-sample">
-            <igx-list>
-                <igx-list-item [isHeader]="true">Contacts</igx-list-item>
-                <igx-list-item igxRipple igxRippleTarget=".igx-list__item-content">
-                    <igx-avatar igxListThumbnail shape="circle"></igx-avatar>
-                    <span igxListLineTitle>test</span>
-                    <span igxListLineSubTitle>09999999</span>
-                    <igx-icon igxListAction igxRipple="pink"
-                        [igxRippleCentered]="true"
-                        >star</igx-icon>
-                </igx-list-item>
-            </igx-list>
-        </div>
-        
-    </div>
+
         <div class="row">
             <div class="col-xl-1 col-lg-1 col-md-2 col-4 mb-1">
-                <!-- <img src="{{ws.checkPathForDevServer('assets/imgs/search.jpg')}}" width="100%"> -->
+                <img src="{{ws.checkPathForDevServer('assets/imgs/search.jpg')}}" width="100%">
             </div>
             <div class="col-xl-11 col-lg-11 col-md-12 col-12 mb-1">
                 <div class="row">
@@ -121,20 +90,23 @@
         <div class="row">
             <!-- <div class="col-1"></div> -->
             <div class="col-xl-12 col-lg-12 col-md-12 col-12 ">
-                
                 <div *ngFor="let item of model.data_set" class="box-content-list mg-xl-x-60 mg-lg-x-60 ">
                     <div class="row">
                         <div class="col-xl-2 col-lg-2 col-md-3 col-5">
                             <div class="text-date" style="text-align: center;">
-                                <h1 class="h1-date" style="text-align: center;">{{ item.doc_date | date:'d' }}</h1>
-                                <p class="p-date" style="text-align: center;">{{ item.doc_date | date:'LLLL yy' }}</p>
-                                <button *ngIf="item.button_status == '1'" class="btn-confirm" (click)="handleGoToDetail(item.id, item.tab_no)">CONFIRM</button>
+                                <h1 class="h1-date" style="text-align: center;">
+                                    <!-- {{ item.doc_date | date:'d' }} -->
+                                </h1>
+                                <p class="p-date" style="text-align: center;">
+                                    <!-- {{ item.doc_date | date:'LLLL yy' }} -->
+                                </p>
+                                <!-- <button *ngIf="item.button_status == '1'" class="btn-confirm" (click)="handleGoToDetail(item.id, item.tab_no)">CONFIRM</button>
                                 <button *ngIf="item.button_status == '2'" class="btn-draft" (click)="handleGoToDetail(item.id, item.tab_no)">DRAFT</button>
                                 <button *ngIf="item.button_status == '3'" class="btn-cap" (click)="handleGoToDetail(item.id, item.tab_no)">CAP APPROVE</button>
                                 <button *ngIf="item.button_status == '4'" class="btn-4" (click)="handleGoToDetail(item.id, item.tab_no)">VERIFYING</button>
                                 <button *ngIf="item.button_status == '5'" class="btn-5" (click)="handleGoToDetail(item.id, item.tab_no)">TO BE APPROVED</button>
                                 <button *ngIf="item.button_status == '6'" class="btn-6" (click)="handleGoToDetail(item.id, item.tab_no)">APPROVED</button>
-                                <button *ngIf="item.button_status == '7'" class="btn-7" (click)="handleGoToDetail(item.id, item.tab_no)">REJECTED</button>
+                                <button *ngIf="item.button_status == '7'" class="btn-7" (click)="handleGoToDetail(item.id, item.tab_no)">REJECTED</button> -->
                             </div>
 
                         </div>
@@ -142,8 +114,8 @@
                             <div class="row" style="margin-top: 10px;">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-12">
                                     <a>
-                                        <h4 class="h4-title" (click)="handleGoToDetail(item.id, item.tab_no)">
-                                            {{ item.title }}</h4>
+                                        <!-- <h4 class="h4-title" (click)="handleGoToDetail(item.id, item.tab_no)">
+                                            {{ item.title }}</h4> -->
                                     </a>
                                 </div>
                             </div>
@@ -157,7 +129,7 @@
                                                 </i>
                                             </td>
                                             <td>
-                                                <label>{{ item.business_trip }}</label>
+                                                <!-- <label>{{ item.business_trip }}</label> -->
                                             </td>
                                         </tr>
                                     </table>
@@ -172,7 +144,7 @@
                                                 </i>
                                             </td>
                                             <td>
-                                                <label>{{ item.business }}</label>
+                                                <!-- <label>{{ item.business }}</label> -->
                                             </td>
                                         </tr>
                                     </table>
@@ -187,7 +159,7 @@
                                                 </i>
                                             </td>
                                             <td>
-                                                <label>{{ item.person }}</label>
+                                                <!-- <label>{{ item.person }}</label> -->
                                             </td>
                                         </tr>
                                     </table>
@@ -204,7 +176,7 @@
                                                 </i>
                                             </td>
                                             <td>
-                                                <label>{{ item.type }}</label>
+                                                <!-- <label>{{ item.type }}</label> -->
                                             </td>
                                         </tr>
                                     </table>
@@ -219,7 +191,7 @@
                                                 </i>
                                             </td>
                                             <td>
-                                                <label>{{ item.doc_id }}</label>
+                                                <!-- <label>{{ item.doc_id }}</label> -->
                                             </td>
                                         </tr>
                                     </table>
@@ -237,7 +209,7 @@
                                                 </i>
                                             </td>
                                             <td>
-                                                <label>{{ item.place }}</label>
+                                                <!-- <label>{{ item.place }}</label> -->
                                             </td>
                                         </tr>
                                     </table>
@@ -252,7 +224,7 @@
                                                 </i>
                                             </td>
                                             <td>
-                                                <label>{{ item.by }}</label>
+                                                <!-- <label>{{ item.by }}</label> -->
                                             </td>
                                         </tr>
                                     </table>
@@ -261,19 +233,19 @@
                                 <!--  routerLink="/master/travelerhistory"  -->
                                 <div class="col-xl-3 col-lg-3 col-md-6 col-12">
                                     <p style="text-align: right; margin-right: 10px;">
-                                        <button *ngIf="item.button_status != '2' && item.button_status != '7'" (click)="handleOpenTravelerDetail(item.id,item.button_status)" class="btn-draft" class="btn btn-secondary btn-min-width mr-1 mb-1 {{item.status_trip_cancelled === 'true'?'btn-trip-cancelled':'btn-searchs'}} ">
+                                        <!-- <button *ngIf="item.button_status != '2' && item.button_status != '7'" (click)="handleOpenTravelerDetail(item.id,item.button_status)" class="btn-draft" class="btn btn-secondary btn-min-width mr-1 mb-1 {{item.status_trip_cancelled === 'true'?'btn-trip-cancelled':'btn-searchs'}} ">
                                             {{item.status_trip_cancelled === 'true'?'TRIP CANCELLED':'TRAVELER DETAIL'}}
-                                        </button>
-                                        <button *ngIf="item.button_status === '7'" (click)="handleOpenTravelerDetail(item.id,item.button_status)" class="btn-draft" class="btn btn-secondary btn-min-width mr-1 mb-1 btn-searchs">
+                                        </button> -->
+                                        <!-- <button *ngIf="item.button_status === '7'" (click)="handleOpenTravelerDetail(item.id,item.button_status)" class="btn-draft" class="btn btn-secondary btn-min-width mr-1 mb-1 btn-searchs">
                                             VIEW
-                                        </button>
+                                        </button> -->
                                     </p>
                                 </div>
                                 <div class="col-xl-3 col-lg-3 col-md-6 col-12">
                                     <p style="text-align: right; margin-right: 10px;">
-                                        <button *ngIf="item.button_copy == 'true'" (click)="handleCopy(item.id)" class="btn-draft" class="btn btn-secondary btn-min-width mr-1 mb-1 btn-searchs">
+                                        <!-- <button *ngIf="item.button_copy == 'true'" (click)="handleCopy(item.id)" class="btn-draft" class="btn btn-secondary btn-min-width mr-1 mb-1 btn-searchs">
                                             COPY
-                                        </button>
+                                        </button> -->
                                     </p>
                                 </div>
                             </div>

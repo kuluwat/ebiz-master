@@ -17,7 +17,7 @@ export function gotoPage(docid: string, page: string): string {
     if (docid !== "") {
       return `/master/${docid}/${page.toLowerCase()}`;
     } else {
-      return `/master/${page.toLowerCase()}/${page.toLowerCase()}`;
+      return `/master/${page.toLowerCase()}`;
     }
   }
 

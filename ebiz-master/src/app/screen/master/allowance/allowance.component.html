@@ -1,6 +1,5 @@
-<!-- <p>allowance works!</p>
- <p>accommodation works!</p> -->
-<div class="col-12 boxcolor-mm background-Slide animate__animated animate__fadeIn" *ngIf="emp_list.length > 0" style="height: 350px">
+<!-- <p>allowance works!</p> -->
+<div class="col-12" *ngIf="emp_list.length > 0" style="height: auto">
   <div class="row math-height">
     <div class="col-lg-12">
       <div class="card box-shadow-1 mt-3">
@@ -333,7 +332,7 @@
           </div>
 
           <!-- Full Screan BtnX -->
-          <div class="row gap d-none" *ngIf="show_button == true">
+          <div class="row gap d-none" *ngIf="show_button == false">
             <button class="btn btn-round btn-min-width font-weight-bold" (click)="savecheck()" [ngClass]="{
                 ' bg-top-pink text-white': no_data == false,
                 'btn-secondary disabled cursor-not-allowed': no_data == true || load_kh_code == false
@@ -360,7 +359,7 @@
             </button>
 
             <!-- //!! version เก่า-->
-            <div class="col-12 py-3 d-none" *ngIf="show_button == true">
+            <div class="col-12 py-3 d-none" *ngIf="show_button == false">
               <!-- # //save -->
               <button class="btn btn-round btn-min-width mr-1 mb-1 font-weight-bold d-sm-none col-sm-12 float-left" (click)="savecheck()" [ngClass]="{
                   ' bg-top-pink text-white': no_data == false,

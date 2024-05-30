@@ -1,10 +1,4 @@
 /* Styling for the header */
-*, *::before, *::after{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-
-  }
 
 .header-navbar {
     width: 100%;
@@ -23,8 +17,8 @@
 .container-fluid {
     display: flex;
     flex-direction: column;
-    height: calc(100% - 60px); /* Adjust height to account for the header */
-    margin-top: 60px;
+    /* Adjust height to account for the header */
+    margin-top: 70px;
     padding-left:30px; /* Add padding left and right */
     padding-right: 30px;
     height: 100%;
@@ -85,7 +79,8 @@
     white;
   background-size: 100% 400px, 100% 100%; 
     margin-left: auto;
-    border-radius: 10px;
+    border-radius: 5px; /* or any other value you need */
+    background-clip: padding-box;
 }
 
 .card {
