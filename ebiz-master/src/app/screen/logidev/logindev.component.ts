@@ -24,7 +24,7 @@ export class LogindevComponent implements OnInit {
   classApplied = false;
   countPassword = 0;
 
-  brandingLogo = "/Ebiz2/assets/logo.png"
+  brandingLogo = "/assets/logo.png"
   QueryParamX : any;
   params_tk : any;
   params_us : any;

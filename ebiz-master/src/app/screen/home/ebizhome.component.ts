@@ -292,15 +292,15 @@ Object: any;
 
   constructor(
     // @Inject(forwardRef(() => HeaderComponent)) private appMain: HeaderComponent,
-    // public ws: AspxserviceService,
-    // private x: AppComponent,
-    // private http: HttpClient,
-    // private fileuploadservice: FileuploadserviceService,
-    // public datepipe: DatePipe,
-    // private modalService: BsModalService,
-    // private alerts: AlertServiceService,
-    // private sanitizer: DomSanitizer,
-    // private router: Router,
+    public ws: AspxserviceService,
+    private x: AppComponent,
+    private http: HttpClient,
+    private fileuploadservice: FileuploadserviceService,
+    public datepipe: DatePipe,
+    private modalService: BsModalService,
+    private alerts: AlertServiceService,
+    private sanitizer: DomSanitizer,
+    private router: Router,
     // private mediaMatcher: MediaMatcher,
     // public breakpointObserver: BreakpointObserver
   ) {
@@ -1185,9 +1185,9 @@ Object: any;
     console.log(navigationExtras.queryParams);
 
     // Navigate to component B
-    // this.router.navigate([ 'main/request/create/' + this.trainingRequestType + '/i' ], {
-    //   state: {requestDetails: navigationExtras}
-    // });
+    this.router.navigate([ 'main/request/create/' + this.trainingRequestType + '/i' ], {
+      state: {requestDetails: navigationExtras}
+    });
 
   }
 

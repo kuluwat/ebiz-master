@@ -2,7 +2,7 @@
 <!-- <img src="assets/loading.gif" class="loading_img"> -->
 
 
-<app-mat-spinner-overlay [hidden]="!isLoading"></app-mat-spinner-overlay>
+<!-- <app-mat-spinner-overlay [hidden]="!isLoading"></app-mat-spinner-overlay> -->
 <!-- <table [hidden]="!isLoading" class="loading_img" border=0>
     <tr>
         <td><img src="assets/loading.gif" style="width: 150px;"></td>
@@ -56,56 +56,23 @@
 
 
     <!-- Horizontal navigation-->
-    <div class=" containerX ">
-
-        <div class="content-wrapper">
-            <!-- <div class="content-header row"></div> -->
-
-            <div class="content row pt-2">
-                <div class="col-lg-2 mr-0 pr-0 ml-0 pl-0 d-none d-lg-block">
-                    <!-- menu -->
-                    <div class="vertical-menu">
-                        <!-- <a (click)="activeProject(1)" [ngStyle]="{'background-color': activeProjectIndex === i ? 'green' : 'white' }" [routerLink]="['/tasks/project/', project.projectId]" href="#">{{project.projectName}}</a> -->
-
-                        <!-- <a *ngFor="let dr of menuList" routerLink="{{dr.url}}" routerLinkActive="active">{{dr.menuname}}</a> -->
-
-                        <a *ngFor="let dr of menuList" routerLink="{{getPageUrl(dr.pagename)}}" routerLinkActive="active"
-                            [ngClass]="{'d-none' : dr.display === false}">
-                            {{dr.menuname}}
-                        </a>
-
-                        <!-- <div *ngIf="profile.user_admin">
-                        <div class="border-bottom-3 border-bottom-grey-blue  border-bottom-lighten-5"></div>
-                        <p class="mt-3 ml-3 tx-bold tx-top-blue"><ins>Maintain Data</ins></p>
-                        <div *ngFor="let dr of menuListMaintain; let last = last;">
-                            <a routerLink="{{gotoPage(dr.pagename)}}" routerLinkActive="active"
-                                *ngIf="dr.display">{{dr.menuname}}</a>
-                        </div>
-                    </div> -->
-
-                        <!-- <a routerLink="/master/travelerhistory" routerLinkActive="active">Traveler History</a>
-                    <a routerLink="/master/airticket" routerLinkActive="active">Air Ticket</a>
-                    <a routerLink="/master/accommodation" routerLinkActive="active">Accommodation</a>
-                    <a routerLink="/master/visa" routerLinkActive="active">VISA</a>
-                    <a routerLink="/master/passport" routerLinkActive="active">Passport</a>
-                    <a routerLink="/master/allowance" routerLinkActive="active">Allowance</a>
-                    <a routerLink="/master/reimbursement" routerLinkActive="active">Reimbursement</a>
-                    <a routerLink="/master/travelinsurance" routerLinkActive="active">Travel Insurance</a>
-                    <a routerLink="/master/isos" routerLinkActive="active">ISOS</a>
-                    <a routerLink="/master/transportation" routerLinkActive="active">Transportation</a>
-                    <a routerLink="/master/travelexpense" routerLinkActive="active">Travel Expense</a>
-                    <a routerLink="/master/feedback" routerLinkActive="active">Feed back</a> -->
-
-                    </div>
-                </div>
-                <div class="col-lg-10 col-sm-12 ml-0 pl-0 mr-0 pr-0">
+    <div class="containerX">
+        <div class="card-container">
+            
+            <nav class="vertical-menu">
+                <a *ngFor="let dr of menuList" [routerLink]="getPageUrl(dr.pagename)" routerLinkActive="active">
+                    {{ dr.menuname }}
+                  </a>
+            </nav>
+            
+            <div class="main-content">
+                
                     <router-outlet (activate)="onActivate()"></router-outlet>
-                </div>
-                <!-- <app-button-to-top></app-button-to-top> -->
-            </div>
-
+                
+    
+              </div>
         </div>
-
+        
     </div>
     <!-- <div class="container d-block d-sm-none">
 

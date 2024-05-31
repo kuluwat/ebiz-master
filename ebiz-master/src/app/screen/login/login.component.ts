@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     // this.loginService.onCheck("aaaa", "bbbb").subscribe(result => this.onLoginListenerSuccess(result)) 
-    this.route.params.subscribe(params => this.onLogin(params["token"], params["user"]));
+    // this.route.params.subscribe(params => this.onLogin(params["token"], params["user"]));
   }
 
   onLogin(token: string, user: string){

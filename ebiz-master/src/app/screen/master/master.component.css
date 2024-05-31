@@ -38,9 +38,24 @@
     text-align: center;
 }
 
+.card-container {
+    display: flex;
+    padding-left:30px; /* Add padding left and right */
+    padding-right:30px;
+}
+
 .vertical-menu {
-    width: 100%;
-    /* Set a width if you like */
+    width: 300px; /* Fixed width for the sidebar */
+    background-color: #ffffff;
+    top: auto;
+    height: 100%;
+    letter-spacing: 1px;
+    font-size: 18px;
+    text-align: start;
+    display: block;
+    font-family: 'Roboto', sans-serif;
+    line-height: 40px;
+
 }
 
 .vertical-menu a {
@@ -54,10 +69,13 @@
     /* Add some padding */
     text-decoration: none;
     /* Remove underline from links */
+    height: 100%;
+
 }
 
 .vertical-menu a:hover {
-    background-color: #ccc;
+    background-color: #e21683;
+    color: rgb(255, 255, 255);
     /* Dark grey background on mouse-over */
 }
 
@@ -161,4 +179,16 @@ table {
 .mobile-menu-list li {
     border-bottom: 1px solid rgba(108, 160, 151, 0.321);
     padding: 10px;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background: 
+    linear-gradient(to top, #00c6fb 0%, #005bea 100%) no-repeat,
+    white;
+  background-size: 100% 400px, 100% 100%; 
+    margin-left: auto;
+    border-radius: 5px; /* or any other value you need */
+    background-clip: padding-box;
 }

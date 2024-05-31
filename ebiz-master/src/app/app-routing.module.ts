@@ -46,15 +46,13 @@ import { MtbrokerComponent } from './screen/mtbroker/mtbroker.component';
 import { ManageadminComponent } from './manageadmin/manageadmin.component';
 import { AirticketComponent } from './screen/master/airticket/airticket.component';
 
-// import { AppComponent } from './shared/docx/app/app.component';
-
 
 const routes: Routes = [
   // { path: "", redirectTo: "/main/services", pathMatch: "full" },
   { path: "", redirectTo: "/ebizhome", pathMatch: "full" },
   { path: "errors", component: ErrorComponent, pathMatch: "full" },
   { path: "login/:token/:user", component: LoginComponent, pathMatch: "full" },
-  { path: "i", component: RequestPartIComponent, pathMatch: "full" },
+  // { path: "i", component: RequestPartIComponent, pathMatch: "full" },
   // { path: "ii", component: RequestPartIIComponent, pathMatch: "full" },
 
 
@@ -68,7 +66,7 @@ const routes: Routes = [
         path: "request/:types/:ids", component: RequestComponent,
         children: [
           { path: "", redirectTo: "/errors", pathMatch: "full" },
-          // { path: "i", component: RequestPartIComponent, pathMatch: "full" },
+          { path: "i", component: RequestPartIComponent, pathMatch: "full" },
           { path: "ii", component: RequestPartIIComponent, pathMatch: "full" },
           { path: "iii", component: RequestPartIIIComponent, pathMatch: "full" },
           { path: "cap", component: RequestPartCapComponent, pathMatch: "full" },
@@ -111,7 +109,7 @@ const routes: Routes = [
   {
     path: "maintain", component: MaintainComponent,
     children: [
-      // { path: "", redirectTo: "/maintain/mtbookingstatus", pathMatch: "full" },
+      { path: "", redirectTo: "/maintain/mtbookingstatus", pathMatch: "full" },
       { path: "mtbookingstatus", component: MtbookingstatusComponent, pathMatch: "full" },
       { path: "mtdailyallowance", component: MtdailyallowanceComponent, pathMatch: "full" },
       { path: "mtalreadybooked", component: MtalreadybookedComponent, pathMatch: "full" },

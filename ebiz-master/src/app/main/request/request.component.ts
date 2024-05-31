@@ -21,10 +21,10 @@ export class RequestComponent implements OnInit {
 
   buttons = {
     PartI: true,
-    PartII: false,
-    PartIII: false,
-    PartIIII: false,
-    Print: false
+    PartII: true,
+    PartIII: true,
+    PartIIII: true,
+    Print: true
   }
 
   select = "i";
@@ -39,19 +39,19 @@ export class RequestComponent implements OnInit {
     private loadList: LoadListService
   ) {
 
-    // this.route.params.subscribe(params => {
+    this.route.params.subscribe(params => {
 
-    //   this.type = params["types"];
-    //   this.id = params["ids"];
-    //   this.stateX = this.id.substr(0, 2).toUpperCase() === "OB" ? "oversea" : this.id.substr(0, 2).toUpperCase() === "OT" ? "overseatraining" : this.id.substr(0, 2).toUpperCase() === "LB" ? "local" : this.id.substr(0, 2).toUpperCase() === "LT" ? "localtraining" : "";
-    //   console.log(this.stateX);
+      this.type = params["types"];
+      this.id = params["ids"];
+      this.stateX = this.id.substr(0, 2).toUpperCase() === "OB" ? "oversea" : this.id.substr(0, 2).toUpperCase() === "OT" ? "overseatraining" : this.id.substr(0, 2).toUpperCase() === "LB" ? "local" : this.id.substr(0, 2).toUpperCase() === "LT" ? "localtraining" : "";
+      console.log(this.stateX);
 
 
-    //   this.buttons.Print = this.type === "create" ? false : true;
-    //   //console.log(this.id.substr(0, 2));
-    //   // oversea
-    //   // local
-    // });
+      this.buttons.Print = this.type === "create" ? false : true;
+      //console.log(this.id.substr(0, 2));
+      // oversea
+      // local
+    });
     // this.type = route.params["types"];
     // this.id = route.params["ids"];
     // console.log(this.type)

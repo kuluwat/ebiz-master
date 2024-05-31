@@ -1,12 +1,12 @@
 <!-- <p>header works!</p> -->
 
 <!-- <img src="assets/loading.gif" class="loading_img"> -->
-<!-- <table [hidden]="!isLoading" class="loading_img" border=0>
+<table [hidden]="!isLoading" class="loading_img" border=0>
     <tr>
         <td><img src="assets/loading.gif" style="width: 150px;"></td>
     </tr>
-</table> -->
-<!-- <table [hidden]="!errorBox.sts" class="loading_img" style="background-color: rgba(0, 0, 0, 0.278); z-index: 9999;" border=0 (click)="hideMessage()">
+</table>
+<table [hidden]="!errorBox.sts" class="loading_img" style="background-color: rgba(0, 0, 0, 0.278); z-index: 9999;" border=0 (click)="hideMessage()">
     <tr>
         <td style="text-align: center;">
             <div class="boxMessage">
@@ -15,9 +15,9 @@
             </div>
         </td>
     </tr>
-</table> -->
+</table>
 
-<!-- <table [hidden]="!message.sts" class="loading_img" style="background-color: rgba(0, 0, 0, 0.278); z-index: 9999;" border=0 (click)="hideMessage()">
+<table [hidden]="!message.sts" class="loading_img" style="background-color: rgba(0, 0, 0, 0.278); z-index: 9999;" border=0 (click)="hideMessage()">
     <tr>
         <td style="text-align: center;">
             <div class="boxMessage">
@@ -26,12 +26,12 @@
             </div>
         </td>
     </tr>
-</table> -->
+</table>
 
-<!-- <table [hidden]="!confirmBox.sts" class="loading_img" style="background-color: rgba(0, 0, 0, 0.278); z-index: 9999;" border=0>
+<table [hidden]="!confirmBox.sts" class="loading_img" style="background-color: rgba(0, 0, 0, 0.278); z-index: 9999;" border=0>
     <tr>
         <td>
-             style="text-align: center;" 
+            <!-- style="text-align: center;" -->
             <div class="boxMessage">
                 <div class="row">
                     <div class="col-lg-12 tx-left-f">
@@ -40,42 +40,42 @@
                     <div class="col-lg-12 tx-left-f" style="min-height: 60px;">
                         <p class="tx-16 tx-gray-700 ">{{confirmBox.text}}</p>
                     </div>
-                     <div class="row" style="text-align: right;width: 100%;">
+                    <!-- <div class="row" style="text-align: right;width: 100%;">
                     <p class="tx-16 pl-3 mb-0 pb-0" ><span class="pr-2 cursor-pointer">NO</span><span class="cursor-pointer">YES</span></p>
-                </div> 
-                     <div class="col-lg-12 mb-0 pb-0 tx-right-f">
+                </div> -->
+                    <!-- <div class="col-lg-12 mb-0 pb-0 tx-right-f">
                         <span class="btn btn-outline-primary wd-60-f cursor-pointer mr-2"(click)="hideConfirm(true)">YES</span>
                         <span class="btn btn-outline-danger wd-60-f cursor-pointer "(click)="hideConfirm(false)">NO</span>
 
-                    </div> 
+                    </div> -->
                     <div class="col-lg-12 mt-0 pt-0 mb-0 pb-0 tx-center-f">
                         <button class="btn btn-min-width mt-0 mb-0" (click)="hideConfirm(true)">Yes</button>
                         <button class="btn btn-red btn-min-width mt-0 mb-0" (click)="hideConfirm(false)">No</button>
                     </div>
-                     <p>
+                    <!-- <p>
                     <button class="btn btn-min-width" (click)="hideConfirm(true)">Yes</button>
                     <button class="btn btn-red btn-min-width " (click)="hideConfirm(false)" >No</button>
-                </p> 
+                </p> -->
                 </div>
             </div>
         </td>
     </tr>
-</table> -->
+</table>
 
-<!-- <table [hidden]="!confirmTextBox.sts" class="loading_img" style="background-color: rgba(0, 0, 0, 0.278); z-index: 9999;" border=0>
+<table [hidden]="!confirmTextBox.sts" class="loading_img" style="background-color: rgba(0, 0, 0, 0.278); z-index: 9999;" border=0>
     <tr>
         <td style="text-align: center;">
             <div class="boxMessage">
                 {{ confirmTextBox.text }}
-                <input type="text" class="inputRemark" >
+                <input type="text" class="inputRemark" [(ngModel)]="confirmTextBox.input">
                 <p><button (click)="hideConfirmTextbox(true)">Yes</button><button (click)="hideConfirmTextbox(false)" style="background-color: red;">No</button></p>
             </div>
         </td>
     </tr>
-</table> -->
+</table>
 
 <!-- MENU MOBILE -->
-<!-- <div class="d-block d-lg-none">
+<div class="d-block d-lg-none">
     <nav class="navbar navbar-expand-lg navbar-light bg-box-menu-toggle">
         <div style="clear: both; width: 100%;">
             <table width=100% class="table-mobile">
@@ -93,9 +93,9 @@
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto mobile-menu-list">
-                 Dropdown -->
+                <!-- Dropdown -->
 
-                <!-- Dropdown 
+                <!-- Dropdown -->
                 <li class="nav-item">
                     <a class="nav-link" (click)="herderrouterReload('/ebizhome')">Home</a>
                 </li>
@@ -135,9 +135,9 @@
                 <li class="nav-item dropdown" *ngIf="!isCreate">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
                     <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" *ngFor="let item of menuList" href="{{item.url}}"
-                            [ngClass]="{'d-none' : item.display === false}">{{item.menuname}}</a> 
-                        <a class="dropdown-item" *ngFor="let dr of menuList" routerLink="{{getPageUrl(dr.pagename)}}" routerLinkActive="active" [ngClass]="{'d-none' : dr.display === false}"> 
+                        <!-- <a class="dropdown-item" *ngFor="let item of menuList" href="{{item.url}}"
+                            [ngClass]="{'d-none' : item.display === false}">{{item.menuname}}</a> -->
+                        <a class="dropdown-item" *ngFor="let dr of menuList" routerLink="{{getPageUrl(dr.pagename)}}" routerLinkActive="active" [ngClass]="{'d-none' : dr.display === false}">
                             {{dr.menuname}}
                         </a>
                     </div>
@@ -153,21 +153,21 @@
 
         </div>
     </nav>
-</div> -->
+</div>
 
 <!-- HEADER DASKTOP -->
-<!-- <nav class="header-navbar navbar-expand-sm navbar navbar-light border-bottom ht-70 d-none d-lg-block">
-    navbar-semi-light bg-gradient-x-grey-blue 
+<nav class="header-navbar navbar-expand-sm navbar navbar-light border-bottom ht-70 d-none d-lg-block">
+    <!-- navbar-semi-light bg-gradient-x-grey-blue -->
     <div class="navbar-wrapper">
         <div class="navbar-header border-0 ">
             <ul class="nav navbar-nav flex-row ">
-                 <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li> 
+                <!-- <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li> -->
                 <li class="nav-item mg-t-5-f"><img class="brand-logo wd-80 cursor-pointer" src="assets/logo.png" routerLink="/ebizhome">
                 </li>
-                 <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="fa fa-ellipsis-v"></i></a></li> 
+                <!-- <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="fa fa-ellipsis-v"></i></a></li> -->
             </ul>
         </div>
-         <div class="navbar-container content"> 
+        <!-- <div class="navbar-container content"> -->
         <div class="navbar-container ">
             <div class="collapse navbar-collapse" id="navbar-mobile">
                 <ul class="nav navbar-nav mr-auto float-left">
@@ -176,37 +176,37 @@
 
                 <ul class="nav navbar-nav float-right">
 
-                     routerLink="/ebizhome" 
+                    <!-- routerLink="/ebizhome" -->
                     <li class="nav-item">
-                         <a class="nav-link" href="#" routerLink="/main/services"
+                        <!-- <a class="nav-link" href="#" routerLink="/main/services"
                             data-toggle="dropdown"><span
-                                [ngClass]="(MenuActive.HOME === true)?'txt-menu-selected':''">Home</span></a> 
+                                [ngClass]="(MenuActive.HOME === true)?'txt-menu-selected':''">Home</span></a> -->
                         <button mat-button class="nav-link mt-2" routerLink="/ebizhome"><span [ngClass]="(MenuActive.HOME === true)?'txt-menu-selected tx-uppercase':' tx-uppercase'">HOME</span></button>
 
                     </li>
                     <li class="nav-item d-none">
-                         <a class="nav-link" href="#" data-toggle="dropdown"><span
-                                [ngClass]="(MenuActive.MYTRIP === true)?'txt-menu-selected':''">My Trip</span></a> 
+                        <!-- <a class="nav-link" href="#" data-toggle="dropdown"><span
+                                [ngClass]="(MenuActive.MYTRIP === true)?'txt-menu-selected':''">My Trip</span></a> -->
                         <button mat-button class="nav-link mt-2" routerLink="/master/personal/travelrecord"><span [ngClass]="(MenuActive.MYTRIP === true)?'txt-menu-selected tx-uppercase':' tx-uppercase'">My
                                 Trip</span></button>
                     </li>
                     <li class="nav-item">
-                         <button mat-button [matMenuTriggerFor]="" class="nav-link " style="margin-top: 7.5px;"><span [ngClass]="(MenuActive.SERVICE === true)?'txt-menu-selected tx-uppercase ':' tx-uppercase'"> 
+                        <button mat-button [matMenuTriggerFor]="submenu1" class="nav-link " style="margin-top: 7.5px;"><span [ngClass]="(MenuActive.SERVICE === true)?'txt-menu-selected tx-uppercase ':' tx-uppercase'">
 
                                 Service
-                                 <i class="fa fa-caret-down p-0 m-0"></i> -->
+                                <i class="fa fa-caret-down p-0 m-0"></i>
                                 <!-- <mat-icon >arrow_drop_down</mat-icon> -->
-                            <!-- </span></button> -->
+                            </span></button>
 
                         <!-- #docregion sub-menu -->
-                        <!-- <mat-menu #submenu1="matMenu"> -->
-                            <!-- <button mat-menu-item [matMenuTriggerFor]="submenu21">Business Trip</button>
+                        <mat-menu #submenu1="matMenu">
+                            <button mat-menu-item [matMenuTriggerFor]="submenu21">Business Trip</button>
                             <button mat-menu-item [matMenuTriggerFor]="submenuTrainingtrip">Training Trip</button>
                             <button mat-menu-item [matMenuTriggerFor]="submenuPersonal">Traveler Profile</button>
                             <button mat-menu-item [matMenuTriggerFor]="submenu22" [hidden]="!isAdmin">Maintain
                                 Data</button>
                             <button mat-menu-item routerLink="/manageadmin" [hidden]="!isAdmin">Manage Admin</button>
-                        </mat-menu> 
+                        </mat-menu>
 
                         <mat-menu #submenu21="matMenu">
                             <button mat-menu-item routerLink="/main/request_list/oversea">Overseas Approval
@@ -219,11 +219,11 @@
                             <button mat-menu-item routerLink="/main/request_list/localtraining">Local Approval
                                 Request</button>
                         </mat-menu>
-                         #enddocregion sub-menu 
+                        <!-- #enddocregion sub-menu -->
 
                         <mat-menu #submenuPersonal="matMenu">
 
-                            <button mat-menu-item routerLink="/master/personal/travelerhistory">Personal Detail</button> 
+                            <!-- <button mat-menu-item routerLink="/master/personal/travelerhistory">Personal Detail</button> -->
                             <button mat-menu-item (click)="routerReload('travelerhistory')">Personal Detail</button>
                             <button mat-menu-item (click)="routerReload('passport')">Passport</button>
                             <button mat-menu-item (click)="routerReload('visa')">VISA</button>
@@ -234,12 +234,12 @@
                             <button mat-menu-item (click)="routerReload('isosrecord')" [hidden]="!isAdmin">ISOS
                                 Record</button>
 
-                             <button mat-menu-item routerLink="/master/personal/travelerhistory"><i class="fa fa-user-o"></i> Personal Detail</button>
+                            <!-- <button mat-menu-item routerLink="/master/personal/travelerhistory"><i class="fa fa-user-o"></i> Personal Detail</button>
                             <button mat-menu-item routerLink="/master/personal/visa"><i class="fa fa-plane"></i> VISA</button>
                             <button mat-menu-item routerLink="/master/personal/passport"><i class="fa fa-address-book-o"></i> Passport</button>
                             <button mat-menu-item routerLink="/master/personal/travelrecord"><i class="fa fa-file-text-o"></i> Travel Record</button>
                             <button mat-menu-item routerLink="/master/personal/isosrecord" [hidden]="!isAdmin"><i class="fa fa-file-text-o"></i> ISOS Record</button>
-                            <button mat-menu-item routerLink="/master/personal/insurancerecord" [hidden]="!isAdmin"><i class="fa fa-file-text-o"></i> Insurance Record</button> 
+                            <button mat-menu-item routerLink="/master/personal/insurancerecord" [hidden]="!isAdmin"><i class="fa fa-file-text-o"></i> Insurance Record</button> -->
                         </mat-menu>
 
                         <mat-menu #submenu22="matMenu">
@@ -247,7 +247,7 @@
                             <button mat-menu-item routerLink="/maintain/mtalreadybooked">Booking Provider</button>
                             <button mat-menu-item routerLink="/maintain/mtdailyallowance">Allowance Rate</button>
                             <button mat-menu-item routerLink="/maintain/mtkhcode">Employee Business Rate</button>
-                             <button mat-menu-item [matMenuTriggerFor]="visa">VISA</button> 
+                            <!-- <button mat-menu-item [matMenuTriggerFor]="visa">VISA</button> -->
                             <button mat-menu-item routerLink="/maintain/mtvisacountries">VISA Countries</button>
                             <button mat-menu-item routerLink="/maintain/mtvisadocument">VISA Document</button>
                             <button mat-menu-item routerLink="/maintain/mtbroker">Insurance/ISOS List</button>
@@ -255,41 +255,41 @@
                             <button mat-menu-item routerLink="/maintain/mtfeedbackquestion">Feedback</button>
                         </mat-menu>
 
-                         <mat-menu #visa="matMenu">
+                        <!-- <mat-menu #visa="matMenu">
                             <button mat-menu-item routerLink="/maintain/mtvisacountries">VISA Countries</button>
                             <button mat-menu-item routerLink="/maintain/mtvisadocument">VISA Document</button>
                             
-                        </mat-menu> 
+                        </mat-menu> -->
 
 
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><span
-                                [ngClass]="(MenuActive.CONTACTUS === true)?'txt-menu-selected':''">Contact us</span></a> 
+                        <!-- <a class="nav-link" href="#"><span
+                                [ngClass]="(MenuActive.CONTACTUS === true)?'txt-menu-selected':''">Contact us</span></a> -->
                         <button #btnContact id="btnContact" mat-button class="nav-link mt-2 mr-2" (click)="openModalx(template,'')"><span [ngClass]="(MenuActive.CONTACTUS === true)?'txt-menu-selected tx-uppercase':' tx-uppercase'">Contact
                                 us</span></button>
                     </li>
 
                     <li class="nav-item border-left pl-3">
-                         style="padding-top: 10px; border-left: 1px solid silver; padding-left: 10px; text-align: right" 
+                        <!-- style="padding-top: 10px; border-left: 1px solid silver; padding-left: 10px; text-align: right" -->
                         <div class="text-right mg-t-20">
                             <label style="color: #04528a; font-weight: bold; ">{{
                                 profile.username }}</label>
                             <p class="tx-10 tx-danger tx-bold cursor-pointer m-0 p-0 tx-hover" (click)="handleLogout()">
                                 <i class="fa fa-sign-out"></i>LOGOUT
-                                 <button (click)="handleLogout()"
-                                    style="color: red; font-weight: bold; margin-right: 10px; border: 0px; background-color: white;">Logout</button> 
+                                <!-- <button (click)="handleLogout()"
+                                    style="color: red; font-weight: bold; margin-right: 10px; border: 0px; background-color: white;">Logout</button> -->
                             </p>
                         </div>
                     </li>
                     <li class="nav-item">
-                         <div class="avatar avatar-small mg-t-10 mg-l-10"> 
+                        <!-- <div class="avatar avatar-small mg-t-10 mg-l-10"> -->
                         <div class="profile-image mg-t-10 mg-l-10">
                             <img src="{{ profile.images }}" class="avatar-40  rounded-circleX border-blue-grey border-lighten-3 pos-relative " onerror="javascript:this.src='assets/imgs/user_login.png'">
                         </div>
 
                     </li>
-                     <li class="dropdown dropdown-user nav-item"><a class="dropdown-user-link"
+                    <!-- <li class="dropdown dropdown-user nav-item"><a class="dropdown-user-link"
                             href="#" data-toggle="dropdown"><span class="avatar avatar-small avatar-online border-blue-grey mg-t-10"><img
                                     src="{{ profile.images }}"
                                     onerror="javascript:this.src='assets/imgs/user_login.png'"
@@ -303,31 +303,31 @@
                             <div class="dropdown-divider"></div><a class="dropdown-item"
                                 href="login-with-bg-image.html"><i class="ft-power"></i> Logout</a>
                         </div>
-                    </li> 
+                    </li> -->
                 </ul>
             </div>
         </div>
     </div>
-</nav> -->
-<!-- <ng-template #template id="template">
+</nav>
+<ng-template #template id="template">
     <div class="modal-content">
         <div class="modal-header">
             <span class="modal-title tx-20 tx-gray-800" id="my-modal-title"><i class="fa fa fa-comments-o px-1"></i>
                 CONTACT US
             </span>
-             <button type="button" class="close red" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()"> -->
-                <!-- <span aria-hidden="true">&times;</span> -->
-            <!-- </button> 
+            <button type="button" class="close red" data-dismiss="modal" aria-label="Close" (click)="modalRef?.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="modal-body ">
             <div class="row col-sm-12 container">
                 <div class="col-sm-6 mb-1 " *ngFor="let item of listContact">
                     <div class="row">
                         <div class="text-center ">
-                             <div class="avatar border-blue-grey ">
+                            <!-- <div class="avatar border-blue-grey ">
                                 <img src="{{ item.img }}" class="rounded-circleX avatar-img "
                                     onerror="javascript:this.src='assets/imgs/user_login.png'">
-                            </div> 
+                            </div> -->
                             <div class="profile-image ">
                                 <img src="{{item.img}}" class="avatar avatar-75 rounded-circleX border-blue-grey " onerror="javascript:this.src='assets/imgs/user_login.png'">
                             </div>
@@ -343,7 +343,7 @@
                         </div>
                     </div>
                 </div>
-                 <table class="table ml-2 mr-2">
+                <!-- <table class="table ml-2 mr-2">
                     <tbody>
                         <tr>
                             <td class="wd-10p text-center">
@@ -371,47 +371,13 @@
                         </tr>
                         
                     </tbody>
-                </table> 
+                </table> -->
 
 
             </div>
         </div>
     </div>
-</ng-template> -->
-
-<header class="header">
-    <div class="logo">
-        <img src="/assets/logo.png" alt="Logo" style="width: 120px; height: 40px; align-items: start; justify-self: start;">
-    </div>
-    <nav class="navbar">
-        <ul class="nav-list">
-            <li class="nav-item"><a href="#">Home</a></li>
-            <li class="nav-item"><a href="#">Services</a></li>
-            <li class="nav-item"><a href="#">Contact US</a></li>
-            <div class="vl"></div>
-            <li class="nav-item border-left pl-3">
-                <!-- style="padding-top: 10px; border-left: 1px solid silver; padding-left: 10px; text-align: right" -->
-                <div class="text-right mg-t-20">
-                    <label style="color: #04528a; font-weight: bold; ">{{
-                        profile.username }}</label>
-                    <p class="tx-10 tx-danger tx-bold cursor-pointer m-0 p-0 tx-hover" (click)="handleLogout()">
-                        <i class="fa fa-sign-out"></i>LOGOUT
-                        <!-- <button (click)="handleLogout()"
-                            style="color: red; font-weight: bold; margin-right: 10px; border: 0px; background-color: white;">Logout</button> -->
-                    </p>
-                </div>
-            </li>
-            <li class="nav-item">
-                <!-- <div class="avatar avatar-small mg-t-10 mg-l-10"> -->
-                <div class="profile-image mg-t-10 mg-l-10">
-                    <img src="{{ profile.images }}" class="avatar-40  rounded-circleX border-blue-grey border-lighten-3 pos-relative " onerror="javascript:this.src='assets/imgs/user_login.png'">
-                </div>
-
-            </li>
-        </ul>
-    </nav>
-</header>
-
+</ng-template>
 
 <style>
     .icon-text {
@@ -423,7 +389,7 @@
         border-radius: 50%;
     }
 
-    .mat-icon {
+    /* .mat-icon {
     vertical-align: middle;
-}
+} */
 </style>

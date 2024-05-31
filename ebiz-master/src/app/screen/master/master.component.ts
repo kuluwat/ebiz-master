@@ -13,8 +13,8 @@ import { forceToPageLoginWeb, gotoPage } from '../../function/globalfunction.com
 
 @Component({
   selector: 'app-master',
-  templateUrl: './master.html',
-  styleUrls: ['./master.css']
+  templateUrl: './master.component.html',
+  styleUrls: ['./master.component.css']
 })
 export class MasterComponent implements OnInit {
 

@@ -7,12 +7,12 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-request-part-iii',
-  templateUrl: './request-part-iii.html',
+  templateUrl: './request-part-iii.component.html',
   styleUrls: ['./request-part-iii.component.css']
 })
 export class RequestPartIIIComponent implements OnInit {
   stateGlobal
-  model = {
+  model : any = {
     type: "oversea", // oversea, local
     topic: "",
     continent: "",
@@ -214,7 +214,7 @@ export class RequestPartIIIComponent implements OnInit {
         "traveler_summary": []
       }
 
-      this.model.traveler_list_summary.forEach(current => {
+      this.model.traveler_list_summary.forEach((current : any) => {
         // data.traveler_summary.push({
         //   "ref_id": current["ref_id"],
         //   "take_action": current["take_action"],

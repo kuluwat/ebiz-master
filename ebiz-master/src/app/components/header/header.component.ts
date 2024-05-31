@@ -301,20 +301,22 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   //@ViewChild('myDiv') myDiv: ElementRef;
 
   constructor(
-    // private route: ActivatedRoute,
-    // private authenHttp: AuthenService,
-    // private router: Router,
+    private route: ActivatedRoute,
+    private authenHttp: AuthenService,
+    private router: Router,
     // private zone: NgZone,
     // //private _NgxZendeskWebwidgetService: NgxZendeskWebwidgetService,
-    // private fb: FormBuilder,
-    // public ws: AspxserviceService,
-    // private locat: Location,
-    // private modalService: BsModalService,
+    private fb: FormBuilder,
+    public ws: AspxserviceService,
+    private locat: Location,
+    private modalService: BsModalService,
   ) {
 
 
 
     console.log('--- Header On Load---');
+
+    
     // console.log(this.locat.path());
     // let path = this.locat.path().split('/');
 
@@ -387,6 +389,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     //console.log(this.btnContact);
     //this.btnContact.nativeElement.click();
   }
+  
 
   getContectAdmin() {
 
@@ -538,10 +541,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   routerReload(page : any) {
-    // this.router.navigate([ '/master/personal/' + page ])
-    //   .then(() => {
-    //     window.location.reload();
-    //   });
+    this.router.navigate([ '/master/personal/' + page ])
+      .then(() => {
+        window.location.reload();
+      });
   }
   herderrouterReload(page : any) {
     // this.router.navigate([ `${page}` ])
